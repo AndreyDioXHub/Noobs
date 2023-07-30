@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 0
+    path: Assets/Scenes/NetworkGame/OfflineScene.unity
+    guid: 9d1b3c10bab4a7142888a414875af646
+  - enabled: 0
+    path: Assets/Scenes/NetworkGame/NetworkGame.unity
+    guid: ebb232e8b8065fe499d05977a72e95ae
+  - enabled: 0
+    path: Assets/Scenes/New Scene.unity
+    guid: dd574f0cd6b52c84b892c7ad03d48db8
+  - enabled: 1
+    path: Assets/Scenes/NoobGameStart.unity
+    guid: 7a2c805f719f1c846874281eec605323
+  - enabled: 1
+    path: Assets/Scenes/NoobGamePlatform.unity
+    guid: b42880f3ea8dd8049b98ca643b8c4f0c
+  m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: a50c29e4dea00b64191dbf0361e78f69, type: 2}

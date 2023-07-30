@@ -1,0 +1,102 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-3179717972174199177
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: FakeFoam
+  m_Shader: {fileID: -6465566751694194690, guid: 085c458137fa8384bbc08bb9146af777, type: 3}
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 2450
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTexture:
+        m_Texture: {fileID: 2800000, guid: 0ef81b6c974558146b8fe3d9315abf8e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _WaterCaustic:
+        m_Texture: {fileID: 2800000, guid: f668fd9adc91b52489bdc051aa9141ac, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _AlphaClip: 0
+    - _Blend: 0
+    - _CastShadows: 1
+    - _CausticPower: 0.19
+    - _CausticPowerDeep: 1
+    - _CausticScale: 1
+    - _CausticScaleDepp: 1
+    - _CellDencity: 2
+    - _Clip: 0.51
+    - _Cull: 2
+    - _DeepCausticAmount: 5
+    - _DeepWaterCausticSpeed: 0.02
+    - _Distance: 1
+    - _DstBlend: 0
+    - _FoamAmount: 1
+    - _FoamCutOff: 0.9
+    - _FoamPower: 200
+    - _FoamScale: 27.5
+    - _FoamSpeed: 0.6
+    - _Power: 1
+    - _PowerFoam: 50
+    - _PowerHuyawer: 200
+    - _Power_1: 1
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _ShallowWaterCausticScale: 30
+    - _ShallowWaterCausticSpeed: 0.01
+    - _SrcBlend: 1
+    - _Surface: 0
+    - _Transparency: 0.5
+    - _ZTest: 4
+    - _ZWrite: 1
+    - _ZWriteControl: 0
+    m_Colors:
+    - _Color: {r: 0.8745098, g: 0.8509804, b: 0.8039216, a: 1}
+    - _Color_1: {r: 0.8745098, g: 0.8509804, b: 0.8039216, a: 1}
+    - _DeepWater: {r: 0, g: 0.45636794, b: 0.8113208, a: 1}
+    - _DeepWaterCausticSpeed: {r: 0, g: -0.04, b: 0, a: 0}
+    - _FoamColor: {r: 1, g: 1, b: 1, a: 1}
+    - _FoamColorDeepColor: {r: 1, g: 1, b: 1, a: 1}
+    - _FoamSpeed: {r: 1, g: 1, b: 0, a: 0}
+    - _ScrollSpeed: {r: 0, g: 0.5, b: 0.5, a: 0}
+    - _ShallowWater: {r: 0.4764151, g: 0.76704085, b: 1, a: 1}
+    - _ShallowWaterCausticSpeed: {r: 0, g: 0.04, b: 0, a: 0}
+  m_BuildTextureStacks: []
