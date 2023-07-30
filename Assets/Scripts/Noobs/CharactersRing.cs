@@ -26,6 +26,10 @@ public class CharactersRing : MonoBehaviour
     void Start()
     {
         _angleStep = 360 / _pedestals.Count;
+        _skinID = PlayerPrefs.GetInt("PlatformSkinID", 0);
+        transform.eulerAngles = new Vector3(0, _skinID * _angleStep, 0);
+        _curnAnngle = transform.eulerAngles;
+        _destenationAnngle = transform.eulerAngles;
     }
 
     void Update()
@@ -37,21 +41,36 @@ public class CharactersRing : MonoBehaviour
 
     public void Next()
     {
-        _timeCur = 0; 
-        _destenationAnngle = transform.eulerAngles;
-        _curnAnngle = transform.eulerAngles;
-        _destenationAnngle.y += _angleStep;
-        _skinID++;
-        _skinID = _skinID > _pedestals.Count - 1 ? 0 : _skinID;
+        if(_timeCur == _time)
+        {
+            _timeCur = 0;
+            _destenationAnngle = transform.eulerAngles;
+            _curnAnngle = transform.eulerAngles;
+            _destenationAnngle.y += _angleStep;
+            _skinID++;
+            _skinID = _skinID > _pedestals.Count - 1 ? 0 : _skinID;
+            PlayerPrefs.SetInt("PlatformSkinID", _skinID);
+        }
     }
 
     public void Prev()
     {
-        _timeCur = 0;
-        _destenationAnngle = transform.eulerAngles;
-        _curnAnngle = transform.eulerAngles;
-        _destenationAnngle.y -= _angleStep;
-        _skinID--;
-        _skinID = _skinID < 0 ? _pedestals.Count - 1 : _skinID;
+        if (_timeCur == _time)
+        {
+            _timeCur = 0;
+            _destenationAnngle = transform.eulerAngles;
+            _curnAnngle = transform.eulerAngles;
+            _destenationAnngle.y -= _angleStep;
+            _skinID--;
+            _skinID = _skinID < 0 ? _pedestals.Count - 1 : _skinID;
+            PlayerPrefs.SetInt("PlatformSkinID", _skinID);
+        }
+    }
+
+    [ContextMenu("Zerable")]
+    public void Zerable()
+    {
+        PlayerPrefs.SetInt("PlatformCoins", 0);
+        PlayerPrefs.SetString("PlatformSkins", "");
     }
 }

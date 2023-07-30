@@ -42,8 +42,8 @@ Material:
     - _Noise: 10
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Step: 0.05
-    - _Tresh: 0.012
+    - _Step: 0
+    - _Tresh: 0
     m_Colors:
     - _Color: {r: 0, g: 0.008504391, b: 1, a: 1}
   m_BuildTextureStacks: []

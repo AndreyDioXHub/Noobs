@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: powerGirl
+  m_Name: Noob 3
   m_Shader: {fileID: -6465566751694194690, guid: 4404fde0494c8db44bc6651380b5bd47, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -21,7 +21,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Texture2D:
-        m_Texture: {fileID: 2800000, guid: 531068f6ed38f6848862251adc494e1b, type: 3}
+        m_Texture: {fileID: 2800000, guid: e4abb49de324abf4f941fa4fc39a5e57, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -38,12 +38,12 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Edge: 1
+    - _Edge: 0
     - _Noise: 10
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Step: 0
-    - _Tresh: 0.012
+    - _Tresh: 0
     m_Colors:
     - _Color: {r: 0, g: 0.008504391, b: 1, a: 1}
   m_BuildTextureStacks: []
