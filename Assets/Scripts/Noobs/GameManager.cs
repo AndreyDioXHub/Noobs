@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    public bool IsWin;
+    public bool IsWin { get; private set; } = false;
     public bool IsLose;
 
     [SerializeField]

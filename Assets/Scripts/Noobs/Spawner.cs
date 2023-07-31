@@ -13,6 +13,7 @@ public class Spawner : MonoBehaviour
 
     void Start()
     {
+
         for(int i =-3; i < 4; i++)
         {
             for (int j = -3; j < 4; j++)
@@ -20,7 +21,7 @@ public class Spawner : MonoBehaviour
                 _freePositions.Add(new Vector3(i, 77, j));
             }
         }
-
+        /*
         var goPlayer = Instantiate(_noobCharacter);
 
         int index = Random.Range(0, _freePositions.Count - 1);
@@ -34,7 +35,7 @@ public class Spawner : MonoBehaviour
         goPlayer.transform.position = playerPosition;
         goPlayer.SetActive(true);
 
-        PlayerCount.Instance.RegisterPlayer();
+        PlayerCount.Instance.RegisterPlayer();/**/
 
         for (int i=0; i < _botsCount; i++)
         {

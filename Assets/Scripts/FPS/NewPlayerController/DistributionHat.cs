@@ -83,6 +83,7 @@ public class DistributionHat : MonoBehaviour
                 _speed.enabled = true;
                 _playerMovement.enabled = true;
                 _lifeManager.enabled = true;
+                _netWorkCollideer.enabled = false;
                 break;
             case CharType.avatar:
 
@@ -90,6 +91,7 @@ public class DistributionHat : MonoBehaviour
 
                 _skinManager.Init(CharType.avatar);
                 _nameCanvas.SetActive(true);
+                _nameCanvas.GetComponentInChildren<NameManager>().Init();
                 _grounCheck.enabled = false;
                 _characterController.enabled = false;
                 _blender.enabled = false;
@@ -100,6 +102,7 @@ public class DistributionHat : MonoBehaviour
                 _speed.enabled = false;
                 _playerMovement.enabled = false;
                 _lifeManager.enabled = false;
+                _netWorkCollideer.enabled = true;
                 break;
             case CharType.bot:
 
@@ -107,6 +110,7 @@ public class DistributionHat : MonoBehaviour
 
                 _skinManager.Init(CharType.bot);
                 _nameCanvas.SetActive(true);
+                _nameCanvas.GetComponentInChildren<NameManager>().Init();
                 _grounCheck.enabled = true;
                 _characterController.enabled = true;
                 _blender.enabled = true;
@@ -117,6 +121,7 @@ public class DistributionHat : MonoBehaviour
                 _speed.enabled = true;
                 _playerMovement.enabled = true;
                 _lifeManager.enabled = true;
+                _netWorkCollideer.enabled = false;
                 break;
             default:
                 Destroy(gameObject);

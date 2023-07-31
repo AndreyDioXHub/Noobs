@@ -94,7 +94,7 @@ public class CompliteCollider : MonoBehaviour
                 if (_id == 0)
                 {
                     _isEnd = true;
-                    GameManager.Instance.IsWin = true;
+                    //GameManager.Instance.IsWin = true;
                     CoinManager.Instance.AddCoin(coinsCount);
 
                     WinScreen.Instance.Show("Вы выиграли!", $"Общий выигрыш: {CoinManager.Instance.EarnedCoins}","Нажмите любую кнопку");
