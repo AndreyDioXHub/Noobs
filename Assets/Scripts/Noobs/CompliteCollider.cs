@@ -90,7 +90,7 @@ public class CompliteCollider : MonoBehaviour
 
             if (player.tag.Equals("Player"))
             {
-                WinScreen.Instance.Show("Уровень пройден!", $"Награда: {coinsCount}", "");
+                WinScreen.Instance.Show(LocalizationStrings.game_scene_lvl_win_t0_curent, $"{LocalizationStrings.game_scene_lvl_win_t1_curent} {coinsCount}", "");
 
                 if (_id == 0)
                 {
@@ -98,7 +98,7 @@ public class CompliteCollider : MonoBehaviour
                     //GameManager.Instance.IsWin = true;
                     CoinManager.Instance.AddCoin(coinsCount);
 
-                    WinScreen.Instance.Show("Вы выиграли!", $"Общий выигрыш: {CoinManager.Instance.EarnedCoins}","Нажмите любую кнопку");
+                    WinScreen.Instance.Show(LocalizationStrings.game_scene_game_win_t0_curent, $"{LocalizationStrings.game_scene_game_win_t1_curent} {CoinManager.Instance.EarnedCoins}", LocalizationStrings.game_scene_game_win_t2_curent);
                     _floor.SetActive(true);
 
                     StopCoroutine(WinLVLCoroutine(player));
