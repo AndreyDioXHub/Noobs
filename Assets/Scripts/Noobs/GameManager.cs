@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
     {
         if(PlayerCount.Instance.Count == 1)
         {
-            IsWin = true;
+            //IsWin = true;
         }
 
         if (IsWin || IsLose)

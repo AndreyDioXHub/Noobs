@@ -1,3 +1,4 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,8 +12,17 @@ public class Spawner : MonoBehaviour
     [SerializeField]
     private List<Vector3> _freePositions = new List<Vector3>();
 
-    void Start()
-    {
+    public static Spawner Instance;
+
+    void Awake() {
+        Instance = this;
+        //Init();
+    }
+
+    //[ContextMenu("Add bots")]
+    public List<GameObject> Init() { 
+
+        List<GameObject> bots = new List<GameObject>();
 
         for(int i =-3; i < 4; i++)
         {
@@ -39,6 +49,8 @@ public class Spawner : MonoBehaviour
 
         for (int i=0; i < _botsCount; i++)
         {
+
+            
             var goBot = Instantiate(_noobCharacter);
 
             int indexBot = Random.Range(0, _freePositions.Count - 1);
@@ -53,8 +65,12 @@ public class Spawner : MonoBehaviour
             goBot.SetActive(true);
 
             PlayerCount.Instance.RegisterPlayer();
+            bots.Add(goBot);
         }
+        return bots;
     }
+
+    
 
     void Update()
     {

@@ -35,6 +35,7 @@ public class CompliteCollider : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
+        /*
         if (_playerCount == 1 && !_isProcess)
         {
             _isProcess = true;
@@ -44,7 +45,7 @@ public class CompliteCollider : MonoBehaviour
                 Debug.Log($"Win lvl id {_id} {_playerCount}");
                 WinLVL(other.gameObject);
             }
-        }
+        }/**/
     }
 
     public void WinLVL(GameObject player)

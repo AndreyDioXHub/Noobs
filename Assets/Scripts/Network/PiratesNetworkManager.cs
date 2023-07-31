@@ -141,6 +141,8 @@ public class PiratesNetworkManager : NetworkManager
     public override void OnServerReady(NetworkConnectionToClient conn)
     {
         base.OnServerReady(conn);
+        
+        
     }
 
     /// <summary>
@@ -222,7 +224,9 @@ public class PiratesNetworkManager : NetworkManager
     /// This is invoked when a server is started - including when a host is started.
     /// <para>StartServer has multiple signatures, but they all cause this hook to be called.</para>
     /// </summary>
-    public override void OnStartServer() { }
+    public override void OnStartServer() {
+        
+    }
 
     /// <summary>
     /// This is invoked when the client is started.
