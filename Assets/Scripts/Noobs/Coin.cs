@@ -25,7 +25,7 @@ public class Coin : MonoBehaviour
 
     private bool _haveMaster ;
 
-
+    public static List<Coin> Instances { get; private set; } = new List<Coin>();
 
 
 

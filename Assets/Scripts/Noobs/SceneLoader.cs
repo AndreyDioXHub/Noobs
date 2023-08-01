@@ -6,8 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
-    [SerializeField]
-    NetworkManager networkManager;
+    
 
     [SerializeField]
     private SkinManagerStart _skinManager;
@@ -25,7 +24,7 @@ public class SceneLoader : MonoBehaviour
     public void Play()
     {
         PlayerPrefs.SetString("PlatformCurentSkins", _skinManager.CurentSkin);
-        //SceneManager.LoadScene(1);
-        networkManager.StartHost();
+        SceneManager.LoadScene(1);
+        //PiratesNetworkManager.singleton.StartHost();
     }
 }
