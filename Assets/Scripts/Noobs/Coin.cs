@@ -96,6 +96,20 @@ public class Coin : MonoBehaviour
         }
     }
 
+    [ContextMenu("EnableServerMod")]
+    public void EnableServerMod()
+    {
+        _coinAnchor.gameObject.SetActive(false);
+        this.enabled = false;
+    }
+
+    [ContextMenu("DisableServerMod")]
+    public void DisableServerMod()
+    {
+        _coinAnchor.gameObject.SetActive(true);
+        this.enabled = true;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         GetCoin(other.gameObject);
