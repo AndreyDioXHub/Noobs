@@ -17,6 +17,8 @@ public class SkinManagerStart : MonoBehaviour
     }
 
     [SerializeField]
+    private ShowScreen _notEnoughMoneyScreen;
+    [SerializeField]
     private CharactersRing _ring;
     [SerializeField]
     private CoinManagerStart _coinManager;
@@ -81,7 +83,7 @@ public class SkinManagerStart : MonoBehaviour
         }
         else
         {
-
+            _notEnoughMoneyScreen.Show();
         }
     }
 }

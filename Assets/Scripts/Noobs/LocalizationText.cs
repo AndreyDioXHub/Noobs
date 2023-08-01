@@ -21,6 +21,9 @@ public class LocalizationText : MonoBehaviour
 
         switch (_key)
         {
+            case "game_scene_not_enough_money_curent":
+                text = LocalizationStrings.game_scene_not_enough_money_curent;
+                break;
             case "game_scene_wait_connection_curent":
                 text = LocalizationStrings.game_scene_wait_connection_curent;
                 break;
