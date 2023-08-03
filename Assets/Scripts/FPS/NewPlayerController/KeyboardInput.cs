@@ -38,6 +38,11 @@ public class KeyboardInput : MonoBehaviour
 
     public virtual void Update()
     {
+        if (Input.GetKeyDown("1"))
+        {
+            _animatorController.SetWeapon();
+        }
+
         if (Input.GetKeyDown("space"))
         {
             _movement.Jump(true);
@@ -73,6 +78,7 @@ public class KeyboardInput : MonoBehaviour
     {
         float horizontal = 0;
         float vertical = 0;
+
 
         if (Input.GetKey("w"))
         {
@@ -138,7 +144,7 @@ public class KeyboardInput : MonoBehaviour
         {
             //Vector3 dir = new Vector3(horizontal, 0, vertical);
             _lookDirection.position = transform.position + transform.forward * vertical + transform.right * horizontal;
-            _model.LookAt(_lookDirection, _model.up);//.rotation = Quaternion.LookRotation(_lookDirection.position - _model.position, _model.up);
+            //_model.LookAt(_lookDirection, _model.up);//.rotation = Quaternion.LookRotation(_lookDirection.position - _model.position, _model.up);
         }
 
         _animatorController.SetRun(horizontal, vertical);

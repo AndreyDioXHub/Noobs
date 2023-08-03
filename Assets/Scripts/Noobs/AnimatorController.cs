@@ -5,12 +5,12 @@ using UnityEngine;
 public class AnimatorController : MonoBehaviour
 {
     [SerializeField]
-    private Animator _animator;
+    protected Animator _animator;
     [SerializeField]
-    private GroundCheck _groundCheck;
-    private float _horizontal, _vertical;
+    protected GroundCheck _groundCheck;
+    protected float _horizontal, _vertical;
 
-    void Start()
+    public virtual void Start()
     {
         
     }
@@ -20,7 +20,7 @@ public class AnimatorController : MonoBehaviour
         _animator = animator;
     }
 
-    void Update()
+    public virtual void Update()
     {
         if(_animator != null)
         {
@@ -44,7 +44,7 @@ public class AnimatorController : MonoBehaviour
         }
     }
 
-    public void SetRun(float horizontal, float vertical)
+    public virtual void SetRun(float horizontal, float vertical)
     {
         if (_animator != null)
         {
@@ -57,6 +57,12 @@ public class AnimatorController : MonoBehaviour
     {
 
     }
+    public virtual void SetWeapon()
+    {
+
+    }
+
+
     /*
     public void SetJump()
     {
