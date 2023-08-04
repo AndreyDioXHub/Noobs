@@ -41,13 +41,14 @@ public class DistributionHat : MonoBehaviour
 
     void Update()
     {
+        /*
         if (GameManager.Instance.IsWin || GameManager.Instance.IsLose)
         {
-            DisableInputs();
-        }
+            Pause();
+        }*/
     }
 
-    public void DisableInputs()
+    public void Pause()
     {
         _grounCheck.enabled = false;
         _characterController.enabled = false;
@@ -58,7 +59,52 @@ public class DistributionHat : MonoBehaviour
         _speed.enabled = false;
         _playerMovement.enabled = false;
         _lifeManager.enabled = false;
+    }
 
+    public void Play()
+    {
+        switch (_type)
+        {
+            case CharType.player:
+                _grounCheck.enabled = true;
+                _characterController.enabled = true;
+                _blender.enabled = true;
+                _playerInput.enabled = true;
+                _botInput.enabled = false;
+                _playerCameraInput.enabled = true;
+                _speed.enabled = true;
+                _playerMovement.enabled = true;
+                _lifeManager.enabled = true;
+                _netWorkCollideer.enabled = false;
+                break;
+            case CharType.avatar:
+                _grounCheck.enabled = false;
+                _characterController.enabled = false;
+                _blender.enabled = false;
+                _playerInput.enabled = false;
+                _botInput.enabled = false;
+                _playerCameraInput.enabled = false;
+                _speed.enabled = false;
+                _playerMovement.enabled = false;
+                _lifeManager.enabled = false;
+                _netWorkCollideer.enabled = true;
+                break;
+            case CharType.bot:
+                _grounCheck.enabled = true;
+                _characterController.enabled = true;
+                _blender.enabled = true;
+                _playerInput.enabled = false;
+                _botInput.enabled = true;
+                _playerCameraInput.enabled = false;
+                _speed.enabled = true;
+                _playerMovement.enabled = true;
+                _lifeManager.enabled = true;
+                _netWorkCollideer.enabled = false;
+                break;
+            default:
+                Destroy(gameObject);
+                break;
+        }
     }
 
     public void Init(CharType type)
