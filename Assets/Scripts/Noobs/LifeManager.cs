@@ -48,7 +48,8 @@ public class LifeManager : MonoBehaviour
                 case "Avatar":
                     break;
                 case "Bot":
-                    Destroy(gameObject);
+                    GetComponent<DistributionHat>().Pause();
+                    gameObject.SetActive(false);
                     break;
                 default:
                     break;
