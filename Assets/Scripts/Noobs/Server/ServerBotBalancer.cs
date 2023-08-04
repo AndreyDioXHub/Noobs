@@ -10,8 +10,10 @@ namespace cyraxchel.network.server
     public class ServerBotBalancer : MonoBehaviour 
     {
         public static ServerBotBalancer Instance { get; private set; }
-        [SerializeField]
-        private Scene _mainScene;
+
+        [Scene]
+        public string _mainSceneString;
+
         [SerializeField]
         private MultisceneNoobNetworkManager _multiscene;
         [SerializeField]
@@ -23,6 +25,27 @@ namespace cyraxchel.network.server
 
         private Queue<BotForGameParameters> _forGameParameters = new Queue<BotForGameParameters>();
         private bool _botgamecouroutineProcecced = false;
+
+        private Scene _mainScene;
+
+        void Awake()
+        {
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(this);
+            }
+        }
+
+        public void Start()
+        {
+            //TODO Add bots
+
+            _mainScene = SceneManager.GetSceneByName(_mainSceneString);
+        }
 
         internal void GetBotForGame(ServerGame serverGame, int requiredNumberBots) 
         {
@@ -118,23 +141,6 @@ namespace cyraxchel.network.server
             }
         }
 
-        void Awake() 
-        {
-            if (Instance == null)
-            {
-                Instance = this;
-            }
-            else
-            {
-                Destroy(this);
-            }
-        }
-
-        public void Start() 
-        {
-            //TODO Add bots
-
-        }
 
         [ContextMenu("PrepareBots")]
         public void PrepareBots()
