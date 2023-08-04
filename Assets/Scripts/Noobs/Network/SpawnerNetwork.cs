@@ -35,10 +35,10 @@ public class SpawnerNetwork : NetworkBehaviour
     /// </summary>
     public override void OnStartServer() {
         if(isServerOnly) {
-            List<GameObject> bots = spawner.Init();
+            /*List<GameObject> bots = spawner.Init();
             foreach (GameObject bot in bots) {
-                NetworkServer.Spawn(bot);
-            }
+                //NetworkServer.Spawn(bot);
+            }/**/
         }
         
     }

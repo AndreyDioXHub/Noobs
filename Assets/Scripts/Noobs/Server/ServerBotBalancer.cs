@@ -77,6 +77,17 @@ namespace cyraxchel.network.server
 
         }
 
+        [ContextMenu("Resume bots")]
+        public void Unpause() {
+            foreach (var bot in _bots) {
+                bot.GetComponent<DistributionHat>().Play();
+                Vector3 pos = UnityEngine.Random.insideUnitSphere * 10;
+                pos.y = 76;
+                bot.transform.position = pos;
+                bot.SetActive(true);
+            }
+        }
+
         // Update is called once per frame
         void Update() 
         {

@@ -61,7 +61,7 @@ public class Coin : MonoBehaviour
     void Start()
     {
         if(ServerNetworkBehaviour.Instance != null && ServerNetworkBehaviour.Instance.isServerOnly) {
-            Debug.Log("Enable server mode");
+            //Debug.Log("Enable server mode");
             EnableServerMode();
             return;
         }

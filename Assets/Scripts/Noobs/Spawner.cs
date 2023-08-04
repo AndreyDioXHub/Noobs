@@ -20,7 +20,8 @@ public class Spawner : MonoBehaviour
     }
 
     //[ContextMenu("Add bots")]
-    public List<GameObject> Init() { 
+    public List<GameObject> Init() {
+        return null;
 
         List<GameObject> bots = new List<GameObject>();
 
