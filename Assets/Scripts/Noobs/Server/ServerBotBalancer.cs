@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace cyraxchel.network.server 
 {
@@ -16,9 +17,12 @@ namespace cyraxchel.network.server
         [SerializeField]
         private GameObject _playerPrefab;
 
+        Dictionary<ServerGame, List<GameObject>> ReservedBots = new Dictionary<ServerGame, List<GameObject>>();
+
         internal void GetBotForGame(ServerGame serverGame, int requiredNumberBots) 
         {
             //TODO Assign bots for this game
+            SceneManager.MoveGameObjectToScene(_bots[0], serverGame.CurrenScene);
         }
 
         internal void ReleaseBotsFromGame(ServerGame serverGame) 
@@ -52,7 +56,7 @@ namespace cyraxchel.network.server
                 Destroy(bot);
             }
 
-            int botsCount = 15 * _multiscene.instances;
+            int botsCount = 1 * _multiscene.instances;
 
             for(int i=0; i< botsCount; i++)
             {

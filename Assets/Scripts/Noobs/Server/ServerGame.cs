@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Internal;
+using UnityEngine.SceneManagement;
 
 namespace cyraxchel.network.server {
 
@@ -45,6 +46,7 @@ namespace cyraxchel.network.server {
         /// Get current players count
         /// </summary>
         public int PlayersCount { get => m_players.Count; }
+        public Scene CurrenScene { get; internal set; }
 
         public void Init(Vector3 worldOffset) {
             GameStatus = Status.Preparation;
