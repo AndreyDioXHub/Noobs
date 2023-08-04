@@ -1,3 +1,4 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -59,6 +60,13 @@ public class Coin : MonoBehaviour
 
     void Start()
     {
+        if(ServerNetworkBehaviour.Instance != null && ServerNetworkBehaviour.Instance.isServerOnly) {
+            Debug.Log("Enable server mode");
+            EnableServerMode();
+            return;
+        }
+
+
         _haveCoin = Random.Range(0, 10) == 0;
 
         if (_haveCoin)
@@ -96,15 +104,15 @@ public class Coin : MonoBehaviour
         }
     }
 
-    [ContextMenu("EnableServerMod")]
-    public void EnableServerMod()
+    [ContextMenu("EnableServerMode")]
+    public void EnableServerMode()
     {
         _coinAnchor.gameObject.SetActive(false);
         this.enabled = false;
     }
 
-    [ContextMenu("DisableServerMod")]
-    public void DisableServerMod()
+    [ContextMenu("DisableServerMode")]
+    public void DisableServerMode()
     {
         _coinAnchor.gameObject.SetActive(true);
         this.enabled = true;

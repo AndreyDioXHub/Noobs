@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject _leaveText;
 
+    public Transform _levelTransform;
+
    private void Awake()
     {
         if (Instance == null)

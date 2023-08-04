@@ -76,4 +76,8 @@ public class Spawner : MonoBehaviour
     {
         
     }
+
+    internal void ReleaseBots(int gameIndex) {
+        throw new System.NotImplementedException();
+    }
 }

@@ -303,12 +303,54 @@ public class MultisceneNoobNetworkManager : NetworkManager
     /// <summary>
     /// This is called when a server is stopped - including when a host is stopped.
     /// </summary>
-    public override void OnStopServer() { }
+    public override void OnStopServer() {
+        NetworkServer.SendToAll(new SceneMessage { sceneName = gameScene, sceneOperation = SceneOperation.UnloadAdditive });
+        StartCoroutine(ServerUnloadSubScenes());
+        clientIndex = 0;
+    }
+
+    // Unload the subScenes and unused assets and clear the subScenes list.
+    IEnumerator ServerUnloadSubScenes() {
+        for (int index = 0; index < subScenes.Count; index++)
+            if (subScenes[index].IsValid())
+                yield return SceneManager.UnloadSceneAsync(subScenes[index]);
+
+        subScenes.Clear();
+        subscenesLoaded = false;
+
+        yield return Resources.UnloadUnusedAssets();
+    }
 
     /// <summary>
     /// This is called when a client is stopped.
     /// </summary>
     public override void OnStopClient() { }
+
+    #endregion
+
+    #region Game Flow
+
+    /// <summary>
+    /// Игра на выбранной сцене завершена. Необходимо перегрузить сцену с уровнем.
+    /// Подчистить ботов
+    /// </summary>
+    /// <param name="gameIndex"></param>
+    public void GameComplete(int gameIndex) {
+        // Высвободить игровых ботов с этой сцены.
+        Spawner.Instance.ReleaseBots(gameIndex);
+        // Выгрузить сцену
+        StartCoroutine(RestartLevel(gameIndex));
+    }
+
+    IEnumerator RestartLevel(int level) {
+        yield return SceneManager.UnloadSceneAsync(subScenes[level]);
+
+        //И снова загрузить
+
+        yield return SceneManager.LoadSceneAsync(gameScene, new LoadSceneParameters { loadSceneMode = LoadSceneMode.Additive, localPhysicsMode = LocalPhysicsMode.Physics3D });
+
+
+    }
 
     #endregion
 }
