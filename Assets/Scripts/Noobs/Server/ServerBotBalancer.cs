@@ -1,3 +1,4 @@
+using Mirror;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -73,6 +74,7 @@ namespace cyraxchel.network.server
 
                 //PlayerCount.Instance.RegisterPlayer();
                 _bots.Add(goBot);
+                NetworkServer.Spawn(goBot);
             }
 
         }
