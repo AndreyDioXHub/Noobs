@@ -189,7 +189,9 @@ public class MultisceneNoobNetworkManager : NetworkManager
             var gtype = new GameTypeMessage();
             gtype.UseofflineMode = true;
             conn.Send(gtype);
+            ServerNetworkBehaviour.Instance.UnregisterUser(conn, sceneToLoad);
             conn.Disconnect();
+
             yield return null;
         }
         // Вызов загрузки у пользователя игрового уровня.

@@ -131,5 +131,11 @@ public class ServerNetworkBehaviour : NetworkBehaviour
         var game = serverGames[sceneIndex];
         return game.AddReservedPlayer(conn.identity.gameObject.name, (int)conn.identity.netId);
     }
+
+    internal void UnregisterUser(NetworkConnectionToClient conn, int sceneToLoad) {
+        var game = serverGames[sceneToLoad];
+        game.FreeSlot(conn);
+
+    }
     #endregion
 }

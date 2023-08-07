@@ -103,6 +103,10 @@ namespace cyraxchel.network.server {
             throw new NotImplementedException();
         }
 
+        internal void FreeSlot(NetworkConnectionToClient conn) {
+            throw new NotImplementedException();
+        }
+
         public class Player {
             public string name { get; set; }
 
