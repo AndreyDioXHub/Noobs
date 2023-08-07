@@ -1,3 +1,4 @@
+using Mirror;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -92,6 +93,14 @@ namespace cyraxchel.network.server {
         public void GameComplete() {
             GameStatus = Status.Finish;
 
+        }
+
+        internal void ReservePlayerSlot(NetworkConnectionToClient conn) {
+            throw new NotImplementedException();
+        }
+
+        internal bool AddReservedPlayer(string name, int netId) {
+            throw new NotImplementedException();
         }
 
         public class Player {

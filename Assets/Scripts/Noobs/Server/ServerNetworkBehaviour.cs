@@ -3,6 +3,7 @@ using UnityEngine;
 using Mirror;
 using cyraxchel.network.server;
 using System;
+using UnityEngine.ProBuilder.Shapes;
 
 /*
 	Documentation: https://mirror-networking.gitbook.io/docs/guides/networkbehaviour
@@ -102,17 +103,13 @@ public class ServerNetworkBehaviour : NetworkBehaviour
     /// </summary>
     public override void OnStopAuthority() { }
 
-    internal void RegisterUser(NetworkConnectionToClient conn) {
-        Debug.LogWarning("Not implemeted");
-    }
-
-    internal int GetSceneFoPlayer(NetworkConnectionToClient conn) {
+    internal int GetSceneForPlayer(NetworkConnectionToClient conn) {
         //Логика выбора сцены для пользователя
         int firstEmpty = -1;
         for (int i = 0; i < serverGames.Count; i++) {
             var game = serverGames[i];
             if(game.CanAcceptPlayer) {
-                game.AddPlayer(conn.identity.gameObject.name, (int)conn.identity.netId);
+                game.ReservePlayerSlot(conn);
                 return i;
             } else if(game.GameStatus == ServerGame.Status.None) {
                 firstEmpty = i;
@@ -130,5 +127,9 @@ public class ServerNetworkBehaviour : NetworkBehaviour
         return -1;
     }
 
+    internal bool RegisterUser(NetworkConnectionToClient conn, int sceneIndex) {
+        var game = serverGames[sceneIndex];
+        return game.AddReservedPlayer(conn.identity.gameObject.name, (int)conn.identity.netId);
+    }
     #endregion
 }
