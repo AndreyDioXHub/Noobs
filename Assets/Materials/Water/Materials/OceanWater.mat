@@ -104,7 +104,7 @@ Material:
     - _FoamCutOff: 10
     - _FoamHorizontCutOff: 100
     - _FoamHorizontCutOffPower: 100
-    - _FoamScale: 800
+    - _FoamScale: 80000
     - _FoamSpeed: 0.6
     - _FoamTransParency: 0.624
     - _FoamWaveClamp: 1

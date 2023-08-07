@@ -169,6 +169,11 @@ public class Movement : MonoBehaviour
         }
     }
 
+    public virtual void Jump(float height)
+    {
+        _gravityVector.y = Mathf.Sqrt(height * -2f * _gravity) * Time.fixedDeltaTime;
+    }
+
     private void OnEnable()
     {
         _gravityVector = Vector3.zero;

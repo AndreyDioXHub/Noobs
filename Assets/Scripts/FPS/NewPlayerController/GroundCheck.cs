@@ -4,10 +4,34 @@ using UnityEngine;
 
 public class GroundCheck : MonoBehaviour
 {
-    public bool IsGrounded { get => _controller.isGrounded; }
+    public bool IsGrounded { get 
+        {
+            if (_pause)
+            {
+                return false;
+            }
+
+            return _controller.isGrounded;
+        }
+    }
 
     [SerializeField]
     private CharacterController _controller;
+    [SerializeField]
+    private bool _pause;
+
+    public void Pause()
+    {
+        StartCoroutine(CoroutinePause());
+    }
+
+    IEnumerator CoroutinePause()
+    {
+        _pause = true;
+        yield return new WaitForSeconds(0.5f);
+        _pause = false;
+    }
+
     /*
     [SerializeField]
     private bool _isGrounded;
