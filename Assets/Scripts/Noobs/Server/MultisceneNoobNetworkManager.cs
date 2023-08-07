@@ -41,6 +41,7 @@ public class MultisceneNoobNetworkManager : NetworkManager
     {
         base.Awake();
         singleton = this;
+        SetupClient();
     }
 
     #region Unity Callbacks
@@ -178,7 +179,13 @@ public class MultisceneNoobNetworkManager : NetworkManager
         while (!subscenesLoaded)
             yield return null;
 
-        conn.Disconnect();
+
+        #region Debug test
+        var gtype = new GameTypeMessage();
+        gtype.UseofflineMode = true;
+        conn.Send(gtype);
+        //conn.Disconnect();
+        #endregion
 
         ServerNetworkBehaviour.Instance.RegisterUser(conn);
         int sceneToLoad = ServerNetworkBehaviour.Instance.GetSceneFoPlayer(conn);
@@ -220,6 +227,7 @@ public class MultisceneNoobNetworkManager : NetworkManager
     public override void OnServerDisconnect(NetworkConnectionToClient conn)
     {
         clientIndex--;
+        Debug.Log("OnServerDisconnect invoke");
         base.OnServerDisconnect(conn);
     }
 
@@ -249,7 +257,13 @@ public class MultisceneNoobNetworkManager : NetworkManager
     /// Called on clients when disconnected from a server.
     /// <para>This is called on the client when it disconnects from the server. Override this function to decide what happens when the client disconnects.</para>
     /// </summary>
-    public override void OnClientDisconnect() { }
+    public override void OnClientDisconnect() {
+        Debug.Log($"{nameof(OnClientDisconnect)} invoked!");
+        // Здесь будет событие о переходе в режим сингл-плеера
+        if(mode == NetworkManagerMode.ClientOnly) {
+            //Check offile game start
+        }
+    }
 
     /// <summary>
     /// Called on clients when a servers tells the client it is no longer ready.
@@ -364,5 +378,18 @@ public class MultisceneNoobNetworkManager : NetworkManager
 
     }
 
+    public struct GameTypeMessage : NetworkMessage {
+        public bool UseofflineMode;
+    }
+
+    public void SetupClient() {
+        NetworkClient.RegisterHandler<GameTypeMessage>(OnGameTypeChange);
+    }
+    public void OnGameTypeChange(GameTypeMessage message) {
+        Debug.Log($"{nameof(OnGameTypeChange)} receive message. User offline mode: {message.UseofflineMode}");
+        if(message.UseofflineMode) {
+            Debug.Log("User offline mode!");
+        }
+    }
     #endregion
 }
