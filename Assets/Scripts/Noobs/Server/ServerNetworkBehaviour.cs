@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using cyraxchel.network.server;
+using System;
 
 /*
 	Documentation: https://mirror-networking.gitbook.io/docs/guides/networkbehaviour
@@ -13,10 +15,15 @@ public class ServerNetworkBehaviour : NetworkBehaviour
 {
     public static ServerNetworkBehaviour Instance { get; private set; }
 
-    Vector2 gridSize = new Vector2(500, 500);
+    //Vector2 gridSize = new Vector2(500, 500);
 
     [SerializeField]
     List<GameObject> Levels;
+
+    List<ServerGame> serverGames = new List<ServerGame>();
+
+    [SerializeField, Tooltip("Шаг смещения игровых уровней")]
+    float GridStep = 300;
 
     #region Unity Callbacks
 
@@ -43,8 +50,13 @@ public class ServerNetworkBehaviour : NetworkBehaviour
     /// <para>This could be triggered by NetworkServer.Listen() for objects in the scene, or by NetworkServer.Spawn() for objects that are dynamically created.</para>
     /// <para>This will be called for objects on a "host" as well as for object on a dedicated server.</para>
     /// </summary>
-    public override void OnStartServer() { 
-        
+    public override void OnStartServer() {
+        serverGames = new List<ServerGame>();
+        int roomCounts = MultisceneNoobNetworkManager.singleton.instances;
+        for (int i = 0; i < roomCounts; i++) {
+            var sgame = new ServerGame();
+            serverGames.Add(sgame);
+        }
     }
 
     /// <summary>
@@ -89,6 +101,34 @@ public class ServerNetworkBehaviour : NetworkBehaviour
     /// <para>When NetworkIdentity.RemoveClientAuthority is called on the server, this will be called on the client that owns the object.</para>
     /// </summary>
     public override void OnStopAuthority() { }
+
+    internal void RegisterUser(NetworkConnectionToClient conn) {
+        Debug.LogWarning("Not implemeted");
+    }
+
+    internal int GetSceneFoPlayer(NetworkConnectionToClient conn) {
+        //Логика выбора сцены для пользователя
+        int firstEmpty = -1;
+        for (int i = 0; i < serverGames.Count; i++) {
+            var game = serverGames[i];
+            if(game.CanAcceptPlayer) {
+                game.AddPlayer(conn.identity.gameObject.name, (int)conn.identity.netId);
+                return i;
+            } else if(game.GameStatus == ServerGame.Status.None) {
+                firstEmpty = i;
+            }
+        }
+
+        if(firstEmpty > -1) {
+            var game = serverGames[firstEmpty];
+            //TODO Get offset
+            game.Init(Vector3.forward * GridStep * firstEmpty);
+            game.AddPlayer(conn.identity.gameObject.name, (int)conn.identity.netId);
+            return firstEmpty;
+        }
+
+        return -1;
+    }
 
     #endregion
 }

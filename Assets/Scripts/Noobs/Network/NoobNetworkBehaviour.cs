@@ -17,6 +17,8 @@ public class NoobNetworkBehaviour : NetworkBehaviour
     [SyncVar(hook =nameof(SkinIndexChanged))]
     int skin_index = 0;
 
+    public bool enableOffline = false;
+
     private void SkinIndexChanged(int oldindex, int newindex) {
         //TODO
         if(!isLocalPlayer) {
@@ -56,6 +58,8 @@ public class NoobNetworkBehaviour : NetworkBehaviour
     /// <para>Objects on the host have this function called, as there is a local client on the host. The values of SyncVars on object are guaranteed to be initialized correctly with the latest state from the server when this function is called on the client.</para>
     /// </summary>
     public override void OnStartClient() {
+        Debug.Log(">>OnStartClient called");
+
         PlayerCount.Instance.RegisterPlayer();
         if(isLocalPlayer) {
             GetComponent<DistributionHat>().Init(CharType.player);
@@ -69,19 +73,25 @@ public class NoobNetworkBehaviour : NetworkBehaviour
     /// This is invoked on clients when the server has caused this object to be destroyed.
     /// <para>This can be used as a hook to invoke effects or do client specific cleanup.</para>
     /// </summary>
-    public override void OnStopClient() { }
+    public override void OnStopClient() {
+        Debug.Log(">>OnStopClient called");
+    }
 
     /// <summary>
     /// Called when the local player object has been set up.
     /// <para>This happens after OnStartClient(), as it is triggered by an ownership message from the server. This is an appropriate place to activate components or functionality that should only be active for the local player, such as cameras and input.</para>
     /// </summary>
-    public override void OnStartLocalPlayer() { }
+    public override void OnStartLocalPlayer() {
+        Debug.Log(">>OnStartLocalPlayer called");
+    }
 
     /// <summary>
     /// Called when the local player object is being stopped.
     /// <para>This happens before OnStopClient(), as it may be triggered by an ownership message from the server, or because the player object is being destroyed. This is an appropriate place to deactivate components or functionality that should only be active for the local player, such as cameras and input.</para>
     /// </summary>
-    public override void OnStopLocalPlayer() {}
+    public override void OnStopLocalPlayer() {
+        Debug.Log(">>OnStopLocalPlayer called");
+    }
 
     /// <summary>
     /// This is invoked on behaviours that have authority, based on context and <see cref="NetworkIdentity.hasAuthority">NetworkIdentity.hasAuthority</see>.

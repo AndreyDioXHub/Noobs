@@ -747,10 +747,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58fd712f55d499e4a89402471f932ec2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
+  syncDirection: 1
   syncMode: 0
   syncInterval: 0
   skinManager: {fileID: 4151996375207194016}
+  enableOffline: 0
 --- !u!114 &186695733352383407
 MonoBehaviour:
   m_ObjectHideFlags: 0
