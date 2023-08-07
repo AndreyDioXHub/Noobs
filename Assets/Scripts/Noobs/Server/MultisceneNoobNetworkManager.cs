@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 using Mirror;
 using System.Collections.Generic;
 using System.Collections;
+using cyraxchel.network.server;
 
 /*
 	Documentation: https://mirror-networking.gitbook.io/docs/components/network-manager
@@ -177,7 +178,17 @@ public class MultisceneNoobNetworkManager : NetworkManager
         while (!subscenesLoaded)
             yield return null;
 
-        // Send Scene message to client to additively load the game scene
+        conn.Disconnect();
+
+        ServerNetworkBehaviour.Instance.RegisterUser(conn);
+        int sceneToLoad = ServerNetworkBehaviour.Instance.GetSceneFoPlayer(conn);
+        if (sceneToLoad == -1) {
+            //Не нашли свободный уровень. Надо сообщить игроку, чтобы отключился
+            Debug.Log($"No free rooms. {conn.identity.netId} will be disconnect");
+            
+            conn.Disconnect();
+        }
+        // Вызов загрузки у пользователя игрового уровня.
         conn.Send(new SceneMessage { sceneName = gameScene, sceneOperation = SceneOperation.LoadAdditive });
 
         // Wait for end of frame before adding the player to ensure Scene Message goes first
@@ -195,7 +206,7 @@ public class MultisceneNoobNetworkManager : NetworkManager
         // to isolate matches per scene instance on server.
         if (subScenes.Count > 0)
             //SceneManager.MoveGameObjectToScene(conn.identity.gameObject, subScenes[clientIndex % subScenes.Count]);
-            SceneManager.MoveGameObjectToScene(conn.identity.gameObject, subScenes[0]);
+            SceneManager.MoveGameObjectToScene(conn.identity.gameObject, subScenes[sceneToLoad]);
 
         clientIndex++;
     }
@@ -208,6 +219,7 @@ public class MultisceneNoobNetworkManager : NetworkManager
     /// <param name="conn">Connection from client.</param>
     public override void OnServerDisconnect(NetworkConnectionToClient conn)
     {
+        clientIndex--;
         base.OnServerDisconnect(conn);
     }
 
