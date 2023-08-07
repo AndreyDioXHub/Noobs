@@ -179,27 +179,30 @@ public class MultisceneNoobNetworkManager : NetworkManager
         while (!subscenesLoaded)
             yield return null;
 
+        
 
-        #region Debug test
-        var gtype = new GameTypeMessage();
-        gtype.UseofflineMode = true;
-        conn.Send(gtype);
-        //conn.Disconnect();
-        #endregion
-
-        ServerNetworkBehaviour.Instance.RegisterUser(conn);
-        int sceneToLoad = ServerNetworkBehaviour.Instance.GetSceneFoPlayer(conn);
+        int sceneToLoad = ServerNetworkBehaviour.Instance.GetSceneForPlayer(conn);
         if (sceneToLoad == -1) {
             //Не нашли свободный уровень. Надо сообщить игроку, чтобы отключился
             Debug.Log($"No free rooms. {conn.identity.netId} will be disconnect");
             
+            var gtype = new GameTypeMessage();
+            gtype.UseofflineMode = true;
+            conn.Send(gtype);
+            ServerNetworkBehaviour.Instance.UnregisterUser(conn, sceneToLoad);
             conn.Disconnect();
+
+            yield return null;
         }
         // Вызов загрузки у пользователя игрового уровня.
         conn.Send(new SceneMessage { sceneName = gameScene, sceneOperation = SceneOperation.LoadAdditive });
 
         // Wait for end of frame before adding the player to ensure Scene Message goes first
         yield return new WaitForEndOfFrame();
+
+        // Регистрация пользователя 
+        ServerNetworkBehaviour.Instance.RegisterUser(conn, sceneToLoad);
+
 
         base.OnServerAddPlayer(conn);
 
