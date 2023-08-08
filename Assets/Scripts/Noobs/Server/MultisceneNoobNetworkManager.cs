@@ -179,8 +179,6 @@ public class MultisceneNoobNetworkManager : NetworkManager
         while (!subscenesLoaded)
             yield return null;
 
-        
-
         int sceneToLoad = ServerNetworkBehaviour.Instance.GetSceneForPlayer(conn);
         if (sceneToLoad == -1) {
             //Не нашли свободный уровень. Надо сообщить игроку, чтобы отключился
@@ -188,6 +186,7 @@ public class MultisceneNoobNetworkManager : NetworkManager
             
             var gtype = new GameTypeMessage();
             gtype.UseofflineMode = true;
+            gtype.sceneIndex = sceneToLoad;
             conn.Send(gtype);
             ServerNetworkBehaviour.Instance.UnregisterUser(conn, sceneToLoad);
             conn.Disconnect();
@@ -196,6 +195,11 @@ public class MultisceneNoobNetworkManager : NetworkManager
         }
         // Вызов загрузки у пользователя игрового уровня.
         conn.Send(new SceneMessage { sceneName = gameScene, sceneOperation = SceneOperation.LoadAdditive });
+        //Передаю индекс сцены.
+        var gtypem = new GameTypeMessage();
+        gtypem.UseofflineMode = false;
+        gtypem.sceneIndex = sceneToLoad;
+        conn.Send(gtypem);
 
         // Wait for end of frame before adding the player to ensure Scene Message goes first
         yield return new WaitForEndOfFrame();
@@ -205,11 +209,6 @@ public class MultisceneNoobNetworkManager : NetworkManager
 
 
         base.OnServerAddPlayer(conn);
-
-        //PlayerScore playerScore = conn.identity.GetComponent<PlayerScore>();
-        //playerScore.playerNumber = clientIndex;
-        //playerScore.scoreIndex = clientIndex / subScenes.Count;
-        //playerScore.matchIndex = clientIndex % subScenes.Count;
 
         // Do this only on server, not on clients
         // This is what allows the NetworkSceneChecker on player and scene objects
@@ -380,10 +379,15 @@ public class MultisceneNoobNetworkManager : NetworkManager
 
 
     }
+    #endregion
+
+    #region NetworkMessage
 
     public struct GameTypeMessage : NetworkMessage {
         public bool UseofflineMode;
+        public int sceneIndex;
     }
+
 
     public void SetupClient() {
         NetworkClient.RegisterHandler<GameTypeMessage>(OnGameTypeChange);
@@ -391,7 +395,13 @@ public class MultisceneNoobNetworkManager : NetworkManager
     public void OnGameTypeChange(GameTypeMessage message) {
         Debug.Log($"{nameof(OnGameTypeChange)} receive message. User offline mode: {message.UseofflineMode}");
         if(message.UseofflineMode) {
-            Debug.Log("User offline mode!");
+            Debug.Log("Set User to offline mode!");
+            //TODO
+            return;
+        }
+        //Register offset for scene
+        if(message.sceneIndex >-1) {
+            GameManager.GlobalOffset = ServerNetworkBehaviour.GetSceneOffset(message.sceneIndex);
         }
     }
     #endregion

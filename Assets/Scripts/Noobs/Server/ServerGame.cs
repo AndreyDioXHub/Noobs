@@ -50,6 +50,7 @@ namespace cyraxchel.network.server {
         public Scene CurrenScene { get; internal set; }
 
         public void Init(Vector3 worldOffset) {
+            awaitingPlayers = new Dictionary<int, NetworkConnectionToClient>();
             GameStatus = Status.Preparation;
             //Запустить таймер
             ServerNetworkBehaviour.Instance.StartCoroutine(AwaitPlayers());
@@ -95,16 +96,31 @@ namespace cyraxchel.network.server {
 
         }
 
+        Dictionary<int, NetworkConnectionToClient> awaitingPlayers;
+
         internal void ReservePlayerSlot(NetworkConnectionToClient conn) {
-            throw new NotImplementedException();
+            if(awaitingPlayers.ContainsKey(conn.connectionId)) {
+                //Update
+                awaitingPlayers[conn.connectionId] = conn;
+            } else {
+                //Create new
+                awaitingPlayers.Add(conn.connectionId, conn);
+            }
         }
 
         internal bool AddReservedPlayer(string name, int netId) {
-            throw new NotImplementedException();
+            if(awaitingPlayers.ContainsKey(netId)) {
+                AddPlayer(name, netId);
+                return true;
+            } else {
+                return false;
+            }
         }
 
         internal void FreeSlot(NetworkConnectionToClient conn) {
-            throw new NotImplementedException();
+            if (awaitingPlayers.ContainsKey(conn.connectionId)) {
+                awaitingPlayers.Remove(conn.connectionId);
+            }
         }
 
         public class Player {

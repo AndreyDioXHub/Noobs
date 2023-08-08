@@ -19,6 +19,9 @@ public class NoobNetworkBehaviour : NetworkBehaviour
 
     public bool enableOffline = false;
 
+    [SyncVar]
+    public string UserName = string.Empty;
+
     private void SkinIndexChanged(int oldindex, int newindex) {
         //TODO
         if(!isLocalPlayer) {
@@ -35,6 +38,7 @@ public class NoobNetworkBehaviour : NetworkBehaviour
     {
         base.OnValidate();
     }
+
 
     #endregion
 

@@ -16,15 +16,11 @@ public class ServerNetworkBehaviour : NetworkBehaviour
 {
     public static ServerNetworkBehaviour Instance { get; private set; }
 
-    //Vector2 gridSize = new Vector2(500, 500);
-
     [SerializeField]
     List<GameObject> Levels;
 
     List<ServerGame> serverGames = new List<ServerGame>();
 
-    [SerializeField, Tooltip("Шаг смещения игровых уровней")]
-    float GridStep = 300;
 
     #region Unity Callbacks
 
@@ -57,7 +53,12 @@ public class ServerNetworkBehaviour : NetworkBehaviour
         for (int i = 0; i < roomCounts; i++) {
             var sgame = new ServerGame();
             serverGames.Add(sgame);
+            sgame.GameStatusChanged += OnServerGameStatusChanged;
         }
+    }
+
+    private void OnServerGameStatusChanged(ServerGame game, ServerGame.Status status) {
+        
     }
 
     /// <summary>
@@ -119,17 +120,22 @@ public class ServerNetworkBehaviour : NetworkBehaviour
         if(firstEmpty > -1) {
             var game = serverGames[firstEmpty];
             //TODO Get offset
-            game.Init(Vector3.forward * GridStep * firstEmpty);
-            game.AddPlayer(conn.identity.gameObject.name, (int)conn.identity.netId);
+            game.Init(GetSceneOffset(firstEmpty));
+            game.ReservePlayerSlot(conn);
+
+            //game.AddPlayer(conn.identity.gameObject.name, (int)conn.identity.netId);
             return firstEmpty;
         }
 
         return -1;
     }
 
+    
+
     internal bool RegisterUser(NetworkConnectionToClient conn, int sceneIndex) {
         var game = serverGames[sceneIndex];
-        return game.AddReservedPlayer(conn.identity.gameObject.name, (int)conn.identity.netId);
+        var noobchar = conn.identity.gameObject.GetComponent<NoobNetworkBehaviour>();
+        return game.AddReservedPlayer(noobchar.UserName, conn.connectionId);
     }
 
     internal void UnregisterUser(NetworkConnectionToClient conn, int sceneToLoad) {
@@ -138,4 +144,9 @@ public class ServerNetworkBehaviour : NetworkBehaviour
 
     }
     #endregion
+
+    public static Vector3 GetSceneOffset(int index) {
+        float _gridStep = LevelConfig.Instance.GridStep;
+        return Vector3.forward * _gridStep * index;
+    }
 }

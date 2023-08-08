@@ -1,3 +1,4 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+
+    public static Vector3 GlobalOffset = Vector3.zero;
+
     public static GameManager Instance;
 
     public bool IsWin { get; private set; } = false;
@@ -35,14 +39,20 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        
+        UpdateSceneOffset(); 
     }
 
     void Update()
     {
+        //TODO
+
         if(PlayerCount.Instance.Count == 1)
         {
             //IsWin = true;
+            WinScreen.Instance.ShowWinScreen();
+        }
+        if(IsLose) {
+            WinScreen.Instance.ShowLoseScreen();
         }
 
         if (IsWin || IsLose)
@@ -59,5 +69,10 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void UpdateSceneOffset() {
+        Debug.Log($"{nameof(UpdateSceneOffset)}> Scene offset updated to {GlobalOffset}");
+        _levelTransform.position = GlobalOffset;
     }
 }

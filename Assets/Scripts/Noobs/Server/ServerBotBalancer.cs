@@ -101,6 +101,7 @@ namespace cyraxchel.network.server
                 foreach(var bot in bots)
                 {
                     SceneManager.MoveGameObjectToScene(bot, parameters.serverGame.CurrenScene);
+                    //parameters.serverGame.AddPlayer
                 }
 
                 _reservedBots.Add(parameters.serverGame, bots);

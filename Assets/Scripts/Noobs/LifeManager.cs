@@ -46,6 +46,7 @@ public class LifeManager : MonoBehaviour
                     GameManager.Instance.IsLose = true;
                     break;
                 case "Avatar":
+                    //TODO Отработать сетевой вариант
                     break;
                 case "Bot":
                     GetComponent<DistributionHat>().Pause();

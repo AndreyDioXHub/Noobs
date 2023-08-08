@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -50,6 +51,10 @@ public class WinScreen : MonoBehaviour
 
     void Update()
     {
+        //TODO Заменить на событие от GameManager
+
+        /**
+
         _showTimeCur += Time.deltaTime;
 
         if (GameManager.Instance.IsWin)
@@ -68,10 +73,19 @@ public class WinScreen : MonoBehaviour
             }
         }
 
+        
         if (GameManager.Instance.IsLose)
         {
             _loseScreen.SetActive(true);
-        }
-            
+        }/**/
+
+    }
+
+    internal void ShowWinScreen() {
+        _winScreen.SetActive(true);
+    }
+
+    internal void ShowLoseScreen() {
+        _loseScreen.SetActive(true);
     }
 }
