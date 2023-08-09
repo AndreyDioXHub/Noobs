@@ -1,58 +1,59 @@
+using cyraxchel.network.server;
 using Mirror;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class GameManager : NetworkBehaviour
 {
 
-    public static Vector3 GlobalOffset = Vector3.zero;
+    public Vector3 GlobalOffset { get; set; } = Vector3.zero;
 
-    public static GameManager Instance;
+    public static GameManager Instance { get; set; }    //Используется только в клиентах!
 
     public bool IsWin { get; private set; } = false;
     public bool IsLose;
 
     [SerializeField]
-    private GameObject _loseScreen;
+    private WinScreen _winscreen;
     [SerializeField]
     private float _time = 2;
     [SerializeField]
     private float _timeCur = 0;
     [SerializeField]
     private GameObject _leaveText;
+    [SerializeField]
+    PlayerCount _playerCount;
 
     public Transform _levelTransform;
 
-   private void Awake()
-    {
-        if (Instance == null)
-        {
+    private void Awake() {
+        
+        if(isClientOnly) {
             Instance = this;
-        }
-        else
-        {
-            Destroy(this);
         }
     }
 
     void Start()
     {
-        UpdateSceneOffset(); 
+        
     }
 
     void Update()
     {
-        //TODO
-
-        if(PlayerCount.Instance.Count == 1)
+        if(!isClientOnly) {
+            return;     // Отрабатывать только на клиентах!
+        }
+        //TODO Переделать счет игроков на локальный элемент
+        if(_playerCount.Count == 1)
         {
             //IsWin = true;
-            WinScreen.Instance.ShowWinScreen();
+            _winscreen.ShowWinScreen();
         }
         if(IsLose) {
-            WinScreen.Instance.ShowLoseScreen();
+            _winscreen.ShowLoseScreen();
         }
 
         if (IsWin || IsLose)
@@ -74,5 +75,46 @@ public class GameManager : MonoBehaviour
     public void UpdateSceneOffset() {
         Debug.Log($"{nameof(UpdateSceneOffset)}> Scene offset updated to {GlobalOffset}");
         _levelTransform.position = GlobalOffset;
+    }
+
+    public override void OnStartClient() {
+        base.OnStartClient();
+        
+    }
+
+    public override void OnStartServer() {
+        base.OnStartServer();
+        StartCoroutine(CmdRegisterGame());
+    }
+
+    //[Command]
+    private IEnumerator CmdRegisterGame() {
+        yield return new WaitForSeconds(0.1f);
+        Debug.Log($"Try register {nameof(CmdRegisterGame)}");
+        ServerNetworkBehaviour.Instance.RegisterGameManager(gameObject.scene, this);
+        UpdateSceneOffset();
+
+    }
+
+    internal void OnGameStatusChanged(ServerGame game, ServerGame.Status status) {
+        switch(status) {
+            case ServerGame.Status.Action:
+                //Start Game
+                RPC_StartGame();
+                break;
+            case ServerGame.Status.Finish: 
+                //Complete game
+                RPC_StopGame();
+                break;
+        }
+    }
+
+    [ClientRpc]
+    private void RPC_StartGame() {
+
+    }
+    [ClientRpc]
+    private void RPC_StopGame() {
+
     }
 }

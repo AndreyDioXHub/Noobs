@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 namespace cyraxchel.network.server {
 
     //Обслуживание текущей игры.
+    [Serializable]
     public class ServerGame {
 
         public event Action<ServerGame, Status> GameStatusChanged = delegate { };
@@ -18,6 +19,7 @@ namespace cyraxchel.network.server {
         List<Player> m_players = new List<Player>();
         public Vector3 WorldOffset { get; private set; } = Vector3.zero;       //Храним смещение мира
 
+        [SerializeField]
         Status m_Status = Status.None;
         public Status GameStatus { 
             get { return m_Status; } 
@@ -31,6 +33,8 @@ namespace cyraxchel.network.server {
         /// Максимальное количество игроков в игре
         /// </summary>
         public int MaxPlayerCount = 15;
+
+        Coroutine countdownTimer;
 
         /// <summary>
         /// Возможно ли добавить игрока в игру
@@ -47,13 +51,28 @@ namespace cyraxchel.network.server {
         /// Get current players count
         /// </summary>
         public int PlayersCount { get => m_players.Count; }
-        public Scene CurrenScene { get; internal set; }
+
+        [SerializeField]
+        Scene _gamescene;
+        public Scene CurrenScene { get => _gamescene; internal set {
+                _gamescene = value;
+                GameStatus = Status.None;
+            } }
+
+        GameManager _gamemanager;
+        public GameManager CurrentGameManager { get=> _gamemanager; internal set { 
+                _gamemanager= value;
+                if(value != null) {
+                    _gamemanager.GlobalOffset = WorldOffset;
+                    GameStatusChanged += _gamemanager.OnGameStatusChanged;
+                }
+            } }
 
         public void Init(Vector3 worldOffset) {
             awaitingPlayers = new Dictionary<int, NetworkConnectionToClient>();
             GameStatus = Status.Preparation;
             //Запустить таймер
-            ServerNetworkBehaviour.Instance.StartCoroutine(AwaitPlayers());
+            countdownTimer = ServerNetworkBehaviour.Instance.StartCoroutine(AwaitPlayers());
             WorldOffset = worldOffset;
         }
 
@@ -76,9 +95,13 @@ namespace cyraxchel.network.server {
         }
 
         public void AddPlayer(Player player) {
-            if (PlayersCount < MaxPlayerCount) {
+            if (PlayersCount < MaxPlayerCount && GameStatus == Status.Preparation) {
                 m_players.Add(player);
                 JoinPlayer?.Invoke(this, player);
+                if(m_players.Count == MaxPlayerCount) {
+                    if(countdownTimer != null) ServerNetworkBehaviour.Instance.StopCoroutine(countdownTimer);
+                    GameStatus = Status.Action; //Запуск игры
+                }
             }
         }
 
@@ -96,7 +119,7 @@ namespace cyraxchel.network.server {
 
         }
 
-        Dictionary<int, NetworkConnectionToClient> awaitingPlayers;
+        Dictionary<int, NetworkConnectionToClient> awaitingPlayers = new Dictionary<int, NetworkConnectionToClient>();
 
         internal void ReservePlayerSlot(NetworkConnectionToClient conn) {
             if(awaitingPlayers.ContainsKey(conn.connectionId)) {

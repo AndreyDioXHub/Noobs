@@ -1,3 +1,4 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,21 +17,11 @@ public class LifeManager : MonoBehaviour
 
     void Update()
     {
+        
         if (transform.position.y < 0)
         {
-            switch (tag)
-            {
-                case "Player":
-                    break;
-                case "Avatar":
-                    break;
-                case "Bot":
-                    PlayerCount.Instance.RemovePlayer();
-                    Destroy(gameObject);
-                    break;
-                default:
-                    break;
-            }
+            DieFunction();
+            this.enabled = false;
         }
     }
 
@@ -40,26 +31,28 @@ public class LifeManager : MonoBehaviour
 
         if (_life <= 0)
         {
-            switch (tag)
-            {
-                case "Player":
-                    GameManager.Instance.IsLose = true;
-                    break;
-                case "Avatar":
-                    //TODO Отработать сетевой вариант
-                    break;
-                case "Bot":
-                    GetComponent<DistributionHat>().Pause();
-                    gameObject.SetActive(false);
-                    break;
-                default:
-                    break;
-            }
-
-            PlayerCount.Instance.RemovePlayer();
-            Debug.Log("Dead");
+            DieFunction();
         }
     }
+
+    private void DieFunction() {
+        switch (tag) {
+            case "Player":
+                GameManager.Instance.IsLose = true;
+                break;
+            case "Avatar":
+            case "Bot":
+                GetComponent<DistributionHat>().Pause();
+                gameObject.SetActive(false);
+                break;
+            default:
+                break;
+        }
+
+        PlayerCount.Instance.RemovePlayer();
+        Debug.Log("Dead");
+    }
+
 
     private void OnDestroy()
     {

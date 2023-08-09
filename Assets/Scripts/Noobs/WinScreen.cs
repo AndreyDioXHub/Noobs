@@ -82,10 +82,10 @@ public class WinScreen : MonoBehaviour
     }
 
     internal void ShowWinScreen() {
-        _winScreen.SetActive(true);
+        _winScreen.SetActive(true); // show only on client
     }
 
     internal void ShowLoseScreen() {
-        _loseScreen.SetActive(true);
+        _loseScreen.SetActive(true);    //show only on client
     }
 }

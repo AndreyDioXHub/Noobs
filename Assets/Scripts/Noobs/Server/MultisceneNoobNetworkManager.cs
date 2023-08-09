@@ -5,6 +5,7 @@ using Mirror;
 using System.Collections.Generic;
 using System.Collections;
 using cyraxchel.network.server;
+using static Cinemachine.DocumentationSortingAttribute;
 
 /*
 	Documentation: https://mirror-networking.gitbook.io/docs/components/network-manager
@@ -311,6 +312,7 @@ public class MultisceneNoobNetworkManager : NetworkManager
 
             Scene newScene = SceneManager.GetSceneAt(index);
             subScenes.Add(newScene);
+            ServerNetworkBehaviour.Instance.SetSceneToGame(subScenes[index-1], index-1);    //Set allocation for server games
             //Spawner.InitialSpawn(newScene);
             //TODO Fill bots in scene
         }
@@ -377,6 +379,9 @@ public class MultisceneNoobNetworkManager : NetworkManager
 
         yield return SceneManager.LoadSceneAsync(gameScene, new LoadSceneParameters { loadSceneMode = LoadSceneMode.Additive, localPhysicsMode = LocalPhysicsMode.Physics3D });
 
+        //Return to stack
+        subScenes[level] = SceneManager.GetSceneAt(SceneManager.sceneCount - 1);
+        ServerNetworkBehaviour.Instance.SetSceneToGame(subScenes[level], level);
 
     }
     #endregion
@@ -401,7 +406,10 @@ public class MultisceneNoobNetworkManager : NetworkManager
         }
         //Register offset for scene
         if(message.sceneIndex >-1) {
-            GameManager.GlobalOffset = ServerNetworkBehaviour.GetSceneOffset(message.sceneIndex);
+            Debug.Log($"Set new offset {message.sceneIndex}");
+            Debug.Log($"Offset is {ServerNetworkBehaviour.GetSceneOffset(message.sceneIndex)}");
+
+            GameManager.Instance.GlobalOffset = ServerNetworkBehaviour.GetSceneOffset(message.sceneIndex);
         }
     }
     #endregion

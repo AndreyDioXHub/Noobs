@@ -1,9 +1,9 @@
+using cyraxchel.network.server;
+using Mirror;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Mirror;
-using cyraxchel.network.server;
-using System;
-using UnityEngine.ProBuilder.Shapes;
+using UnityEngine.SceneManagement;
 
 /*
 	Documentation: https://mirror-networking.gitbook.io/docs/guides/networkbehaviour
@@ -12,13 +12,10 @@ using UnityEngine.ProBuilder.Shapes;
 
 // NOTE: Do not put objects in DontDestroyOnLoad (DDOL) in Awake.  You can do that in Start instead.
 
-public class ServerNetworkBehaviour : NetworkBehaviour
-{
+public class ServerNetworkBehaviour : NetworkBehaviour {
     public static ServerNetworkBehaviour Instance { get; private set; }
 
     [SerializeField]
-    List<GameObject> Levels;
-
     List<ServerGame> serverGames = new List<ServerGame>();
 
 
@@ -27,9 +24,8 @@ public class ServerNetworkBehaviour : NetworkBehaviour
     /// <summary>
     /// Add your validation code here after the base.OnValidate(); call.
     /// </summary>
-    protected override void OnValidate()
-    {
-        base.OnValidate();  
+    protected override void OnValidate() {
+        base.OnValidate();
     }
 
     private void Awake() {
@@ -58,7 +54,7 @@ public class ServerNetworkBehaviour : NetworkBehaviour
     }
 
     private void OnServerGameStatusChanged(ServerGame game, ServerGame.Status status) {
-        
+
     }
 
     /// <summary>
@@ -89,7 +85,7 @@ public class ServerNetworkBehaviour : NetworkBehaviour
     /// Called when the local player object is being stopped.
     /// <para>This happens before OnStopClient(), as it may be triggered by an ownership message from the server, or because the player object is being destroyed. This is an appropriate place to deactivate components or functionality that should only be active for the local player, such as cameras and input.</para>
     /// </summary>
-    public override void OnStopLocalPlayer() {}
+    public override void OnStopLocalPlayer() { }
 
     /// <summary>
     /// This is invoked on behaviours that have authority, based on context and <see cref="NetworkIdentity.hasAuthority">NetworkIdentity.hasAuthority</see>.
@@ -109,15 +105,15 @@ public class ServerNetworkBehaviour : NetworkBehaviour
         int firstEmpty = -1;
         for (int i = 0; i < serverGames.Count; i++) {
             var game = serverGames[i];
-            if(game.CanAcceptPlayer) {
+            if (game.CanAcceptPlayer) {
                 game.ReservePlayerSlot(conn);
                 return i;
-            } else if(game.GameStatus == ServerGame.Status.None) {
+            } else if (game.GameStatus == ServerGame.Status.None) {
                 firstEmpty = i;
             }
         }
 
-        if(firstEmpty > -1) {
+        if (firstEmpty > -1) {
             var game = serverGames[firstEmpty];
             //TODO Get offset
             game.Init(GetSceneOffset(firstEmpty));
@@ -130,7 +126,7 @@ public class ServerNetworkBehaviour : NetworkBehaviour
         return -1;
     }
 
-    
+
 
     internal bool RegisterUser(NetworkConnectionToClient conn, int sceneIndex) {
         var game = serverGames[sceneIndex];
@@ -148,5 +144,23 @@ public class ServerNetworkBehaviour : NetworkBehaviour
     public static Vector3 GetSceneOffset(int index) {
         float _gridStep = LevelConfig.Instance.GridStep;
         return Vector3.forward * _gridStep * index;
+    }
+
+    /// <summary>
+    /// Регистрация игрового менеджера
+    /// </summary>
+    /// <param name="scene"></param>
+    /// <param name="gameManager"></param>
+    /// <exception cref="NotImplementedException"></exception>
+    internal void RegisterGameManager(Scene scene, GameManager gameManager) {
+        foreach (var game in serverGames) {
+            if (game.CurrenScene == scene) {
+                game.CurrentGameManager = gameManager;
+            }
+        }
+    }
+
+    internal void SetSceneToGame(Scene scene, int level) {
+        serverGames[level].CurrenScene = scene;
     }
 }
