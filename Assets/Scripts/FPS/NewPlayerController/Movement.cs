@@ -90,6 +90,7 @@ public class Movement : MonoBehaviour
             }
             else
             {
+                _gravityVector = Vector3.zero;
                 _gravityVector.y = _gravity * Time.fixedDeltaTime;
             }
         }
@@ -169,9 +170,12 @@ public class Movement : MonoBehaviour
         }
     }
 
-    public virtual void Jump(float height)
+    public virtual void Push(Vector3 direction,float height)
     {
-        _gravityVector.y = Mathf.Sqrt(height * -2f * _gravity) * Time.fixedDeltaTime;
+        /*Vector3 offcet = direction * Mathf.Sqrt(height * -2f * _gravity) * Time.fixedDeltaTime;
+        Debug.Log($"{offcet} {Mathf.Sqrt(height * -2f * _gravity) * Time.fixedDeltaTime}");
+        _blender.AddOffcet(offcet);*/
+        _gravityVector = direction * Mathf.Sqrt(height * -2f * _gravity) * Time.fixedDeltaTime; //Mathf.Sqrt(height * -2f * _gravity) * Time.fixedDeltaTime;
     }
 
     private void OnEnable()

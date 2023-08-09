@@ -28,7 +28,7 @@ public class NoobBouncer : MonoBehaviour
         {
             if (other.TryGetComponent<Movement>(out Movement movement))
             {
-                movement.Jump(_jumpHeight);
+                movement.Push(transform.up, _jumpHeight);
 
                 if (other.TryGetComponent<GroundCheck>(out GroundCheck groundCheck))
                 {
