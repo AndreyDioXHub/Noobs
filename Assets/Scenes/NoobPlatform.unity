@@ -5282,11 +5282,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2511796419113337236, guid: 676e2c12d8c27f149bb81df7d1f6fe04, type: 3}
       propertyPath: _isRecord
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2511796419113337236, guid: 676e2c12d8c27f149bb81df7d1f6fe04, type: 3}
       propertyPath: _isReplay
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6517965736538333200, guid: 676e2c12d8c27f149bb81df7d1f6fe04, type: 3}
       propertyPath: _netAnimator
@@ -7412,7 +7412,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 352270192100147790, guid: 676e2c12d8c27f149bb81df7d1f6fe04, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2511796419113337236, guid: 676e2c12d8c27f149bb81df7d1f6fe04, type: 3}
       propertyPath: m_Enabled
