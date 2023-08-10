@@ -9,6 +9,8 @@ using UnityEngine.SceneManagement;
 public class GameManager : NetworkBehaviour
 {
 
+    public static Vector3 ClientWorldOffset { get; set; } = Vector3.zero;
+
     public Vector3 GlobalOffset { get; set; } = Vector3.zero;
 
     public static GameManager Instance { get; set; }    //Используется только в клиентах!
@@ -74,12 +76,17 @@ public class GameManager : NetworkBehaviour
 
     public void UpdateSceneOffset() {
         Debug.Log($"{nameof(UpdateSceneOffset)}> Scene offset updated to {GlobalOffset}");
-        _levelTransform.position = GlobalOffset;
+        if(isServer) {
+            _levelTransform.position = GlobalOffset;
+        }
+        if(isClientOnly) {
+            _levelTransform.position = ClientWorldOffset;
+        }
     }
 
     public override void OnStartClient() {
         base.OnStartClient();
-        
+        CmdRegisterGame();
     }
 
     public override void OnStartServer() {

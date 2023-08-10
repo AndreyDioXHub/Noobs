@@ -409,7 +409,7 @@ public class MultisceneNoobNetworkManager : NetworkManager
             Debug.Log($"Set new offset {message.sceneIndex}");
             Debug.Log($"Offset is {ServerNetworkBehaviour.GetSceneOffset(message.sceneIndex)}");
 
-            GameManager.Instance.GlobalOffset = ServerNetworkBehaviour.GetSceneOffset(message.sceneIndex);
+            GameManager.ClientWorldOffset = ServerNetworkBehaviour.GetSceneOffset(message.sceneIndex);
         }
     }
     #endregion
