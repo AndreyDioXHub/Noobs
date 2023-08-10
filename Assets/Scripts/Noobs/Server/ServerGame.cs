@@ -17,7 +17,7 @@ namespace cyraxchel.network.server {
         public event Action<ServerGame, Player> LeavePlayer = delegate { };
 
         List<Player> m_players = new List<Player>();
-        public Vector3 WorldOffset { get; private set; } = Vector3.zero;       //Храним смещение мира
+        public Vector3 WorldOffset { get; internal set; } = Vector3.zero;       //Храним смещение мира
 
         [SerializeField]
         Status m_Status = Status.None;
@@ -63,17 +63,19 @@ namespace cyraxchel.network.server {
         public GameManager CurrentGameManager { get=> _gamemanager; internal set { 
                 _gamemanager= value;
                 if(value != null) {
+                    Debug.Log($"Set new GameManager. Offset is {WorldOffset}");
                     _gamemanager.GlobalOffset = WorldOffset;
                     GameStatusChanged += _gamemanager.OnGameStatusChanged;
                 }
             } }
 
-        public void Init(Vector3 worldOffset) {
+        public void Init() {
+            Debug.Log($"Init without WorldOffset");
             awaitingPlayers = new Dictionary<int, NetworkConnectionToClient>();
             GameStatus = Status.Preparation;
             //Запустить таймер
             countdownTimer = ServerNetworkBehaviour.Instance.StartCoroutine(AwaitPlayers());
-            WorldOffset = worldOffset;
+            
         }
 
         IEnumerator AwaitPlayers() {

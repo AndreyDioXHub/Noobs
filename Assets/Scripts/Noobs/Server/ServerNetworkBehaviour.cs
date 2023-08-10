@@ -116,7 +116,7 @@ public class ServerNetworkBehaviour : NetworkBehaviour {
         if (firstEmpty > -1) {
             var game = serverGames[firstEmpty];
             //TODO Get offset
-            game.Init(GetSceneOffset(firstEmpty));
+            game.Init();
             game.ReservePlayerSlot(conn);
 
             //game.AddPlayer(conn.identity.gameObject.name, (int)conn.identity.netId);
@@ -162,5 +162,6 @@ public class ServerNetworkBehaviour : NetworkBehaviour {
 
     internal void SetSceneToGame(Scene scene, int level) {
         serverGames[level].CurrenScene = scene;
+        serverGames[level].WorldOffset = GetSceneOffset(level);
     }
 }
