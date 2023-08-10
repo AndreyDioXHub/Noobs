@@ -1,6 +1,7 @@
 using cyraxchel.network.server;
 using Mirror;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -128,10 +129,18 @@ public class ServerNetworkBehaviour : NetworkBehaviour {
 
 
 
-    internal bool RegisterUser(NetworkConnectionToClient conn, int sceneIndex) {
+    internal void RegisterUser(NetworkConnectionToClient conn, int sceneIndex) {
+        StartCoroutine(RegisterUserDelayed(conn, sceneIndex));
+    }
+
+    private IEnumerator RegisterUserDelayed(NetworkConnectionToClient conn, int sceneIndex) {
+        //∆ду, пока игрок не заспаунитс€.
+        while (conn.identity == null || conn.identity.gameObject == null) yield return null;
+
         var game = serverGames[sceneIndex];
         var noobchar = conn.identity.gameObject.GetComponent<NoobNetworkBehaviour>();
-        return game.AddReservedPlayer(noobchar.UserName, conn.connectionId);
+        game.AddReservedPlayer(noobchar.UserName, conn.connectionId);
+
     }
 
     internal void UnregisterUser(NetworkConnectionToClient conn, int sceneToLoad) {
@@ -143,7 +152,7 @@ public class ServerNetworkBehaviour : NetworkBehaviour {
 
     public static Vector3 GetSceneOffset(int index) {
         float _gridStep = LevelConfig.Instance.GridStep;
-        return Vector3.forward * _gridStep * index;
+        return Vector3.forward * _gridStep * (index+1);
     }
 
     /// <summary>
