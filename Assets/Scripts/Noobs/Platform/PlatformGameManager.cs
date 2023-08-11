@@ -94,7 +94,7 @@ public class PlatformGameManager : MonoBehaviour
 
     void Start()
     {
-        _index = 3;// Random.Range(0, _animationSequences.Count);
+        _index = Random.Range(0, _animationSequences.Count);
          
         StartCoroutine(PrepareCoroutine());
     }
