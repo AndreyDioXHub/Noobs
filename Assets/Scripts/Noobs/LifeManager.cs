@@ -38,10 +38,7 @@ public class LifeManager : MonoBehaviour
     private void DieFunction() {
         switch (tag) {
             case "Player":
-                //Проверить, что не сервер
-                if(ServerNetworkBehaviour.Instance == null) {
-                     GameManager.Instance.IsLose = true;
-                }
+                GameManager.Instance.IsLose = true;
                 break;
             case "Avatar":
             case "Bot":
