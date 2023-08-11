@@ -103,8 +103,7 @@ MonoBehaviour:
   _dir: {fileID: 2540757174632256263}
   _model: {fileID: 2540757173913839589}
   _isStart: 0
-  _isRecord: 0
-  _isReplay: 0
+  _state: 1
   _index: 0
 --- !u!114 &352270192100147809 stripped
 MonoBehaviour:

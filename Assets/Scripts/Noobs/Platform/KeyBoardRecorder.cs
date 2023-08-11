@@ -23,10 +23,9 @@ public class KeyBoardRecorder : MonoBehaviour
     protected Transform _model;
     [SerializeField]
     private bool _isStart;
+
     [SerializeField]
-    private bool _isRecord;
-    [SerializeField]
-    private bool _isReplay;
+    private ReplayState _state = ReplayState.replay;
     [SerializeField]
     private int _index = 0;
 
@@ -40,30 +39,33 @@ public class KeyBoardRecorder : MonoBehaviour
     {
         gameObject.SetActive(true);
 
-        if (_isReplay)
+        switch (_state)
         {
-            _cameraCenter.SetActive(false);
-            gameObject.tag = "Bot";
-            _animatorController.enabled = false;
+            case ReplayState.replay:
+                _cameraCenter.SetActive(false);
+                gameObject.tag = "Bot";
+                _animatorController.enabled = false;
 
-            string path = Path.Combine(Application.streamingAssetsPath, $"{PlatformGameManager.Instance.Index}",$"{name} index ({PlatformGameManager.Instance.Index}).json");
+                string path = Path.Combine(Application.streamingAssetsPath, $"{PlatformGameManager.Instance.Index}", $"{name} index ({PlatformGameManager.Instance.Index}).json");
 
-            if (File.Exists(path))
-            {
-                string json = File.ReadAllText(path);
-                _positions = JsonConvert.DeserializeObject<List<Positions>>(json);
-            }
-            else
-            {
+                if (File.Exists(path))
+                {
+                    string json = File.ReadAllText(path);
+                    _positions = JsonConvert.DeserializeObject<List<Positions>>(json);
+                }
+                else
+                {
 
-                gameObject.SetActive(false);
-            }
+                    gameObject.SetActive(false);
+                }
+                break;
+            case ReplayState.record:
+                _cameraCenter.SetActive(true);
+                break;
+            default:
+                break;
+
         }
-        else
-        {
-            _cameraCenter.SetActive(true);           
-        }
-
     }
 
     void Update()
@@ -75,54 +77,55 @@ public class KeyBoardRecorder : MonoBehaviour
     {
         if (_isStart)
         {
-            if (_isReplay)
+            switch (_state)
             {
-                transform.position = new Vector3(_positions[_index].mpX, _positions[_index].mpY, _positions[_index].mpZ);
-                transform.eulerAngles = new Vector3(_positions[_index].meX, _positions[_index].meY, _positions[_index].meZ);
-                _dir.localPosition = new Vector3(_positions[_index].dpX, _positions[_index].dpY, _positions[_index].dpZ);
-                _index++;
+                case ReplayState.replay:
+                    transform.position = new Vector3(_positions[_index].mpX, _positions[_index].mpY, _positions[_index].mpZ);
+                    transform.eulerAngles = new Vector3(_positions[_index].meX, _positions[_index].meY, _positions[_index].meZ);
+                    _dir.localPosition = new Vector3(_positions[_index].dpX, _positions[_index].dpY, _positions[_index].dpZ);
+                    _index++;
 
-                if (_index > 0)
-                {
-                    try 
+                    if (_index > 0)
                     {
-                        if (Mathf.Abs(_positions[_index - 1].mpY - _positions[_index].mpY) > 0.001f)
+                        try
                         {
-                            _animator.SetBool("Fall", true);
-                            //Debug.Log(_positions[_index - 1].mpY - _positions[_index].mpY);
-                        }
-                        else
-                        {
-                            _animator.SetBool("Fall", false);
-
-                            if (_positions[_index - 1].mpX != _positions[_index].mpX || _positions[_index - 1].mpZ != _positions[_index].mpZ)
+                            if (Mathf.Abs(_positions[_index - 1].mpY - _positions[_index].mpY) > 0.001f)
                             {
-                                _animator.SetBool("Run", true);
+                                _animator.SetBool("Fall", true);
+                                //Debug.Log(_positions[_index - 1].mpY - _positions[_index].mpY);
                             }
                             else
                             {
-                                _animator.SetBool("Run", false);
+                                _animator.SetBool("Fall", false);
+
+                                if (_positions[_index - 1].mpX != _positions[_index].mpX || _positions[_index - 1].mpZ != _positions[_index].mpZ)
+                                {
+                                    _animator.SetBool("Run", true);
+                                }
+                                else
+                                {
+                                    _animator.SetBool("Run", false);
+                                }
                             }
                         }
-                    }
-                    catch(ArgumentOutOfRangeException e)
-                    {
+                        catch (ArgumentOutOfRangeException e)
+                        {
 
-                        Destroy(gameObject);
-                    }
-                                     
-                }
+                            Destroy(gameObject);
+                        }
 
-                _model.LookAt(_dir, _model.up);
-            }
-            else
-            {
-                if (_isRecord)
-                {
+                    }
+
+                    _model.LookAt(_dir, _model.up);
+                    break;
+                case ReplayState.record:
                     _positions.Add(new Positions(transform.position.x, transform.position.y, transform.position.z,
                         transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z,
                         _dir.localPosition.x, _dir.localPosition.y, _dir.localPosition.z));
-                }
+                    break;
+                default:
+                    break;
+
             }
         }
         
@@ -130,29 +133,39 @@ public class KeyBoardRecorder : MonoBehaviour
 
     public void StartProcess()
     {
-        _isStart = true; 
-        
-        if (_isReplay)
+        _isStart = true;
+
+        switch (_state)
         {
-        }
-        else
-        {
-            _hat.Play();
+            case ReplayState.replay:
+                break;
+            case ReplayState.record:
+                _hat.Play();
+                break;
+            default:
+                break;
+
         }
     }
 
     public void StartRecord()
     {
-        _isRecord = true;
+        _state = ReplayState.record;
     }
 
     public void StopRecord()
     {
-        _isRecord = false;
+        _state = ReplayState.replay;
         gameObject.SetActive(false);
         string json = JsonConvert.SerializeObject(_positions);
         File.WriteAllText(Path.Combine(Application.persistentDataPath, $"{name} index ({PlatformGameManager.Instance.Index}).json"), json);
     }
+}
+
+public enum ReplayState
+{
+    record,
+    replay
 }
 
 [Serializable]

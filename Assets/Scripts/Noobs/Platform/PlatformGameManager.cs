@@ -67,10 +67,10 @@ public class PlatformGameManager : MonoBehaviour
         { 
             new List<string>()
             {
-                "Platform Flip 0 Animation",
-                "Platform Flip 5 Animation",
+                "Platform Lazer 6 Animation",
+                "Platform Lazer 3 Animation",
                 "Platform Lazer 5 Animation",
-                "Platform Flip 0 Animation",
+                "Platform Flip 4 Animation",
                 "Platform Flip 6 Animation",
                 "Platform Lazer 3 Animation",
                 "Platform Flip 8 Animation",
@@ -94,8 +94,8 @@ public class PlatformGameManager : MonoBehaviour
 
     void Start()
     {
-        _index = 1;// Random.Range(0, _animationSequences.Count);
-
+        _index = 3;// Random.Range(0, _animationSequences.Count);
+         
         StartCoroutine(PrepareCoroutine());
     }
 
