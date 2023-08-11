@@ -11,9 +11,8 @@ public class SkinManager : MonoBehaviour
     private List<string> _skinNames = new List<string>();
     [SerializeField]
     private AnimatorController _animatorController;
-
     [SerializeField]
-    NetworkAnimator _netAnimator;
+    private KeyBoardRecorder _recorder;
 
     void Start()
     {
@@ -33,7 +32,6 @@ public class SkinManager : MonoBehaviour
                 var gop = Instantiate(Resources.Load<GameObject>(skin), transform);
                 animator = gop.GetComponent<Animator>();
                 _animatorController.Init(animator);
-                _netAnimator.animator = animator;
                 _prevSkin = gop;
                 break;
             case CharType.avatar:
@@ -41,7 +39,6 @@ public class SkinManager : MonoBehaviour
                 var goa = Instantiate(Resources.Load<GameObject>(randomskin), transform);
                 animator = goa.GetComponent<Animator>();
                 _animatorController.Init(animator);
-                _netAnimator.animator = animator;
                 _prevSkin = goa;
                 break;
             case CharType.bot:
@@ -49,7 +46,7 @@ public class SkinManager : MonoBehaviour
                 var gob = Instantiate(Resources.Load<GameObject>(randomskinb), transform);
                 animator = gob.GetComponent<Animator>();
                 _animatorController.Init(animator);
-                _netAnimator.animator = animator;
+                _recorder.SetAnimator(animator);
                 _prevSkin = gob;
                 break;
             default:
@@ -58,6 +55,7 @@ public class SkinManager : MonoBehaviour
         }
     }
 
+    /*
     internal void SetAvatarSkin(int newindex) {
         // Remove previous
         Destroy(_prevSkin);
@@ -68,6 +66,5 @@ public class SkinManager : MonoBehaviour
         var goa = Instantiate(Resources.Load<GameObject>(skinname), transform);
         animator = goa.GetComponent<Animator>();
         _animatorController.Init(animator);
-        _netAnimator.animator = animator;
-    }
+    }*/
 }

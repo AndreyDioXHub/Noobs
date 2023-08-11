@@ -35,6 +35,11 @@ public class KeyBoardRecorder : MonoBehaviour
         _hat.Pause(); 
     }
 
+    public void SetAnimator(Animator animator)
+    {
+        _animator = animator;
+    }
+
     public void Prepare()
     {
         gameObject.SetActive(true);
@@ -89,24 +94,27 @@ public class KeyBoardRecorder : MonoBehaviour
                     {
                         try
                         {
-                            if (Mathf.Abs(_positions[_index - 1].mpY - _positions[_index].mpY) > 0.001f)
+                            if(_animator != null)
                             {
-                                _animator.SetBool("Fall", true);
-                                //Debug.Log(_positions[_index - 1].mpY - _positions[_index].mpY);
-                            }
-                            else
-                            {
-                                _animator.SetBool("Fall", false);
-
-                                if (_positions[_index - 1].mpX != _positions[_index].mpX || _positions[_index - 1].mpZ != _positions[_index].mpZ)
+                                if (Mathf.Abs(_positions[_index - 1].mpY - _positions[_index].mpY) > 0.001f)
                                 {
-                                    _animator.SetBool("Run", true);
+                                    _animator.SetBool("Fall", true);
+                                    //Debug.Log(_positions[_index - 1].mpY - _positions[_index].mpY);
                                 }
                                 else
                                 {
-                                    _animator.SetBool("Run", false);
+                                    _animator.SetBool("Fall", false);
+
+                                    if (_positions[_index - 1].mpX != _positions[_index].mpX || _positions[_index - 1].mpZ != _positions[_index].mpZ)
+                                    {
+                                        _animator.SetBool("Run", true);
+                                    }
+                                    else
+                                    {
+                                        _animator.SetBool("Run", false);
+                                    }
                                 }
-                            }
+                            }                            
                         }
                         catch (ArgumentOutOfRangeException e)
                         {

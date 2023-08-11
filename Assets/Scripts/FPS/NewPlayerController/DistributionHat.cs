@@ -36,7 +36,25 @@ public class DistributionHat : MonoBehaviour
 
     void Start()
     {
+        _skinManager.Init(_type); 
         
+        switch (_type)
+        {
+            case CharType.player:
+                _nameCanvas.SetActive(false);
+                break;
+            case CharType.avatar:
+                _nameCanvas.SetActive(true);
+                break;
+            case CharType.bot:
+                _nameCanvas.SetActive(true);
+                break;
+            default:
+                Destroy(gameObject);
+                break;
+        }
+
+        // Init(_type);
     }
 
     void Update()

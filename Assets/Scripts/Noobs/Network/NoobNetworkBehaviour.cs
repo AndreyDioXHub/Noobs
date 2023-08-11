@@ -25,7 +25,7 @@ public class NoobNetworkBehaviour : NetworkBehaviour
     private void SkinIndexChanged(int oldindex, int newindex) {
         //TODO
         if(!isLocalPlayer) {
-            skinManager.SetAvatarSkin(newindex);
+            //skinManager.SetAvatarSkin(newindex);
         }
     }
 

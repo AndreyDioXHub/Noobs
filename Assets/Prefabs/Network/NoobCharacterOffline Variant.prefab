@@ -8,6 +8,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4151996375207194016, guid: cc95a42ce33269046b340917deeeba2e, type: 3}
+      propertyPath: _recorder
+      value: 
+      objectReference: {fileID: 2511796419113337236}
+    - target: {fileID: 4151996375207194016, guid: cc95a42ce33269046b340917deeeba2e, type: 3}
       propertyPath: _netAnimator
       value: 
       objectReference: {fileID: 0}
