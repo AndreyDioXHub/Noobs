@@ -17,7 +17,7 @@ public class LocalizationManager : MonoBehaviour
 
     void Start()
     {
-        _local = PlayerPrefs.GetString("PlatformLocal", "ru");
+        _local = PlayerPrefs.GetString(PlayerPrefsConsts.LOCAL, "ru");
 
         _text0.text = _local;
         _text1.text = _local;
@@ -51,7 +51,7 @@ public class LocalizationManager : MonoBehaviour
                 break;
         }
 
-        PlayerPrefs.SetString("PlatformLocal", _local);
+        PlayerPrefs.SetString(PlayerPrefsConsts.LOCAL, _local);
 
         _text0.text = _local;
         _text1.text = _local;

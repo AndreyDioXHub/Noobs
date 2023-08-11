@@ -26,7 +26,7 @@ public class CharactersRing : MonoBehaviour
     void Start()
     {
         _angleStep = 360 / _pedestals.Count;
-        _skinID = PlayerPrefs.GetInt("PlatformSkinID", 0);
+        _skinID = PlayerPrefs.GetInt(PlayerPrefsConsts.SKINID, 0);
         transform.eulerAngles = new Vector3(0, _skinID * _angleStep, 0);
         _curnAnngle = transform.eulerAngles;
         _destenationAnngle = transform.eulerAngles;
@@ -49,7 +49,7 @@ public class CharactersRing : MonoBehaviour
             _destenationAnngle.y += _angleStep;
             _skinID++;
             _skinID = _skinID > _pedestals.Count - 1 ? 0 : _skinID;
-            PlayerPrefs.SetInt("PlatformSkinID", _skinID);
+            PlayerPrefs.SetInt(PlayerPrefsConsts.SKINID, _skinID);
         }
     }
 
@@ -63,14 +63,14 @@ public class CharactersRing : MonoBehaviour
             _destenationAnngle.y -= _angleStep;
             _skinID--;
             _skinID = _skinID < 0 ? _pedestals.Count - 1 : _skinID;
-            PlayerPrefs.SetInt("PlatformSkinID", _skinID);
+            PlayerPrefs.SetInt(PlayerPrefsConsts.SKINID, _skinID);
         }
     }
 
     [ContextMenu("Zerable")]
     public void Zerable()
     {
-        PlayerPrefs.SetInt("PlatformCoins", 0);
-        PlayerPrefs.SetString("PlatformSkins", "");
+        PlayerPrefs.SetInt(PlayerPrefsConsts.COINS, 0);
+        PlayerPrefs.SetString(PlayerPrefsConsts.SKINS, "");
     }
 }

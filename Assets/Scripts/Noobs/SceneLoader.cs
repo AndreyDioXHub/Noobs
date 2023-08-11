@@ -23,7 +23,7 @@ public class SceneLoader : MonoBehaviour
 
     public void Play()
     {
-        PlayerPrefs.SetString("PlatformCurentSkins", _skinManager.CurentSkin);
+        PlayerPrefs.SetString(PlayerPrefsConsts.CURENTSKIN, _skinManager.CurentSkin);
         SceneManager.LoadScene(1);
         //PiratesNetworkManager.singleton.StartHost();
     }

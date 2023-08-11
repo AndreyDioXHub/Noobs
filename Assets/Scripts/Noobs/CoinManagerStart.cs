@@ -13,7 +13,7 @@ public class CoinManagerStart : MonoBehaviour
 
     void Start()
     {
-        _coins = PlayerPrefs.GetInt("PlatformCoins", 0);
+        _coins = PlayerPrefs.GetInt(PlayerPrefsConsts.COINS, 0);
         _coinsText.text = $"{_coins}";
     }
 
@@ -27,7 +27,7 @@ public class CoinManagerStart : MonoBehaviour
         else
         {
             _coins = _coins - coins;
-            PlayerPrefs.SetInt("PlatformCoins", _coins);
+            PlayerPrefs.SetInt(PlayerPrefsConsts.COINS, _coins);
 
             return true;
         }

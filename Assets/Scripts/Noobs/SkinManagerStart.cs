@@ -48,7 +48,7 @@ public class SkinManagerStart : MonoBehaviour
 
     void Start()
     {
-        string skinJson = PlayerPrefs.GetString("PlatformSkins", ""); //JsonConvert.DeserializeObject<int[,]>(maprawjson);
+        string skinJson = PlayerPrefs.GetString(PlayerPrefsConsts.SKINS, ""); //JsonConvert.DeserializeObject<int[,]>(maprawjson);
 
         if (!string.IsNullOrEmpty(skinJson))
         {
@@ -79,7 +79,7 @@ public class SkinManagerStart : MonoBehaviour
         {
             _infos[_ring.SkinID].avaleble = true;
             string skinJson = JsonConvert.SerializeObject(_infos);
-            PlayerPrefs.SetString("PlatformSkins", skinJson);
+            PlayerPrefs.SetString(PlayerPrefsConsts.SKINS, skinJson);
         }
         else
         {

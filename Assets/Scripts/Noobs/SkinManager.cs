@@ -28,7 +28,7 @@ public class SkinManager : MonoBehaviour
         switch (type)
         {
             case CharType.player:
-                string skin = PlayerPrefs.GetString("PlatformCurentSkins", "skin0");
+                string skin = PlayerPrefs.GetString(PlayerPrefsConsts.CURENTSKIN, "skin0");
                 var gop = Instantiate(Resources.Load<GameObject>(skin), transform);
                 animator = gop.GetComponent<Animator>();
                 _animatorController.Init(animator);

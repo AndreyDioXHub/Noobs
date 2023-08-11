@@ -28,7 +28,7 @@ public class PlatformCoinManager : MonoBehaviour
 
     void Start()
     {
-        _coins = PlayerPrefs.GetInt("PlatformCoins", 0);
+        _coins = PlayerPrefs.GetInt(PlayerPrefsConsts.COINS, 0);
         _coinsText.text = $"{_coins}";
 
     }
@@ -42,13 +42,13 @@ public class PlatformCoinManager : MonoBehaviour
         EarnedCoins++;
         _coins++;
         _coinsText.text = $"{_coins}";
-        PlayerPrefs.SetInt("PlatformCoins", _coins);
+        PlayerPrefs.SetInt(PlayerPrefsConsts.COINS, _coins);
     }
     
     public void AddCoin(int coins)
     {
         _coins+= coins;
         _coinsText.text = $"{_coins}";
-        PlayerPrefs.SetInt("PlatformCoins", _coins);
+        PlayerPrefs.SetInt(PlayerPrefsConsts.COINS, _coins);
     }
 }

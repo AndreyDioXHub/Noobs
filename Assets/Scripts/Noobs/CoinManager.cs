@@ -33,14 +33,14 @@ public class CoinManager : MonoBehaviour
 
     void Start()
     {
-        _coins = PlayerPrefs.GetInt("PlatformCoins", 0);
+        _coins = PlayerPrefs.GetInt(PlayerPrefsConsts.COINS, 0);
         _coinsText.text = $"{_coins}";
     }
 
     [ContextMenu("Zerable")]
     public void Zerable()
     {
-        PlayerPrefs.SetInt("PlatformCoins", 0);
+        PlayerPrefs.SetInt(PlayerPrefsConsts.COINS, 0);
     }
 
     void Update()
@@ -54,7 +54,7 @@ public class CoinManager : MonoBehaviour
         _coins++;
         _coinsLVL--;
         _coinsText.text = $"{_coins}";
-        PlayerPrefs.SetInt("PlatformCoins", _coins);
+        PlayerPrefs.SetInt(PlayerPrefsConsts.COINS, _coins);
     }
 
     public void AddCoin(int count)
@@ -63,7 +63,7 @@ public class CoinManager : MonoBehaviour
         _coins += count;
         _coinsLVL-= count;
         _coinsText.text = $"{_coins}";
-        PlayerPrefs.SetInt("PlatformCoins", _coins);
+        PlayerPrefs.SetInt(PlayerPrefsConsts.COINS, _coins);
     }
     
     public void RegisterCoin()
