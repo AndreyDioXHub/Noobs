@@ -17,6 +17,10 @@ namespace YG
         public InfoYG infoYG;
         [Tooltip("Объект YandexGame не будет удаляться при смене сцены. При выборе опции singleton, объект YandexGame необходимо поместить только на одну сцену, которая первая загружается при запуске игры.\n\n •  При выборе опции singleton, полноэкранная реклама не будет автоматически показываться при загрузке новой сцены, даже при выборе параметра Ad When Loading Scene = true в InfoYG.")]
         public bool singleton;
+
+        [Space(10)]
+        public UnityEvent AdsNotReady;
+
         [Space(10)]
         public UnityEvent ResolvedAuthorization;
         public UnityEvent RejectedAuthorization;
@@ -443,7 +447,11 @@ namespace YG
                 CloseFullAdInEditor();
 #endif
             }
-            else Message($"До запроса к показу Fullscreen рекламы {(infoYG.fullscreenAdInterval - timerShowAd).ToString("00.0")} сек.");
+            else
+            {
+                Message($"До запроса к показу Fullscreen рекламы {(infoYG.fullscreenAdInterval - timerShowAd).ToString("00.0")} сек.");
+                AdsNotReady?.Invoke();
+            }
         }
 
         public static void FullscreenShow() => Instance._FullscreenShow();

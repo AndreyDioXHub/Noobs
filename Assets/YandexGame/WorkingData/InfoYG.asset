@@ -21,7 +21,7 @@ MonoBehaviour:
   saveCloudInterval: 5
   metricaEnable: 0
   metricaCounterID: 0
-  AdWhenLoadingScene: 1
+  AdWhenLoadingScene: 0
   showFirstAd: 1
   adDisplayCalls: 0
   fullscreenAdInterval: 60

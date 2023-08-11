@@ -5,11 +5,18 @@ using UnityEngine;
 
 public class CoinManagerStart : MonoBehaviour
 {
+    public static CoinManagerStart Instance;
+
     [SerializeField]
     private int _coins;
 
     [SerializeField]
     private TextMeshProUGUI _coinsText;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
@@ -17,6 +24,11 @@ public class CoinManagerStart : MonoBehaviour
         _coinsText.text = $"{_coins}";
     }
 
+    public void AddCoins(int coins)
+    {
+        _coins += coins;
+        PlayerPrefs.SetInt(PlayerPrefsConsts.COINS, _coins);
+    }
 
     public bool TryBuy(int coins)
     {
