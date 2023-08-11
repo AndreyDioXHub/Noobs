@@ -2,15 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlatformGameManager : MonoBehaviour
 {
     public static PlatformGameManager Instance;
 
     public int Index { get => _index; }
-
+    /*
     [SerializeField]
-    private TextMeshProUGUI _text0;
+    private TextMeshProUGUI _text0;*/
+
+    public WinState winState { get; private set; } 
 
     [SerializeField]
     private PlatformLVLAnimatorController _animatorController;
@@ -18,6 +21,16 @@ public class PlatformGameManager : MonoBehaviour
     private int _index;
     [SerializeField]
     private List<KeyBoardRecorder> _keyBoardRecorders = new List<KeyBoardRecorder>();
+    [SerializeField]
+    private GameObject _player;
+    [SerializeField]
+    private DistributionHat _playerHat;
+    [SerializeField]
+    private bool _needReward = true;
+    [SerializeField]
+    private float _time = 2;
+    [SerializeField]
+    private float _timeCur = 0;
 
 
    private List<List<string>> _animationSequences = new List<List<string>>()
@@ -94,6 +107,9 @@ public class PlatformGameManager : MonoBehaviour
 
     void Start()
     {
+        _playerHat.Pause();
+        winState = WinState.play;
+        
         _index = Random.Range(0, _animationSequences.Count);
          
         StartCoroutine(PrepareCoroutine());
@@ -101,14 +117,26 @@ public class PlatformGameManager : MonoBehaviour
 
     IEnumerator PrepareCoroutine()
     {
+        int playerIndex = Random.Range(0, _keyBoardRecorders.Count);
         int index = 0;
 
-        while(index< _keyBoardRecorders.Count)
+        while(index < _keyBoardRecorders.Count)
         {
+            float randomTime = Random.Range(0.05f, 0.5f);
+
+            if (playerIndex == index)
+            {
+                PlayerCount.Instance.RegisterPlayer();
+                _playerHat.Play();
+                _player.SetActive(true);
+                ConnectionScreen.Instance.Show(1);
+                yield return new WaitForSeconds(randomTime);
+            }
+
             _keyBoardRecorders[index].Prepare();
             index++;
             ConnectionScreen.Instance.Show(1);
-            float randomTime = Random.Range(0.05f, 0.5f);
+            PlayerCount.Instance.RegisterPlayer();
             yield return new WaitForSeconds(randomTime);
         }
 
@@ -124,7 +152,48 @@ public class PlatformGameManager : MonoBehaviour
 
     void Update()
     {
+        _timeCur += Time.deltaTime;
+
+
+        if (winState != WinState.play)
+        {
+            if (_needReward)
+            {
+                _playerHat.Pause();
+                _needReward = false;
+
+                _timeCur = 0;
+
+                switch (winState)
+                {
+                    case WinState.win:
+                        string t0 = LocalizationStrings.game_scene_game_win_t0_curent;
+                        string t1 = $"{LocalizationStrings.game_scene_game_win_t1_curent}{PlatformCoinManager.Instance.EarnedCoins}";
+                        PlatformCoinManager.Instance.AddCoin(PlatformCoinManager.Instance.EarnedCoins);
+                        WinScreen.Instance.Show(t0, t1);
+                        WinScreen.Instance.ShowWinScreen();
+                        break;
+                    case WinState.lose:
+                        WinScreen.Instance.ShowLoseScreen();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        if(_timeCur > _time && winState != WinState.play)
+        {
+            WinScreen.Instance.ShowEscape();
+
+            if (Input.anyKey)
+            {
+                SceneManager.LoadScene(0);
+            }
+        }
+
         
+
     }
 
     [ContextMenu("GenerateSequence")]
@@ -157,4 +226,29 @@ public class PlatformGameManager : MonoBehaviour
             Debug.Log(allAnimationSequence[Random.Range(0, allAnimationSequence.Count)]);
         }
     }
+
+    public void SetWin()
+    {
+        if(winState == WinState.play)
+        {
+            winState = WinState.win;
+        }
+    }
+
+    public void SetLose()
+    {
+        if (winState == WinState.play)
+        {
+            winState = WinState.lose;
+        }
+
+    }
+
+}
+
+public enum WinState
+{
+    play,
+    win,
+    lose
 }

@@ -33,10 +33,11 @@ public class PlayerCount : MonoBehaviour
 
     void Update()
     {
+        /*
         if (GameManager.Instance.IsWin)
         {
             _peopleCountText.text = $"{1}";
-        }
+        }*/
         
     }
 
@@ -50,6 +51,11 @@ public class PlayerCount : MonoBehaviour
     {
         _playerCount--;
         _peopleCountText.text = $"{_playerCount}";
+
+        if (_playerCount == 1)
+        {
+            PlatformGameManager.Instance.SetWin();
+        }
     }
 
 

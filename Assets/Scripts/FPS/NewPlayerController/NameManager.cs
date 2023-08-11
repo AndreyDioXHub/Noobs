@@ -11,7 +11,8 @@ public class NameManager : MonoBehaviour
     private List<string> _names = new List<string>();
     [SerializeField]
     private GameObject _mainCamera;
-
+    [SerializeField]
+    private Canvas _canvas;
 
 
     void Start()
@@ -39,5 +40,6 @@ public class NameManager : MonoBehaviour
     public void Init() {
         _peopleCountText.text = $"{_names[Random.Range(0, _names.Count)]}";
         _mainCamera = Camera.main.gameObject;
+        _canvas.worldCamera = Camera.main;
     }
 }

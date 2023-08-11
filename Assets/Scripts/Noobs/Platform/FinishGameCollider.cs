@@ -29,6 +29,12 @@ public class FinishGameCollider : MonoBehaviour
             {
                 k.StopRecord();
             }
+
+            if (other.TryGetComponent(out DistributionHat hat))
+            {
+                hat.Pause();
+                PlatformGameManager.Instance.SetLose();
+            }
         }
     }
 }

@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class PlatformLVLAnimatorController : MonoBehaviour
 {
-
+    /*
     [SerializeField]
-    private TextMeshProUGUI _text0;
+    private TextMeshProUGUI _text0;*/
 
     [SerializeField]
     private Animator _animator;
@@ -23,6 +23,9 @@ public class PlatformLVLAnimatorController : MonoBehaviour
     private bool _isPaused;
     [SerializeField]
     private bool _isStarted;
+
+    [SerializeField]
+    private GameObject _coinPrefab;
 
 
     void Start()
@@ -42,6 +45,8 @@ public class PlatformLVLAnimatorController : MonoBehaviour
                 {
                     _isPaused = false;
                     _animator.Play("Platform Idle Animation");
+
+                    StartCoroutine(SpawnCoinsCoroutine());
                 }
                 else
                 {
@@ -49,14 +54,32 @@ public class PlatformLVLAnimatorController : MonoBehaviour
                     {
                         _animator.Play(_animationSequence[_index]);
                     }
+
                     _index++;
-                    _text0.text = $"{_index}";
+                    //_text0.text = $"{_index}";
                      _isPaused = true;
 
                 }
                 _timeCur = 0;
             }
         }        
+    }
+
+    IEnumerator SpawnCoinsCoroutine()
+    {
+        int i = 0;
+
+        while (i < 20)
+        {
+            GameObject eatEffect = Instantiate(_coinPrefab);
+            float randomX = Random.Range(-14, 14);
+            float randomZ = Random.Range(-14, 14);
+            eatEffect.transform.position = new Vector3(randomX, 1.15f, randomZ);
+
+            Destroy(eatEffect, 10);
+            i++;
+            yield return new WaitForSeconds(0.05f);// WaitForEndOfFrame();
+        }
     }
 
 

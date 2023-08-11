@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: OceanWater
+  m_Name: Water
   m_Shader: {fileID: -6465566751694194690, guid: 4a04e63841310a64596a27f38d051fe1, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords:
@@ -28,7 +28,7 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
+  m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
@@ -36,10 +36,6 @@ Material:
     m_TexEnvs:
     - _CausticTexture2D:
         m_Texture: {fileID: 2800000, guid: f668fd9adc91b52489bdc051aa9141ac, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Texture2D:
-        m_Texture: {fileID: 2800000, guid: 7cacd0f6135dd2c48b7c67a2b620364a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Texture2DAsset_3dbfa304ce5c496a8ca7de247344c0a3_Out_0:
@@ -52,14 +48,6 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _WaterCaustic:
         m_Texture: {fileID: 2800000, guid: f668fd9adc91b52489bdc051aa9141ac, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _WavesMaskTexture:
-        m_Texture: {fileID: 2800000, guid: fc857db0a6d52a54b9b91b68f8725c2e, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Waves_3cfa08121f704b69bc8c20adf59d85e8_Mask_271128656:
-        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -92,92 +80,37 @@ Material:
     - _Cracks_Surface_Intesnity: 1.28
     - _Cracks_Texture_LOD: 0
     - _Cull: 2
-    - _Deep: 0
     - _DeepCausticAmount: 5
     - _DeepWaterCausticSpeed: 0.02
     - _DepthBrightness: 0.042
-    - _Distance: 20.02
+    - _Distance: 5
     - _DstBlend: 10
-    - _Float: 140
-    - _Float_1: 16
-    - _FoamAmount: 9.4
-    - _FoamCutOff: 10
-    - _FoamHorizontCutOff: 100
-    - _FoamHorizontCutOffPower: 100
-    - _FoamScale: 80000
+    - _Float: 1
+    - _FoamAmount: 50
+    - _FoamCutOff: 100
+    - _FoamScale: 8000
     - _FoamSpeed: 0.6
-    - _FoamTransParency: 0.624
-    - _FoamWaveClamp: 1
-    - _FoamWaveCutOffIntencity: 0.57
-    - _FoamWaveCutOffPower: 7.55
-    - _FoamWaveDistance: 140
-    - _FoamWaveIntencity: 0.85
-    - _FoamWavePower: 1.9
-    - _Offcet: -0.000047
+    - _Metallic: 0
+    - _NormalAccuracity: 0.05
     - _PowerCaustic: 5
     - _PowerCausticDeep: 0.296
     - _PowerSurfaceCausticSub: 0.8
-    - _QueueControl: 1
+    - _QueueControl: 0
     - _QueueOffset: 0
-    - _ReceiveShadows: 1
-    - _Samples: 15
     - _ShallowWaterCausticScale: 30
     - _ShallowWaterCausticSpeed: 0.01
-    - _SinAmplitude: 0.1
+    - _Smoothness: 1
     - _SpeedAngle: 2
     - _SrcBlend: 5
-    - _Step: 0.0318
     - _Surface: 1
-    - _Transparency: 1
+    - _Transparency: 0.285
     - _TransparencyCaustic: 1
-    - _TransparencyCaustics: 1
-    - _TransparencyDeep: 1
-    - _VoronoiCOffcet: -15
-    - _VoronoiCellDensity: 50
-    - _VoronoiCellSize: 0.0002
-    - _VoronoiCsq: -7.5
-    - _VoronoiCutOff: 13.03
-    - _VoronoiCutOffBack: 68.43
-    - _VoronoiCutOffPower: 0.5
+    - _TransparencyDeep: 0.311
+    - _VoronoiCellDensity: 3000
     - _VoronoiDeepIntencity: 0.752
-    - _VoronoiDistance: 10
-    - _VoronoiDivider: 16
-    - _VoronoiIntencity: 0.6
-    - _VoronoiIntencityCover: 1
-    - _VoronoiIntencityCsq: -7.5
-    - _VoronoiIntencityDeep: 1
-    - _VoronoiIntencityDiveder: 16
-    - _VoronoiIntencityInfOffcet: -15
-    - _VoronoiOffcet: -0.0000036
     - _VoronoiPower: 2.81
-    - _VoronoiSamples: 1
     - _VoronoiSpeedAngle: 2
-    - _VoronoiSpeed_1: 0.5
-    - _VoronoiStep: 0.041
     - _Voronoi_Deep_Offset: -0.0044
-    - _WaterCutOff: 15
-    - _WaterCutOffBack: 5
-    - _WaterCutOffPower: 4
-    - _WaterDistace: 25
-    - _WaterDistanceBack: 5
-    - _WaterNormalHeight: 1
-    - _WaterProjectionPower: 1
-    - _WaveAmplitude: 1.2
-    - _WaveAmplitudeA: 2.07
-    - _WaveAmplitudeB: 2
-    - _WaveAmplitudeC: 0.5
-    - _WaveFreq: -1.1
-    - _WaveFreqA: 20
-    - _WaveFreqB: 20
-    - _WaveFreqC: 50
-    - _WaveSpeed: 1
-    - _WaveSpeedA: 3
-    - _WaveSpeedB: 2
-    - _WaveSpeedC: 1
-    - _WavesAmplitude: 3
-    - _WavesMaskRotation: 180
-    - _WavesTime: 258.8013
-    - _WorkflowMode: 1
     - _ZTest: 4
     - _ZWrite: 0
     - _ZWriteControl: 0
@@ -187,11 +120,10 @@ Material:
     - _ColorCaustic: {r: 0.7254902, g: 0.86666673, b: 0.9803922, a: 1}
     - _ColorCausticDeep: {r: 1, g: 1, b: 1, a: 1}
     - _ColorCausticFoam: {r: 0.83637416, g: 0.92177266, b: 0.990566, a: 1}
-    - _ColorFoam: {r: 1, g: 0.97075474, b: 0.8537736, a: 1}
+    - _ColorFoam: {r: 1, g: 1, b: 1, a: 1}
     - _ColorFoamDeep: {r: 0.8039216, g: 0.86153674, b: 0.8745098, a: 1}
-    - _ColorWaterDeep: {r: 0, g: 0.54509807, b: 1, a: 1}
-    - _ColorWaterRealyDeep: {r: 0.009611944, g: 0.3742638, b: 0.6792453, a: 1}
-    - _ColorWaterShallow: {r: 0.2509804, g: 0.6627451, b: 1, a: 1}
+    - _ColorWaterDeep: {r: 0, g: 0.54368925, b: 1, a: 1}
+    - _ColorWaterShallow: {r: 0.5803922, g: 0.80392164, b: 0.98823535, a: 1}
     - _DeepWater: {r: 0, g: 0.45636794, b: 0.8113208, a: 1}
     - _DeepWaterCausticSpeed: {r: 0, g: 0.04, b: 0, a: 0}
     - _FoamColor: {r: 1, g: 0.0698705, b: 0, a: 1}
@@ -199,19 +131,9 @@ Material:
     - _FoamSpeed: {r: 1, g: 1, b: 0, a: 0}
     - _ShallowWater: {r: 0.4764151, g: 0.76704085, b: 1, a: 1}
     - _ShallowWaterCausticSpeed: {r: 0, g: -0.04, b: 0, a: 0}
-    - _Vector2: {r: 1, g: 0.1, b: 0, a: 0}
-    - _Vector2_1: {r: 0, g: 0, b: 0, a: 0}
-    - _Vector3: {r: 3.66, g: 1, b: 0.91, a: 0}
+    - _Vector2: {r: 4.81, g: -0.08, b: 0, a: 0}
     - _Vector4: {r: 200, g: 200, b: 200, a: 200}
     - _Vector4_1: {r: 0, g: 0, b: 37.34, a: 0}
-    - _VoronoiIntencityFull: {r: 0, g: 1, b: 0, a: 0}
-    - _VoronoiSpeed: {r: 0, g: 0.02, b: 0, a: 0}
+    - _VoronoiSpeed: {r: 0, g: -0.0001, b: 0, a: 0}
     - _VoronoiTiling: {r: 1, g: 1, b: 0, a: 0}
-    - _WaveA: {r: 1, g: 1, b: 0.5, a: 2}
-    - _WaveB: {r: 0.5, g: 0.9, b: 1, a: 1}
-    - _WaveC: {r: 1, g: 1.3, b: 0.25, a: 3}
-    - _WaveDirection: {r: 0.5, g: 0.5, b: 0, a: 0}
-    - _WaveDirectionA: {r: 1, g: 0, b: 0, a: 0}
-    - _WaveDirectionB: {r: 0, g: 1, b: 0, a: 0}
-    - _WaveDirectionC: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []

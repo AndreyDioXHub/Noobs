@@ -120,6 +120,7 @@ public class KeyBoardRecorder : MonoBehaviour
                         {
 
                             Destroy(gameObject);
+                            PlayerCount.Instance.RemovePlayer();
                         }
 
                     }

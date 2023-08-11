@@ -6,11 +6,11 @@ public static class LocalizationStrings
 {
     public static string game_scene_not_enough_money_curent = "Не достаточно денег\n<size=24>Посмотрите рекламу или выиграйте их на сотах</size>";
     public static string game_scene_wait_connection_curent = "Ожидание игроков";
-    public static string game_scene_lose_curent = "Вы проиграли!\nНажмите любую кнопку";
+    public static string game_scene_lose_curent = "Вы проиграли!";
     public static string game_scene_lvl_win_t0_curent = "Уровень пройден!";
     public static string game_scene_lvl_win_t1_curent = "Награда: ";
     public static string game_scene_game_win_t0_curent = "Вы выиграли!";
-    public static string game_scene_game_win_t1_curent = "Общий выигрыш: ";
+    public static string game_scene_game_win_t1_curent = "Дополнительный выигрыш: ";
     public static string game_scene_game_win_t2_curent = "Нажмите любую кнопку";
     public static string start_scene_play_button_curent = "Играть";
     public static string start_scene_next_button_curent = "следующий";
@@ -18,11 +18,11 @@ public static class LocalizationStrings
 
     public static string game_scene_not_enough_money_ru = "Не достаточно денег\n<size=24>Посмотрите рекламу или выиграйте их на сотах</size>";
     public static string game_scene_wait_connection_ru = "Ожидание игроков";
-    public static string game_scene_lose_ru = "Вы проиграли!\nНажмите любую кнопку";
+    public static string game_scene_lose_ru = "Вы проиграли!";
     public static string game_scene_lvl_win_t0_ru = "Уровень пройден!";
     public static string game_scene_lvl_win_t1_ru = "Награда: ";
     public static string game_scene_game_win_t0_ru = "Вы выиграли!";
-    public static string game_scene_game_win_t1_ru = "Общий выигрыш: ";
+    public static string game_scene_game_win_t1_ru = "Дополнительный выигрыш: ";
     public static string game_scene_game_win_t2_ru = "Нажмите любую кнопку";
     public static string start_scene_play_button_ru = "Играть";
     public static string start_scene_next_button_ru = "следующий";
@@ -30,11 +30,11 @@ public static class LocalizationStrings
 
     public static string game_scene_not_enough_money_en = "Not enough money\n<size=24>Watch ads or win them on the hexagons</size>";
     public static string game_scene_wait_connection_en = "Waiting for the players";
-    public static string game_scene_lose_en = "You lost!\nPress any button";
+    public static string game_scene_lose_en = "You lost!";
     public static string game_scene_lvl_win_t0_en = "Level passed!";
     public static string game_scene_lvl_win_t1_en = "Reward:";
     public static string game_scene_game_win_t0_en = "You won!";
-    public static string game_scene_game_win_t1_en = "Total reward: ";
+    public static string game_scene_game_win_t1_en = "Additional reward: ";
     public static string game_scene_game_win_t2_en = "Press eny key";
     public static string start_scene_play_button_en = "Play";
     public static string start_scene_next_button_en = "next";

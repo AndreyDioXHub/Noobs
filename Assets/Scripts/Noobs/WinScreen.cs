@@ -19,7 +19,13 @@ public class WinScreen : MonoBehaviour
     private TextMeshProUGUI _text1;
     [SerializeField]
     private TextMeshProUGUI _text2;
+
     [SerializeField]
+    private GameObject _winEsc;
+    [SerializeField]
+    private GameObject _loseEsc;
+
+   [SerializeField]
     private float _showTime = 2;
     [SerializeField]
     private float _showTimeCur = 0;
@@ -36,12 +42,11 @@ public class WinScreen : MonoBehaviour
         }
     }
 
-    public void Show(string t0, string t1, string t2)
+    public void Show(string t0, string t1)
     {
         _showTimeCur = 0;
         _text0.text = t0;
         _text1.text = t1;
-        _text2.text = t2;
     }
 
     void Start()
@@ -81,11 +86,21 @@ public class WinScreen : MonoBehaviour
 
     }
 
-    internal void ShowWinScreen() {
+    public void ShowEscape()
+    {
+        _winEsc.SetActive(true);
+        _loseEsc.SetActive(true);
+
+    }
+
+    internal void ShowWinScreen()
+    {
+        Debug.Log("ShowWinScreen");
         _winScreen.SetActive(true); // show only on client
     }
 
     internal void ShowLoseScreen() {
+        Debug.Log("ShowLoseScreen");
         _loseScreen.SetActive(true);    //show only on client
     }
 }
