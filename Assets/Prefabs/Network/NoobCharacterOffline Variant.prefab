@@ -15,6 +15,10 @@ PrefabInstance:
       propertyPath: _netAnimator
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4580243754083409234, guid: cc95a42ce33269046b340917deeeba2e, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6029198271955693199, guid: cc95a42ce33269046b340917deeeba2e, type: 3}
       propertyPath: m_Enabled
       value: 0
