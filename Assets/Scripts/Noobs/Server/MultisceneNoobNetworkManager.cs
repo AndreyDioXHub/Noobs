@@ -181,6 +181,7 @@ public class MultisceneNoobNetworkManager : NetworkManager
             yield return null;
 
         int sceneToLoad = ServerNetworkBehaviour.Instance.GetSceneForPlayer(conn);
+        Debug.Log($"Reserve scene index: {sceneToLoad}");
         if (sceneToLoad == -1) {
             //Не нашли свободный уровень. Надо сообщить игроку, чтобы отключился
             Debug.Log($"No free rooms. {conn.identity.netId} will be disconnect");

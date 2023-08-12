@@ -109,7 +109,7 @@ public class ServerNetworkBehaviour : NetworkBehaviour {
             if (game.CanAcceptPlayer) {
                 game.ReservePlayerSlot(conn);
                 return i;
-            } else if (game.GameStatus == ServerGame.Status.None) {
+            } else if (game.GameStatus == ServerGame.Status.None && firstEmpty == -1) {
                 firstEmpty = i;
             }
         }
