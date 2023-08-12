@@ -76,7 +76,8 @@ namespace cyraxchel.network.server
 
                 List<GameObject> bots = new List<GameObject>();
 
-                for(int i = 0; i < parameters.requiredNumberBots; i++)
+                //Генерирую с неучтенными ботами (для тестов)
+                for(int i = 0; i < parameters.requiredNumberBots+5; i++)
                 {
                     if (_bots.Count == 0)
                     {
@@ -91,9 +92,10 @@ namespace cyraxchel.network.server
                         _bots.Add(goBot);
                         NetworkServer.Spawn(goBot);
                     }
-
-                    bots.Add(_bots[0]);
-                    _bots.RemoveAt(0);
+                    if(i < parameters.requiredNumberBots) {
+                        bots.Add(_bots[0]);
+                        _bots.RemoveAt(0);
+                    }
 
                     yield return new WaitForEndOfFrame();
                 }
