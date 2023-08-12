@@ -18,7 +18,7 @@ public class AudioManager : MonoBehaviour
     {
         foreach(var source in _sources)
         {
-            source.enabled = AudioState.AUDIO_ON;
+            source.enabled = StaticConsts.AUDIO_ON;
         }
     }
 }

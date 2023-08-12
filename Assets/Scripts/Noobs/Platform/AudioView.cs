@@ -9,19 +9,19 @@ public class AudioView : MonoBehaviour
 
     void Start()
     {
-        int a = PlayerPrefs.GetInt(PlayerPrefsConsts.AUDIO, 1);
+        int a = PlayerPrefs.GetInt(PlayerPrefsConsts.AUDIO, 0);
 
         if (a == 1)
         {
             _audioOn.SetActive(true);
             _audioOff.SetActive(false);
-            AudioState.AUDIO_ON = true;
+            StaticConsts.AUDIO_ON = true;
         }
         else
         {
             _audioOn.SetActive(false);
             _audioOff.SetActive(true);
-            AudioState.AUDIO_ON = false;
+            StaticConsts.AUDIO_ON = false;
         }
     }
 
@@ -35,7 +35,7 @@ public class AudioView : MonoBehaviour
         PlayerPrefs.SetInt(PlayerPrefsConsts.AUDIO, 1);
         _audioOn.SetActive(true);
         _audioOff.SetActive(false);
-        AudioState.AUDIO_ON = true;
+        StaticConsts.AUDIO_ON = true;
     }
 
     public void AudioOff()
@@ -43,6 +43,6 @@ public class AudioView : MonoBehaviour
         PlayerPrefs.SetInt(PlayerPrefsConsts.AUDIO, 0);
         _audioOn.SetActive(false);
         _audioOff.SetActive(true);
-        AudioState.AUDIO_ON = false;
+        StaticConsts.AUDIO_ON = false;
     }
 }

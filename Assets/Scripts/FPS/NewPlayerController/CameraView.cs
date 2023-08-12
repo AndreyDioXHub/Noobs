@@ -28,6 +28,8 @@ public class CameraView : MonoBehaviour
 
     public virtual void Update()
     {
+        _mouseSensitivity = StaticConsts.MOUSE_SENSITIVITY;
+
         float mouseX = Input.GetAxis("Mouse X") * _mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * _mouseSensitivity * Time.deltaTime;
 

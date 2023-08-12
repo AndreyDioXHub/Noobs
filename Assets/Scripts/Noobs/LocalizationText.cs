@@ -54,6 +54,9 @@ public class LocalizationText : MonoBehaviour
             case "start_scene_prev_button_curent":
                 text = LocalizationStrings.start_scene_prev_button_curent;
                 break;
+            case "game_scene_game_sencity_curent":
+                text = LocalizationStrings.game_scene_game_sencity_curent;
+                break;
             default:
                 break;
         }

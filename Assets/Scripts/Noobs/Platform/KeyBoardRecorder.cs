@@ -8,6 +8,8 @@ using Newtonsoft.Json;
 public class KeyBoardRecorder : MonoBehaviour
 {
     [SerializeField]
+    private List<TextAsset> _assets = new List<TextAsset>();
+    [SerializeField]
     private DistributionHat _hat;
     [SerializeField]
     private AnimatorController _animatorController;
@@ -51,17 +53,29 @@ public class KeyBoardRecorder : MonoBehaviour
                 gameObject.tag = "Bot";
                 _animatorController.enabled = false;
 
-                string path = Path.Combine(Application.streamingAssetsPath, $"{PlatformGameManager.Instance.Index}", $"{name} index ({PlatformGameManager.Instance.Index}).json");
+                string json = "";
 
-                if (File.Exists(path))
+                if (_assets.Count > 0)
                 {
-                    string json = File.ReadAllText(path);
+                    Debug.Log("Bot loaded from data");
+
+                    json = _assets[PlatformGameManager.Instance.Index].ToString();
                     _positions = JsonConvert.DeserializeObject<List<Positions>>(json);
                 }
                 else
                 {
+                    string path = Path.Combine(Application.streamingAssetsPath, $"{PlatformGameManager.Instance.Index}", $"{name} index ({PlatformGameManager.Instance.Index}).json");
 
-                    gameObject.SetActive(false);
+                    if (File.Exists(path))
+                    {
+                        Debug.Log("Bot loaded from Streaming Assets");
+                        json = File.ReadAllText(path);
+                        _positions = JsonConvert.DeserializeObject<List<Positions>>(json);
+                    }
+                    else
+                    {
+                        gameObject.SetActive(false);
+                    }
                 }
                 break;
             case ReplayState.record:

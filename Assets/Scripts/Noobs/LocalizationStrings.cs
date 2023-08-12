@@ -12,6 +12,7 @@ public static class LocalizationStrings
     public static string game_scene_game_win_t0_curent = "Вы выиграли!";
     public static string game_scene_game_win_t1_curent = "Дополнительный выигрыш: ";
     public static string game_scene_game_win_t2_curent = "Нажмите любую кнопку";
+    public static string game_scene_game_sencity_curent = "Чувствительность мыши";
     public static string start_scene_play_button_curent = "Играть";
     public static string start_scene_next_button_curent = "следующий";
     public static string start_scene_prev_button_curent = "предыдущий";
@@ -24,6 +25,7 @@ public static class LocalizationStrings
     public static string game_scene_game_win_t0_ru = "Вы выиграли!";
     public static string game_scene_game_win_t1_ru = "Дополнительный выигрыш: ";
     public static string game_scene_game_win_t2_ru = "Нажмите любую кнопку";
+    public static string game_scene_game_sencity_ru = "Чувствительность мыши";
     public static string start_scene_play_button_ru = "Играть";
     public static string start_scene_next_button_ru = "следующий";
     public static string start_scene_prev_button_ru = "предыдущий";
@@ -36,6 +38,7 @@ public static class LocalizationStrings
     public static string game_scene_game_win_t0_en = "You won!";
     public static string game_scene_game_win_t1_en = "Additional reward: ";
     public static string game_scene_game_win_t2_en = "Press eny key";
+    public static string game_scene_game_sencity_en = "Mouse sensitivity";
     public static string start_scene_play_button_en = "Play";
     public static string start_scene_next_button_en = "next";
     public static string start_scene_prev_button_en = "previous";
