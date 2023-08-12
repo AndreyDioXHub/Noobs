@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using UnityEngine.SceneManagement;
 
 /*
 	Documentation: https://mirror-networking.gitbook.io/docs/guides/networkbehaviour
@@ -21,6 +22,8 @@ public class NoobNetworkBehaviour : NetworkBehaviour
 
     [SyncVar]
     public string UserName = string.Empty;
+
+    public static Scene ActualScene { get; set; }
 
     private void SkinIndexChanged(int oldindex, int newindex) {
         //TODO
@@ -71,6 +74,11 @@ public class NoobNetworkBehaviour : NetworkBehaviour
             
             GetComponent<DistributionHat>().Init(CharType.avatar);
         }
+        //Переместить аватара или игрока в актуальную сцену. На сервере это поле будет пустым. 
+        if (ActualScene.IsValid()) {
+            //TODO Load scene
+            SceneManager.MoveGameObjectToScene(gameObject, ActualScene);
+        }
     }
 
     /// <summary>
@@ -79,6 +87,9 @@ public class NoobNetworkBehaviour : NetworkBehaviour
     /// </summary>
     public override void OnStopClient() {
         Debug.Log(">>OnStopClient called");
+        if(isLocalPlayer) {
+            ActualScene = SceneManager.GetActiveScene();
+        }
     }
 
     /// <summary>

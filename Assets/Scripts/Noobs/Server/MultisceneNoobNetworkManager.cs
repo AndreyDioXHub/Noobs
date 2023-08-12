@@ -43,6 +43,14 @@ public class MultisceneNoobNetworkManager : NetworkManager
         base.Awake();
         singleton = this;
         SetupClient();
+        SceneManager.sceneLoaded += DetectSceneReady;
+    }
+
+    private void DetectSceneReady(Scene scene, LoadSceneMode mode) {
+        if(mode == LoadSceneMode.Additive && isNetworkActive) {
+            Debug.Log("Additive scene loaded");
+            NoobNetworkBehaviour.ActualScene = scene;
+        }
     }
 
     #region Unity Callbacks
@@ -75,6 +83,7 @@ public class MultisceneNoobNetworkManager : NetworkManager
     public override void OnDestroy()
     {
         base.OnDestroy();
+        SceneManager.sceneLoaded -= DetectSceneReady;
     }
 
     #endregion
@@ -110,6 +119,8 @@ public class MultisceneNoobNetworkManager : NetworkManager
     public override void ServerChangeScene(string newSceneName)
     {
         base.ServerChangeScene(newSceneName);
+        Debug.Log($"{nameof(ServerChangeScene)} cange to new scene {newSceneName}");
+        
     }
 
     /// <summary>
