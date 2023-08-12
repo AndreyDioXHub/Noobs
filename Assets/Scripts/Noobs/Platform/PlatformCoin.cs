@@ -7,6 +7,8 @@ public class PlatformCoin : MonoBehaviour
     [SerializeField]
     private GameObject _father;
 
+    private bool _isEffected;
+
     void Start()
     {
         GameObject eatEffect = Instantiate(Resources.Load<GameObject>("WorldSphereEatEffect"));
@@ -22,13 +24,22 @@ public class PlatformCoin : MonoBehaviour
     {
         PlatformCoinManager.Instance.AddCoin();
 
+        GameObject eatEffect = Instantiate(Resources.Load<GameObject>("WorldSphereEatEffectCoinSound"));
+        eatEffect.transform.position = transform.position;
+
+        _isEffected = true;
+
         Destroy(gameObject);
         Destroy(_father);
     }
 
     private void OnDestroy()
     {
-        GameObject eatEffect = Instantiate(Resources.Load<GameObject>("WorldSphereEatEffect"));
-        eatEffect.transform.position = transform.position;
+        if (!_isEffected)
+        {
+            GameObject eatEffect = Instantiate(Resources.Load<GameObject>("WorldSphereEatEffect"));
+            eatEffect.transform.position = transform.position;
+
+        }
     }
 }

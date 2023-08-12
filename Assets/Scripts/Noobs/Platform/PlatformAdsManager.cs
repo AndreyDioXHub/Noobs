@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using YG;
 
 public class PlatformAdsManager : MonoBehaviour
@@ -58,7 +59,14 @@ public class PlatformAdsManager : MonoBehaviour
 
     void Start()
     {
-        _time = _infoYG.fullscreenAdInterval;
+        //_time = _infoYG.fullscreenAdInterval; 
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        _sdk._FullscreenShow();
+        //do stuff
     }
 
     public void ShowRewardedAd()

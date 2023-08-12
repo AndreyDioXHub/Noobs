@@ -247,6 +247,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: NoobCharacterOffline Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 7424516202679587198, guid: cc95a42ce33269046b340917deeeba2e, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 186695733352383407, guid: cc95a42ce33269046b340917deeeba2e, type: 3}
     - {fileID: 1634775918887801155, guid: cc95a42ce33269046b340917deeeba2e, type: 3}

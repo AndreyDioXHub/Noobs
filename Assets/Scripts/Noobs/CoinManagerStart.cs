@@ -30,6 +30,13 @@ public class CoinManagerStart : MonoBehaviour
         PlayerPrefs.SetInt(PlayerPrefsConsts.COINS, _coins);
     }
 
+    [ContextMenu("Zerable")]
+    public void Zerable()
+    {
+        PlayerPrefs.SetInt(PlayerPrefsConsts.COINS, 0);
+        PlayerPrefs.SetString(PlayerPrefsConsts.SKINS, "");
+    }
+
     public bool TryBuy(int coins)
     {
         if(coins > _coins)

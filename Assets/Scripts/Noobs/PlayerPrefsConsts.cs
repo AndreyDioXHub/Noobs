@@ -9,4 +9,5 @@ public static class PlayerPrefsConsts
     public static string COINS = "OfflinePlatformCoins";
     public static string SKINS = "OfflinePlatformSkins";
     public static string LOCAL = "OfflinePlatformLocal";
+    public static string AUDIO = "OfflinePlatformAudio";
 }
