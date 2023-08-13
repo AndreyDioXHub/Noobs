@@ -454,8 +454,11 @@ PlayerSettings:
   - m_BuildTarget: Windows Store Apps
     m_EncodingQuality: 2
   - m_BuildTarget: WebGL
-    m_EncodingQuality: 1
-  m_BuildTargetGroupLightmapSettings: []
+    m_EncodingQuality: 0
+  m_BuildTargetGroupLightmapSettings:
+  - m_BuildTarget: WebGL
+    m_TextureStreamingEnabled: 1
+    m_TextureStreamingPriority: 0
   m_BuildTargetNormalMapEncoding: []
   m_BuildTargetDefaultTextureCompressionFormat: []
   playModeTestRunnerEnabled: 0

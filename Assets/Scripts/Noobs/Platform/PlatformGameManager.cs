@@ -111,6 +111,16 @@ public class PlatformGameManager : MonoBehaviour
         winState = WinState.play;
         
         _index = Random.Range(0, _animationSequences.Count);
+
+        int indexPrev = PlayerPrefs.GetInt(PlayerPrefsConsts.PREV_INDEX, 0);
+
+        if(_index == indexPrev)
+        {
+            _index++;
+            _index = _index > 3 ? 0 : _index;
+        }
+
+        PlayerPrefs.SetInt(PlayerPrefsConsts.PREV_INDEX, _index);
          
         StartCoroutine(PrepareCoroutine());
     }

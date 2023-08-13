@@ -11,4 +11,5 @@ public static class PlayerPrefsConsts
     public static string LOCAL = "OfflinePlatformLocal";
     public static string AUDIO = "OfflinePlatformAudio";
     public static string SENSITIVITY = "OfflinePlatformSensitivity";
+    public static string PREV_INDEX = "OfflinePlatformPrevIndex";
 }
