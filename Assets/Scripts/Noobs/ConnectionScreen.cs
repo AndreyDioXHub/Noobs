@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -97,4 +98,11 @@ public class ConnectionScreen : MonoBehaviour
         }
     }
 
+    internal void AddNextPlayer(int newvalue) {
+        if(_index <= newvalue) {
+            Show(1);
+        } else {
+            //TODO
+        }
+    }
 }

@@ -66,6 +66,7 @@ namespace cyraxchel.network.server {
                     Debug.Log($"Set new GameManager. Offset is {WorldOffset}");
                     _gamemanager.GlobalOffset = WorldOffset;
                     GameStatusChanged += _gamemanager.OnGameStatusChanged;
+                    JoinPlayer += _gamemanager.OnPlayerJoin;
                 }
             } }
 
@@ -118,7 +119,8 @@ namespace cyraxchel.network.server {
 
         public void GameComplete() {
             GameStatus = Status.Finish;
-
+            GameStatusChanged -= _gamemanager.OnGameStatusChanged;
+            JoinPlayer -= _gamemanager.OnPlayerJoin;
         }
 
         Dictionary<int, NetworkConnectionToClient> awaitingPlayers = new Dictionary<int, NetworkConnectionToClient>();
@@ -146,6 +148,15 @@ namespace cyraxchel.network.server {
             if (awaitingPlayers.ContainsKey(conn.connectionId)) {
                 awaitingPlayers.Remove(conn.connectionId);
             }
+        }
+
+        
+        /// <summary>
+        /// Оповещение о завершении доабвления ботов
+        /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
+        internal void BotComplete() {
+            //TODO 
         }
 
         public class Player {

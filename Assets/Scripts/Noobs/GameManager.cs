@@ -21,6 +21,8 @@ public class GameManager : NetworkBehaviour
     [SerializeField]
     private WinScreen _winscreen;
     [SerializeField]
+    ConnectionScreen _connectionscreen;
+    [SerializeField]
     private float _time = 2;
     [SerializeField]
     private float _timeCur = 0;
@@ -28,6 +30,8 @@ public class GameManager : NetworkBehaviour
     private GameObject _leaveText;
     [SerializeField]
     PlayerCount _playerCount;
+    [SyncVar(hook =nameof(UpdatePlayersCount))]
+    int _readyPlayers = 0;
 
     public Transform _levelTransform;
 
@@ -123,5 +127,13 @@ public class GameManager : NetworkBehaviour
     [ClientRpc]
     private void RPC_StopGame() {
 
+    }
+
+    internal void OnPlayerJoin(ServerGame game, ServerGame.Player player) {
+        _readyPlayers++;
+    }
+
+    private void UpdatePlayersCount(int oldvalue, int newvalue) {
+        _connectionscreen.AddNextPlayer(newvalue); 
     }
 }

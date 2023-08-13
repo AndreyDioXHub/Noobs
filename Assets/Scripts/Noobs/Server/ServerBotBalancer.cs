@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 namespace cyraxchel.network.server 
 {
@@ -76,13 +77,14 @@ namespace cyraxchel.network.server
 
                 List<GameObject> bots = new List<GameObject>();
 
-                //Генерирую с неучтенными ботами (для тестов)
-                for(int i = 0; i < parameters.requiredNumberBots+5; i++)
+                for(int i = 0; i < parameters.requiredNumberBots; i++)
                 {
                     if (_bots.Count == 0)
                     {
                         var goBot = Instantiate(_playerPrefab);
-                        Vector3 botPosition = new Vector3(5000, 0, 5000);
+                        //Vector3 botPosition = new Vector3(5000, 0, 5000);
+                        Vector3 botPosition = UnityEngine.Random.insideUnitSphere * 8 + parameters.serverGame.WorldOffset;
+                        botPosition.y = LevelConfig.Instance.START_PLAYER_YPOS;
                         var hat = goBot.GetComponent<DistributionHat>();
                         hat.Init(CharType.bot);
                         hat.Pause();
@@ -103,10 +105,13 @@ namespace cyraxchel.network.server
                 foreach(var bot in bots)
                 {
                     SceneManager.MoveGameObjectToScene(bot, parameters.serverGame.CurrenScene);
-                    //parameters.serverGame.AddPlayer
+                    
+                    parameters.serverGame.AddPlayer("bot", -2);
+
                 }
 
                 _reservedBots.Add(parameters.serverGame, bots);
+                parameters.serverGame.BotComplete();
             }
 
             _botgamecouroutineProcecced = false;

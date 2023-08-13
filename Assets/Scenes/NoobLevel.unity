@@ -1943,6 +1943,10 @@ PrefabInstance:
       propertyPath: _levelTransform
       value: 
       objectReference: {fileID: 2876420253410056198}
+    - target: {fileID: 32094857677953623, guid: e49a24bc334b4bb478089238f99074dd, type: 3}
+      propertyPath: _connectionscreen
+      value: 
+      objectReference: {fileID: 3411569460839888311}
     - target: {fileID: 32094857677953625, guid: e49a24bc334b4bb478089238f99074dd, type: 3}
       propertyPath: m_Name
       value: Model
@@ -2403,3 +2407,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a40bb2003a6429041ae294b4aa1774bb, type: 3}
+--- !u!114 &3411569460839888311 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3411569460253490042, guid: a40bb2003a6429041ae294b4aa1774bb, type: 3}
+  m_PrefabInstance: {fileID: 3411569460839888310}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d859232a16d5f884480017f408356a86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
