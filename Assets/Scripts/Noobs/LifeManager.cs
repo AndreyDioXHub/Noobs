@@ -17,7 +17,7 @@ public class LifeManager : MonoBehaviour
 
     void Update()
     {
-        
+        return;
         if (transform.position.y < 0)
         {
             DieFunction();
@@ -27,6 +27,7 @@ public class LifeManager : MonoBehaviour
 
     public void MinusLife()
     {
+        return;
         _life--;
 
         if (_life <= 0)

@@ -198,8 +198,11 @@ namespace cyraxchel.network.server
 
         public void Unpause(ServerGame serverGame)
         {
+            Debug.Log("Call UNPAUSE");
             if (_reservedBots.TryGetValue(serverGame, out List<GameObject> bots))
             {
+                Debug.Log("Bots for Game exist. Count=" + bots.Count);
+
                 foreach (var bot in bots)
                 {
                     bot.GetComponent<DistributionHat>().Play();
