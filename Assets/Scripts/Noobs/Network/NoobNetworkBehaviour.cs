@@ -68,6 +68,8 @@ public class NoobNetworkBehaviour : NetworkBehaviour
         Debug.Log(">>OnStartClient called");
 
         PlayerCount.Instance.RegisterPlayer();
+        Debug.Log($"{nameof(NoobNetworkBehaviour)}:{nameof(OnStartClient)} - Start Local client");
+        GameManager.Instance.ShowConnectedUser();
         if(isLocalPlayer) {
             GetComponent<DistributionHat>().Init(CharType.player);
         } else {
