@@ -35,6 +35,8 @@ public class GameManager : NetworkBehaviour
     int _readyPlayers = 0;
 
     public Transform _levelTransform;
+    [SerializeField]
+    GameObject _startPlatform;
 
     private void Awake() {
         Instance = this;
@@ -110,6 +112,7 @@ public class GameManager : NetworkBehaviour
     internal void OnGameStatusChanged(ServerGame game, ServerGame.Status status) {
         switch(status) {
             case ServerGame.Status.Action:
+                _startPlatform.SetActive(false);
                 //Start Game
                 RPC_StartGame();
                 break;
@@ -122,7 +125,8 @@ public class GameManager : NetworkBehaviour
 
     [ClientRpc]
     private void RPC_StartGame() {
-
+        _startPlatform.SetActive(false);
+        //TODO
     }
     [ClientRpc]
     private void RPC_StopGame() {

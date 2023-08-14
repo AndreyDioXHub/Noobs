@@ -1940,6 +1940,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 32094857740937901}
     - target: {fileID: 32094857677953623, guid: e49a24bc334b4bb478089238f99074dd, type: 3}
+      propertyPath: _startPlatform
+      value: 
+      objectReference: {fileID: 2876420253410056199}
+    - target: {fileID: 32094857677953623, guid: e49a24bc334b4bb478089238f99074dd, type: 3}
       propertyPath: _levelTransform
       value: 
       objectReference: {fileID: 2876420253410056198}
@@ -2048,6 +2052,11 @@ PrefabInstance:
 --- !u!4 &2876420253410056198 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2876420253868534036, guid: 069fae207ae97d24fb7d566f4a59bc81, type: 3}
+  m_PrefabInstance: {fileID: 2876420253410056197}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2876420253410056199 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6558018446364587338, guid: 069fae207ae97d24fb7d566f4a59bc81, type: 3}
   m_PrefabInstance: {fileID: 2876420253410056197}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3411569460839888310
