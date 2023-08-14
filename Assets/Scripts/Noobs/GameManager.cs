@@ -131,6 +131,7 @@ public class GameManager : NetworkBehaviour
 
     internal void OnPlayerJoin(ServerGame game, ServerGame.Player player) {
         _readyPlayers++;
+        Debug.Log($"Add player {player.name}. Index: {_readyPlayers}");
     }
 
     private void UpdatePlayersCount(int oldvalue, int newvalue) {
