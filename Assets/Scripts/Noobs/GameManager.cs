@@ -113,8 +113,10 @@ public class GameManager : NetworkBehaviour
         switch(status) {
             case ServerGame.Status.Action:
                 _startPlatform.SetActive(false);
+                
                 //Start Game
                 RPC_StartGame();
+                ServerBotBalancer.Instance.Unpause(game);
                 break;
             case ServerGame.Status.Finish: 
                 //Complete game
