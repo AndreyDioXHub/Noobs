@@ -20,6 +20,8 @@ public class CameraView : MonoBehaviour
 
     public virtual void Start()
     {
+        StaticConsts.MOUSE_SENSITIVITY = PlayerPrefs.GetInt(PlayerPrefsConsts.SENSITIVITY, 300);
+
         if (_lockMouse)
         {
             Cursor.lockState = CursorLockMode.Locked;

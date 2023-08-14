@@ -163,6 +163,7 @@ public class KeyBoardRecorder : MonoBehaviour
             case ReplayState.replay:
                 break;
             case ReplayState.record:
+                _hat.Init(CharType.player);
                 _hat.Play();
                 break;
             default:

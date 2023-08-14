@@ -128,7 +128,7 @@ public class DistributionHat : MonoBehaviour
     public void Init(CharType type)
     {
         _type = type;
-        gameObject.name = type.ToString();
+        //gameObject.name = type.ToString();
 
         switch (_type)
         {

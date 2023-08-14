@@ -31,6 +31,8 @@ public class PlatformGameManager : MonoBehaviour
     private float _time = 2;
     [SerializeField]
     private float _timeCur = 0;
+    [SerializeField]
+    private bool _usePlayer;
 
 
    private List<List<string>> _animationSequences = new List<List<string>>()
@@ -134,7 +136,7 @@ public class PlatformGameManager : MonoBehaviour
         {
             float randomTime = Random.Range(0.05f, 0.5f);
 
-            if (playerIndex == index)
+            if (playerIndex == index && _usePlayer)
             {
                 PlayerCount.Instance.RegisterPlayer();
                 _playerHat.Play();
