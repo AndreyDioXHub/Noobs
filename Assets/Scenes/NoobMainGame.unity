@@ -153,6 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GridStep: 300
+  START_PLAYER_YPOS: 78
 --- !u!4 &67520092
 Transform:
   m_ObjectHideFlags: 0
@@ -175,6 +176,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1592738851620323037, guid: 2f64e96667a21754298f863b74d713c4, type: 3}
+      propertyPath: serverGames.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4438014915877903953, guid: 2f64e96667a21754298f863b74d713c4, type: 3}
       propertyPath: sceneId
       value: 1543896027

@@ -80,6 +80,13 @@ public class NoobNetworkBehaviour : NetworkBehaviour
         if (ActualScene.IsValid()) {
             //TODO Load scene
             SceneManager.MoveGameObjectToScene(gameObject, ActualScene);
+            
+            gameObject.SetActive(false);
+            var pos = gameObject.transform.position + GameManager.ClientWorldOffset;
+            pos.y = LevelConfig.Instance.START_PLAYER_YPOS;
+            gameObject.transform.position = pos;
+            gameObject.SetActive(true);
+
         }
     }
 
