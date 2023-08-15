@@ -87,10 +87,11 @@ namespace cyraxchel.network.server
                         botPosition.y = LevelConfig.Instance.START_PLAYER_YPOS;
                         Debug.Log($"Set bot position {botPosition}");
                         var hat = goBot.GetComponent<DistributionHat>();
-                        hat.Init(CharType.bot);
-                        hat.Pause();
-
-                        goBot.SetActive(false);
+                        if(hat != null) {
+                            hat.Init(CharType.bot);
+                            hat.Pause();
+                            goBot.SetActive(false);
+                        }
                         goBot.transform.position = botPosition;
                         _bots.Add(goBot);
                         NetworkServer.Spawn(goBot);
@@ -105,7 +106,7 @@ namespace cyraxchel.network.server
 
                 foreach(var bot in bots)
                 {
-                    SceneManager.MoveGameObjectToScene(bot, parameters.serverGame.CurrenScene);
+                    //SceneManager.MoveGameObjectToScene(bot, parameters.serverGame.CurrenScene);
                     
                     parameters.serverGame.AddPlayer("bot", -2);
 
@@ -189,7 +190,9 @@ namespace cyraxchel.network.server
         [ContextMenu("Resume bots")]
         public void Unpause() {
             foreach (var bot in _bots) {
-                bot.GetComponent<DistributionHat>().Play();
+                if(bot.GetComponent<DistributionHat>() != null) {
+                    bot.GetComponent<DistributionHat>().Play();
+                }
                 /*Vector3 pos = UnityEngine.Random.insideUnitSphere * 10;
                 pos.y = 79;
                 bot.transform.position = pos;/**/
@@ -206,7 +209,9 @@ namespace cyraxchel.network.server
 
                 foreach (var bot in bots)
                 {
-                    bot.GetComponent<DistributionHat>().Play();
+                    if (bot.GetComponent<DistributionHat>() != null) {
+                        bot.GetComponent<DistributionHat>().Play();
+                    }
                     /*Vector3 pos = UnityEngine.Random.insideUnitSphere * 10;
                     pos.y = 79;
                     bot.transform.position = pos;/**/
