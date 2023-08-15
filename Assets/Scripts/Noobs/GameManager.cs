@@ -121,10 +121,10 @@ public class GameManager : NetworkBehaviour
     internal void OnGameStatusChanged(ServerGame game, ServerGame.Status status) {
         switch(status) {
             case ServerGame.Status.Action:
-                _startPlatform.SetActive(false);
+               // _startPlatform.SetActive(false);
                 
                 //Start Game
-                RPC_StartGame();
+                //RPC_StartGame();
                 ServerBotBalancer.Instance.Unpause(game);
                 break;
             case ServerGame.Status.Finish: 
