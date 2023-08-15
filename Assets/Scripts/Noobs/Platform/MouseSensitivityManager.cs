@@ -11,7 +11,7 @@ public class MouseSensitivityManager : MonoBehaviour
     void Start()
     {
 
-        StaticConsts.MOUSE_SENSITIVITY = PlayerPrefs.GetInt(PlayerPrefsConsts.SENSITIVITY, 300);
+        StaticConsts.MOUSE_SENSITIVITY = PlayerPrefs.GetInt(PlayerPrefsConsts.SENSITIVITY, 150);
         _slider.value = (float)(StaticConsts.MOUSE_SENSITIVITY)/600;
     }
 
