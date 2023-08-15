@@ -190,9 +190,9 @@ namespace cyraxchel.network.server
         public void Unpause() {
             foreach (var bot in _bots) {
                 bot.GetComponent<DistributionHat>().Play();
-                Vector3 pos = UnityEngine.Random.insideUnitSphere * 10;
+                /*Vector3 pos = UnityEngine.Random.insideUnitSphere * 10;
                 pos.y = 79;
-                bot.transform.position = pos;
+                bot.transform.position = pos;/**/
                 bot.SetActive(true);
             }
         }
@@ -207,9 +207,9 @@ namespace cyraxchel.network.server
                 foreach (var bot in bots)
                 {
                     bot.GetComponent<DistributionHat>().Play();
-                    Vector3 pos = UnityEngine.Random.insideUnitSphere * 10;
+                    /*Vector3 pos = UnityEngine.Random.insideUnitSphere * 10;
                     pos.y = 79;
-                    bot.transform.position = pos;
+                    bot.transform.position = pos;/**/
                     bot.SetActive(true);
                 }
             }
