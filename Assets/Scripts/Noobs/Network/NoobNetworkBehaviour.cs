@@ -66,14 +66,15 @@ public class NoobNetworkBehaviour : NetworkBehaviour
     /// </summary>
     public override void OnStartClient() {
         Debug.Log(">>OnStartClient called");
-
+        
         PlayerCount.Instance.RegisterPlayer();
         Debug.Log($"{nameof(NoobNetworkBehaviour)}:{nameof(OnStartClient)} - Start Local client");
         GameManager.Instance.ShowConnectedUser();
         if(isLocalPlayer) {
+            Debug.Log("<b>Start As local player</b>");
             GetComponent<DistributionHat>().Init(CharType.player);
         } else {
-            
+            Debug.Log("<b>Start As avatar</b>");
             GetComponent<DistributionHat>().Init(CharType.avatar);
         }
         //Переместить аватара или игрока в актуальную сцену. На сервере это поле будет пустым. 
