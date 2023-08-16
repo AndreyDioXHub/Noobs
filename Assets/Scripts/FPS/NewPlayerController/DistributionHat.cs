@@ -124,7 +124,8 @@ public class DistributionHat : MonoBehaviour
                 _nameCanvas.SetActive(false);
                 _grounCheck.enabled = true;
                 _characterController.enabled = true;
-                _blender.enabled = true;
+                //_blender.enabled = true;
+                _blender.enabled = false;
                 _playerInput.enabled = true;
                 _botInput.enabled = false;
                 _playerCameraInput.enabled = true;
@@ -143,6 +144,7 @@ public class DistributionHat : MonoBehaviour
                 _nameCanvas.GetComponentInChildren<NameManager>().Init();
                 _grounCheck.enabled = false;
                 _characterController.enabled = false;
+                //_blender.enabled = false;
                 _blender.enabled = false;
                 _playerInput.enabled = false;
                 _botInput.enabled = false;
