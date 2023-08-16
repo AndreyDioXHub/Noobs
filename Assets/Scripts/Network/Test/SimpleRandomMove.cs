@@ -24,7 +24,7 @@ public class SimpleRandomMove : MonoBehaviour
 
     IEnumerator GenerateNewPoint() {
         while (true) {
-            nextposition = UnityEngine.Random.insideUnitSphere * 8;
+            nextposition = UnityEngine.Random.insideUnitSphere * 8 + Vector3.forward * 300;
             nextposition.y = const_height;
             yield return new WaitForSeconds(3);
         }
