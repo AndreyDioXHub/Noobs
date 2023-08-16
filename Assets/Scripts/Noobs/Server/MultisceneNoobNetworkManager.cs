@@ -228,7 +228,7 @@ public class MultisceneNoobNetworkManager : NetworkManager
         // to isolate matches per scene instance on server.
         if (subScenes.Count > 0)
             //SceneManager.MoveGameObjectToScene(conn.identity.gameObject, subScenes[clientIndex % subScenes.Count]);
-            SceneManager.MoveGameObjectToScene(conn.identity.gameObject, subScenes[sceneToLoad]);
+          //  SceneManager.MoveGameObjectToScene(conn.identity.gameObject, subScenes[sceneToLoad]);
 
         clientIndex++;
     }

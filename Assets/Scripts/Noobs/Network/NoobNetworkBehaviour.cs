@@ -82,7 +82,7 @@ public class NoobNetworkBehaviour : NetworkBehaviour
         //Переместить аватара или игрока в актуальную сцену. На сервере это поле будет пустым. 
         if (ActualScene.IsValid()) {
             //TODO Load scene
-            SceneManager.MoveGameObjectToScene(gameObject, ActualScene);
+           // SceneManager.MoveGameObjectToScene(gameObject, ActualScene);
             
             gameObject.SetActive(false);
             Debug.Log($"Set player offset: {GameManager.ClientWorldOffset}");
