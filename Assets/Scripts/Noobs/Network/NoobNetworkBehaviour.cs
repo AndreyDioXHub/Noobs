@@ -52,7 +52,9 @@ public class NoobNetworkBehaviour : NetworkBehaviour
     /// <para>This could be triggered by NetworkServer.Listen() for objects in the scene, or by NetworkServer.Spawn() for objects that are dynamically created.</para>
     /// <para>This will be called for objects on a "host" as well as for object on a dedicated server.</para>
     /// </summary>
-    public override void OnStartServer() { }
+    public override void OnStartServer() {
+        Debug.Log("<b>Start as SERVER BOT</b>");
+    }
 
     /// <summary>
     /// Invoked on the server when the object is unspawned
@@ -66,18 +68,29 @@ public class NoobNetworkBehaviour : NetworkBehaviour
     /// </summary>
     public override void OnStartClient() {
         Debug.Log(">>OnStartClient called");
-
+        
         PlayerCount.Instance.RegisterPlayer();
+        Debug.Log($"{nameof(NoobNetworkBehaviour)}:{nameof(OnStartClient)} - Start Local client");
+        GameManager.Instance.ShowConnectedUser();
         if(isLocalPlayer) {
+            Debug.Log("<b>Start As local player</b>");
             GetComponent<DistributionHat>().Init(CharType.player);
         } else {
-            
+            Debug.Log("<b>Start As avatar</b>");
             GetComponent<DistributionHat>().Init(CharType.avatar);
         }
         //Переместить аватара или игрока в актуальную сцену. На сервере это поле будет пустым. 
         if (ActualScene.IsValid()) {
             //TODO Load scene
             SceneManager.MoveGameObjectToScene(gameObject, ActualScene);
+            
+            gameObject.SetActive(false);
+            Debug.Log($"Set player offset: {GameManager.ClientWorldOffset}");
+            var pos = gameObject.transform.position + GameManager.ClientWorldOffset;
+            pos.y = LevelConfig.Instance.START_PLAYER_YPOS;
+            gameObject.transform.position = pos;
+            gameObject.SetActive(true);
+
         }
     }
 

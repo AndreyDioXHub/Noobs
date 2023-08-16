@@ -11,6 +11,8 @@ public class LevelConfig : MonoBehaviour
     [Tooltip("Начальная Y-позиция игроков")]
     public float START_PLAYER_YPOS = 78;
 
+    
+
     // Start is called before the first frame update
     void Awake()
     {

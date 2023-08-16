@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6936541047093177778, guid: cc95a42ce33269046b340917deeeba2e, type: 3}
       propertyPath: syncDirection
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7021967422077632192, guid: cc95a42ce33269046b340917deeeba2e, type: 3}
       propertyPath: _assetId

@@ -11,9 +11,13 @@ public class GameManager : NetworkBehaviour
 
     public static Vector3 ClientWorldOffset { get; set; } = Vector3.zero;
 
-    public Vector3 GlobalOffset { get; set; } = Vector3.zero;
+    public Vector3 GlobalOffset { get => netOffset; set { netOffset = value; } }
 
-    public static GameManager Instance { get; set; }    //Используется только в клиентах!
+    [SyncVar(hook = nameof(UpdateNetOffset))]
+    Vector3 netOffset = Vector3.zero;
+
+    public static GameManager Instance { get;
+        set; }    //Используется только в клиентах!
 
     public bool IsWin { get; private set; } = false;
     public bool IsLose;
@@ -34,12 +38,11 @@ public class GameManager : NetworkBehaviour
     int _readyPlayers = 0;
 
     public Transform _levelTransform;
+    [SerializeField]
+    GameObject _startPlatform;
 
     private void Awake() {
-        
-        if(isClientOnly) {
-            Instance = this;
-        }
+        Instance = this;
     }
 
     void Start()
@@ -88,7 +91,14 @@ public class GameManager : NetworkBehaviour
         }
     }
 
+    private void UpdateNetOffset(Vector3 oldvalue, Vector3 newvalue) {
+        GlobalOffset = newvalue;
+        ClientWorldOffset = newvalue;
+        UpdateSceneOffset();
+    }
+
     public override void OnStartClient() {
+        Debug.Log($"{nameof(GameManager)}:{nameof(OnStartClient)} - Start Local client");
         base.OnStartClient();
         CmdRegisterGame();
     }
@@ -96,6 +106,7 @@ public class GameManager : NetworkBehaviour
     public override void OnStartServer() {
         base.OnStartServer();
         StartCoroutine(CmdRegisterGame());
+        Instance = null;
     }
 
     //[Command]
@@ -110,8 +121,11 @@ public class GameManager : NetworkBehaviour
     internal void OnGameStatusChanged(ServerGame game, ServerGame.Status status) {
         switch(status) {
             case ServerGame.Status.Action:
+               // _startPlatform.SetActive(false);
+                
                 //Start Game
-                RPC_StartGame();
+                //RPC_StartGame();
+                ServerBotBalancer.Instance.Unpause(game);
                 break;
             case ServerGame.Status.Finish: 
                 //Complete game
@@ -122,7 +136,8 @@ public class GameManager : NetworkBehaviour
 
     [ClientRpc]
     private void RPC_StartGame() {
-
+        _startPlatform.SetActive(false);
+        //TODO
     }
     [ClientRpc]
     private void RPC_StopGame() {
@@ -130,10 +145,16 @@ public class GameManager : NetworkBehaviour
     }
 
     internal void OnPlayerJoin(ServerGame game, ServerGame.Player player) {
-        _readyPlayers++;
+        //_readyPlayers++;
+        //Debug.Log($"Add player {player.name}. Index: {_readyPlayers}");
     }
 
     private void UpdatePlayersCount(int oldvalue, int newvalue) {
-        _connectionscreen.AddNextPlayer(newvalue); 
+        Debug.Log($"Ready Players {newvalue}");
+//        _connectionscreen.AddNextPlayer(newvalue); 
+    }
+
+    public void ShowConnectedUser() {
+        _connectionscreen.Show(1);
     }
 }

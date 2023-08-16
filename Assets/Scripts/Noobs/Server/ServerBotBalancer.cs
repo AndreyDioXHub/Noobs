@@ -85,11 +85,13 @@ namespace cyraxchel.network.server
                         //Vector3 botPosition = new Vector3(5000, 0, 5000);
                         Vector3 botPosition = UnityEngine.Random.insideUnitSphere * 8 + parameters.serverGame.WorldOffset;
                         botPosition.y = LevelConfig.Instance.START_PLAYER_YPOS;
+                        Debug.Log($"Set bot position {botPosition}");
                         var hat = goBot.GetComponent<DistributionHat>();
-                        hat.Init(CharType.bot);
-                        hat.Pause();
-
-                        goBot.SetActive(false);
+                        if(hat != null) {
+                            hat.Init(CharType.bot);
+                            hat.Pause();
+                            goBot.SetActive(false);
+                        }
                         goBot.transform.position = botPosition;
                         _bots.Add(goBot);
                         NetworkServer.Spawn(goBot);
@@ -104,7 +106,7 @@ namespace cyraxchel.network.server
 
                 foreach(var bot in bots)
                 {
-                    SceneManager.MoveGameObjectToScene(bot, parameters.serverGame.CurrenScene);
+                    //SceneManager.MoveGameObjectToScene(bot, parameters.serverGame.CurrenScene);
                     
                     parameters.serverGame.AddPlayer("bot", -2);
 
@@ -188,24 +190,31 @@ namespace cyraxchel.network.server
         [ContextMenu("Resume bots")]
         public void Unpause() {
             foreach (var bot in _bots) {
-                bot.GetComponent<DistributionHat>().Play();
-                Vector3 pos = UnityEngine.Random.insideUnitSphere * 10;
+                if(bot.GetComponent<DistributionHat>() != null) {
+                    bot.GetComponent<DistributionHat>().Play();
+                }
+                /*Vector3 pos = UnityEngine.Random.insideUnitSphere * 10;
                 pos.y = 79;
-                bot.transform.position = pos;
+                bot.transform.position = pos;/**/
                 bot.SetActive(true);
             }
         }
 
         public void Unpause(ServerGame serverGame)
         {
+            Debug.Log("Call UNPAUSE");
             if (_reservedBots.TryGetValue(serverGame, out List<GameObject> bots))
             {
+                Debug.Log("Bots for Game exist. Count=" + bots.Count);
+
                 foreach (var bot in bots)
                 {
-                    bot.GetComponent<DistributionHat>().Play();
-                    Vector3 pos = UnityEngine.Random.insideUnitSphere * 10;
+                    if (bot.GetComponent<DistributionHat>() != null) {
+                        bot.GetComponent<DistributionHat>().Play();
+                    }
+                    /*Vector3 pos = UnityEngine.Random.insideUnitSphere * 10;
                     pos.y = 79;
-                    bot.transform.position = pos;
+                    bot.transform.position = pos;/**/
                     bot.SetActive(true);
                 }
             }

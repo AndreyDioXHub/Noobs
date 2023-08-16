@@ -378,7 +378,7 @@ GameObject:
   - component: {fileID: 7021967422077632192}
   - component: {fileID: 1634775918887801155}
   - component: {fileID: 1666696835074554648}
-  - component: {fileID: 186695733352383407}
+  - component: {fileID: 3036158208016223106}
   m_Layer: 0
   m_Name: NoobCharacter
   m_TagString: Player
@@ -754,7 +754,7 @@ MonoBehaviour:
   skinManager: {fileID: 4151996375207194016}
   enableOffline: 0
   UserName: 
---- !u!114 &186695733352383407
+--- !u!114 &3036158208016223106
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

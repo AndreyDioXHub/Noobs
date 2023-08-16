@@ -97,12 +97,4 @@ public class ConnectionScreen : MonoBehaviour
             _needHide = true;
         }
     }
-
-    internal void AddNextPlayer(int newvalue) {
-        if(_index <= newvalue) {
-            Show(1);
-        } else {
-            //TODO
-        }
-    }
 }

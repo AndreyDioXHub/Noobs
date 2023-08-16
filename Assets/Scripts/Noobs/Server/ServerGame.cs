@@ -103,7 +103,7 @@ namespace cyraxchel.network.server {
                 JoinPlayer?.Invoke(this, player);
                 if(m_players.Count == MaxPlayerCount) {
                     if(countdownTimer != null) ServerNetworkBehaviour.Instance.StopCoroutine(countdownTimer);
-                    GameStatus = Status.Action; //Запуск игры
+                    //GameStatus = Status.Action; //Запуск игры
                 }
             }
         }
@@ -156,7 +156,7 @@ namespace cyraxchel.network.server {
         /// </summary>
         /// <exception cref="NotImplementedException"></exception>
         internal void BotComplete() {
-            //TODO 
+            GameStatus = Status.Action; //Запуск игры
         }
 
         public class Player {

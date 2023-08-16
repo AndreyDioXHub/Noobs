@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3468411015184169738}
   - component: {fileID: 3468411015184169737}
   - component: {fileID: 3468411015184169736}
-  - component: {fileID: 3468411015184169739}
+  - component: {fileID: 7999092352710700505}
   m_Layer: 0
   m_Name: MultisceneNetwork
   m_TagString: Untagged
@@ -61,7 +61,9 @@ MonoBehaviour:
   playerPrefab: {fileID: 7424516202203009022, guid: cc95a42ce33269046b340917deeeba2e, type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 0
-  spawnPrefabs: []
+  spawnPrefabs:
+  - {fileID: 6562445010003760315, guid: e0750adcb860f9d45b900185050b2d4c, type: 3}
+  - {fileID: 6562445010003760315, guid: d4d5a25b9c728e54d89af1fd2142c0e8, type: 3}
   snapshotSettings:
     bufferTimeMultiplier: 2
     catchupNegativeThreshold: -1
@@ -118,7 +120,7 @@ MonoBehaviour:
   debugLog: 0
   statisticsGUI: 0
   statisticsLog: 0
---- !u!114 &3468411015184169739
+--- !u!114 &7999092352710700505
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -127,6 +129,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 3468411015184169734}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b979f26c95d34324ba005bfacfa9c4fc, type: 3}
+  m_Script: {fileID: 11500000, guid: 8f60becab051427fbdd3c8ac9ab4712b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  visRange: 100
+  rebuildInterval: 1
