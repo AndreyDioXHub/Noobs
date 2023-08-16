@@ -68,7 +68,8 @@ public class DistributionHat : MonoBehaviour
             case CharType.player:
                 _grounCheck.enabled = true;
                 _characterController.enabled = true;
-                _blender.enabled = true;
+                //_blender.enabled = true;
+                _blender.enabled = false;
                 _playerInput.enabled = true;
                 _botInput.enabled = false;
                 _playerCameraInput.enabled = true;
@@ -92,7 +93,8 @@ public class DistributionHat : MonoBehaviour
             case CharType.bot:
                 _grounCheck.enabled = true;
                 _characterController.enabled = true;
-                _blender.enabled = true;
+                //_blender.enabled = true;
+                _blender.enabled = false;
                 _playerInput.enabled = false;
                 _botInput.enabled = true;
                 _playerCameraInput.enabled = false;
