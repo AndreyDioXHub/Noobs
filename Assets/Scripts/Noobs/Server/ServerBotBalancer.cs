@@ -21,6 +21,8 @@ namespace cyraxchel.network.server
         private List<GameObject> _bots = new List<GameObject>();
         [SerializeField]
         private GameObject _playerPrefab;
+        [SerializeField]
+        bool MoveToScene = true;
 
         private Dictionary<ServerGame, List<GameObject>> _reservedBots = new Dictionary<ServerGame, List<GameObject>>();
 
@@ -107,7 +109,8 @@ namespace cyraxchel.network.server
 
                 foreach(var bot in bots)
                 {
-                    SceneManager.MoveGameObjectToScene(bot, parameters.serverGame.CurrenScene);
+                    if(MoveToScene)
+                        SceneManager.MoveGameObjectToScene(bot, parameters.serverGame.CurrenScene);
                     
                     parameters.serverGame.AddPlayer("bot", -2);
 
