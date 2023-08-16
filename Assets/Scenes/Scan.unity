@@ -200,8 +200,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 449579970}
-  m_LocalRotation: {x: 0.051771805, y: -0.93682116, z: 0.15743807, w: 0.308057}
-  m_LocalPosition: {x: 54.415604, y: 31.32068, z: 62.140373}
+  m_LocalRotation: {x: 0.09094571, y: 0.9072006, z: -0.25841573, w: 0.3192763}
+  m_LocalPosition: {x: -18.713154, y: 57.625713, z: 125.53819}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -270,11 +270,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25a72484c4d042f48a4a9223e548762a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _voxelPrefab: {fileID: 8231541289752595779, guid: 85c4430bfc53a7247b97f17aaaf680dd, type: 3}
-  _dencity: 4
+  _voxelPrefab: {fileID: 1027309823744222929, guid: 1a2adca836a4ec74691522904377c24f, type: 3}
+  _dencity: 2
   _height: 1
   _pixelSpace: 8
-  _sencity: 0.1
+  _sencity: 0.2
   _scan:
   - {fileID: 2800000, guid: ea812d52781043e4da39574d8ad10c57, type: 3}
   - {fileID: 2800000, guid: 5747e239ef5019d4682376e8dc9ae8eb, type: 3}
