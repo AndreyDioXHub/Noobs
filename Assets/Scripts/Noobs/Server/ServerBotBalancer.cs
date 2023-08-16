@@ -83,7 +83,8 @@ namespace cyraxchel.network.server
                     {
                         var goBot = Instantiate(_playerPrefab);
                         //Vector3 botPosition = new Vector3(5000, 0, 5000);
-                        Vector3 botPosition = UnityEngine.Random.insideUnitSphere * 8 + parameters.serverGame.WorldOffset;
+                        //Vector3 botPosition = UnityEngine.Random.insideUnitSphere * 8 + parameters.serverGame.WorldOffset;
+                        Vector3 botPosition = UnityEngine.Random.insideUnitSphere * 8 + Vector3.forward * 300;
                         botPosition.y = LevelConfig.Instance.START_PLAYER_YPOS;
                         Debug.Log($"Set bot position {botPosition}");
                         var hat = goBot.GetComponent<DistributionHat>();
