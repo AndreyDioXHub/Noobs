@@ -27,7 +27,17 @@ public class AudioView : MonoBehaviour
 
     void Update()
     {
-        
+        if (StaticConsts.AUDIO_ON)
+        {
+            _audioOn.SetActive(true);
+            _audioOff.SetActive(false);
+        }
+        else
+        {
+            _audioOn.SetActive(false);
+            _audioOff.SetActive(true);
+
+        }
     }
 
     public void AudioOn()

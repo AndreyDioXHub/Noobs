@@ -14,6 +14,10 @@ public class LocalizationManager : MonoBehaviour
     private TextMeshProUGUI _text0;
     [SerializeField]
     private TextMeshProUGUI _text1;
+    [SerializeField]
+    private TextMeshProUGUI _text2;
+    [SerializeField]
+    private TextMeshProUGUI _text3;
 
     void Start()
     {
@@ -21,6 +25,8 @@ public class LocalizationManager : MonoBehaviour
 
         _text0.text = _local;
         _text1.text = _local;
+        _text2.text = _local;
+        _text3.text = _local;
 
         LocalizationStrings.SetLanguage(_local);
 
@@ -55,6 +61,8 @@ public class LocalizationManager : MonoBehaviour
 
         _text0.text = _local;
         _text1.text = _local;
+        _text2.text = _local;
+        _text3.text = _local;
         LocalizationStrings.SetLanguage(_local);
 
         foreach(var t in _texts)

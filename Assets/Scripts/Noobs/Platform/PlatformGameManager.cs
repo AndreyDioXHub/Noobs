@@ -157,6 +157,8 @@ public class PlatformGameManager : MonoBehaviour
 
         ConnectionScreen.Instance.gameObject.SetActive(false);
         _animatorController.Init(_animationSequences[_index]);
+
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
 

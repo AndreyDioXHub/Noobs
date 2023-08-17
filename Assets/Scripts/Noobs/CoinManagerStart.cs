@@ -22,6 +22,8 @@ public class CoinManagerStart : MonoBehaviour
     {
         _coins = PlayerPrefs.GetInt(PlayerPrefsConsts.COINS, 0);
         _coinsText.text = $"{_coins}";
+
+        //Cursor.lockState = CursorLockMode.None;
     }
 
     public void AddCoins(int coins)

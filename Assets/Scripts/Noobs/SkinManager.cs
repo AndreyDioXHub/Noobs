@@ -18,6 +18,18 @@ public class SkinManager : MonoBehaviour
     {
     }
 
+    [ContextMenu("LoadSkin")]
+    public void LoadSkin()
+    {
+        Destroy(_prevSkin);
+        Animator animator = null;
+        string skin = PlayerPrefs.GetString(PlayerPrefsConsts.CURENTSKIN, "skin0");
+        var gop = Instantiate(Resources.Load<GameObject>(skin), transform);
+        animator = gop.GetComponent<Animator>();
+        _animatorController.Init(animator);
+        _prevSkin = gop;
+    }
+
     public void Init(CharType type)
     {
 
