@@ -6,6 +6,8 @@ public class CameraView : MonoBehaviour
 {
 
     [SerializeField]
+    protected AnimatorController _animatorController;
+    [SerializeField]
     protected Transform _playerCamera;
 
     [SerializeField]
@@ -33,9 +35,12 @@ public class CameraView : MonoBehaviour
     {
         _mouseSensitivity = StaticConsts.MOUSE_SENSITIVITY;
 
+        //Debug.Log($"{Input.GetAxis("Mouse X")} { Input.GetAxis("Mouse Y")}");
+
         float mouseX = Input.GetAxis("Mouse X") * _mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * _mouseSensitivity * Time.deltaTime;
-
+        //Debug.Log($"{mouseX}");
+        _animatorController.SetBlend(mouseX);
         _xRotation -= mouseY;
         _xRotation = Mathf.Clamp(_xRotation, _minMaxAngle.x, _minMaxAngle.y);
 

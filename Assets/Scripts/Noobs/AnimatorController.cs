@@ -8,7 +8,7 @@ public class AnimatorController : MonoBehaviour
     private Animator _animator;
     [SerializeField]
     private GroundCheck _groundCheck;
-    private float _horizontal, _vertical;
+    private float _horizontal, _vertical, _blend;
 
     void Start()
     {
@@ -40,6 +40,48 @@ public class AnimatorController : MonoBehaviour
             else
             {
                 _animator.SetBool("Fall", true);
+            }
+        }
+
+        _animator.SetFloat("Blend", _blend);
+
+        if(_blend > 0.05f)
+        {
+            _blend -= 3 * Time.deltaTime;
+        }
+
+        if(_blend < -0.05f)
+        {
+            _blend += 3 * Time.deltaTime;
+        }
+
+
+        /*_blend = _blend > 0.1 ? _blend - Time.deltaTime : 0;
+        _blend = _blend < -0.1 ? _blend + Time.deltaTime : 0;*/
+    }
+
+    public void SetBlend(float blend)
+    {
+
+        if (blend != 0)
+        {
+            if (blend > 0)
+            {
+                _blend += 10 * Time.deltaTime;
+
+                if (_blend > 1)
+                {
+                    _blend = 1;
+                }
+            }
+            else
+            {
+                _blend -= 10 * Time.deltaTime;
+
+                if (_blend < -1)
+                {
+                    _blend = -1;
+                }
             }
         }
     }
