@@ -28,6 +28,9 @@ namespace cyraxchel.network.server
         private bool _botgamecouroutineProcecced = false;
 
         private Scene _mainScene;
+        [SerializeField]
+        private Vector3 outagePosition = new Vector3(5000, 0, 5000);
+
 
         void Awake()
         {
@@ -82,19 +85,21 @@ namespace cyraxchel.network.server
                     if (_bots.Count == 0)
                     {
                         var goBot = Instantiate(_playerPrefab);
-                        //Vector3 botPosition = new Vector3(5000, 0, 5000);
+                        //Vector3 botPosition = outagePosition;
+                        //Позиция будет задаваться в NoobNetworkBehaviour или когда бот будет активироваться
                         Vector3 botPosition = UnityEngine.Random.insideUnitSphere * 8 + parameters.serverGame.WorldOffset;
                         botPosition.y = LevelConfig.Instance.START_PLAYER_YPOS;
-                        Debug.Log($"Set bot position {botPosition}");
                         var hat = goBot.GetComponent<DistributionHat>();
                         if(hat != null) {
                             hat.Init(CharType.bot);
                             hat.Pause();
-                            goBot.SetActive(false);
+                            //Нельзя отключать GO до спауна
+                            //goBot.SetActive(false);
                         }
-                        goBot.transform.position = botPosition;
                         _bots.Add(goBot);
                         NetworkServer.Spawn(goBot);
+                        SceneManager.MoveGameObjectToScene(goBot, parameters.serverGame.CurrenScene);   // чтобы они видели платформы
+                        goBot.transform.position = botPosition;
                     }
                     if(i < parameters.requiredNumberBots) {
                         bots.Add(_bots[0]);
@@ -139,7 +144,7 @@ namespace cyraxchel.network.server
                     bot.SetActive(false);
                     bot.GetComponent<DistributionHat>().Pause();
                     SceneManager.MoveGameObjectToScene(bot, _mainScene);
-                    bot.transform.position = new Vector3(5000, 0, 5000);
+                    bot.transform.position = outagePosition;
                     _bots.Add(bot);
                 }
 
@@ -193,9 +198,7 @@ namespace cyraxchel.network.server
                 if(bot.GetComponent<DistributionHat>() != null) {
                     bot.GetComponent<DistributionHat>().Play();
                 }
-                /*Vector3 pos = UnityEngine.Random.insideUnitSphere * 10;
-                pos.y = 79;
-                bot.transform.position = pos;/**/
+                
                 bot.SetActive(true);
             }
         }
@@ -212,9 +215,6 @@ namespace cyraxchel.network.server
                     if (bot.GetComponent<DistributionHat>() != null) {
                         bot.GetComponent<DistributionHat>().Play();
                     }
-                    /*Vector3 pos = UnityEngine.Random.insideUnitSphere * 10;
-                    pos.y = 79;
-                    bot.transform.position = pos;/**/
                     bot.SetActive(true);
                 }
             }

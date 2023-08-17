@@ -63,5 +63,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: NoobCharacter Variant
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3036158208016223106, guid: cc95a42ce33269046b340917deeeba2e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: cc95a42ce33269046b340917deeeba2e, type: 3}
