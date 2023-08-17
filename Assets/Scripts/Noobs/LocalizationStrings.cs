@@ -86,6 +86,7 @@ public static class LocalizationStrings
                 game_scene_game_win_t0_curent = game_scene_game_win_t0_ru;
                 game_scene_game_win_t1_curent = game_scene_game_win_t1_ru;
                 game_scene_game_win_t2_curent = game_scene_game_win_t2_ru;
+                game_scene_game_sencity_curent = game_scene_game_sencity_ru;
 
                 start_scene_play_button_curent = start_scene_play_button_ru;
                 start_scene_next_button_curent = start_scene_next_button_ru;

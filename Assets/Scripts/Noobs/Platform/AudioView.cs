@@ -9,7 +9,7 @@ public class AudioView : MonoBehaviour
 
     void Start()
     {
-        int a = PlayerPrefs.GetInt(PlayerPrefsConsts.AUDIO, 0);
+        int a = PlayerPrefs.GetInt(PlayerPrefsConsts.AUDIO, 1);
 
         if (a == 1)
         {

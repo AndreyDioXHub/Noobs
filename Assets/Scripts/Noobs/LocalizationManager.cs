@@ -34,6 +34,17 @@ public class LocalizationManager : MonoBehaviour
         {
             t.UpdateText();
         }
+
+        int a = PlayerPrefs.GetInt(PlayerPrefsConsts.AUDIO, 1);
+
+        if (a == 1)
+        {
+            StaticConsts.AUDIO_ON = true;
+        }
+        else
+        {
+            StaticConsts.AUDIO_ON = false;
+        }
     }
 
 

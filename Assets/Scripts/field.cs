@@ -5,37 +5,14 @@ using UnityEngine;
 public class field : MonoBehaviour
 {
     [SerializeField]
-    private Camera _camera;
-    [SerializeField]
-    private float _speed = 1;
-    [SerializeField]
-    private float _f = 1;
-
+    private List<Animator> _animators = new List<Animator>();
 
    void Start()
     {
-        
+        foreach(var animator in _animators)
+        {
+            animator.SetBool("Fall", true);
+        }
     }
 
-    void Update()
-    {
-
-        if (Input.GetKey("w"))
-        {
-            _f += _speed * Time.deltaTime;
-            
-        }
-
-        if (Input.GetKey("s"))
-        {
-
-            _f -= _speed * Time.deltaTime;
-        }
-
-        if (_f < 1)
-        {
-            _f = 1;
-        }
-        _camera.nearClipPlane = _f;
-    }
 }
