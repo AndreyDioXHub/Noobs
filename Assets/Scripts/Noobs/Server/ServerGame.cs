@@ -155,7 +155,8 @@ namespace cyraxchel.network.server {
         /// </summary>
         /// <exception cref="NotImplementedException"></exception>
         internal void BotComplete() {
-            GameStatus = Status.Action; //Запуск игры
+            Debug.LogWarning("TODO: Восстановить запуск игры");
+            //GameStatus = Status.Action; //Запуск игры
         }
 
         public class Player {

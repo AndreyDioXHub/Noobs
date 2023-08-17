@@ -53,6 +53,10 @@ namespace cyraxchel.network.server
 
         internal void GetBotForGame(ServerGame serverGame, int requiredNumberBots) 
         {
+            // Временно отключаю создание ботов
+            serverGame.BotComplete();
+            return;
+
             _forGameParameters.Enqueue(new BotForGameParameters(serverGame, requiredNumberBots));
 
             if (_botgamecouroutineProcecced)
@@ -98,7 +102,7 @@ namespace cyraxchel.network.server
                         }
                         _bots.Add(goBot);
                         NetworkServer.Spawn(goBot);
-                        SceneManager.MoveGameObjectToScene(goBot, parameters.serverGame.CurrenScene);   // чтобы они видели платформы
+                         SceneManager.MoveGameObjectToScene(goBot, parameters.serverGame.CurrenScene);   // чтобы они видели платформы
                         goBot.transform.position = botPosition;
                     }
                     if(i < parameters.requiredNumberBots) {
