@@ -6,15 +6,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : NetworkBehaviour
+public class GameManager : MonoBehaviour
 {
 
     public static Vector3 ClientWorldOffset { get; set; } = Vector3.zero;
 
-    public Vector3 GlobalOffset { get => netOffset; set { netOffset = value; } }
+    public Vector3 GlobalOffset { get => gm_network.netOffset; set { gm_network.netOffset = value; } }
 
-    [SyncVar(hook = nameof(UpdateNetOffset))]
-    Vector3 netOffset = Vector3.zero;
+    
 
     public static GameManager Instance { get;
         set; }    //Используется только в клиентах!
@@ -34,12 +33,13 @@ public class GameManager : NetworkBehaviour
     private GameObject _leaveText;
     [SerializeField]
     PlayerCount _playerCount;
-    [SyncVar(hook =nameof(UpdatePlayersCount))]
-    int _readyPlayers = 0;
+    
 
     public Transform _levelTransform;
     [SerializeField]
     GameObject _startPlatform;
+
+    public GMNetwork gm_network;
 
     private void Awake() {
         Instance = this;
@@ -52,7 +52,9 @@ public class GameManager : NetworkBehaviour
 
     void Update()
     {
-        if(!isClientOnly) {
+        if (gm_network == null) return;     // Не выполнять, пока не инициализирована сеть
+
+        if(!gm_network.isClientOnly) {
             return;     // Отрабатывать только на клиентах!
         }
         //TODO Переделать счет игроков на локальный элемент
@@ -83,33 +85,26 @@ public class GameManager : NetworkBehaviour
 
     public void UpdateSceneOffset() {
         Debug.Log($"{nameof(UpdateSceneOffset)}> Scene offset updated to {GlobalOffset}");
-        if(isServer) {
+        if(gm_network.isServer) {
             _levelTransform.position = GlobalOffset;
         }
-        if(isClientOnly) {
+        if(gm_network.isClientOnly) {
             _levelTransform.position = ClientWorldOffset;
         }
     }
 
-    private void UpdateNetOffset(Vector3 oldvalue, Vector3 newvalue) {
-        GlobalOffset = newvalue;
-        ClientWorldOffset = newvalue;
-        UpdateSceneOffset();
-    }
+    
 
-    public override void OnStartClient() {
+    public void OnStartClient() {
         Debug.Log($"{nameof(GameManager)}:{nameof(OnStartClient)} - Start Local client");
-        base.OnStartClient();
         CmdRegisterGame();
     }
 
-    public override void OnStartServer() {
-        base.OnStartServer();
+    public void OnStartServer() {
         StartCoroutine(CmdRegisterGame());
         Instance = null;
     }
 
-    //[Command]
     private IEnumerator CmdRegisterGame() {
         yield return new WaitForSeconds(0.1f);
         Debug.Log($"Try register {nameof(CmdRegisterGame)}");
@@ -129,30 +124,18 @@ public class GameManager : NetworkBehaviour
                 break;
             case ServerGame.Status.Finish: 
                 //Complete game
-                RPC_StopGame();
+                //gm_network.RPC_StopGame();
                 break;
         }
     }
 
-    [ClientRpc]
-    private void RPC_StartGame() {
-        _startPlatform.SetActive(false);
-        //TODO
-    }
-    [ClientRpc]
-    private void RPC_StopGame() {
-
-    }
 
     internal void OnPlayerJoin(ServerGame game, ServerGame.Player player) {
         //_readyPlayers++;
         //Debug.Log($"Add player {player.name}. Index: {_readyPlayers}");
     }
 
-    private void UpdatePlayersCount(int oldvalue, int newvalue) {
-        Debug.Log($"Ready Players {newvalue}");
-//        _connectionscreen.AddNextPlayer(newvalue); 
-    }
+    
 
     public void ShowConnectedUser() {
         _connectionscreen.Show(1);
