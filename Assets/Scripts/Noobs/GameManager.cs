@@ -47,7 +47,9 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        
+        if(ServerNetworkBehaviour.Instance != null) {
+            ServerNetworkBehaviour.Instance.RegisterGameManager(gameObject.scene, this);
+        }
     }
 
     void Update()
@@ -107,8 +109,8 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator CmdRegisterGame() {
         yield return new WaitForSeconds(0.1f);
-        Debug.Log($"Try register {nameof(CmdRegisterGame)}");
-        ServerNetworkBehaviour.Instance.RegisterGameManager(gameObject.scene, this);
+        //Debug.Log($"Try register {nameof(CmdRegisterGame)}");
+        //ServerNetworkBehaviour.Instance.RegisterGameManager(gameObject.scene, this);
         UpdateSceneOffset();
 
     }

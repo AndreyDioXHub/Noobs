@@ -74,6 +74,7 @@ namespace cyraxchel.network.server {
             Debug.Log($"Init without WorldOffset");
             awaitingPlayers = new Dictionary<int, NetworkConnectionToClient>();
             GameStatus = Status.Preparation;
+            Debug.Log($"Current scene is {CurrenScene}");
             //Запустить таймер
             countdownTimer = ServerNetworkBehaviour.Instance.StartCoroutine(AwaitPlayers());
             

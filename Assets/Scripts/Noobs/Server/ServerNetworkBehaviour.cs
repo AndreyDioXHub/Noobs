@@ -18,7 +18,7 @@ public class ServerNetworkBehaviour : NetworkBehaviour {
 
     [SerializeField]
     List<ServerGame> serverGames = new List<ServerGame>();
-
+    HashSet<GameManager> gameManagers = new HashSet<GameManager>();
 
     #region Unity Callbacks
 
@@ -162,11 +162,17 @@ public class ServerNetworkBehaviour : NetworkBehaviour {
     /// <param name="gameManager"></param>
     /// <exception cref="NotImplementedException"></exception>
     internal void RegisterGameManager(Scene scene, GameManager gameManager) {
+        // Use Pool of gamemanagers
+        if(gameManagers.Add(gameManager)) {
+            Debug.Log("Game Manager added to poo");
+        }
+
+        /*
         foreach (var game in serverGames) {
             if (game.CurrenScene == scene) {
                 game.CurrentGameManager = gameManager;
             }
-        }
+        }/**/
     }
 
     internal void SetSceneToGame(Scene scene, int level) {
