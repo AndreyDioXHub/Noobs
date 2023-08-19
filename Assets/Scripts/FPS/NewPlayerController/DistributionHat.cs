@@ -125,6 +125,11 @@ public class DistributionHat : MonoBehaviour
         }
     }
 
+    public void SetType(CharType type)
+    {
+        _type = type;
+    }
+
     public void Init(CharType type)
     {
         _type = type;
