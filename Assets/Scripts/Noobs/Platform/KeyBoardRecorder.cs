@@ -52,15 +52,23 @@ public class KeyBoardRecorder : MonoBehaviour
                 _cameraCenter.SetActive(false);
                 gameObject.tag = "Bot";
                 _animatorController.enabled = false;
-
+                _hat.SetType(CharType.bot);
                 string json = "";
 
                 if (_assets.Count > 0)
                 {
-                    Debug.Log("Bot loaded from data");
+                    try
+                    {
+                        Debug.Log("Bot loaded from data");
 
-                    json = _assets[PlatformGameManager.Instance.Index].ToString();
-                    _positions = JsonConvert.DeserializeObject<List<Positions>>(json);
+                        json = _assets[PlatformGameManager.Instance.Index].ToString();
+                        _positions = JsonConvert.DeserializeObject<List<Positions>>(json);
+                    }
+                    catch (ArgumentOutOfRangeException e)
+                    {
+                        Debug.Log("Bot not loaded");
+                        gameObject.SetActive(false);
+                    }
                 }
                 else
                 {
@@ -74,11 +82,14 @@ public class KeyBoardRecorder : MonoBehaviour
                     }
                     else
                     {
+                        Debug.Log("Bot not loaded");
                         gameObject.SetActive(false);
                     }
                 }
+
                 break;
             case ReplayState.record:
+                _hat.SetType(CharType.player);
                 _cameraCenter.SetActive(true);
                 break;
             default:
