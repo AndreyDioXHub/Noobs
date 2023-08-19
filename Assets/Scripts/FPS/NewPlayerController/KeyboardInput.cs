@@ -18,8 +18,8 @@ public class KeyboardInput : MonoBehaviour
     protected AnimationCurve _accelerationCurve;
     [SerializeField]
     protected float _accelerationTime;
-    [SerializeField]
-    protected List<InteractableObject> _interactables = new List<InteractableObject>();
+    /*[SerializeField]
+    protected List<InteractableObject> _interactables = new List<InteractableObject>();*/
 
     protected float _accelerationVerticalForwardTimeCur;
     protected float _accelerationVerticalBackwardTimeCur;
@@ -145,7 +145,7 @@ public class KeyboardInput : MonoBehaviour
 
         _movement.Move(horizontal, vertical);
     }
-
+    /*
     private void OnGUI()
     {
         Event e = Event.current;
@@ -161,8 +161,8 @@ public class KeyboardInput : MonoBehaviour
             }
         }
 
-    }
-
+    }*/
+    /*
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent<InteractableObject>(out InteractableObject interaction))
@@ -183,5 +183,5 @@ public class KeyboardInput : MonoBehaviour
                 _interactables.Remove(interaction);
             }
         }
-    }
+    }*/
 }
