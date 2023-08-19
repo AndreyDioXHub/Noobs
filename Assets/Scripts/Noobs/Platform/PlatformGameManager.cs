@@ -34,6 +34,8 @@ public class PlatformGameManager : MonoBehaviour
 
     [SerializeField]
     private bool _needPlayer;
+    [SerializeField]
+    private bool _needRandomIndex;
 
 
    private List<List<string>> _animationSequences = new List<List<string>>()
@@ -117,18 +119,22 @@ public class PlatformGameManager : MonoBehaviour
         _playerHat.Pause();
         winState = WinState.play;
 
-        /*_index = Random.Range(0, _animationSequences.Count);
-        
-        int indexPrev = PlayerPrefs.GetInt(PlayerPrefsConsts.PREV_INDEX, 0);
-
-        if(_index == indexPrev)
+        if (_needRandomIndex)
         {
-            _index++;
-            _index = _index > 3 ? 0 : _index;
+            _index = Random.Range(0, _animationSequences.Count);
+
+            int indexPrev = PlayerPrefs.GetInt(PlayerPrefsConsts.PREV_INDEX, 0);
+
+            if (_index == indexPrev)
+            {
+                _index++;
+                _index = _index > 3 ? 0 : _index;
+            }
+
+            PlayerPrefs.SetInt(PlayerPrefsConsts.PREV_INDEX, _index);
+
         }
 
-        PlayerPrefs.SetInt(PlayerPrefsConsts.PREV_INDEX, _index);
-         */
         StartCoroutine(PrepareCoroutine());
     }
 
