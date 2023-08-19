@@ -32,6 +32,9 @@ public class PlatformGameManager : MonoBehaviour
     [SerializeField]
     private float _timeCur = 0;
 
+    [SerializeField]
+    private bool _needPlayer;
+
 
    private List<List<string>> _animationSequences = new List<List<string>>()
     {
@@ -134,19 +137,21 @@ public class PlatformGameManager : MonoBehaviour
         {
             float randomTime = Random.Range(0.05f, 0.5f);
 
-            if (playerIndex == index)
+            if (playerIndex == index && _needPlayer)
             {
-                PlayerCount.Instance.RegisterPlayer();
-                _playerHat.Play();
+                _player.transform.position = _keyBoardRecorders[index].gameObject.transform.position;
                 _player.SetActive(true);
+                PlayerCount.Instance.RegisterPlayer();
                 ConnectionScreen.Instance.Show(1);
-                yield return new WaitForSeconds(randomTime);
+            }
+            else
+            {
+                _keyBoardRecorders[index].Prepare();
+                PlayerCount.Instance.RegisterPlayer();
+                ConnectionScreen.Instance.Show(1);
             }
 
-            _keyBoardRecorders[index].Prepare();
             index++;
-            ConnectionScreen.Instance.Show(1);
-            PlayerCount.Instance.RegisterPlayer();
             yield return new WaitForSeconds(randomTime);
         }
 
@@ -158,6 +163,7 @@ public class PlatformGameManager : MonoBehaviour
         ConnectionScreen.Instance.gameObject.SetActive(false);
         _animatorController.Init(_animationSequences[_index]);
 
+        _playerHat.Play();
         Cursor.lockState = CursorLockMode.Locked;
     }
 

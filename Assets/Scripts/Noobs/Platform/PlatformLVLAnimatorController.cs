@@ -8,9 +8,14 @@ public class PlatformLVLAnimatorController : MonoBehaviour
     /*
     [SerializeField]
     private TextMeshProUGUI _text0;*/
-
+    [SerializeField]
+    private string _idleAnimationName;
     [SerializeField]
     private Animator _animator;
+    [SerializeField]
+    private float _timePlay = 10;
+    [SerializeField]
+    private float _timePause = 10;
     [SerializeField]
     private float _time = 10;
     [SerializeField]
@@ -23,6 +28,8 @@ public class PlatformLVLAnimatorController : MonoBehaviour
     private bool _isPaused;
     [SerializeField]
     private bool _isStarted;
+    [SerializeField]
+    private bool _needCoins;
 
     [SerializeField]
     private GameObject _coinPrefab;
@@ -43,13 +50,19 @@ public class PlatformLVLAnimatorController : MonoBehaviour
             {
                 if (_isPaused)
                 {
+                    _time = _timePause;
                     _isPaused = false;
-                    _animator.Play("Platform Idle Animation");
+                    _animator.Play(_idleAnimationName);
 
-                    StartCoroutine(SpawnCoinsCoroutine());
+                    if (_needCoins)
+                    {
+                        StartCoroutine(SpawnCoinsCoroutine());
+                    }
                 }
                 else
                 {
+                    _time = _timePlay;
+
                     if (_index < _animationSequence.Count)
                     {
                         _animator.Play(_animationSequence[_index]);
@@ -87,5 +100,6 @@ public class PlatformLVLAnimatorController : MonoBehaviour
     {
         _animationSequence = animationSequence;
         _isStarted = true;
+        _time = _timePause; 
     }
 }
