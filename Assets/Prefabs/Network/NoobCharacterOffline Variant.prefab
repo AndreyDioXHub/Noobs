@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 4151996375207194016, guid: cc95a42ce33269046b340917deeeba2e, type: 3}
       propertyPath: _prevSkin
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2819902816444366739}
     - target: {fileID: 4151996375207194016, guid: cc95a42ce33269046b340917deeeba2e, type: 3}
       propertyPath: _recorder
       value: 
@@ -323,6 +323,11 @@ GameObject:
 --- !u!4 &2540757174632256263 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4659036254382120631, guid: cc95a42ce33269046b340917deeeba2e, type: 3}
+  m_PrefabInstance: {fileID: 7199758242424540592}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2819902816444366739 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4956461333247554083, guid: cc95a42ce33269046b340917deeeba2e, type: 3}
   m_PrefabInstance: {fileID: 7199758242424540592}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &4307754554688707005 stripped
