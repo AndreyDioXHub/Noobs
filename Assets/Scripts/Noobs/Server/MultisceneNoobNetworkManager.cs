@@ -30,6 +30,9 @@ public class MultisceneNoobNetworkManager : NetworkManager
     // Sequential index used in round-robin deployment of players into instances and score positioning
     int clientIndex;
 
+    [SerializeField]
+    GameObject NGManagerPrefab;
+
     // Overrides the base singleton so we don't
     // have to cast to this type everywhere.
     public static new MultisceneNoobNetworkManager singleton { get; private set; }
@@ -423,6 +426,19 @@ public class MultisceneNoobNetworkManager : NetworkManager
 
             GameManager.ClientWorldOffset = ServerNetworkBehaviour.GetSceneOffset(message.sceneIndex);
         }
+    }
+
+    internal GMNetwork InstantiateGMNetwork(ServerGame serverGame) {
+        GameObject gnmanager = Instantiate(NGManagerPrefab);
+        SceneManager.MoveGameObjectToScene(gnmanager, serverGame.CurrenScene);
+        GMNetwork gameRouter = gnmanager.GetComponent<GMNetwork>();
+        if(gameRouter != null ) {
+            gameRouter.gameManager = ServerNetworkBehaviour.Instance.GetGameManager(serverGame.CurrenScene);
+        } else {
+            Debug.LogWarning($"On GamenManager can't find {nameof(GMNetwork)}");
+        }
+        NetworkServer.Spawn(gnmanager);
+        return gameRouter;
     }
     #endregion
 }

@@ -12,7 +12,7 @@ using Mirror;
 public class GMNetwork : NetworkBehaviour
 {
     [SerializeField]
-    GameManager gameManager;
+    internal GameManager gameManager;
 
     [SyncVar(hook = nameof(UpdateNetOffset))]
     internal Vector3 netOffset = Vector3.zero;

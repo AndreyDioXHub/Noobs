@@ -56,6 +56,8 @@ namespace cyraxchel.network.server {
         Scene _gamescene;
         public Scene CurrenScene { get => _gamescene; internal set {
                 _gamescene = value;
+                //Инстантиировать туда 
+                GMNetwork gMNetwork = MultisceneNoobNetworkManager.singleton.InstantiateGMNetwork(this);
                 GameStatus = Status.None;
             } }
 
@@ -74,6 +76,7 @@ namespace cyraxchel.network.server {
             Debug.Log($"Init without WorldOffset");
             awaitingPlayers = new Dictionary<int, NetworkConnectionToClient>();
             GameStatus = Status.Preparation;
+
             Debug.Log($"Current scene is {CurrenScene}");
             //Запустить таймер
             countdownTimer = ServerNetworkBehaviour.Instance.StartCoroutine(AwaitPlayers());
@@ -94,8 +97,6 @@ namespace cyraxchel.network.server {
             } else {
                 GameStatus = Status.None;
             }
-            
-
         }
 
         public void AddPlayer(Player player) {

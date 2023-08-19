@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 
 /*
@@ -178,5 +179,14 @@ public class ServerNetworkBehaviour : NetworkBehaviour {
     internal void SetSceneToGame(Scene scene, int level) {
         serverGames[level].CurrenScene = scene;
         serverGames[level].WorldOffset = GetSceneOffset(level);
+    }
+
+    public GameManager GetGameManager(Scene scene) {
+        foreach (var game in gameManagers) { 
+            if(game.gameObject.scene == scene) {
+                return game;
+            }
+        }
+        return null;
     }
 }
