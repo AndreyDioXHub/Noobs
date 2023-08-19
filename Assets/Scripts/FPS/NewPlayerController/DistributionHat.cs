@@ -180,7 +180,7 @@ public class DistributionHat : MonoBehaviour
                 _characterController.enabled = true;
                 _blender.enabled = true;
                 _playerInput.enabled = false;
-                _botInput.enabled = true;
+                _botInput.enabled = false;
                 _playerCameraInput.enabled = false;
                 Destroy(_camera);
                 _speed.enabled = true;

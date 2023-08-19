@@ -41,57 +41,61 @@ public class PlatformGameManager : MonoBehaviour
         { 
             new List<string>()
             {
-                "Platform Flip 7 Animation",
-                "Platform Flip 8 Animation",
-                "Platform Flip 0 Animation",
-                "Platform Lazer 3 Animation",
-                "Platform Lazer 2 Animation",
-                "Platform Flip 2 Animation",
-                "Platform Flip 8 Animation",
-                "Platform Lazer 5 Animation",
-                "Platform Lazer 3 Animation",
+                "Casino pt 1 Animation",
+                "Casino pt 2 Animation",
+                "Casino pt 3 Animation",
+                "Casino pt 4 Animation",
+                "Casino pt 5 Animation",
+                "Casino pt 6 Animation",
+                "Casino pt 7 Animation",
+                "Casino pt 8 Animation",
+                "Casino pt 9 Animation",
+                "Casino pt 10 Animation",
             } 
         },
         { 
             new List<string>()
             {
-                "Platform Flip 8 Animation",
-                "Platform Lazer 0 Animation",
-                "Platform Flip 0 Animation",
-                "Platform Flip 0 Animation",
-                "Platform Flip 7 Animation",
-                "Platform Flip 8 Animation",
-                "Platform Flip 5 Animation",
-                "Platform Lazer 5 Animation",
-                "Platform Lazer 6 Animation",
+                "Casino pt 16 Animation",
+                "Casino pt 15 Animation",
+                "Casino pt 14 Animation",
+                "Casino pt 13 Animation",
+                "Casino pt 12 Animation",
+                "Casino pt 11 Animation",
+                "Casino pt 10 Animation",
+                "Casino pt 1 Animation",
+                "Casino pt 2 Animation",
+                "Casino pt 3 Animation",
             } 
         },
         { 
             new List<string>()
             {
-                "Platform Flip 8 Animation",
-                "Platform Lazer 6 Animation",
-                "Platform Lazer 0 Animation",
-                "Platform Flip 1 Animation",
-                "Platform Lazer 1 Animation",
-                "Platform Lazer 3 Animation",
-                "Platform Flip 5 Animation",
-                "Platform Flip 3 Animation",
-                "Platform Lazer 3 Animation",
+                "Casino pt 3 Animation",
+                "Casino pt 4 Animation",
+                "Casino pt 2 Animation",
+                "Casino pt 6 Animation",
+                "Casino pt 9 Animation",
+                "Casino pt 14 Animation",
+                "Casino pt 12 Animation",
+                "Casino pt 10 Animation",
+                "Casino pt 8 Animation",
+                "Casino pt 1 Animation",
             } 
         },
         { 
             new List<string>()
             {
-                "Platform Lazer 6 Animation",
-                "Platform Lazer 3 Animation",
-                "Platform Lazer 5 Animation",
-                "Platform Flip 4 Animation",
-                "Platform Flip 6 Animation",
-                "Platform Lazer 3 Animation",
-                "Platform Flip 8 Animation",
-                "Platform Flip 7 Animation",
-                "Platform Lazer 3 Animation",
+                "Casino pt 7 Animation",
+                "Casino pt 6 Animation",
+                "Casino pt 5 Animation",
+                "Casino pt 1 Animation",
+                "Casino pt 3 Animation",
+                "Casino pt 16 Animation",
+                "Casino pt 12 Animation",
+                "Casino pt 2 Animation",
+                "Casino pt 13 Animation",
+                "Casino pt 10 Animation",
             } 
         },
     };
@@ -112,9 +116,9 @@ public class PlatformGameManager : MonoBehaviour
     {
         _playerHat.Pause();
         winState = WinState.play;
-        
-        _index = Random.Range(0, _animationSequences.Count);
 
+        /*_index = Random.Range(0, _animationSequences.Count);
+        
         int indexPrev = PlayerPrefs.GetInt(PlayerPrefsConsts.PREV_INDEX, 0);
 
         if(_index == indexPrev)
@@ -124,7 +128,7 @@ public class PlatformGameManager : MonoBehaviour
         }
 
         PlayerPrefs.SetInt(PlayerPrefsConsts.PREV_INDEX, _index);
-         
+         */
         StartCoroutine(PrepareCoroutine());
     }
 
