@@ -291,7 +291,7 @@ MonoBehaviour:
   _assets: []
   _hat: {fileID: 4307754554688707005}
   _animatorController: {fileID: 352270192100147809}
-  _animator: {fileID: 0}
+  _animator: {fileID: 7607506767402027544}
   _cameraCenter: {fileID: 2540757174209700745}
   _positions: []
   _dir: {fileID: 2540757174632256263}
@@ -341,3 +341,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6c63db36324b794a859cf26a8b952e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &7607506767402027544 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 754888266553427880, guid: cc95a42ce33269046b340917deeeba2e, type: 3}
+  m_PrefabInstance: {fileID: 7199758242424540592}
+  m_PrefabAsset: {fileID: 0}
