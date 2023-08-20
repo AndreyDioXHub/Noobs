@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 32094857677953627}
   - component: {fileID: 32094857677953622}
   - component: {fileID: 32094857677953623}
-  - component: {fileID: 32094857677953616}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -77,29 +76,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35724d8a5e625624a8585d1258b6e7d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
   IsLose: 0
-  _loseScreen: {fileID: 0}
+  _winscreen: {fileID: 0}
+  _connectionscreen: {fileID: 0}
   _time: 2
   _timeCur: 0
   _leaveText: {fileID: 0}
+  _playerCount: {fileID: 0}
   _levelTransform: {fileID: 0}
---- !u!114 &32094857677953616
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 32094857677953625}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 0
-  _assetId: 0
-  serverOnly: 0
-  visible: 0
-  hasSpawned: 0
+  _startPlatform: {fileID: 0}
+  gm_network: {fileID: 0}

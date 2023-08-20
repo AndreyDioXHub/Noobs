@@ -54,7 +54,7 @@ namespace cyraxchel.network.server {
 
         [SerializeField]
         Scene _gamescene;
-        public Scene CurrenScene { get => _gamescene; internal set {
+        public Scene CurrentScene { get => _gamescene; internal set {
                 _gamescene = value;
                 //Инстантиировать туда 
                 GMNetwork gMNetwork = MultisceneNoobNetworkManager.singleton.InstantiateGMNetwork(this);
@@ -77,7 +77,7 @@ namespace cyraxchel.network.server {
             awaitingPlayers = new Dictionary<int, NetworkConnectionToClient>();
             GameStatus = Status.Preparation;
 
-            Debug.Log($"Current scene is {CurrenScene}");
+            Debug.Log($"Current scene is {CurrentScene}");
             //Запустить таймер
             countdownTimer = ServerNetworkBehaviour.Instance.StartCoroutine(AwaitPlayers());
             

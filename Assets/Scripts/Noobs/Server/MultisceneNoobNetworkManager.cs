@@ -327,6 +327,9 @@ public class MultisceneNoobNetworkManager : NetworkManager
 
             Scene newScene = SceneManager.GetSceneAt(index);
             subScenes.Add(newScene);
+
+            yield return new WaitForEndOfFrame();   //∆ду инициализации объектов сцены
+
             ServerNetworkBehaviour.Instance.SetSceneToGame(subScenes[index-1], index-1);    //Set allocation for server games
             //Spawner.InitialSpawn(newScene);
             //TODO Fill bots in scene
@@ -430,10 +433,15 @@ public class MultisceneNoobNetworkManager : NetworkManager
 
     internal GMNetwork InstantiateGMNetwork(ServerGame serverGame) {
         GameObject gnmanager = Instantiate(NGManagerPrefab);
-        SceneManager.MoveGameObjectToScene(gnmanager, serverGame.CurrenScene);
+        gnmanager.transform.position = serverGame.WorldOffset;
+        SceneManager.MoveGameObjectToScene(gnmanager, serverGame.CurrentScene);
         GMNetwork gameRouter = gnmanager.GetComponent<GMNetwork>();
         if(gameRouter != null ) {
-            gameRouter.gameManager = ServerNetworkBehaviour.Instance.GetGameManager(serverGame.CurrenScene);
+            serverGame.CurrentGameManager = ServerNetworkBehaviour.Instance.GetGameManager(serverGame.CurrentScene);
+            serverGame.CurrentGameManager.GlobalOffset = serverGame.WorldOffset;
+            serverGame.CurrentGameManager.gm_network = gameRouter;
+            serverGame.CurrentGameManager.UpdateSceneOffset();
+            gameRouter.gameManager = serverGame.CurrentGameManager;
         } else {
             Debug.LogWarning($"On GamenManager can't find {nameof(GMNetwork)}");
         }

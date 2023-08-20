@@ -12,7 +12,15 @@ using Mirror;
 public class GMNetwork : NetworkBehaviour
 {
     [SerializeField]
-    internal GameManager gameManager;
+    private GameManager _gm;
+    internal GameManager gameManager { get => _gm;
+        set { 
+            _gm = value;
+            if (_gm != null) { 
+                _gm.OnStartServer();
+            }
+        } 
+    }
 
     [SyncVar(hook = nameof(UpdateNetOffset))]
     internal Vector3 netOffset = Vector3.zero;
@@ -51,7 +59,7 @@ public class GMNetwork : NetworkBehaviour
     /// <para>This will be called for objects on a "host" as well as for object on a dedicated server.</para>
     /// </summary>
     public override void OnStartServer() { 
-        gameManager.OnStartServer();
+        
     }
 
     /// <summary>

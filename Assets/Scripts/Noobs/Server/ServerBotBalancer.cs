@@ -102,7 +102,7 @@ namespace cyraxchel.network.server
                         }
                         _bots.Add(goBot);
                         NetworkServer.Spawn(goBot);
-                         SceneManager.MoveGameObjectToScene(goBot, parameters.serverGame.CurrenScene);   // чтобы они видели платформы
+                         SceneManager.MoveGameObjectToScene(goBot, parameters.serverGame.CurrentScene);   // чтобы они видели платформы
                         goBot.transform.position = botPosition;
                     }
                     if(i < parameters.requiredNumberBots) {
@@ -156,7 +156,7 @@ namespace cyraxchel.network.server
             }
             else
             {
-                Debug.Log($"{serverGame.CurrenScene.name}: key empty");
+                Debug.Log($"{serverGame.CurrentScene.name}: key empty");
             }
         }
 
@@ -224,7 +224,7 @@ namespace cyraxchel.network.server
             }
             else
             {
-                Debug.Log($"{serverGame.CurrenScene.name}: key empty");
+                Debug.Log($"{serverGame.CurrentScene.name}: key empty");
             }
             
         }

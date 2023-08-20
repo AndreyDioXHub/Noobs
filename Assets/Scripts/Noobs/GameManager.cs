@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
 
     public static Vector3 ClientWorldOffset { get; set; } = Vector3.zero;
 
-    public Vector3 GlobalOffset { get => gm_network.netOffset; set { gm_network.netOffset = value; } }
+    public Vector3 GlobalOffset { get; set; }
 
     
 

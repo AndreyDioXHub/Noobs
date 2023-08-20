@@ -726,6 +726,10 @@ PrefabInstance:
       propertyPath: transport
       value: 
       objectReference: {fileID: 2089868513}
+    - target: {fileID: 3468411015184169738, guid: 5b5b188dba58e80488f96863846dc323, type: 3}
+      propertyPath: NGManagerPrefab
+      value: 
+      objectReference: {fileID: 1214344774646941336, guid: 2fb365176c531f2449387e298744aa87, type: 3}
     m_RemovedComponents:
     - {fileID: 3468411015184169736, guid: 5b5b188dba58e80488f96863846dc323, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5b5b188dba58e80488f96863846dc323, type: 3}

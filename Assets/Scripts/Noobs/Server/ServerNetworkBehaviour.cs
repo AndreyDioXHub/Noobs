@@ -165,7 +165,7 @@ public class ServerNetworkBehaviour : NetworkBehaviour {
     internal void RegisterGameManager(Scene scene, GameManager gameManager) {
         // Use Pool of gamemanagers
         if(gameManagers.Add(gameManager)) {
-            Debug.Log("Game Manager added to poo");
+            Debug.Log("Game Manager added to pool");
         }
 
         /*
@@ -177,8 +177,8 @@ public class ServerNetworkBehaviour : NetworkBehaviour {
     }
 
     internal void SetSceneToGame(Scene scene, int level) {
-        serverGames[level].CurrenScene = scene;
         serverGames[level].WorldOffset = GetSceneOffset(level);
+        serverGames[level].CurrentScene = scene;
     }
 
     public GameManager GetGameManager(Scene scene) {
