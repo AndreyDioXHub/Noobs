@@ -9,6 +9,10 @@ public class PlatformCoinManager : MonoBehaviour
 
     [SerializeField]
     private int _coins;
+    [SerializeField]
+    private Transform _coinsCanvas;
+    [SerializeField]
+    private GameObject _coinsUIPrefab;
     public int EarnedCoins;
 
     [SerializeField]
@@ -43,12 +47,28 @@ public class PlatformCoinManager : MonoBehaviour
         _coins++;
         _coinsText.text = $"{_coins}";
         PlayerPrefs.SetInt(PlayerPrefsConsts.COINS, _coins);
+        StartCoroutine(ShowCoinsCoroutine(1));
     }
     
     public void AddCoin(int coins)
     {
         _coins+= coins;
+        EarnedCoins+= coins;
         _coinsText.text = $"{_coins}";
         PlayerPrefs.SetInt(PlayerPrefsConsts.COINS, _coins);
+        StartCoroutine(ShowCoinsCoroutine(coins));
+    }
+
+    IEnumerator ShowCoinsCoroutine(int count)
+    {
+        int index = 0;
+
+        while(index < count)
+        {
+            var go = Instantiate(_coinsUIPrefab, _coinsCanvas);
+            Destroy(go, 0.5f);
+            index++;
+            yield return new WaitForSeconds(0.2f);
+        }
     }
 }

@@ -17,6 +17,8 @@ public class PlatformLVLAnimatorController : MonoBehaviour
     [SerializeField]
     private float _timePause = 10;
     [SerializeField]
+    private float _timePrepare = 10;
+    [SerializeField]
     private float _time = 10;
     [SerializeField]
     private float _timeCur;
@@ -29,7 +31,11 @@ public class PlatformLVLAnimatorController : MonoBehaviour
     [SerializeField]
     private bool _isStarted;
     [SerializeField]
-    private bool _needCoins;
+    private bool _needSpawnCoins;
+    [SerializeField]
+    private bool _needPassCoins;
+    [SerializeField]
+    private int _reward = 5;
 
     [SerializeField]
     private GameObject _coinPrefab;
@@ -54,7 +60,12 @@ public class PlatformLVLAnimatorController : MonoBehaviour
                     _isPaused = false;
                     _animator.Play(_idleAnimationName);
 
-                    if (_needCoins)
+                    if (_needPassCoins)
+                    {
+                        PlatformCoinManager.Instance.AddCoin(_reward);
+                    }
+
+                    if (_needSpawnCoins)
                     {
                         StartCoroutine(SpawnCoinsCoroutine());
                     }
@@ -100,6 +111,6 @@ public class PlatformLVLAnimatorController : MonoBehaviour
     {
         _animationSequence = animationSequence;
         _isStarted = true;
-        _time = _timePause; 
+        _time = _timePrepare; 
     }
 }
