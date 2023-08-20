@@ -5008,6 +5008,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: CharactersRing
       objectReference: {fileID: 0}
+    - target: {fileID: 2602156358417434165, guid: a159e11658e971c48b434b6a72af893c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2602156358417434165, guid: a159e11658e971c48b434b6a72af893c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2602156358417434165, guid: a159e11658e971c48b434b6a72af893c, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a159e11658e971c48b434b6a72af893c, type: 3}
 --- !u!222 &3108361531393740242
