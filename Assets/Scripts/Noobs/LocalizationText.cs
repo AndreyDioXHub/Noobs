@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -71,7 +72,14 @@ public class LocalizationText : MonoBehaviour
                 break;
         }
 
-        _text.text = text;
+        try
+        {
+            _text.text = text;
+        }
+        catch(NullReferenceException e)
+        {
+
+        }
     }
 
     // Update is called once per frame
