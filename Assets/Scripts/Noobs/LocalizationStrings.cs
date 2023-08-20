@@ -13,6 +13,9 @@ public static class LocalizationStrings
     public static string game_scene_game_win_t1_curent = "Дополнительный выигрыш: ";
     public static string game_scene_game_win_t2_curent = "Нажмите любую кнопку";
     public static string game_scene_game_sencity_curent = "Чувствительность мыши";
+    public static string game_scene_wait_curent = "Ожидание";
+    public static string game_scene_select_curent = "Выбор";
+    public static string game_scene_prepare_curent = "Подготовка";
     public static string start_scene_play_button_curent = "Играть";
     public static string start_scene_next_button_curent = "следующий";
     public static string start_scene_prev_button_curent = "предыдущий";
@@ -26,6 +29,9 @@ public static class LocalizationStrings
     public static string game_scene_game_win_t1_ru = "Дополнительный выигрыш: ";
     public static string game_scene_game_win_t2_ru = "Нажмите любую кнопку";
     public static string game_scene_game_sencity_ru = "Чувствительность мыши";
+    public static string game_scene_wait_ru = "Ожидание";
+    public static string game_scene_select_ru = "Выбор";
+    public static string game_scene_prepare_ru = "Подготовка";
     public static string start_scene_play_button_ru = "Играть";
     public static string start_scene_next_button_ru = "следующий";
     public static string start_scene_prev_button_ru = "предыдущий";
@@ -39,6 +45,9 @@ public static class LocalizationStrings
     public static string game_scene_game_win_t1_en = "Additional reward: ";
     public static string game_scene_game_win_t2_en = "Press eny key";
     public static string game_scene_game_sencity_en = "Mouse sensitivity";
+    public static string game_scene_wait_en = "Waiting";
+    public static string game_scene_select_en = "Choice";
+    public static string game_scene_prepare_en = "Prepare";
     public static string start_scene_play_button_en = "Play";
     public static string start_scene_next_button_en = "next";
     public static string start_scene_prev_button_en = "previous";
@@ -60,6 +69,10 @@ public static class LocalizationStrings
                 game_scene_game_win_t2_curent = game_scene_game_win_t2_ru;
                 game_scene_game_sencity_curent = game_scene_game_sencity_ru;
 
+                game_scene_wait_curent = game_scene_wait_ru;
+                game_scene_select_curent = game_scene_select_ru;
+                game_scene_prepare_curent = game_scene_prepare_ru;
+
                 start_scene_play_button_curent = start_scene_play_button_ru;
                 start_scene_next_button_curent = start_scene_next_button_ru;
                 start_scene_prev_button_curent = start_scene_prev_button_ru;
@@ -75,6 +88,10 @@ public static class LocalizationStrings
                 game_scene_game_win_t2_curent = game_scene_game_win_t2_en;
                 game_scene_game_sencity_curent = game_scene_game_sencity_en;
 
+                game_scene_wait_curent = game_scene_wait_en;
+                game_scene_select_curent = game_scene_select_en;
+                game_scene_prepare_curent = game_scene_prepare_en;
+
                 start_scene_play_button_curent = start_scene_play_button_en;
                 start_scene_next_button_curent = start_scene_next_button_en;
                 start_scene_prev_button_curent = start_scene_prev_button_en;
@@ -89,6 +106,10 @@ public static class LocalizationStrings
                 game_scene_game_win_t1_curent = game_scene_game_win_t1_ru;
                 game_scene_game_win_t2_curent = game_scene_game_win_t2_ru;
                 game_scene_game_sencity_curent = game_scene_game_sencity_ru;
+
+                game_scene_wait_curent = game_scene_wait_ru;
+                game_scene_select_curent = game_scene_select_ru;
+                game_scene_prepare_curent = game_scene_prepare_ru;
 
                 start_scene_play_button_curent = start_scene_play_button_ru;
                 start_scene_next_button_curent = start_scene_next_button_ru;

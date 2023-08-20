@@ -7,11 +7,12 @@ public class LocalizationText : MonoBehaviour
 {
     [SerializeField]
     private string _key;
-    [SerializeField]
+
     private TextMeshProUGUI _text;
 
     void Start()
     {
+        _text = GetComponent<TextMeshProUGUI>();
         UpdateText();
     }
 
@@ -56,6 +57,15 @@ public class LocalizationText : MonoBehaviour
                 break;
             case "game_scene_game_sencity_curent":
                 text = LocalizationStrings.game_scene_game_sencity_curent;
+                break;
+            case "game_scene_prepare_curent":
+                text = LocalizationStrings.game_scene_prepare_curent;
+                break;
+            case "game_scene_select_curent":
+                text = LocalizationStrings.game_scene_select_curent;
+                break;
+            case "game_scene_wait_curent":
+                text = LocalizationStrings.game_scene_wait_curent;
                 break;
             default:
                 break;
