@@ -10,6 +10,8 @@ public class PositionOffcetBlender : MonoBehaviour
     [SerializeField]
     private List<Vector3> _offcets = new List<Vector3>();
 
+    float lastTime = 0;
+
     void Start()
     {
         
@@ -27,11 +29,16 @@ public class PositionOffcetBlender : MonoBehaviour
         _characterController.Move(offcetSumm);
 
         _offcets.Clear();
+        lastTime = Time.realtimeSinceStartup;
         _offcets = new List<Vector3>();
     }
 
     public void AddOffcet(Vector3 offcet)
     {
         _offcets.Add(offcet);
+        //Reclean after 2 seconds
+        if(Time.realtimeSinceStartup - lastTime > 2) {
+            _offcets.Clear();
+        }
     }
 }

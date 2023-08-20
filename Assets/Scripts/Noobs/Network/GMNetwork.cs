@@ -74,6 +74,7 @@ public class GMNetwork : NetworkBehaviour
     /// </summary>
     public override void OnStartClient() {
         gameManager.gm_network = this;
+        Debug.Log($"Call start on Client id: {NetworkClient.connection.connectionId}");
         gameManager.OnStartClient();
     }
 

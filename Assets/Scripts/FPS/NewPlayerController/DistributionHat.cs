@@ -122,7 +122,7 @@ public class DistributionHat : MonoBehaviour
                 _nameCanvas.SetActive(false);
                 _grounCheck.enabled = true;
                 _characterController.enabled = true;
-                _blender.enabled = true;
+                _blender.enabled = false;// true;
                 _playerInput.enabled = true;
                 _botInput.enabled = false;
                 _playerCameraInput.enabled = true;

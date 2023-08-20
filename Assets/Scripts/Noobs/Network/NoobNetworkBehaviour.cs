@@ -84,7 +84,7 @@ public class NoobNetworkBehaviour : NetworkBehaviour
             //TODO Load scene
             SceneManager.MoveGameObjectToScene(gameObject, ActualScene);
             
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
             Debug.Log($"Set player offset: {GameManager.ClientWorldOffset}");
             var pos = gameObject.transform.position + GameManager.ClientWorldOffset;
             pos.y = LevelConfig.Instance.START_PLAYER_YPOS;

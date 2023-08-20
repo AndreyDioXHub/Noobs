@@ -438,7 +438,7 @@ public class MultisceneNoobNetworkManager : NetworkManager
         GMNetwork gameRouter = gnmanager.GetComponent<GMNetwork>();
         if(gameRouter != null ) {
             serverGame.CurrentGameManager = ServerNetworkBehaviour.Instance.GetGameManager(serverGame.CurrentScene);
-            serverGame.CurrentGameManager.GlobalOffset = serverGame.WorldOffset;
+            serverGame.CurrentGameManager.GlobalOffset = serverGame.WorldOffset + Vector3.up*LevelConfig.Instance.START_PLAYER_YPOS;
             serverGame.CurrentGameManager.gm_network = gameRouter;
             serverGame.CurrentGameManager.UpdateSceneOffset();
             gameRouter.gameManager = serverGame.CurrentGameManager;
