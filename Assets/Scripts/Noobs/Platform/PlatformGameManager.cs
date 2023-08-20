@@ -216,6 +216,7 @@ public class PlatformGameManager : MonoBehaviour
 
             if (Input.anyKey)
             {
+                PlatformCoinManager.Instance.SpeedUp();
                 SceneManager.LoadScene(0);
             }
         }

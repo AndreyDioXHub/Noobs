@@ -15,6 +15,7 @@ public class PlatformCoinManager : MonoBehaviour
     [SerializeField]
     private GameObject _coinsUIPrefab;
     public int EarnedCoins;
+    public int RewaindCoins;
 
     [SerializeField]
     private TextMeshProUGUI _coinsText;
@@ -53,7 +54,15 @@ public class PlatformCoinManager : MonoBehaviour
         EarnedCoins+= coins;
         _coinsText.text = $"{_coins}";
         PlayerPrefs.SetInt(PlayerPrefsConsts.COINS, _coins);*/
+        RewaindCoins = coins;
         StartCoroutine(ShowCoinsCoroutine(coins));
+    }
+
+    public void SpeedUp()
+    {
+        StopAllCoroutines();
+        _coins += RewaindCoins;
+        PlayerPrefs.SetInt(PlayerPrefsConsts.COINS, _coins);
     }
 
     IEnumerator ShowCoinsCoroutine(int count)
@@ -66,6 +75,7 @@ public class PlatformCoinManager : MonoBehaviour
             Destroy(go, 0.5f);
             _coinAudio.Play();
             EarnedCoins++;
+            RewaindCoins--;
             _coins++;
             _coinsText.text = $"{_coins}";
             PlayerPrefs.SetInt(PlayerPrefsConsts.COINS, _coins);
