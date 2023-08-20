@@ -6,7 +6,8 @@ using UnityEngine;
 public class PlatformCoinManager : MonoBehaviour
 {
     public static PlatformCoinManager Instance;
-
+    [SerializeField]
+    private AudioSource _coinAudio;
     [SerializeField]
     private int _coins;
     [SerializeField]
@@ -67,6 +68,7 @@ public class PlatformCoinManager : MonoBehaviour
         {
             var go = Instantiate(_coinsUIPrefab, _coinsCanvas);
             Destroy(go, 0.5f);
+            _coinAudio.Play();
             index++;
             yield return new WaitForSeconds(0.2f);
         }
