@@ -54,7 +54,7 @@ public class PlatformCoinManager : MonoBehaviour
         EarnedCoins+= coins;
         _coinsText.text = $"{_coins}";
         PlayerPrefs.SetInt(PlayerPrefsConsts.COINS, _coins);*/
-        RewaindCoins = coins;
+        RewaindCoins += coins;
         StartCoroutine(ShowCoinsCoroutine(coins));
     }
 
@@ -76,6 +76,7 @@ public class PlatformCoinManager : MonoBehaviour
             _coinAudio.Play();
             EarnedCoins++;
             RewaindCoins--;
+            RewaindCoins = RewaindCoins < 0 ? 0 : RewaindCoins;
             _coins++;
             _coinsText.text = $"{_coins}";
             PlayerPrefs.SetInt(PlayerPrefsConsts.COINS, _coins);
