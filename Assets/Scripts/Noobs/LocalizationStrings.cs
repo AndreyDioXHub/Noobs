@@ -17,7 +17,7 @@ public static class LocalizationStrings
     public static string start_scene_next_button_curent = "следующий";
     public static string start_scene_prev_button_curent = "предыдущий";
 
-    public static string game_scene_not_enough_money_ru = "Не достаточно денег\n<size=24>Посмотрите рекламу или выиграйте их на сотах</size>";
+    public static string game_scene_not_enough_money_ru = "Недостаточно денег\n<size=24>Посмотрите рекламу или выиграйте их играя</size>";
     public static string game_scene_wait_connection_ru = "Ожидание игроков";
     public static string game_scene_lose_ru = "Вы проиграли!";
     public static string game_scene_lvl_win_t0_ru = "Уровень пройден!";
@@ -30,7 +30,7 @@ public static class LocalizationStrings
     public static string start_scene_next_button_ru = "следующий";
     public static string start_scene_prev_button_ru = "предыдущий";
 
-    public static string game_scene_not_enough_money_en = "Not enough money\n<size=24>Watch ads or win them on the hexagons</size>";
+    public static string game_scene_not_enough_money_en = "Not enough money\n<size=24>Watch ads or get them by playing</size>";
     public static string game_scene_wait_connection_en = "Waiting for the players";
     public static string game_scene_lose_en = "You lost!";
     public static string game_scene_lvl_win_t0_en = "Level passed!";
@@ -42,6 +42,8 @@ public static class LocalizationStrings
     public static string start_scene_play_button_en = "Play";
     public static string start_scene_next_button_en = "next";
     public static string start_scene_prev_button_en = "previous";
+
+    public static bool first_start = false;
 
     public static void SetLanguage(string local)
     {
