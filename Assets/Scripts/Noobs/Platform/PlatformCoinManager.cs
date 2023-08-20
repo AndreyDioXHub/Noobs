@@ -44,19 +44,15 @@ public class PlatformCoinManager : MonoBehaviour
     }
     public void AddCoin()
     {
-        EarnedCoins++;
-        _coins++;
-        _coinsText.text = $"{_coins}";
-        PlayerPrefs.SetInt(PlayerPrefsConsts.COINS, _coins);
         StartCoroutine(ShowCoinsCoroutine(1));
     }
     
     public void AddCoin(int coins)
-    {
+    {/*
         _coins+= coins;
         EarnedCoins+= coins;
         _coinsText.text = $"{_coins}";
-        PlayerPrefs.SetInt(PlayerPrefsConsts.COINS, _coins);
+        PlayerPrefs.SetInt(PlayerPrefsConsts.COINS, _coins);*/
         StartCoroutine(ShowCoinsCoroutine(coins));
     }
 
@@ -69,6 +65,10 @@ public class PlatformCoinManager : MonoBehaviour
             var go = Instantiate(_coinsUIPrefab, _coinsCanvas);
             Destroy(go, 0.5f);
             _coinAudio.Play();
+            EarnedCoins++;
+            _coins++;
+            _coinsText.text = $"{_coins}";
+            PlayerPrefs.SetInt(PlayerPrefsConsts.COINS, _coins);
             index++;
             yield return new WaitForSeconds(0.2f);
         }
