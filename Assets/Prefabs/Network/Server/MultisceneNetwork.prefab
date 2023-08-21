@@ -78,6 +78,7 @@ MonoBehaviour:
   timeInterpolationGui: 0
   instances: 3
   gameScene: Assets/Scenes/NoobLevel.unity
+  NGManagerPrefab: {fileID: 0}
 --- !u!114 &3468411015184169737
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,7 +134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39adc6e09d5544ed955a50ce8600355a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visRange: 30
+  visRange: 100
   rebuildInterval: 1
   checkMethod: 0
   showSlider: 0
