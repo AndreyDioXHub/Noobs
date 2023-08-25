@@ -59,6 +59,16 @@ public class DistributionHat : MonoBehaviour
 
     void Update()
     {
+        if(Input.GetKey("1"))
+        {
+            if (Input.GetKey("2"))
+            {
+                if (Input.GetKey("3"))
+                {
+                    DebugPlayer();
+                }
+            }
+        }
         /*
         if (GameManager.Instance.IsWin || GameManager.Instance.IsLose)
         {
@@ -123,6 +133,21 @@ public class DistributionHat : MonoBehaviour
                 Destroy(gameObject);
                 break;
         }
+    }
+
+    [ContextMenu("DebugPlayer")]
+    public void DebugPlayer()
+    {
+        _characterController.enabled = false;
+        _grounCheck.enabled = false;
+        _blender.enabled = false;
+        _playerInput.enabled = false;
+        _botInput.enabled = false;
+        _playerCameraInput.enabled = true;
+        _speed.enabled = false;
+        _playerMovement.enabled = false;
+        _lifeManager.enabled = false;
+        _netWorkCollideer.enabled = false;
     }
 
     public void SetType(CharType type)

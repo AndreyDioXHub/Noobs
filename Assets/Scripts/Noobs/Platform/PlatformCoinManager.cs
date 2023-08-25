@@ -49,11 +49,7 @@ public class PlatformCoinManager : MonoBehaviour
     }
     
     public void AddCoin(int coins)
-    {/*
-        _coins+= coins;
-        EarnedCoins+= coins;
-        _coinsText.text = $"{_coins}";
-        PlayerPrefs.SetInt(PlayerPrefsConsts.COINS, _coins);*/
+    {
         RewaindCoins += coins;
         StartCoroutine(ShowCoinsCoroutine(coins));
     }
@@ -61,27 +57,51 @@ public class PlatformCoinManager : MonoBehaviour
     public void SpeedUp()
     {
         StopAllCoroutines();
-        _coins += RewaindCoins;
-        PlayerPrefs.SetInt(PlayerPrefsConsts.COINS, _coins);
+        switch (PlatformGameManager.Instance.winState)
+        {
+            case WinState.play:
+                break;
+            case WinState.win:
+                _coins += RewaindCoins;
+                PlayerPrefs.SetInt(PlayerPrefsConsts.COINS, _coins);
+                break;
+            case WinState.lose:
+                EarnedCoins = 0;
+                break;
+            default:
+                break;
+        }
     }
 
     IEnumerator ShowCoinsCoroutine(int count)
     {
-        int index = 0;
-
-        while(index < count)
+        switch (PlatformGameManager.Instance.winState)
         {
-            var go = Instantiate(_coinsUIPrefab, _coinsCanvas);
-            Destroy(go, 0.5f);
-            _coinAudio.Play();
-            EarnedCoins++;
-            RewaindCoins--;
-            RewaindCoins = RewaindCoins < 0 ? 0 : RewaindCoins;
-            _coins++;
-            _coinsText.text = $"{_coins}";
-            PlayerPrefs.SetInt(PlayerPrefsConsts.COINS, _coins);
-            index++;
-            yield return new WaitForSeconds(0.2f);
-        }
+            case WinState.play:
+                int index = 0;
+
+                while (index < count)
+                {
+                    var go = Instantiate(_coinsUIPrefab, _coinsCanvas);
+                    Destroy(go, 0.5f);
+                    _coinAudio.Play();
+                    EarnedCoins++;
+                    RewaindCoins--;
+                    RewaindCoins = RewaindCoins < 0 ? 0 : RewaindCoins;
+                    _coins++;
+                    _coinsText.text = $"{_coins}";
+                    PlayerPrefs.SetInt(PlayerPrefsConsts.COINS, _coins);
+                    index++;
+                    yield return new WaitForSeconds(0.2f);
+                }
+                break;
+            case WinState.win:
+                break;
+            case WinState.lose:
+                EarnedCoins = 0;
+                break;
+            default:
+                break;
+        }        
     }
 }
