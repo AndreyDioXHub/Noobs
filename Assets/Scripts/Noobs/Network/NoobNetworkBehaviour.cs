@@ -72,13 +72,7 @@ public class NoobNetworkBehaviour : NetworkBehaviour
         PlayerCount.Instance.RegisterPlayer();
         Debug.Log($"{nameof(NoobNetworkBehaviour)}:{nameof(OnStartClient)} - Start Local client");
         GameManager.Instance.ShowConnectedUser();
-        if(isLocalPlayer) {
-            Debug.Log("<b>Start As local player</b>");
-            GetComponent<DistributionHat>().Init(CharType.player);
-        } else {
-            Debug.Log("<b>Start As avatar</b>");
-            GetComponent<DistributionHat>().Init(CharType.avatar);
-        }
+        
         //Переместить аватара или игрока в актуальную сцену. На сервере это поле будет пустым. 
         if (ActualScene.IsValid()) {
             //TODO Load scene
@@ -111,6 +105,9 @@ public class NoobNetworkBehaviour : NetworkBehaviour
     /// </summary>
     public override void OnStartLocalPlayer() {
         Debug.Log(">>OnStartLocalPlayer called");
+        gameObject.GetComponent<DistributionHat>().Init();
+        GetComponent<PositionOffcetBlender>().Move(Vector3.up * LevelConfig.Instance.START_PLAYER_YPOS);
+
     }
 
     /// <summary>

@@ -59,11 +59,7 @@ public class Spawner : MonoBehaviour
 
             _freePositions.RemoveAt(indexBot);
 
-            goBot.GetComponent<DistributionHat>().Init(CharType.bot);
-
-            goBot.SetActive(false);
-            goBot.transform.position = botPosition;
-            goBot.SetActive(true);
+            goBot.GetComponent<PositionOffcetBlender>().Move(botPosition);
 
             PlayerCount.Instance.RegisterPlayer();
             bots.Add(goBot);

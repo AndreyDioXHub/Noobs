@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -76,6 +77,7 @@ public class DistributionHat : MonoBehaviour
                 _playerMovement.enabled = true;
                 _lifeManager.enabled = true;
                 _netWorkCollideer.enabled = false;
+                _grounCheck.Pause();
                 break;
             case CharType.avatar:
                 _grounCheck.enabled = false;
@@ -100,6 +102,7 @@ public class DistributionHat : MonoBehaviour
                 _playerMovement.enabled = true;
                 _lifeManager.enabled = true;
                 _netWorkCollideer.enabled = false;
+                _grounCheck.Pause();
                 break;
             default:
                 Destroy(gameObject);
@@ -107,11 +110,12 @@ public class DistributionHat : MonoBehaviour
         }
     }
 
-    public void Init(CharType type)
+    private void Init(CharType type)
     {
         _type = type;
         gameObject.name = type.ToString();
-
+        Play();
+        /*
         switch (_type)
         {
             case CharType.player:
@@ -169,11 +173,16 @@ public class DistributionHat : MonoBehaviour
                 _playerMovement.enabled = true;
                 _lifeManager.enabled = true;
                 _netWorkCollideer.enabled = false;
+                _grounCheck.Pause();
                 break;
             default:
                 Destroy(gameObject);
                 break;
-        }
+        }*/
+    }
+
+    internal void Init() {
+        Init(_type);
     }
 }
 

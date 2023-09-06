@@ -95,10 +95,7 @@ namespace cyraxchel.network.server
                         botPosition.y = LevelConfig.Instance.START_PLAYER_YPOS;
                         var hat = goBot.GetComponent<DistributionHat>();
                         if(hat != null) {
-                            hat.Init(CharType.bot);
                             hat.Pause();
-                            //Нельзя отключать GO до спауна
-                            //goBot.SetActive(false);
                         }
                         _bots.Add(goBot);
                         NetworkServer.Spawn(goBot);
@@ -181,7 +178,6 @@ namespace cyraxchel.network.server
                 //_freePositions.RemoveAt(indexBot);
 
                 var hat = goBot.GetComponent<DistributionHat>();
-                hat.Init(CharType.bot);
                 hat.Pause();
 
                 goBot.SetActive(false);

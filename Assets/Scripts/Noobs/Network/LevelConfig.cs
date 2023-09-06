@@ -12,7 +12,6 @@ public class LevelConfig : MonoBehaviour
     public float START_PLAYER_YPOS = 78;
 
     
-
     // Start is called before the first frame update
     void Awake()
     {
@@ -21,11 +20,5 @@ public class LevelConfig : MonoBehaviour
         } else {
             Destroy(this);
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

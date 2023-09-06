@@ -32,6 +32,17 @@ public class PositionOffcetBlender : MonoBehaviour
 
     public void AddOffcet(Vector3 offcet)
     {
-        _offcets.Add(offcet);
+        if(this.enabled) {
+            _offcets.Add(offcet);
+        }
+    }
+
+    public void Move(Vector3 newPosition) {
+        _offcets.Clear();
+        _offcets = new List<Vector3>();
+
+        _characterController.enabled = false;
+        transform.position = newPosition;
+        _characterController.enabled = true;
     }
 }
