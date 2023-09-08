@@ -73,7 +73,7 @@ public class Coin : MonoBehaviour
 
         if (_haveCoin)
         {           
-            CoinManager.Instance.RegisterCoin();
+            CoinManager.RegisterCoin();
         }
         else
         {

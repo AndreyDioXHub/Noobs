@@ -13,8 +13,8 @@ public class CoinManager : MonoBehaviour
     private int _coins;
     [SerializeField]
     private int _earnedCoins;
-    [SerializeField]
-    private int _coinsLVL;
+    //[SerializeField]
+    private static int _coinsLVL = 0;
 
     [SerializeField]
     private TextMeshProUGUI _coinsText;
@@ -66,7 +66,7 @@ public class CoinManager : MonoBehaviour
         PlayerPrefs.SetInt("PlatformCoins", _coins);
     }
     
-    public void RegisterCoin()
+    public static void RegisterCoin()
     {
         _coinsLVL++;
     }
