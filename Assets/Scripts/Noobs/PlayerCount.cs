@@ -1,3 +1,4 @@
+using cyraxchel.network.rooms;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -10,7 +11,7 @@ public class PlayerCount : MonoBehaviour
     public int Count { get => _playerCount; }
 
     [SerializeField]
-    private int _playerCount;
+    private int _playerCount { get => MultiRoomsGameManager.Instance.playerscount; }
     [SerializeField]
     private TextMeshProUGUI _peopleCountText;
 
@@ -42,13 +43,13 @@ public class PlayerCount : MonoBehaviour
 
     public void RegisterPlayer()
     {
-        _playerCount++;
+        //_playerCount++;
         _peopleCountText.text = $"{_playerCount}";
     }
 
     public void RemovePlayer()
     {
-        _playerCount--;
+        //_playerCount--;
         _peopleCountText.text = $"{_playerCount}";
     }
 
