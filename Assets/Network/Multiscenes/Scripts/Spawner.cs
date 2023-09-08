@@ -1,8 +1,10 @@
 using cyraxchel.network.server;
 using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static UnityEngine.Rendering.DebugUI;
 
 namespace cyraxchel.network.rooms {
     public class Spawner
@@ -20,7 +22,14 @@ namespace cyraxchel.network.rooms {
 
         [ServerCallback]
         public static List<GameObject> SpawnBots(Scene scene, int count) {
+            Debug.Log($"Scene for bots is {scene.name} at {scene.path}");
             //TODO Spawn bots in selected scene
+            NetworkManager.singleton.StartCoroutine(SpawnCoroutineBots(scene, count));
+            return null;
+        }
+
+        private static IEnumerator SpawnCoroutineBots(Scene scene, int count) {
+            
             List<GameObject> _bots = new List<GameObject>();
             for (int i = 0; i < count; i++) {
                 Vector3 botstartposition = Random.insideUnitSphere * LevelConfig.Instance.STAGE_RADIUS;
@@ -28,10 +37,19 @@ namespace cyraxchel.network.rooms {
                 GameObject _botprefab = MultiRoomsNetManager.singleton.gameObject.GetComponent<ServerBotBalancer>().BotPrefab;
                 GameObject spawnbot = Object.Instantiate(_botprefab, botstartposition, Quaternion.identity);
                 _bots.Add(spawnbot);
-                SceneManager.MoveGameObjectToScene(_botprefab, scene);
+                //SceneManager.MoveGameObjectToScene(_botprefab, scene);
                 NetworkServer.Spawn(spawnbot);
             }
-            return _bots;
+
+            yield return new WaitForEndOfFrame();
+
+            if(scene.IsValid()) {
+                foreach (var item in _bots) {
+                    SceneManager.MoveGameObjectToScene(item, scene);
+                }
+            }
+            
+
         }
     }
 }

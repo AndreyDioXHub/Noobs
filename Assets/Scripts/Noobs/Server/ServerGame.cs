@@ -62,6 +62,7 @@ namespace cyraxchel.network.server {
             get => _gamescene; 
             internal set {
                 _gamescene = value;
+                Debug.Log($"Set scene to {value.name} at {value.path}");
                 GameStatus = Status.None;
             }
         }
@@ -85,7 +86,7 @@ namespace cyraxchel.network.server {
                     //Запросить ботов для игры
                     //List<GameObject> bots = Spawner.SpawnBots(CurrentScene, MaxPlayerCount - PlayersCount);
                     //ServerBotBalancer.Instance.GetBotForGame(this, MaxPlayerCount - PlayersCount);
-                    var bots = cyraxchel.network.rooms.Spawner.SpawnBots(_gamescene, MaxPlayerCount - PlayersCount);
+                    var bots = cyraxchel.network.rooms.Spawner.SpawnBots(CurrentScene, MaxPlayerCount - PlayersCount);
                     //TODO Config bots creations
                     //TODO Start game after they created
                 } else {
