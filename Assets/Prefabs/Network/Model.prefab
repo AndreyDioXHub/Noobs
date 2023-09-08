@@ -49,7 +49,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   IsLose: 0
-  CanvasPrefab: {fileID: 0}
+  CanvasPrefab: {fileID: 5828996566891554226, guid: 14dd29fb12910224fb2f36df8efc4b01, type: 3}
   _winscreen: {fileID: 0}
   _connectionscreen: {fileID: 0}
   _time: 2

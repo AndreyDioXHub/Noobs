@@ -59,7 +59,7 @@ public class GameManager : NetworkBehaviour
             return;     // Отрабатывать только на клиентах!
         }
         //TODO Переделать счет игроков на локальный элемент
-        if(_playerCount.Count == 1)
+        if(PlayerCount.Instance.Count == 1)
         {
             //IsWin = true;
             _winscreen?.ShowWinScreen();
