@@ -23,6 +23,9 @@ public class GameManager : NetworkBehaviour
     public bool IsLose;
 
     [SerializeField]
+    private GameObject CanvasPrefab;
+
+    [SerializeField]
     private WinScreen _winscreen;
     [SerializeField]
     ConnectionScreen _connectionscreen;
@@ -59,10 +62,10 @@ public class GameManager : NetworkBehaviour
         if(_playerCount.Count == 1)
         {
             //IsWin = true;
-            _winscreen.ShowWinScreen();
+            _winscreen?.ShowWinScreen();
         }
         if(IsLose) {
-            _winscreen.ShowLoseScreen();
+            _winscreen?.ShowLoseScreen();
         }
 
         if (IsWin || IsLose)
@@ -100,23 +103,21 @@ public class GameManager : NetworkBehaviour
     public override void OnStartClient() {
         Debug.Log($"{nameof(GameManager)}:{nameof(OnStartClient)} - Start Local client");
         base.OnStartClient();
-        CmdRegisterGame();
+        AddUIElements();
+    }
+
+    private void AddUIElements() {
+        var canvaGO = Instantiate(CanvasPrefab, null, false);
+        //TODO?
     }
 
     public override void OnStartServer() {
         base.OnStartServer();
-        StartCoroutine(CmdRegisterGame());
+        
         Instance = null;
-    }
-
-    //[Command]
-    private IEnumerator CmdRegisterGame() {
-        yield return new WaitForSeconds(0.1f);
-        Debug.Log($"Try register {nameof(CmdRegisterGame)}");
-        ServerNetworkBehaviour.Instance.RegisterGameManager(gameObject.scene, this);
-        UpdateSceneOffset();
 
     }
+
 
     internal void OnGameStatusChanged(ServerGame game, ServerGame.Status status) {
         switch(status) {
@@ -125,7 +126,7 @@ public class GameManager : NetworkBehaviour
                 
                 //Start Game
                 //RPC_StartGame();
-                ServerBotBalancer.Instance.Unpause(game);
+                //ServerBotBalancer.Instance.Unpause(game);
                 break;
             case ServerGame.Status.Finish: 
                 //Complete game
@@ -155,6 +156,11 @@ public class GameManager : NetworkBehaviour
     }
 
     public void ShowConnectedUser() {
-        _connectionscreen.Show(1);
+        //TODO
+        //_connectionscreen.Show(1);
+    }
+
+    public void RegisterWinScreen(WinScreen item) {
+        _winscreen = item;
     }
 }

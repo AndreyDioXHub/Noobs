@@ -1,9 +1,9 @@
+using cyraxchel.network.rooms;
 using Mirror;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Internal;
 using UnityEngine.SceneManagement;
 
 namespace cyraxchel.network.server {
@@ -40,6 +40,9 @@ namespace cyraxchel.network.server {
         /// Возможно ли добавить игрока в игру
         /// </summary>
         public bool CanAcceptPlayer { get {
+                if(GameStatus == Status.None) {
+                    Init();
+                }
                 if(GameStatus == Status.Preparation) {
                     return PlayersCount < MaxPlayerCount;
                 } else {
@@ -54,28 +57,22 @@ namespace cyraxchel.network.server {
 
         [SerializeField]
         Scene _gamescene;
-        public Scene CurrenScene { get => _gamescene; internal set {
+        public Scene CurrentScene { 
+            get => _gamescene; 
+            internal set {
                 _gamescene = value;
                 GameStatus = Status.None;
-            } }
-
-        GameManager _gamemanager;
-        public GameManager CurrentGameManager { get=> _gamemanager; internal set { 
-                _gamemanager= value;
-                if(value != null) {
-                    Debug.Log($"Set new GameManager. Offset is {WorldOffset}");
-                    _gamemanager.GlobalOffset = WorldOffset;
-                    GameStatusChanged += _gamemanager.OnGameStatusChanged;
-                    JoinPlayer += _gamemanager.OnPlayerJoin;
-                }
-            } }
+            }
+        }
 
         public void Init() {
             Debug.Log($"Init without WorldOffset");
             awaitingPlayers = new Dictionary<int, NetworkConnectionToClient>();
             GameStatus = Status.Preparation;
+
+            Debug.Log($"Current scene is {CurrentScene}");
             //Запустить таймер
-            countdownTimer = ServerNetworkBehaviour.Instance.StartCoroutine(AwaitPlayers());
+            countdownTimer = NetworkManager.singleton.StartCoroutine(AwaitPlayers());
             
         }
 
@@ -85,7 +82,8 @@ namespace cyraxchel.network.server {
             if(PlayersCount > 0 ) {
                 if(PlayersCount < MaxPlayerCount) {
                     //Запросить ботов для игры
-                    ServerBotBalancer.Instance.GetBotForGame(this, MaxPlayerCount - PlayersCount);
+                    //List<GameObject> bots = Spawner.SpawnBots(CurrentScene, MaxPlayerCount - PlayersCount);
+                    //ServerBotBalancer.Instance.GetBotForGame(this, MaxPlayerCount - PlayersCount);
                 } else {
                     //Начать игру
                     GameStatus = Status.Action;
@@ -93,8 +91,6 @@ namespace cyraxchel.network.server {
             } else {
                 GameStatus = Status.None;
             }
-            
-
         }
 
         public void AddPlayer(Player player) {
@@ -102,7 +98,7 @@ namespace cyraxchel.network.server {
                 m_players.Add(player);
                 JoinPlayer?.Invoke(this, player);
                 if(m_players.Count == MaxPlayerCount) {
-                    if(countdownTimer != null) ServerNetworkBehaviour.Instance.StopCoroutine(countdownTimer);
+                    if(countdownTimer != null) NetworkManager.singleton.StopCoroutine(countdownTimer);
                 }
             }
         }
@@ -118,8 +114,8 @@ namespace cyraxchel.network.server {
 
         public void GameComplete() {
             GameStatus = Status.Finish;
-            GameStatusChanged -= _gamemanager.OnGameStatusChanged;
-            JoinPlayer -= _gamemanager.OnPlayerJoin;
+           // GameStatusChanged -= _gamemanager.OnGameStatusChanged;
+         //   JoinPlayer -= _gamemanager.OnPlayerJoin;
         }
 
         Dictionary<int, NetworkConnectionToClient> awaitingPlayers = new Dictionary<int, NetworkConnectionToClient>();
@@ -159,6 +155,11 @@ namespace cyraxchel.network.server {
             //GameStatus = Status.Action; //Запуск игры
         }
 
+        internal void AddPlayer(GameObject playerGO, int playerID) {
+            IPlayerInfo info = playerGO.GetComponent<IPlayerInfo>();
+            AddPlayer(new Player(info.Name, playerID));
+        }
+
         public class Player {
             public string name { get; set; }
 
@@ -167,6 +168,12 @@ namespace cyraxchel.network.server {
             public Player(string name, int id) {
                 this.name = name;
                 this.id = id;
+            }
+        }
+
+        public void OnServerReloadLevel() {
+            if(countdownTimer != null) {
+                NetworkManager.singleton.StopCoroutine(countdownTimer);
             }
         }
 

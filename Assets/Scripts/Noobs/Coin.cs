@@ -1,3 +1,4 @@
+using cyraxchel.network.rooms;
 using Mirror;
 using System.Collections;
 using System.Collections.Generic;
@@ -60,7 +61,8 @@ public class Coin : MonoBehaviour
 
     void Start()
     {
-        if(ServerNetworkBehaviour.Instance != null && ServerNetworkBehaviour.Instance.isServerOnly) {
+     //   if(NetworkServer.active && ! NetworkClient.activeHost) {
+        if(MultiRoomsNetManager.IsServer) {
             //Debug.Log("Enable server mode");
             EnableServerMode();
             return;

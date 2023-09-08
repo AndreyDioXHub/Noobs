@@ -162,15 +162,15 @@ public class ServerNetworkBehaviour : NetworkBehaviour {
     /// <param name="gameManager"></param>
     /// <exception cref="NotImplementedException"></exception>
     internal void RegisterGameManager(Scene scene, GameManager gameManager) {
-        foreach (var game in serverGames) {
+        /*foreach (var game in serverGames) {
             if (game.CurrenScene == scene) {
                 game.CurrentGameManager = gameManager;
             }
-        }
+        }/**/
     }
 
     internal void SetSceneToGame(Scene scene, int level) {
-        serverGames[level].CurrenScene = scene;
-        serverGames[level].WorldOffset = GetSceneOffset(level);
+        //serverGames[level].CurrenScene = scene;
+        //serverGames[level].WorldOffset = GetSceneOffset(level);
     }
 }

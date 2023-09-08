@@ -34,6 +34,8 @@ public class WinScreen : MonoBehaviour
         {
             Destroy(this);
         }
+
+        GameManager.Instance.RegisterWinScreen(this);
     }
 
     public void Show(string t0, string t1, string t2)
