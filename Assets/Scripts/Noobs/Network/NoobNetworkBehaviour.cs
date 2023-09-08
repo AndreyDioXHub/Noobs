@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using UnityEngine.SceneManagement;
+using cyraxchel.network.server;
 
 /*
 	Documentation: https://mirror-networking.gitbook.io/docs/guides/networkbehaviour
@@ -10,7 +11,7 @@ using UnityEngine.SceneManagement;
 
 // NOTE: Do not put objects in DontDestroyOnLoad (DDOL) in Awake.  You can do that in Start instead.
 
-public class NoobNetworkBehaviour : NetworkBehaviour
+public class NoobNetworkBehaviour : NetworkBehaviour, IPlayerInfo
 {
     [SerializeField]
     SkinManager skinManager;
@@ -24,6 +25,8 @@ public class NoobNetworkBehaviour : NetworkBehaviour
     public string UserName = string.Empty;
 
     public static Scene ActualScene { get; set; }
+
+    public string Name => "";
 
     private void SkinIndexChanged(int oldindex, int newindex) {
         //TODO
