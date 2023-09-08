@@ -12,7 +12,7 @@ using UnityEngine.SceneManagement;
 */
 
 // NOTE: Do not put objects in DontDestroyOnLoad (DDOL) in Awake.  You can do that in Start instead.
-
+[Obsolete]
 public class ServerNetworkBehaviour : NetworkBehaviour {
     public static ServerNetworkBehaviour Instance { get; private set; }
 

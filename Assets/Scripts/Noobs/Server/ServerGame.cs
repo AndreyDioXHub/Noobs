@@ -41,6 +41,7 @@ namespace cyraxchel.network.server {
         /// </summary>
         public bool CanAcceptPlayer { get {
                 if(GameStatus == Status.None) {
+                    Debug.Log("<b>Init game!</b>");
                     Init();
                 }
                 if(GameStatus == Status.Preparation) {
@@ -84,6 +85,9 @@ namespace cyraxchel.network.server {
                     //Запросить ботов для игры
                     //List<GameObject> bots = Spawner.SpawnBots(CurrentScene, MaxPlayerCount - PlayersCount);
                     //ServerBotBalancer.Instance.GetBotForGame(this, MaxPlayerCount - PlayersCount);
+                    var bots = cyraxchel.network.rooms.Spawner.SpawnBots(_gamescene, MaxPlayerCount - PlayersCount);
+                    //TODO Config bots creations
+                    //TODO Start game after they created
                 } else {
                     //Начать игру
                     GameStatus = Status.Action;
@@ -91,6 +95,7 @@ namespace cyraxchel.network.server {
             } else {
                 GameStatus = Status.None;
             }
+            Debug.Log($"Change GAME STATUS to {GameStatus}");
         }
 
         public void AddPlayer(Player player) {
