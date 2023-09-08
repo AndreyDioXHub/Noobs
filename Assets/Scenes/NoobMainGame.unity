@@ -169,7 +169,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   STAGE_RADIUS: 8
   GridStep: 300
-  START_PLAYER_YPOS: 78
+  START_PLAYER_YPOS: 79
   MaxPlayersInRooms: 15
 --- !u!1 &203844586
 GameObject:

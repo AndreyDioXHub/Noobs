@@ -78,6 +78,7 @@ public class DistributionHat : MonoBehaviour
                 _lifeManager.enabled = true;
                 _netWorkCollideer.enabled = false;
                 _grounCheck.Pause();
+                _camera.gameObject.SetActive(true);
                 break;
             case CharType.avatar:
                 _grounCheck.enabled = false;
