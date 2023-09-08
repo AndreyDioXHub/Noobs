@@ -72,7 +72,7 @@ public class NoobNetworkBehaviour : NetworkBehaviour, IPlayerInfo
     public override void OnStartClient() {
         Debug.Log(">>OnStartClient called");
         
-        //PlayerCount.Instance.RegisterPlayer();
+        PlayerCount.Instance.RegisterPlayer();
         Debug.Log($"{nameof(NoobNetworkBehaviour)}:{nameof(OnStartClient)} - Start Local client");
         GameManager.Instance.ShowConnectedUser();
         

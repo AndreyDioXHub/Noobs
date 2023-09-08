@@ -32,7 +32,7 @@ namespace cyraxchel.network.rooms {
 
         private void hookPlayerCountChanged(int oldvalue, int newvalue) {
             Debug.Log($"Player count changed to {newvalue}");
-
+            PlayersCountChange?.Invoke(newvalue);
         }
 
         [ClientCallback]

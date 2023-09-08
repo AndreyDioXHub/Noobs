@@ -1,4 +1,5 @@
 using cyraxchel.network.rooms;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -43,7 +44,12 @@ public class PlayerCount : MonoBehaviour
 
     public void RegisterPlayer()
     {
+        MultiRoomsGameManager.Instance.PlayersCountChange += OnPlayerCountChange;
         //_playerCount++;
+        _peopleCountText.text = $"{_playerCount}";
+    }
+
+    private void OnPlayerCountChange(int obj) {
         _peopleCountText.text = $"{_playerCount}";
     }
 

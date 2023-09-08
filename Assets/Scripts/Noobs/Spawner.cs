@@ -61,7 +61,7 @@ public class Spawner : MonoBehaviour
 
             goBot.GetComponent<PositionOffcetBlender>().Move(botPosition);
 
-            PlayerCount.Instance.RegisterPlayer();
+            //PlayerCount.Instance.RegisterPlayer();
             bots.Add(goBot);
         }
         return bots;
