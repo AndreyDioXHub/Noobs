@@ -63,6 +63,7 @@ namespace cyraxchel.network.rooms {
             if(game != null) {
                 game.OnServerReloadLevel();
             }
+            Debug.Log("Reload LEVEL");
             MultiRoomsNetManager.singleton.UnregisterGameManager(this);
             MultiRoomsNetManager.singleton.ReloadLevel(gameObject.scene);
         }

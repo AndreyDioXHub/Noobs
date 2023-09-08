@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace cyraxchel.network.rooms {
-    internal class Spawner
+    public class Spawner
     {
         [ServerCallback]
         internal static void InitialSpawn(Scene scene)
@@ -19,7 +19,7 @@ namespace cyraxchel.network.rooms {
         }
 
         [ServerCallback]
-        internal static List<GameObject> SpawnBots(Scene scene, int count) {
+        public static List<GameObject> SpawnBots(Scene scene, int count) {
             //TODO Spawn bots in selected scene
             List<GameObject> _bots = new List<GameObject>();
             for (int i = 0; i < count; i++) {
