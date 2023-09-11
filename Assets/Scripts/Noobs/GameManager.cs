@@ -1,3 +1,4 @@
+using cyraxchel.network.rooms;
 using cyraxchel.network.server;
 using Mirror;
 using System;
@@ -104,6 +105,10 @@ public class GameManager : NetworkBehaviour
         Debug.Log($"{nameof(GameManager)}:{nameof(OnStartClient)} - Start Local client");
         base.OnStartClient();
         AddUIElements();
+        if(MultiRoomsGameManager.Instance != null ) {
+            MultiRoomsGameManager.Instance.StartLocalGame += StartGame;
+            MultiRoomsGameManager.Instance.EndLocalGame  += StopGame;
+        }
     }
 
     private void AddUIElements() {
@@ -130,19 +135,21 @@ public class GameManager : NetworkBehaviour
                 break;
             case ServerGame.Status.Finish: 
                 //Complete game
-                RPC_StopGame();
+                //RPC_StopGame();
                 break;
         }
     }
 
-    [ClientRpc]
-    private void RPC_StartGame() {
+
+    private void StartGame() {
         _startPlatform.SetActive(false);
         //TODO
     }
-    [ClientRpc]
-    private void RPC_StopGame() {
 
+    private void StopGame() {
+        if(NetworkClient.isConnected) {
+            MultiRoomsNetManager.singleton.StopClient();
+        }
     }
 
     internal void OnPlayerJoin(ServerGame game, ServerGame.Player player) {

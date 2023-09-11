@@ -18,6 +18,10 @@ namespace cyraxchel.network.rooms {
 
         public event Action<int> PlayersCountChange = delegate { };
 
+        public event Action StartLocalGame = delegate { };
+
+        public event Action EndLocalGame = delegate { };
+
         public static MultiRoomsGameManager Instance { get; private set; } = null;
         public ServerGame game { get; set; }
 
@@ -85,8 +89,38 @@ namespace cyraxchel.network.rooms {
             game = new ServerGame();
             game.MaxPlayerCount = MaxPlayerInGame;
             game.CurrentScene = gameObject.scene;
+            game.GameStatusChanged += GameStatusChange;
             MultiRoomsNetManager.singleton.RegisterGameManager(this);
             //ќжидание игроков!!
+        }
+
+        private void GameStatusChange(ServerGame game, ServerGame.Status status) {
+            if(status == ServerGame.Status.Action) {
+                ChangeGameStatus(true);
+            } else if(status == ServerGame.Status.Finish) {
+                ChangeGameStatus(false);
+            }
+
+        }
+
+        [Command]
+        private void ChangeGameStatus(bool isstart) {
+            if(isstart) {
+                RPC_Start_Localgame();
+            }
+            else {
+                RPC_Stop_Localgame();
+            }
+        }
+
+        [ClientRpc]
+        private void RPC_Stop_Localgame() {
+            EndLocalGame?.Invoke();
+        }
+
+        [ClientRpc]
+        private void RPC_Start_Localgame() {
+            StartLocalGame?.Invoke();
         }
 
         /// <summary>

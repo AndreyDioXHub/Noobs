@@ -1,14 +1,19 @@
 using cyraxchel.network.server;
 using Mirror;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using static UnityEngine.Rendering.DebugUI;
+using Object = UnityEngine.Object;
+using Random = UnityEngine.Random;
 
 namespace cyraxchel.network.rooms {
     public class Spawner
     {
+        public static event Action<Scene, List<GameObject>> BotSpawned = delegate { };
+
         [ServerCallback]
         internal static void InitialSpawn(Scene scene)
         {
@@ -49,7 +54,7 @@ namespace cyraxchel.network.rooms {
                 }
             }
             
-
+            BotSpawned?.Invoke(scene, _bots);
         }
     }
 }

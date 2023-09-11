@@ -86,9 +86,11 @@ namespace cyraxchel.network.server {
                     //Запросить ботов для игры
                     //List<GameObject> bots = Spawner.SpawnBots(CurrentScene, MaxPlayerCount - PlayersCount);
                     //ServerBotBalancer.Instance.GetBotForGame(this, MaxPlayerCount - PlayersCount);
-                    var bots = cyraxchel.network.rooms.Spawner.SpawnBots(CurrentScene, MaxPlayerCount - PlayersCount);
+                    rooms.Spawner.BotSpawned += OnBotSpawns;
+                    var bots = rooms.Spawner.SpawnBots(CurrentScene, MaxPlayerCount - PlayersCount);
                     //TODO Config bots creations
                     //TODO Start game after they created
+                    // Запуск игры должен происходить после добавления ботов (нудно реализовать задержку).
                 } else {
                     //Начать игру
                     GameStatus = Status.Action;
@@ -99,12 +101,19 @@ namespace cyraxchel.network.server {
             Debug.Log($"Change GAME STATUS to {GameStatus}");
         }
 
+        private void OnBotSpawns(Scene scene, List<GameObject> list) {
+            rooms.Spawner.BotSpawned -= OnBotSpawns;
+            GameStatus = Status.Action;
+        }
+
         public void AddPlayer(Player player) {
             if (PlayersCount < MaxPlayerCount && GameStatus == Status.Preparation) {
                 m_players.Add(player);
                 JoinPlayer?.Invoke(this, player);
                 if(m_players.Count == MaxPlayerCount) {
+                    //Количество игроков равно максимальному. Надо запуситить игру
                     if(countdownTimer != null) NetworkManager.singleton.StopCoroutine(countdownTimer);
+                    GameStatus = Status.Action;
                 }
             }
         }
@@ -178,7 +187,10 @@ namespace cyraxchel.network.server {
         }
 
         public void OnServerReloadLevel() {
-            if(countdownTimer != null) {
+            if(GameStatus == Status.Preparation) {
+                rooms.Spawner.BotSpawned -= OnBotSpawns;
+            }
+            if (countdownTimer != null) {
                 NetworkManager.singleton.StopCoroutine(countdownTimer);
             }
         }
