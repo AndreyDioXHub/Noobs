@@ -142,6 +142,7 @@ public class GameManager : NetworkBehaviour
 
 
     private void StartGame() {
+        Debug.Log($"<color=cyan>Start game in local</color>");
         _startPlatform.SetActive(false);
         //TODO
         _connectionscreen.gameObject.SetActive(false);
