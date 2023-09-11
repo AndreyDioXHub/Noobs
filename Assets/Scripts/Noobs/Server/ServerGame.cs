@@ -104,6 +104,8 @@ namespace cyraxchel.network.server {
         private void OnBotSpawns(Scene scene, List<GameObject> list) {
             rooms.Spawner.BotSpawned -= OnBotSpawns;
             GameStatus = Status.Action;
+            Debug.Log($"{nameof(OnBotSpawns)} Change GAME STATUS to {GameStatus}");
+
         }
 
         public void AddPlayer(Player player) {

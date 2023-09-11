@@ -95,7 +95,9 @@ namespace cyraxchel.network.rooms {
         }
 
         private void GameStatusChange(ServerGame game, ServerGame.Status status) {
-            if(status == ServerGame.Status.Action) {
+            Debug.Log($"<color=red>{nameof(GameStatusChange)}</color> {status}");
+            if (status == ServerGame.Status.Action) {
+                Debug.Log("");
                 ChangeGameStatus(true);
             } else if(status == ServerGame.Status.Finish) {
                 ChangeGameStatus(false);
