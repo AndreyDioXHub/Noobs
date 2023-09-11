@@ -144,6 +144,7 @@ public class GameManager : NetworkBehaviour
     private void StartGame() {
         _startPlatform.SetActive(false);
         //TODO
+        _connectionscreen.gameObject.SetActive(false);
     }
 
     private void StopGame() {
