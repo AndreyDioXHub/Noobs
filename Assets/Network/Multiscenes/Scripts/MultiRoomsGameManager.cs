@@ -103,7 +103,7 @@ namespace cyraxchel.network.rooms {
 
         }
 
-        [Command]
+        //[Command]
         private void ChangeGameStatus(bool isstart) {
             if(isstart) {
                 RPC_Start_Localgame();
