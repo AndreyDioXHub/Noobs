@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GroundCheck : MonoBehaviour
 {
@@ -19,6 +20,8 @@ public class GroundCheck : MonoBehaviour
     private CharacterController _controller;
     [SerializeField]
     private bool _pause;
+    [SerializeField]
+    private bool _isGrounded;
 
     public void Pause()
     {
@@ -31,6 +34,7 @@ public class GroundCheck : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         _pause = false;
     }
+
 
     /*
     [SerializeField]

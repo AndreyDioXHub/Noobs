@@ -1,0 +1,173 @@
+using System.Collections.Generic;
+
+public static class LocalizationStrings
+{
+    public static bool first_start = true;
+
+    public static Dictionary<string, string> Strings = new Dictionary<string, string>()
+    {
+        { "pistol1", "Пистолет 1"},
+        { "pistol2", "Пистолет 2"},
+        { "pistol3", "Пистолет 3"},
+        { "pistol4", "Пистолет 4"},
+        { "smg1", "Пистолет пулемет 1"},
+        { "smg2", "Пистолет пулемет 2"},
+        { "smg3", "Пистолет пулемет 3"},
+        { "smg4", "Пистолет пулемет 4"},
+        { "smg5", "Пистолет пулемет 5"},
+        { "ar1", "Автомат 1"},
+        { "ar2", "Автомат 2"},
+        { "ar3", "Автомат 3"},
+        { "sniper1", "Снайперка 1"},
+        { "sniper2", "Снайперка 2"},
+        { "gl1", "Гранатомет"},
+        { "rl1", "Ракетница"},
+        { "grip", "рукоять"},
+        { "laser", "лазер"},
+        { "muzzle", "глушитель"},
+        { "scope", "прицел"},
+        { "look", "Осмотреть"},
+        { "play", "Играть"},
+        { "expensive", "Дорого"},
+        { "back", "назад"},
+        { "die", "Помер"},
+        { "press_eny_key", "Нажмите любую кнопку для выхода в меню"},
+        { "reward", "Награда"},
+        { "successful_extraction", "Успешное извлечение"},
+        { "loading", "Загрузка"},
+        { "sensitivity", "Чувствительность мыши"},
+        { "audiolvl", "Уровень громкости"},
+        { "lang", "Русский"},
+        { "savetext", "Сохранение:"},
+        { "saveauto", "Авто"},
+        { "savemanual", "Ручное"},
+        { "returntogame", "Вернуться к игре"},
+        { "grenade", "Граната"},
+        { "ads3", "Реклама через 3"},
+        { "ads2", "Реклама через 2"},
+        { "ads1", "Реклама через 1"},
+        { "addnewblocks", "<size=60>Закончились блоки?</size>\nПосмотрите рекламу и получите\n<color=\"red\">200 </color>дополнительных блоков!\nЖми кнопку:"},
+        { "controls", "настройки / палитра / инвентарь - [Esc]\nпередвижение - [W,A,S,D]\nпрыжок - [Space]\nпоставить блок - [ЛКМ]\nсменить вид камеры - [ПКМ]\nвыбор блока - [1-0]\nпипетка - [P]"},
+        { "settings", "Настройки"},
+        { "palette", "Палитра"},
+        { "inventory", "Инвентарь"},
+        { "cancel", "Отмена"}
+
+
+    };
+
+    public static Dictionary<string, string> StringsRu = new Dictionary<string, string>()
+    {
+        { "pistol1", "Пистолет 1"},
+        { "pistol2", "Пистолет 2"},
+        { "pistol3", "Пистолет 3"},
+        { "pistol4", "Пистолет 4"},
+        { "smg1", "Пистолет пулемет 1"},
+        { "smg2", "Пистолет пулемет 2"},
+        { "smg3", "Пистолет пулемет 3"},
+        { "smg4", "Пистолет пулемет 4"},
+        { "smg5", "Пистолет пулемет 5"},
+        { "ar1", "Автомат 1"},
+        { "ar2", "Автомат 2"},
+        { "ar3", "Автомат 3"},
+        { "sniper1", "Снайперка 1"},
+        { "sniper2", "Снайперка 2"},
+        { "gl1", "Гранатомет"},
+        { "rl1", "Ракетница"},
+        { "grip", "рукоять"},
+        { "laser", "лазер"},
+        { "muzzle", "глушитель"},
+        { "scope", "прицел"},
+        { "look", "Осмотреть"},
+        { "play", "Играть"},
+        { "expensive", "Дорого"},
+        { "back", "назад"},
+        { "die", "Помер"},
+        { "press_eny_key", "Нажмите любую кнопку для выхода в меню"},
+        { "reward", "Награда"},
+        { "successful_extraction", "Успешное извлечение"},
+        { "loading", "Загрузка"},
+        { "sensitivity", "Чувствительность мыши"},
+        { "audiolvl", "Уровень громкости"},
+        { "lang", "Русский"},
+        { "savetext", "Сохранение:"},
+        { "saveauto", "Авто"},
+        { "savemanual", "Ручное"},
+        { "returntogame", "Вернуться к игре"},
+        { "grenade", "Граната"},
+        { "ads3", "Реклама через 3"},
+        { "ads2", "Реклама через 2"},
+        { "ads1", "Реклама через 1"},
+        { "addnewblocks", "<size=60>Закончились блоки?</size>\nПосмотрите рекламу и получите\n<color=\"red\">200 </color>дополнительных блоков!\nЖми кнопку:"},
+        { "controls", "настройки / палитра / инвентарь - [Esc]\nпередвижение - [W,A,S,D]\nпрыжок - [Space]\nпоставить блок - [ЛКМ]\nсменить вид камеры - [ПКМ]\nвыбор блока - [1-0]\nпипетка - [P]"},
+        { "settings", "Настройки"},
+        { "palette", "Палитра"},
+        { "inventory", "Инвентарь"},
+        { "cancel", "Отмена"}
+    };
+
+    public static Dictionary<string, string> StringsEn = new Dictionary<string, string>()
+    {
+        { "pistol1", "Handgun 1"},
+        { "pistol2", "Handgun 2"},
+        { "pistol3", "Handgun 3"},
+        { "pistol4", "Handgun 4"},
+        { "smg1", "SMG 1"},
+        { "smg2", "SMG 2"},
+        { "smg3", "SMG 3"},
+        { "smg4", "SMG 4"},
+        { "smg5", "SMG 5"},
+        { "ar1", "AR 1"},
+        { "ar2", "AR 2"},
+        { "ar3", "AR 3"},
+        { "sniper1", "SR 1"},
+        { "sniper2", "SR 2"},
+        { "gl1", "Grenade Launcher"},
+        { "rl1", "Rocket Launcher"},
+        { "grip", "Grip"},
+        { "laser", "Laser"},
+        { "muzzle", "Muzzle"},
+        { "scope", "Scope"},
+        { "look", "Look"},
+        { "play", "Play"},
+        { "expensive", "Expensive"},
+        { "back", "Back"},
+        { "die", "Died"},
+        { "press_eny_key", "Press any button to exit the menu"},
+        { "reward", "Reward"},
+        { "successful_extraction", "Successful extraction"},
+        { "loading", "Loading"},
+        { "sensitivity", "Mouse sensitivity"},
+        { "audiolvl", "Audio level"},
+        { "lang", "English"},
+        { "savetext", "Save:"},
+        { "saveauto", "Auto"},
+        { "savemanual", "Manual"},
+        { "returntogame", "Return to game"},
+        { "grenade", "Grenade"},
+        { "ads3", "Ads in 3"},
+        { "ads2", "Ads in 2"},
+        { "ads1", "Ads in 1"},
+        { "addnewblocks", "<size=60>Out of blocks?</size>\nWatch the ad and get\n<color=\"red\">200 </color>additional blocks!\nPress the button:"},
+        { "controls", "settings / palette / inventory - [Esc]\nmove - [W,A,S,D]\njump - [Space]\npaste block - [ЛКМ]\nswipe camera - [ПКМ]\nselect block - [1-0]\npippete - [P]"},
+        { "settings", "Settings"},
+        { "palette", "Palette"},
+        { "inventory", "Inventory"},
+        { "cancel", "Cancel"}
+    };
+
+    public static void SetLanguage(string lang)
+    {
+        switch (lang)
+        {
+            case "ru":
+                Strings = StringsRu;
+                break;
+            case "en":
+                Strings = StringsEn;
+                break;
+            default:
+                break;
+        }
+    } 
+}

@@ -1,0 +1,82 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class LifeManager : MonoBehaviour
+{
+    public static LifeManager Instance;
+
+    [SerializeField]
+    private int _life = 3;
+    [SerializeField]
+    private List<GameObject> _lifeGOs = new List<GameObject>();
+    [SerializeField]
+    private GameObject _dieStreen;
+    [SerializeField]
+    private GameObject _respButton;
+    [SerializeField]
+    private GameObject _reloadButton;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (_life > 0)
+        {
+            _respButton.SetActive(true);
+            _reloadButton.SetActive(false);
+        }
+        else
+        {
+            _respButton.SetActive(false);
+            _reloadButton.SetActive(true);
+        }
+    }
+
+    public void ProcessLife()
+    {
+        //Debug.Log("ProcessLife");
+        _dieStreen.SetActive(true);
+        //Respawn();
+    }
+
+    public void MinusLife()
+    {
+        if (_life > 0)
+        {
+            _life--;
+
+            for(int i=0; i< _lifeGOs.Count; i++)
+            {
+                _lifeGOs[i].SetActive(false);
+            }
+
+            for(int i=0; i< _life; i++)
+            {
+                _lifeGOs[i].SetActive(true);
+            }
+
+            Respawn();
+        }
+        else
+        {
+
+        }
+    }
+
+    public void Respawn()
+    {
+        _dieStreen.SetActive(false);
+        CheckPointManager.Instance.ReturnToCheckPoint();
+    }
+
+}

@@ -21,21 +21,68 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: OceanWater
-  m_Shader: {fileID: -6465566751694194690, guid: 4a04e63841310a64596a27f38d051fe1, type: 3}
-  m_ValidKeywords: []
-  m_InvalidKeywords:
+  m_Shader: {fileID: 4800000, guid: 650dd9526735d5b46b79224bc6e94025, type: 3}
+  m_ValidKeywords:
   - _SURFACE_TYPE_TRANSPARENT
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 3000
-  stringTagMap: {}
-  disabledShaderPasses: []
+  stringTagMap:
+    RenderType: Transparent
+  disabledShaderPasses:
+  - DepthOnly
+  - SHADOWCASTER
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _BaseMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _CausticTexture2D:
         m_Texture: {fileID: 2800000, guid: f668fd9adc91b52489bdc051aa9141ac, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SpecGlossMap:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Texture2D:
@@ -78,6 +125,8 @@ Material:
     m_Floats:
     - _AlphaClip: 0
     - _Blend: 0
+    - _BlendOp: 0
+    - _BumpScale: 1
     - _CastShadows: 0
     - _CausticDeepOffset: -0.0024
     - _CausticPower: 1
@@ -86,18 +135,24 @@ Material:
     - _CausticScaleDepp: 29.94
     - _CellDencity: 20
     - _CellDensity: 500
+    - _ClearCoatMask: 0
+    - _ClearCoatSmoothness: 0
     - _CracksSamples: 1
     - _Cracks_Depth_Intensity: 0.58
     - _Cracks_Sample_Offset: -0.0023
     - _Cracks_Surface_Intesnity: 1.28
     - _Cracks_Texture_LOD: 0
     - _Cull: 2
+    - _Cutoff: 0.5
     - _Deep: 0
     - _DeepCausticAmount: 5
     - _DeepWaterCausticSpeed: 0.02
     - _DepthBrightness: 0.042
+    - _DetailAlbedoMapScale: 1
+    - _DetailNormalMapScale: 1
     - _Distance: 20.02
     - _DstBlend: 10
+    - _EnvironmentReflections: 1
     - _Float: 140
     - _Float_1: 16
     - _FoamAmount: 9.4
@@ -113,17 +168,27 @@ Material:
     - _FoamWaveDistance: 140
     - _FoamWaveIntencity: 0.85
     - _FoamWavePower: 1.9
+    - _GlossMapScale: 0
+    - _Glossiness: 0
+    - _GlossyReflections: 0
+    - _Metallic: 0
+    - _OcclusionStrength: 1
     - _Offcet: -0.000047
+    - _Parallax: 0.005
     - _PowerCaustic: 5
     - _PowerCausticDeep: 0.296
     - _PowerSurfaceCausticSub: 0.8
     - _QueueControl: 1
     - _QueueOffset: 0
     - _ReceiveShadows: 1
+    - _SampleGI: 0
     - _Samples: 15
     - _ShallowWaterCausticScale: 30
     - _ShallowWaterCausticSpeed: 0.01
     - _SinAmplitude: 0.1
+    - _Smoothness: 0.5
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
     - _SpeedAngle: 2
     - _SrcBlend: 5
     - _Step: 0.0318
@@ -182,8 +247,10 @@ Material:
     - _ZWrite: 0
     - _ZWriteControl: 0
     m_Colors:
+    - _BaseColor: {r: 0, g: 0.54509807, b: 0.99607843, a: 1}
     - _CausticScale: {r: 41.03, g: 80, b: 0, a: 0}
     - _CausticScaleDeep: {r: 30, g: 70, b: 0, a: 0}
+    - _Color: {r: 0, g: 0.545098, b: 0.99607843, a: 1}
     - _ColorCaustic: {r: 0.7254902, g: 0.86666673, b: 0.9803922, a: 1}
     - _ColorCausticDeep: {r: 1, g: 1, b: 1, a: 1}
     - _ColorCausticFoam: {r: 0.83637416, g: 0.92177266, b: 0.990566, a: 1}
@@ -194,11 +261,13 @@ Material:
     - _ColorWaterShallow: {r: 0.2509804, g: 0.6627451, b: 1, a: 1}
     - _DeepWater: {r: 0, g: 0.45636794, b: 0.8113208, a: 1}
     - _DeepWaterCausticSpeed: {r: 0, g: 0.04, b: 0, a: 0}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FoamColor: {r: 1, g: 0.0698705, b: 0, a: 1}
     - _FoamColorDeepColor: {r: 0, g: 0.27490643, b: 0.49056602, a: 1}
     - _FoamSpeed: {r: 1, g: 1, b: 0, a: 0}
     - _ShallowWater: {r: 0.4764151, g: 0.76704085, b: 1, a: 1}
     - _ShallowWaterCausticSpeed: {r: 0, g: -0.04, b: 0, a: 0}
+    - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _Vector2: {r: 1, g: 0.1, b: 0, a: 0}
     - _Vector2_1: {r: 0, g: 0, b: 0, a: 0}
     - _Vector3: {r: 3.66, g: 1, b: 0.91, a: 0}

@@ -1,0 +1,110 @@
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+using YG;
+
+public class CheckPointManager : MonoBehaviour
+{
+
+    public static CheckPointManager Instance;
+
+    public bool IsWin;
+
+    [SerializeField]
+    private LeaderboardYG leaderboardYG;
+    [SerializeField]
+    private GameObject _winScreen;
+    [SerializeField]
+    private Transform _plaerTransform;
+    [SerializeField]
+    private List<CheckPoint> _checkPoints = new List<CheckPoint>();
+    [SerializeField]
+    private float _distance, _curvalue, _curvaluePrev;
+    [SerializeField]
+    private Image _progressEmpty, _progressCur, _progressCheckPoints;
+    [SerializeField]
+    private float _score;
+    [SerializeField]
+    private float _scoreBonus;
+    [SerializeField]
+    private TextMeshProUGUI _text;
+    private int _scoreTotal;
+    private void Awake()
+    {
+        Instance = this;
+    }
+
+    void Start()
+    {
+        _distance = _checkPoints[_checkPoints.Count - 1].transform.position.z - _checkPoints[0].transform.position.z;
+        //_score = _distance;
+        _scoreBonus = _distance;
+    }
+
+    void Update()
+    {
+        if (Time.timeSinceLevelLoad > 220)
+        {
+            _scoreBonus -= 10 * Time.deltaTime;
+            _scoreBonus = _scoreBonus == 0 ? 0 : _scoreBonus;
+        }
+
+        _curvalue = _plaerTransform.position.z - _checkPoints[0].transform.position.z;
+        _curvalue = _curvalue < 0? 0: _curvalue / _distance;
+        _curvalue = _curvalue < _curvaluePrev ? _curvaluePrev : _curvalue;
+        _progressCur.fillAmount = _curvalue;
+        _progressEmpty.fillAmount = 1 - _curvalue;
+        _curvaluePrev = _curvalue;
+        _score = _curvalue * _distance;
+    }
+
+    public void ReturnToCheckPoint()
+    {
+        PositionOffcetBlender.Instance.ReturnToCheckPoint(_checkPoints.Find(cp => cp.State == CheckPointState.active).transform.position);
+    }
+
+    public void SetNewRecord()
+    {
+        int score = (int)_score + (int)_scoreBonus;
+
+        if(score > _scoreTotal)
+        {
+            SetNewRecord(_scoreTotal);
+            _scoreTotal = score;
+        }
+    }
+
+    public void SetNewRecord(int record)
+    {
+        YandexGame.NewLeaderboardScores(leaderboardYG.nameLB, record);
+    }
+
+    public void SetActiveCheckPoint(CheckPoint active)
+    {
+        foreach(var checkPoint in _checkPoints)
+        {
+            checkPoint.State = CheckPointState.passive;
+        }
+        var cpcur = _checkPoints.Find(cp => cp == active);
+        cpcur.State = CheckPointState.active;
+
+        int index = _checkPoints.FindIndex(cp => cp.State == CheckPointState.active);
+        float value = (_checkPoints[index].transform.position.z - _checkPoints[0].transform.position.z) / _distance;
+        _progressCheckPoints.fillAmount = value;
+        if (cpcur.IsFinish)
+        {
+            IsWin = true;
+            int score = (int)_score + (int)_scoreBonus;
+            _text.text = $"{score}";
+            _winScreen.SetActive(true);
+
+            if (score > _scoreTotal)
+            {
+                SetNewRecord(_scoreTotal);
+                _scoreTotal = score;
+            }
+        }
+    }
+}
