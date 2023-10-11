@@ -14,12 +14,20 @@ using TMPro;
 public class OnScreenStick : OnScreenControl, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {/*
     [SerializeField]
-    private RectTransform _rect;
-    [SerializeField]
+    private RectTransform _rect;*/
+    /*[SerializeField]
     private TextMeshProUGUI _text0;*/
-
+    [SerializeField]
+    private Touch _touch;
+    [SerializeField]
+    private Touch[] _touches;
+    [SerializeField]
+    private Vector2 _downPosition;
+    [SerializeField]
+    private float _breackDistance = 300;
     public void OnPointerDown(PointerEventData eventData)
     {
+        _downPosition = eventData.position;
         if (eventData == null)
             throw new System.ArgumentNullException(nameof(eventData));
 
@@ -46,14 +54,25 @@ public class OnScreenStick : OnScreenControl, IPointerDownHandler, IPointerUpHan
     public void OnPointerUp(PointerEventData eventData)
     {
         ((RectTransform)transform).anchoredPosition = m_StartPos;
-        SendValueToControl(Vector2.zero);/*
+        SendValueToControl(Vector2.zero);
+        _downPosition = Vector2.zero;
+        /*
         _rect.anchoredPosition = eventData.position;
         _text0.text = $"{eventData.position}";*/
     }
 
     public void Update()
     {
-        if (Input.touchCount == 0)
+        _touches = Input.touches;
+        bool needBreak = false;
+
+        for(int i=0; i < _touches.Length; i++)
+        {
+            var d = Vector2.Distance(_touches[i].position, _downPosition);
+            needBreak = needBreak || d > _breackDistance;
+        }
+
+        if (_touches.Length == 0 || needBreak)
         {
             SendValueToControl(Vector2.zero);
             ((RectTransform)transform).anchoredPosition = m_StartPos;
@@ -62,6 +81,7 @@ public class OnScreenStick : OnScreenControl, IPointerDownHandler, IPointerUpHan
 
     private void Start()
     {
+        _touch = new Touch { fingerId = -1 };
         m_StartPos = ((RectTransform)transform).anchoredPosition;
     }
 
