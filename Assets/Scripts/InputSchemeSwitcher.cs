@@ -15,6 +15,10 @@ public class InputSchemeSwitcher : MonoBehaviour
     private GameObject _mobileInputCanvas;
     [SerializeField]
     private SettingScreen _setting;
+    [SerializeField]
+    private GameObject _switchButtonJ;
+    [SerializeField]
+    private GameObject _switchButtonK;
 
     void Start()
     {
@@ -35,7 +39,8 @@ public class InputSchemeSwitcher : MonoBehaviour
             _cameraView.SetViewParam(true, 300);
             _mobileInputCanvas.SetActive(false);
             _setting.SetIsMobile(false);
-
+            _switchButtonJ.SetActive(false);
+            _switchButtonK.SetActive(false);
             return;
         }
 
@@ -45,6 +50,8 @@ public class InputSchemeSwitcher : MonoBehaviour
             _cameraView.SetViewParam(false, 150);
             _mobileInputCanvas.SetActive(true);
             _setting.SetIsMobile(true);
+            _switchButtonJ.SetActive(true);
+            _switchButtonK.SetActive(true);
             return;
         }
 
@@ -54,6 +61,8 @@ public class InputSchemeSwitcher : MonoBehaviour
             _cameraView.SetViewParam(false, 150);
             _mobileInputCanvas.SetActive(true);
             _setting.SetIsMobile(true);
+            _switchButtonJ.SetActive(true);
+            _switchButtonK.SetActive(true);
             return;
         }
     }

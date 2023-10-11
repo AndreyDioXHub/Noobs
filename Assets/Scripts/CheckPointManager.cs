@@ -48,7 +48,7 @@ public class CheckPointManager : MonoBehaviour
         if (Time.timeSinceLevelLoad > 220)
         {
             _scoreBonus -= 10 * Time.deltaTime;
-            _scoreBonus = _scoreBonus == 0 ? 0 : _scoreBonus;
+            _scoreBonus = _scoreBonus < 0 ? 0 : _scoreBonus;
         }
 
         _curvalue = _plaerTransform.position.z - _checkPoints[0].transform.position.z;
