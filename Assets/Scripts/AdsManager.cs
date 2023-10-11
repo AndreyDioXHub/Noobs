@@ -118,14 +118,17 @@ public class AdsManager : MonoBehaviour
             }
         }
 
-        _timeBigCur += Time.deltaTime;
-
-        if (_timeBigCur > _timeBig)
+        if (_timeBig > 0)
         {
-            _timeBigCur = 0;
-            if(AdsScreen.Instance != null)
+            _timeBigCur += Time.deltaTime;
+
+            if (_timeBigCur > _timeBig)
             {
-                AdsScreen.Instance.gameObject.SetActive(true);
+                _timeBigCur = 0;
+                if (AdsScreen.Instance != null)
+                {
+                    AdsScreen.Instance.gameObject.SetActive(true);
+                }
             }
         }
     }

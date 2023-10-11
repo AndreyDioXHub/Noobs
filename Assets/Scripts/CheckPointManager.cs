@@ -11,9 +11,9 @@ public class CheckPointManager : MonoBehaviour
     public static CheckPointManager Instance;
 
     public bool IsWin;
-
+    /*
     [SerializeField]
-    private LeaderboardYG leaderboardYG;
+    private LeaderboardYG leaderboardYG;*/
     [SerializeField]
     private GameObject _winScreen;
     [SerializeField]
@@ -64,22 +64,22 @@ public class CheckPointManager : MonoBehaviour
     {
         PositionOffcetBlender.Instance.ReturnToCheckPoint(_checkPoints.Find(cp => cp.State == CheckPointState.active).transform.position);
     }
-
+    /*
     public void SetNewRecord()
     {
         int score = (int)_score + (int)_scoreBonus;
 
         if(score > _scoreTotal)
         {
-            SetNewRecord(_scoreTotal);
+            //SetNewRecord(_scoreTotal);
             _scoreTotal = score;
         }
-    }
-
+    }*/
+    /*
     public void SetNewRecord(int record)
     {
         YandexGame.NewLeaderboardScores(leaderboardYG.nameLB, record);
-    }
+    }*/
 
     public void SetActiveCheckPoint(CheckPoint active)
     {
@@ -102,7 +102,7 @@ public class CheckPointManager : MonoBehaviour
 
             if (score > _scoreTotal)
             {
-                SetNewRecord(_scoreTotal);
+                //SetNewRecord(_scoreTotal);
                 _scoreTotal = score;
             }
         }

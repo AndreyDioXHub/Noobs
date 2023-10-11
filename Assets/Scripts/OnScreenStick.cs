@@ -18,18 +18,18 @@ public class OnScreenStick : OnScreenControl, IPointerDownHandler, IPointerUpHan
     /*[SerializeField]
     private TextMeshProUGUI _text0;*/
     [SerializeField]
-    private Touch _touch;
-    [SerializeField]
     private Touch[] _touches;
     [SerializeField]
     private Vector2 _downPosition;
     [SerializeField]
-    private float _breackDistance = 300;
+    private float _minDistance, _breackDistance = 300;
+
     public void OnPointerDown(PointerEventData eventData)
     {
-        _downPosition = eventData.position;
         if (eventData == null)
             throw new System.ArgumentNullException(nameof(eventData));
+
+        _downPosition = eventData.position;
 
         RectTransformUtility.ScreenPointToLocalPointInRectangle(transform.parent.GetComponentInParent<RectTransform>(), eventData.position, eventData.pressEventCamera, out m_PointerDownPos);
     }
@@ -64,24 +64,39 @@ public class OnScreenStick : OnScreenControl, IPointerDownHandler, IPointerUpHan
     public void Update()
     {
         _touches = Input.touches;
-        bool needBreak = false;
 
-        for(int i=0; i < _touches.Length; i++)
+        if (_touches.Length > 0)
         {
-            var d = Vector2.Distance(_touches[i].position, _downPosition);
-            needBreak = needBreak || d > _breackDistance;
         }
 
-        if (_touches.Length == 0 || needBreak)
+        if (_touches.Length == 0)
         {
             SendValueToControl(Vector2.zero);
             ((RectTransform)transform).anchoredPosition = m_StartPos;
+            _minDistance = _breackDistance*2;
         }
+        else
+        {
+            _minDistance = Vector2.Distance(_touches[0].position, _downPosition);
+
+            for (int i = 0; i < _touches.Length; i++)
+            {
+                var d = Vector2.Distance(_touches[i].position, _downPosition);
+                _minDistance = d < _minDistance ? d : _minDistance;
+                //needBreak = needBreak || d > _breackDistance;
+            }
+
+            if (_minDistance > _breackDistance)
+            {
+                SendValueToControl(Vector2.zero);
+                ((RectTransform)transform).anchoredPosition = m_StartPos;
+            }
+        }
+
     }
 
     private void Start()
     {
-        _touch = new Touch { fingerId = -1 };
         m_StartPos = ((RectTransform)transform).anchoredPosition;
     }
 
