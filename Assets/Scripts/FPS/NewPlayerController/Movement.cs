@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Movement : MonoBehaviour
 {
+    public UnityEvent<bool> OnJump = new UnityEvent<bool>();
+
     [SerializeField]
     protected PositionOffcetBlender _blender;
     [SerializeField]
-    protected PlayerSpeed _playerSpeed;
+    protected float _speed;
     [SerializeField]
     protected GroundCheck _groundCheck;
 
@@ -27,6 +30,8 @@ public class Movement : MonoBehaviour
 
 
     protected Vector3 _offcetMove;
+
+    [SerializeField]
     protected Vector3 _gravityVector;
 
     protected bool _isRun;
@@ -47,21 +52,9 @@ public class Movement : MonoBehaviour
         /*_blender = GetComponent<PositionOffcetBlender>();
         _state = GetComponent<CharacterStateController>();
         _playerSpeed = GetComponent<PlayerSpeed>();*/
+    }
 
-        Init();
-    }
-    
-    public virtual void Init()
-    {
-        if (_isCrouch)
-        {
-            _playerSpeed.SetSpeed(_speedCrouch);
-        }
-        else
-        {
-            _playerSpeed.SetSpeed(_speedWalk);
-        }
-    }
+
     public virtual void SetChangeState(bool isTransition)
     {
         _isTransition = isTransition;
@@ -69,7 +62,7 @@ public class Movement : MonoBehaviour
 
     public virtual void Update()
     {
-        
+
     }
 
     public virtual void FixedUpdate()
@@ -105,61 +98,29 @@ public class Movement : MonoBehaviour
 
     public virtual void Move(float horizontal, float vertical)
     {
+        //Debug.Log($"{horizontal} {vertical}");
+
         if (_groundCheck.IsGrounded)
         {
-            _offcetMove = (transform.right * horizontal + transform.forward * vertical) * _playerSpeed.Speed * Time.fixedDeltaTime;           
+            _offcetMove = (transform.right * horizontal + transform.forward * vertical) * _speed * Time.fixedDeltaTime;
         }
         else
         {
-            _offcetMove = (transform.right * horizontal + transform.forward * vertical) * _playerSpeed.Speed * Time.fixedDeltaTime;
+            _offcetMove = (transform.right * horizontal + transform.forward * vertical) * _speed * Time.fixedDeltaTime;
         }
+
+        //Debug.Log(_offcetMove);
 
         _blender.AddOffcet(_offcetMove);
     }
 
-    public virtual void Crouch(bool isCrouch)
-    {
-        _isCrouch = isCrouch;
-        _offcetMove = Vector3.zero;
-        if (_isRun)
-        {
-            Run(false);
-        }
-
-        if (isCrouch)
-        {
-            _playerSpeed.SetSpeed(_speedCrouch);
-        }
-        else
-        {
-            _playerSpeed.SetSpeed(_speedWalk);
-        }
-    }
-
-    public virtual void Run(bool isRun)
-    {
-        _isRun = isRun;
-
-        if (_isCrouch)
-        {
-            Crouch(false);
-        }
-
-        if (isRun)
-        {
-            _playerSpeed.SetSpeed(_speedRun);
-        }
-        else
-        {
-            _playerSpeed.SetSpeed(_speedWalk);
-        }
-    }
 
     public virtual void Jump(bool isJump)
     {
         if (isJump)
         {
             _isJump = isJump;
+            OnJump?.Invoke(isJump);
             //_isOnTheAir = true;
         }
 
@@ -170,7 +131,7 @@ public class Movement : MonoBehaviour
         }
     }
 
-    public virtual void Push(Vector3 direction,float height)
+    public virtual void Push(Vector3 direction, float height)
     {
         /*Vector3 offcet = direction * Mathf.Sqrt(height * -2f * _gravity) * Time.fixedDeltaTime;
         Debug.Log($"{offcet} {Mathf.Sqrt(height * -2f * _gravity) * Time.fixedDeltaTime}");

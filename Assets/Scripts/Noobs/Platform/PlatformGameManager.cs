@@ -174,7 +174,7 @@ public class PlatformGameManager : MonoBehaviour
         _animatorController.Init(_animationSequences[_index]);
 
         _playerHat.Play();
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.lockState = CursorLockMode.Locked;
     }
 
 
@@ -195,8 +195,8 @@ public class PlatformGameManager : MonoBehaviour
                 switch (winState)
                 {
                     case WinState.win:
-                        string t0 = LocalizationStrings.game_scene_game_win_t0_curent;
-                        string t1 = $"{LocalizationStrings.game_scene_game_win_t1_curent}{PlatformCoinManager.Instance.EarnedCoins}";
+                        string t0 = LocalizationStrings.Strings["winlvl1"];
+                        string t1 = $"{LocalizationStrings.Strings["winlvl2"]}{PlatformCoinManager.Instance.EarnedCoins}";
                         PlatformCoinManager.Instance.AddCoin(PlatformCoinManager.Instance.EarnedCoins);
                         WinScreen.Instance.Show(t0, t1);
                         WinScreen.Instance.ShowWinScreen();

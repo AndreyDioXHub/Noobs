@@ -2905,13 +2905,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abc59509761e0ae44b94fdbae88aa0dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _idleAnimationName: 
   _animator: {fileID: 878670717}
+  _timePlay: 10
+  _timePause: 10
+  _timePrepare: 10
   _time: 10
   _timeCur: 0
   _animationSequence: []
   _index: 0
   _isPaused: 0
   _isStarted: 0
+  _needSpawnCoins: 0
+  _needPassCoins: 0
+  _reward: 5
   _coinPrefab: {fileID: 4149980081153344209, guid: f7c6ff7307c63c649a5c8f0fdc94169f, type: 3}
 --- !u!1 &901851959
 GameObject:
@@ -3734,6 +3741,8 @@ MonoBehaviour:
   _needReward: 1
   _time: 2
   _timeCur: 0
+  _needPlayer: 0
+  _needRandomIndex: 0
 --- !u!114 &1036071166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3746,8 +3755,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb38140ca07e5d240ac4849f73396d6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _coinAudio: {fileID: 0}
   _coins: 0
+  _coinsCanvas: {fileID: 0}
+  _coinsUIPrefab: {fileID: 0}
   EarnedCoins: 0
+  RewaindCoins: 0
   _coinsText: {fileID: 924197074}
 --- !u!114 &1036071167
 MonoBehaviour:
@@ -4374,7 +4387,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _key: game_scene_game_win_t2_curent
-  _text: {fileID: 1265969083}
 --- !u!114 &1266004618 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2511796419113337236, guid: 676e2c12d8c27f149bb81df7d1f6fe04, type: 3}
@@ -5096,7 +5108,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _key: game_scene_game_win_t2_curent
-  _text: {fileID: 1464245640}
 --- !u!114 &1464245640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7096,7 +7107,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _key: game_scene_lose_curent
-  _text: {fileID: 1953175771}
 --- !u!114 &1957403003 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2511796419113337236, guid: 676e2c12d8c27f149bb81df7d1f6fe04, type: 3}
@@ -8160,7 +8170,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3411569460253490045, guid: a40bb2003a6429041ae294b4aa1774bb, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3411569460253490045, guid: a40bb2003a6429041ae294b4aa1774bb, type: 3}
       propertyPath: m_AnchorMax.x

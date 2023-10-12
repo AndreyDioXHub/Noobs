@@ -1,121 +1,194 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
-public static class LocalizationStrings 
+public static class LocalizationStrings
 {
-    public static string game_scene_not_enough_money_curent = "Не достаточно денег\n<size=24>Посмотрите рекламу или выиграйте их на сотах</size>";
-    public static string game_scene_wait_connection_curent = "Ожидание игроков";
-    public static string game_scene_lose_curent = "Вы проиграли!";
-    public static string game_scene_lvl_win_t0_curent = "Уровень пройден!";
-    public static string game_scene_lvl_win_t1_curent = "Награда: ";
-    public static string game_scene_game_win_t0_curent = "Вы выиграли!";
-    public static string game_scene_game_win_t1_curent = "Дополнительный выигрыш: ";
-    public static string game_scene_game_win_t2_curent = "Нажмите любую кнопку";
-    public static string game_scene_game_sencity_curent = "Чувствительность мыши";
-    public static string game_scene_wait_curent = "Ожидание";
-    public static string game_scene_select_curent = "Выбор";
-    public static string game_scene_prepare_curent = "Подготовка";
-    public static string start_scene_play_button_curent = "Играть";
-    public static string start_scene_next_button_curent = "следующий";
-    public static string start_scene_prev_button_curent = "предыдущий";
+    public static bool first_start = true;
 
-    public static string game_scene_not_enough_money_ru = "Недостаточно денег\n<size=24>Посмотрите рекламу или выиграйте их играя</size>";
-    public static string game_scene_wait_connection_ru = "Ожидание игроков";
-    public static string game_scene_lose_ru = "Вы проиграли!";
-    public static string game_scene_lvl_win_t0_ru = "Уровень пройден!";
-    public static string game_scene_lvl_win_t1_ru = "Награда: ";
-    public static string game_scene_game_win_t0_ru = "Вы выиграли!";
-    public static string game_scene_game_win_t1_ru = "Дополнительный выигрыш: ";
-    public static string game_scene_game_win_t2_ru = "Нажмите любую кнопку";
-    public static string game_scene_game_sencity_ru = "Чувствительность мыши";
-    public static string game_scene_wait_ru = "Ожидание";
-    public static string game_scene_select_ru = "Выбор";
-    public static string game_scene_prepare_ru = "Подготовка";
-    public static string start_scene_play_button_ru = "Играть";
-    public static string start_scene_next_button_ru = "следующий";
-    public static string start_scene_prev_button_ru = "предыдущий";
-
-    public static string game_scene_not_enough_money_en = "Not enough money\n<size=24>Watch ads or get them by playing</size>";
-    public static string game_scene_wait_connection_en = "Waiting for the players";
-    public static string game_scene_lose_en = "You lost!";
-    public static string game_scene_lvl_win_t0_en = "Level passed!";
-    public static string game_scene_lvl_win_t1_en = "Reward:";
-    public static string game_scene_game_win_t0_en = "You won!";
-    public static string game_scene_game_win_t1_en = "Additional reward: ";
-    public static string game_scene_game_win_t2_en = "Press eny key";
-    public static string game_scene_game_sencity_en = "Mouse sensitivity";
-    public static string game_scene_wait_en = "Waiting";
-    public static string game_scene_select_en = "Choice";
-    public static string game_scene_prepare_en = "Prepare";
-    public static string start_scene_play_button_en = "Play";
-    public static string start_scene_next_button_en = "next";
-    public static string start_scene_prev_button_en = "previous";
-
-    public static bool first_start = false;
-
-    public static void SetLanguage(string local)
+    public static Dictionary<string, string> Strings = new Dictionary<string, string>()
     {
-        switch (local)
+        { "pistol1", "Пистолет 1"},
+        { "pistol2", "Пистолет 2"},
+        { "pistol3", "Пистолет 3"},
+        { "pistol4", "Пистолет 4"},
+        { "smg1", "Пистолет пулемет 1"},
+        { "smg2", "Пистолет пулемет 2"},
+        { "smg3", "Пистолет пулемет 3"},
+        { "smg4", "Пистолет пулемет 4"},
+        { "smg5", "Пистолет пулемет 5"},
+        { "ar1", "Автомат 1"},
+        { "ar2", "Автомат 2"},
+        { "ar3", "Автомат 3"},
+        { "sniper1", "Снайперка 1"},
+        { "sniper2", "Снайперка 2"},
+        { "gl1", "Гранатомет"},
+        { "rl1", "Ракетница"},
+        { "grip", "рукоять"},
+        { "laser", "лазер"},
+        { "muzzle", "глушитель"},
+        { "scope", "прицел"},
+        { "look", "Осмотреть"},
+        { "play", "Играть"},
+        { "expensive", "Дорого"},
+        { "back", "назад"},
+        { "die", "Вы проиграли!"},
+        { "press_eny_key", "Нажмите любую кнопку для выхода в меню"},
+        { "reward", "Награда"},
+        { "successful_extraction", "Успешное извлечение"},
+        { "loading", "Загрузка"},
+        { "sensitivity", "Чувствительность мыши"},
+        { "audiolvl", "Уровень громкости"},
+        { "lang", "Русский"},
+        { "savetext", "Сохранение:"},
+        { "saveauto", "Авто"},
+        { "savemanual", "Ручное"},
+        { "returntogame", "Вернуться к игре"},
+        { "grenade", "Граната"},
+        { "ads3", "Реклама через 3"},
+        { "ads2", "Реклама через 2"},
+        { "ads1", "Реклама через 1"},
+        { "addnewblocks", "<size=60>Закончились блоки?</size>\nПосмотрите рекламу и получите\n<color=\"red\">200 </color>дополнительных блоков!\nЖми кнопку:"},
+        { "controls", "настройки / палитра / инвентарь - [Esc]\nпередвижение - [W,A,S,D]\nпрыжок - [Space]\nпоставить блок - [ЛКМ]\nсменить вид камеры - [ПКМ]\nвыбор блока - [1-0]\nпипетка - [P]"},
+        { "settings", "Настройки"},
+        { "palette", "Палитра"},
+        { "inventory", "Инвентарь"},
+        { "cancel", "Отмена"},
+        { "next", "Следующий"},
+        { "prev", "Предыдущий"},
+        { "NotEnoughMoney", "Не достаточно денег\n<size=24>Посмотрите рекламу или выиграйте их на платформе</size>"},
+        { "waitingplayer", "Ожидание игроков"},
+        { "waiting", "Ожидание"},
+        { "winlvl1", "Вы выиграли!"},
+        { "winlvl2", "Дополнительный выигрыш: "},
+
+
+    };
+
+    public static Dictionary<string, string> StringsRu = new Dictionary<string, string>()
+    {
+        { "pistol1", "Пистолет 1"},
+        { "pistol2", "Пистолет 2"},
+        { "pistol3", "Пистолет 3"},
+        { "pistol4", "Пистолет 4"},
+        { "smg1", "Пистолет пулемет 1"},
+        { "smg2", "Пистолет пулемет 2"},
+        { "smg3", "Пистолет пулемет 3"},
+        { "smg4", "Пистолет пулемет 4"},
+        { "smg5", "Пистолет пулемет 5"},
+        { "ar1", "Автомат 1"},
+        { "ar2", "Автомат 2"},
+        { "ar3", "Автомат 3"},
+        { "sniper1", "Снайперка 1"},
+        { "sniper2", "Снайперка 2"},
+        { "gl1", "Гранатомет"},
+        { "rl1", "Ракетница"},
+        { "grip", "рукоять"},
+        { "laser", "лазер"},
+        { "muzzle", "глушитель"},
+        { "scope", "прицел"},
+        { "look", "Осмотреть"},
+        { "play", "Играть"},
+        { "expensive", "Дорого"},
+        { "back", "назад"},
+        { "die", "Вы проиграли!"},
+        { "press_eny_key", "Нажмите любую кнопку для выхода в меню"},
+        { "reward", "Награда"},
+        { "successful_extraction", "Успешное извлечение"},
+        { "loading", "Загрузка"},
+        { "sensitivity", "Чувствительность мыши"},
+        { "audiolvl", "Уровень громкости"},
+        { "lang", "Русский"},
+        { "savetext", "Сохранение:"},
+        { "saveauto", "Авто"},
+        { "savemanual", "Ручное"},
+        { "returntogame", "Вернуться к игре"},
+        { "grenade", "Граната"},
+        { "ads3", "Реклама через 3"},
+        { "ads2", "Реклама через 2"},
+        { "ads1", "Реклама через 1"},
+        { "addnewblocks", "<size=60>Закончились блоки?</size>\nПосмотрите рекламу и получите\n<color=\"red\">200 </color>дополнительных блоков!\nЖми кнопку:"},
+        { "controls", "настройки / палитра / инвентарь - [Esc]\nпередвижение - [W,A,S,D]\nпрыжок - [Space]\nпоставить блок - [ЛКМ]\nсменить вид камеры - [ПКМ]\nвыбор блока - [1-0]\nпипетка - [P]"},
+        { "settings", "Настройки"},
+        { "palette", "Палитра"},
+        { "inventory", "Инвентарь"},
+        { "cancel", "Отмена"},
+        { "next", "Следующий"},
+        { "prev", "Предыдущий"},
+        { "NotEnoughMoney", "Не достаточно денег\n<size=24>Посмотрите рекламу или выиграйте их на платформе</size>"},
+        { "waitingplayer", "Ожидание игроков"},
+        { "waiting", "Ожидание"},
+        { "winlvl1", "Вы выиграли!"},
+        { "winlvl2", "Дополнительный выигрыш: "},
+    };
+
+    public static Dictionary<string, string> StringsEn = new Dictionary<string, string>()
+    {
+        { "pistol1", "Handgun 1"},
+        { "pistol2", "Handgun 2"},
+        { "pistol3", "Handgun 3"},
+        { "pistol4", "Handgun 4"},
+        { "smg1", "SMG 1"},
+        { "smg2", "SMG 2"},
+        { "smg3", "SMG 3"},
+        { "smg4", "SMG 4"},
+        { "smg5", "SMG 5"},
+        { "ar1", "AR 1"},
+        { "ar2", "AR 2"},
+        { "ar3", "AR 3"},
+        { "sniper1", "SR 1"},
+        { "sniper2", "SR 2"},
+        { "gl1", "Grenade Launcher"},
+        { "rl1", "Rocket Launcher"},
+        { "grip", "Grip"},
+        { "laser", "Laser"},
+        { "muzzle", "Muzzle"},
+        { "scope", "Scope"},
+        { "look", "Look"},
+        { "play", "Play"},
+        { "expensive", "Expensive"},
+        { "back", "Back"},
+        { "die", "You lose!"},
+        { "press_eny_key", "Press any button to exit the menu"},
+        { "reward", "Reward"},
+        { "successful_extraction", "Successful extraction"},
+        { "loading", "Loading"},
+        { "sensitivity", "Mouse sensitivity"},
+        { "audiolvl", "Audio level"},
+        { "lang", "English"},
+        { "savetext", "Save:"},
+        { "saveauto", "Auto"},
+        { "savemanual", "Manual"},
+        { "returntogame", "Return to game"},
+        { "grenade", "Grenade"},
+        { "ads3", "Ads in 3"},
+        { "ads2", "Ads in 2"},
+        { "ads1", "Ads in 1"},
+        { "addnewblocks", "<size=60>Out of blocks?</size>\nWatch the ad and get\n<color=\"red\">200 </color>additional blocks!\nPress the button:"},
+        { "controls", "settings / palette / inventory - [Esc]\nmove - [W,A,S,D]\njump - [Space]\npaste block - [ЛКМ]\nswipe camera - [ПКМ]\nselect block - [1-0]\npippete - [P]"},
+        { "settings", "Settings"},
+        { "palette", "Palette"},
+        { "inventory", "Inventory"},
+        { "cancel", "Cancel"},
+        { "next", "Next"},
+        { "prev", "Previous"},
+        { "NotEnoughMoney", "Not enough money\n<size=24>Watch ads or win money on the platform</size>"},
+        { "waitingplayer", "Waiting for players"},
+        { "waiting", "Waiting"},
+        { "winlvl1", "You win!"},
+        { "winlvl2", "Additional winnings: "},
+    };
+
+    public static void SetLanguage(string lang)
+    {
+        switch (lang)
         {
             case "ru":
-                game_scene_not_enough_money_curent = game_scene_not_enough_money_ru;
-                game_scene_wait_connection_curent = game_scene_wait_connection_ru;
-                game_scene_lose_curent = game_scene_lose_ru;
-                game_scene_lvl_win_t0_curent = game_scene_lvl_win_t0_ru;
-                game_scene_lvl_win_t1_curent = game_scene_lvl_win_t1_ru;
-                game_scene_game_win_t0_curent = game_scene_game_win_t0_ru;
-                game_scene_game_win_t1_curent = game_scene_game_win_t1_ru;
-                game_scene_game_win_t2_curent = game_scene_game_win_t2_ru;
-                game_scene_game_sencity_curent = game_scene_game_sencity_ru;
-
-                game_scene_wait_curent = game_scene_wait_ru;
-                game_scene_select_curent = game_scene_select_ru;
-                game_scene_prepare_curent = game_scene_prepare_ru;
-
-                start_scene_play_button_curent = start_scene_play_button_ru;
-                start_scene_next_button_curent = start_scene_next_button_ru;
-                start_scene_prev_button_curent = start_scene_prev_button_ru;
+                Strings = StringsRu;
                 break;
             case "en":
-                game_scene_not_enough_money_curent = game_scene_not_enough_money_en;
-                game_scene_wait_connection_curent = game_scene_wait_connection_en;
-                game_scene_lose_curent = game_scene_lose_en;
-                game_scene_lvl_win_t0_curent = game_scene_lvl_win_t0_en;
-                game_scene_lvl_win_t1_curent = game_scene_lvl_win_t1_en;
-                game_scene_game_win_t0_curent = game_scene_game_win_t0_en;
-                game_scene_game_win_t1_curent = game_scene_game_win_t1_en;
-                game_scene_game_win_t2_curent = game_scene_game_win_t2_en;
-                game_scene_game_sencity_curent = game_scene_game_sencity_en;
-
-                game_scene_wait_curent = game_scene_wait_en;
-                game_scene_select_curent = game_scene_select_en;
-                game_scene_prepare_curent = game_scene_prepare_en;
-
-                start_scene_play_button_curent = start_scene_play_button_en;
-                start_scene_next_button_curent = start_scene_next_button_en;
-                start_scene_prev_button_curent = start_scene_prev_button_en;
+                Strings = StringsEn;
                 break;
             default:
-                game_scene_not_enough_money_curent = game_scene_not_enough_money_ru;
-                game_scene_wait_connection_curent = game_scene_wait_connection_ru;
-                game_scene_lose_curent = game_scene_lose_ru;
-                game_scene_lvl_win_t0_curent = game_scene_lvl_win_t0_ru;
-                game_scene_lvl_win_t1_curent = game_scene_lvl_win_t1_ru;
-                game_scene_game_win_t0_curent = game_scene_game_win_t0_ru;
-                game_scene_game_win_t1_curent = game_scene_game_win_t1_ru;
-                game_scene_game_win_t2_curent = game_scene_game_win_t2_ru;
-                game_scene_game_sencity_curent = game_scene_game_sencity_ru;
-
-                game_scene_wait_curent = game_scene_wait_ru;
-                game_scene_select_curent = game_scene_select_ru;
-                game_scene_prepare_curent = game_scene_prepare_ru;
-
-                start_scene_play_button_curent = start_scene_play_button_ru;
-                start_scene_next_button_curent = start_scene_next_button_ru;
-                start_scene_prev_button_curent = start_scene_prev_button_ru;
                 break;
         }
     }
-
 }

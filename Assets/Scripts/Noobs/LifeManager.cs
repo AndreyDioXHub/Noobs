@@ -1,4 +1,3 @@
-using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -38,7 +37,6 @@ public class LifeManager : MonoBehaviour
     private void DieFunction() {
         switch (tag) {
             case "Player":
-                GameManager.Instance.IsLose = true;
                 break;
             case "Avatar":
             case "Bot":

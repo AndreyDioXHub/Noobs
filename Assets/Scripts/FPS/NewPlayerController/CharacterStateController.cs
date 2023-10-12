@@ -124,7 +124,7 @@ public class CharacterStateController : MonoBehaviour
         _curentState.view.enabled = true;
 
         _keyboardInput.SetMovement(_curentState.movement);
-        _curentState.movement.Init();
+        //_curentState.movement.Init();
 
         float charackterHeight = _characterController.height;
         float newCharackterHeight = _curentState.charackterHeight;

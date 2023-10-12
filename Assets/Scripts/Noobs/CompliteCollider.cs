@@ -107,7 +107,7 @@ public class CompliteCollider : MonoBehaviour
 
             yield return new WaitForSeconds(2f);
 
-            if (!_isEnd && !GameManager.Instance.IsWin)
+            if (!_isEnd)// && !GameManager.Instance.IsWin)
             {
                 foreach (var platform in platforms)
                 {

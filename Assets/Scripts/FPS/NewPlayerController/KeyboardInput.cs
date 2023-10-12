@@ -2,22 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 public class KeyboardInput : MonoBehaviour
 {
+    public UnityEvent OnEscDown = new UnityEvent();
+
     [SerializeField]
     protected Movement _movement;
-    [SerializeField]
-    protected Transform _lookDirection;
-    [SerializeField]
-    protected Transform _model;
-    [SerializeField]
-    protected AnimatorController _animatorController;
 
     [SerializeField]
     protected AnimationCurve _accelerationCurve;
     [SerializeField]
     protected float _accelerationTime;
+    private Vector2 _axisMove;
+
     /*[SerializeField]
     protected List<InteractableObject> _interactables = new List<InteractableObject>();*/
 
@@ -38,45 +37,97 @@ public class KeyboardInput : MonoBehaviour
 
     public virtual void Update()
     {
-        if (Input.GetKeyDown("space"))
-        {
-            _movement.Jump(true);
-            //_animatorController.SetJump();
-        }
-        if (Input.GetKeyUp("space"))
-        {
-            _movement.Jump(false);
-        }
 
-        if (Input.GetKeyDown("left shift"))
-        {
-            _movement.Run(true);
-        }
+    }
+    public void OnMove(InputAction.CallbackContext context)
+    {
+        //Read.
+        _axisMove = context.ReadValue<Vector2>();
+    }
 
-        if (Input.GetKeyUp("left shift"))
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        //Read.
+        switch (context.phase)
         {
-            _movement.Run(false);
-        }
-
-        if (Input.GetKeyDown("left ctrl"))
-        {
-            _movement.Crouch(true);
-        }
-
-        if (Input.GetKeyUp("left ctrl"))
-        {
-            _movement.Crouch(false);
+            case InputActionPhase.Started:
+                _movement.Jump(true);
+                break;
+            case InputActionPhase.Canceled:
+                _movement.Jump(false);
+                break;
+            case InputActionPhase.Performed:
+                break;
+            case InputActionPhase.Waiting:
+                break;
         }
     }
 
+    public void OnMenu(InputAction.CallbackContext context)
+    {
+        //Read.
+        switch (context.phase)
+        {
+            case InputActionPhase.Started:
+                OnEscDown?.Invoke();
+                break;
+            case InputActionPhase.Canceled:
+                break;
+            case InputActionPhase.Performed:
+                break;
+            case InputActionPhase.Waiting:
+                break;
+        }
+    }
+
+
     public virtual void FixedUpdate()
     {
+        bool adsView = false;
+        /*
+        if (AdsButtonView.Instance != null)
+        {
+            adsView = AdsButtonView.Instance.Parent.activeSelf;
+        }
+
+        if (SettingScreen.Instance.gameObject.activeSelf || AdsScreen.Instance.gameObject.activeSelf || adsView || CheckPointManager.Instance.IsWin)// || BlockCountManager.Instance.BlocksCount == 0)
+        {
+            return;
+        }*/
+
         float horizontal = 0;
         float vertical = 0;
 
+        if (_axisMove.y > 0)
+        {
+            if (_accelerationVerticalBackwardTimeCur == 0)
+            {
+                _accelerationVerticalForwardTimeCur += Time.deltaTime;
+                _accelerationVerticalForwardTimeCur = _accelerationVerticalForwardTimeCur > _accelerationTime ? _accelerationTime : _accelerationVerticalForwardTimeCur;
+            }
+        }
+        else
+        {
+            _accelerationVerticalForwardTimeCur = _accelerationVerticalForwardTimeCur < 0 ? 0 : _accelerationVerticalForwardTimeCur - Time.deltaTime;
+        }
+
+        if (_axisMove.y < 0)
+        {
+
+            if (_accelerationVerticalForwardTimeCur == 0)
+            {
+                _accelerationVerticalBackwardTimeCur = _accelerationVerticalBackwardTimeCur > _accelerationTime ? _accelerationTime : _accelerationVerticalBackwardTimeCur + Time.deltaTime;
+            }
+        }
+        else
+        {
+            _accelerationVerticalBackwardTimeCur = _accelerationVerticalBackwardTimeCur < 0 ? 0 : _accelerationVerticalBackwardTimeCur - Time.deltaTime;
+        }
+
+        /*
         if (Input.GetKey("w"))
         {
-            if(_accelerationVerticalBackwardTimeCur == 0)
+            if (_accelerationVerticalBackwardTimeCur == 0)
             {
                 _accelerationVerticalForwardTimeCur += Time.deltaTime;
                 _accelerationVerticalForwardTimeCur = _accelerationVerticalForwardTimeCur > _accelerationTime ? _accelerationTime : _accelerationVerticalForwardTimeCur;
@@ -98,13 +149,13 @@ public class KeyboardInput : MonoBehaviour
         {
             _accelerationVerticalBackwardTimeCur = _accelerationVerticalBackwardTimeCur < 0 ? 0 : _accelerationVerticalBackwardTimeCur - Time.deltaTime;
         }
+        */
         _accelerationVerticalForwardDuration = _accelerationVerticalForwardTimeCur / _accelerationTime;
         _accelerationVerticalBackwardDuration = _accelerationVerticalBackwardTimeCur / _accelerationTime;
 
         vertical = _accelerationCurve.Evaluate(_accelerationVerticalForwardDuration) - _accelerationCurve.Evaluate(_accelerationVerticalBackwardDuration);
-         
 
-        if (Input.GetKey("d"))
+        if (_axisMove.x > 0)
         {
             if (_accelerationHorizontalBackwardTimeCur == 0)
             {
@@ -117,7 +168,7 @@ public class KeyboardInput : MonoBehaviour
             _accelerationHorizontalForwardTimeCur = _accelerationHorizontalForwardTimeCur < 0 ? 0 : _accelerationHorizontalForwardTimeCur - Time.deltaTime;
         }
 
-        if (Input.GetKey("a"))
+        if (_axisMove.x < 0)
         {
             if (_accelerationHorizontalForwardTimeCur == 0)
             {
@@ -133,15 +184,6 @@ public class KeyboardInput : MonoBehaviour
         _accelerationHorizontalBackwardDuration = _accelerationHorizontalBackwardTimeCur / _accelerationTime;
 
         horizontal = _accelerationCurve.Evaluate(_accelerationHorizontalForwardDuration) - _accelerationCurve.Evaluate(_accelerationHorizontalBackwardDuration);
-
-        if(horizontal !=0 || vertical != 0)
-        {
-            //Vector3 dir = new Vector3(horizontal, 0, vertical);
-            _lookDirection.position = transform.position + transform.forward * vertical + transform.right * horizontal;
-            _model.LookAt(_lookDirection, _model.up);//.rotation = Quaternion.LookRotation(_lookDirection.position - _model.position, _model.up);
-        }
-
-        _animatorController.SetRun(horizontal, vertical);
 
         _movement.Move(horizontal, vertical);
     }

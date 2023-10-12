@@ -35,7 +35,7 @@ public class NewPlayerController : MonoBehaviour
     void Start()
     {
         _speed = _speedWalk;
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()

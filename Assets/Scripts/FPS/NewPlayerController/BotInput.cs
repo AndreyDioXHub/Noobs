@@ -148,15 +148,6 @@ public class BotInput : KeyboardInput
 
         horizontal = _accelerationCurve.Evaluate(_accelerationHorizontalForwardDuration) - _accelerationCurve.Evaluate(_accelerationHorizontalBackwardDuration);
 
-        if (horizontal != 0 || vertical != 0)
-        {
-            //Vector3 dir = new Vector3(horizontal, 0, vertical);
-            _lookDirection.position = transform.position + transform.forward * vertical + transform.right * horizontal;
-            _model.LookAt(_lookDirection, _model.up);//.rotation = Quaternion.LookRotation(_lookDirection.position - _model.position, _model.up);
-        }
-
-        _animatorController.SetRun(horizontal, vertical);
-
         _movement.Move(horizontal, vertical);
     }
 }

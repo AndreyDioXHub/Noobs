@@ -1,18 +1,73 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class AnimatorController : MonoBehaviour
 {
     [SerializeField]
+    private Transform _model;
+    [SerializeField]
     private Animator _animator;
     [SerializeField]
     private GroundCheck _groundCheck;
-    private float _horizontal, _vertical, _blend;
+    [SerializeField]
+    private Transform _direction;
+    [SerializeField]
+    private Vector2 _axisLook;
+    [SerializeField]
+    private Vector2 _axisMove;
+    [SerializeField]
+    private Vector3 _prevEuler;
+    [SerializeField]
+    private float _blend, sencity = 0.1f;
 
     void Start()
     {
-        
+
+    }
+
+    void Update()
+    {
+        if (_groundCheck.IsGrounded)
+        {
+            _animator.SetBool("Fall", false);
+            if (_axisMove.magnitude > 0)
+            {
+                _animator.SetBool("Run", true);
+            }
+            else
+            {
+                _animator.SetBool("Run", false);
+            }
+        }
+        else
+        {
+            _animator.SetBool("Fall", true);
+        }
+        Vector3 dir = _direction.position - transform.position;
+
+        if (dir.magnitude > 0.2f)
+        {
+            _model.rotation = Quaternion.LookRotation(dir, Vector3.up);
+        }
+        else
+        {
+            // _model.rotation = transform.rotation;
+        }
+
+        _animator.SetFloat("Blend", _blend);
+
+        if (_blend > 0.05f)
+        {
+            _blend -= 5 * Time.deltaTime;
+        }
+
+        if (_blend < -0.05f)
+        {
+            _blend += 5 * Time.deltaTime;
+        }
+
     }
 
     public void Init(Animator animator)
@@ -20,63 +75,39 @@ public class AnimatorController : MonoBehaviour
         _animator = animator;
     }
 
-    void Update()
+    public void OnJump(bool jump)
     {
-        if(_animator != null)
-        {
-            if (_groundCheck.IsGrounded)
-            {
-                _animator.SetBool("Fall", false);
-
-                if (_horizontal == 0 && _vertical == 0)
-                {
-                    _animator.SetBool("Run", false);
-                }
-                else
-                {
-                    _animator.SetBool("Run", true);
-                }
-            }
-            else
-            {
-                _animator.SetBool("Fall", true);
-            }
-        }
-
-        _animator.SetFloat("Blend", _blend);
-
-        if(_blend > 0.05f)
-        {
-            _blend -= 3 * Time.deltaTime;
-        }
-
-        if(_blend < -0.05f)
-        {
-            _blend += 3 * Time.deltaTime;
-        }
-
-
-        /*_blend = _blend > 0.1 ? _blend - Time.deltaTime : 0;
-        _blend = _blend < -0.1 ? _blend + Time.deltaTime : 0;*/
+        _animator.SetBool("Fall", jump);
     }
 
-    public void SetBlend(float blend)
+
+    public void OnMove(InputAction.CallbackContext context)
     {
+        //Read.
+        _axisMove = context.ReadValue<Vector2>();
+    }
+
+    public void OnLook(InputAction.CallbackContext context)
+    {
+        float blend = context.ReadValue<Vector2>().x;
+        //Debug.Log(blend);
+
 
         if (blend != 0)
         {
-            if (blend > 0)
+            if (blend > sencity)
             {
-                _blend += 10 * Time.deltaTime;
+                _blend += blend * 10 * Time.deltaTime;
 
                 if (_blend > 1)
                 {
                     _blend = 1;
                 }
             }
-            else
+
+            if (blend < -sencity)
             {
-                _blend -= 10 * Time.deltaTime;
+                _blend -= -blend * 10 * Time.deltaTime;
 
                 if (_blend < -1)
                 {
@@ -84,27 +115,15 @@ public class AnimatorController : MonoBehaviour
                 }
             }
         }
-    }
 
-    public void SetRun(float horizontal, float vertical)
-    {
-        if (_animator != null)
-        {
-            _horizontal = horizontal;
-            _vertical = vertical;
-        }
-    }
+        /*
+        //Read.
+        _axisLook = context.ReadValue<Vector2>();
+        float axis = _axisLook.x > 0 ? 1 : _axisLook.x;
+        axis = _axisLook.x < 0 ? -1 : _axisLook.x;
+        axis = _axisLook.x == 0 ? -1 : _axisLook.x;
 
-    public void SetFall()
-    {
-
+        _animator.SetFloat("Blend", axis);
+        //*/
     }
-    /*
-    public void SetJump()
-    {
-        _animator.SetTrigger("Jump");
-        _animator.SetBool("Fall", true);
-    }
-    */
-
 }

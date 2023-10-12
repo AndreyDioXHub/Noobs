@@ -203,10 +203,18 @@ PrefabInstance:
       propertyPath: _animator
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7424516202203009000, guid: cc95a42ce33269046b340917deeeba2e, type: 3}
+      propertyPath: _speed
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7424516202203009002, guid: cc95a42ce33269046b340917deeeba2e, type: 3}
       propertyPath: _animatorController
       value: 
       objectReference: {fileID: 352270192100147809}
+    - target: {fileID: 7424516202203009003, guid: cc95a42ce33269046b340917deeeba2e, type: 3}
+      propertyPath: _accelerationTime
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 7424516202203009011, guid: cc95a42ce33269046b340917deeeba2e, type: 3}
       propertyPath: m_RootOrder
       value: 0
