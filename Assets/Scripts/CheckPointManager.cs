@@ -107,4 +107,11 @@ public class CheckPointManager : MonoBehaviour
             }
         }
     }
+
+    public void SelectCheckPoint(int index)
+    {
+        PositionOffcetBlender.Instance.ReturnToCheckPoint(_checkPoints[index].transform.position);
+        _curvaluePrev = 0;
+        AdsManager.Instance.ShowFullscreenButton();
+    }
 }
