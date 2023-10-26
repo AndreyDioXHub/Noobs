@@ -10,7 +10,7 @@ public class AdsManager : MonoBehaviour
 {
     public static AdsManager Instance;
 
-    public UnityEvent OnReward;
+    //public UnityEvent OnReward;
 
     [SerializeField]
     private InfoYG _infoYG;
@@ -65,7 +65,11 @@ public class AdsManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        _sdk._FullscreenShow();
+
+        Debug.Log("OnSceneLoaded");
+        //AdsScreen.Instance.ShowImmidiatly();
+        //_sdk._FullscreenShow();
+        //Time.timeScale = 0;
         /*
         if (scene.name.Equals("ads"))
         {
@@ -82,6 +86,7 @@ public class AdsManager : MonoBehaviour
 
     public void ShowFullscreen()
     {
+        Debug.Log("Show Fullscreen");
         _sdk._FullscreenShow();
         /*
         if (UnityEngine.Random.Range(0, 2) == 0)
@@ -99,7 +104,8 @@ public class AdsManager : MonoBehaviour
         if(_timeBCur == _timeB)
         {
             _timeBCur = 0;
-            _sdk._FullscreenShow();
+            AdsScreen.Instance.ShowImmidiatly();// gameObject.SetActive(true);
+            //_sdk._FullscreenShow();
         }
     }
 
@@ -110,8 +116,8 @@ public class AdsManager : MonoBehaviour
             _isWasFullScreen = false;
             //return;
         }
-
-        OnReward?.Invoke();
+        LifeManager.Instance.Respawn();
+        //OnReward?.Invoke();
         //BlockCountManager.Instance.ResetBlockCount();
         IsPaused = true;
     }

@@ -84,6 +84,19 @@ public class KeyboardInput : MonoBehaviour
 
     public void OnMenu(InputAction.CallbackContext context)
     {
+
+        bool adsView = false;
+
+        if (AdsButtonView.Instance != null)
+        {
+            adsView = AdsButtonView.Instance.Parent.activeSelf;
+        }
+
+        if (AdsScreen.Instance.gameObject.activeSelf || adsView || CheckPointManager.Instance.IsWin)// || BlockCountManager.Instance.BlocksCount == 0)
+        {
+            return;
+        }
+
         //Read.
         switch (context.phase)
         {

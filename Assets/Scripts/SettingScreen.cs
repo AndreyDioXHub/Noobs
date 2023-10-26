@@ -26,11 +26,20 @@ public class SettingScreen : MonoBehaviour
 
     void Update()
     {
-        if (AdsScreen.Instance.gameObject.activeSelf)
+
+        bool adsView = false;
+
+        if (AdsButtonView.Instance != null)
+        {
+            adsView = AdsButtonView.Instance.Parent.activeSelf;
+        }
+
+        if (AdsScreen.Instance.gameObject.activeSelf || adsView || CheckPointManager.Instance.IsWin)// || BlockCountManager.Instance.BlocksCount == 0)
         {
             gameObject.SetActive(false);
             return;
         }
+
 
         _timeCur += Time.deltaTime;
 

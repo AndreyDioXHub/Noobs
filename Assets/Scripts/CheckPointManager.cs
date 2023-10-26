@@ -38,6 +38,7 @@ public class CheckPointManager : MonoBehaviour
 
     void Start()
     {
+        return;
         _distance = _checkPoints[_checkPoints.Count - 1].transform.position.z - _checkPoints[0].transform.position.z;
         //_score = _distance;
         _scoreBonus = _distance;
@@ -45,6 +46,8 @@ public class CheckPointManager : MonoBehaviour
 
     void Update()
     {
+        return;
+
         if (Time.timeSinceLevelLoad > 220)
         {
             _scoreBonus -= 10 * Time.deltaTime;

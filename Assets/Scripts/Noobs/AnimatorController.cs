@@ -29,6 +29,18 @@ public class AnimatorController : MonoBehaviour
 
     void Update()
     {
+        bool adsView = false;
+
+        if (AdsButtonView.Instance != null)
+        {
+            adsView = AdsButtonView.Instance.Parent.activeSelf;
+        }
+
+        if (SettingScreen.Instance.gameObject.activeSelf || AdsScreen.Instance.gameObject.activeSelf || adsView || CheckPointManager.Instance.IsWin)
+        {
+            return;
+        }
+
         if (_groundCheck.IsGrounded)
         {
             _animator.SetBool("Jump", false);
@@ -72,6 +84,17 @@ public class AnimatorController : MonoBehaviour
 
     public void OnJump(bool jump)
     {
+        bool adsView = false;
+
+        if (AdsButtonView.Instance != null)
+        {
+            adsView = AdsButtonView.Instance.Parent.activeSelf;
+        }
+
+        if (SettingScreen.Instance.gameObject.activeSelf || AdsScreen.Instance.gameObject.activeSelf || adsView || CheckPointManager.Instance.IsWin)
+        {
+            return;
+        }
         _animator.SetBool("Jump", jump);
     }
 

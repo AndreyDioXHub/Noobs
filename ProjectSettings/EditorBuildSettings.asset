@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/NoobLevelObstacleCourse.unity
-    guid: 06d2f52fdcec287459eadfd30c539d80
+    path: Assets/Scenes/NoobleJump.unity
+    guid: f5a10f50a62390f48b4ca298113f986e
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: a50c29e4dea00b64191dbf0361e78f69, type: 2}

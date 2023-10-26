@@ -48,6 +48,23 @@ public class PositionOffcetBlender : MonoBehaviour
 
     void FixedUpdate()
     {
+        bool adsView = false;
+
+        if (AdsButtonView.Instance != null)
+        {
+            adsView = AdsButtonView.Instance.Parent.activeSelf;
+        }
+
+        //Debug.Log($"{SettingScreen.Instance.gameObject.activeSelf} { AdsScreen.Instance.gameObject.activeSelf} {adsView}");
+
+        if (SettingScreen.Instance.gameObject.activeSelf || AdsScreen.Instance.gameObject.activeSelf || adsView || CheckPointManager.Instance.IsWin)
+        {
+
+            _offcets.Clear();
+            _offcets = new List<Vector3>();
+            return;
+        }
+
         Vector3 offcetSumm = Vector3.zero;
 
         if (transform.position.y >= 0)

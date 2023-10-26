@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AdsButtonView : MonoBehaviour
 {
@@ -16,30 +17,44 @@ public class AdsButtonView : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI _textTime;
 
-    private void Awake()
+    [SerializeField]
+    private Button _buttonRespawn;
+
+    [SerializeField]
+    private bool _show;
+
+   private void Awake()
     {
         Instance = this;
     }
 
     void Start()
     {
-        
+        _buttonRespawn.onClick.AddListener(AdsManager.Instance.ShowRewardedAd);
     }
 
     void Update()
     {
-
-        if (AdsManager.Instance.IsPaused)
+        if (_show)
         {
-            _timer.SetActive(true);
-            _button.SetActive(false);
+            if (AdsManager.Instance.IsPaused)
+            {
+                _timer.SetActive(true);
+                _button.SetActive(false);
 
-            _textTime.text = AdsManager.Instance.TimeString;
+                _textTime.text = AdsManager.Instance.TimeString;
+            }
+            else
+            {
+                _timer.SetActive(false);
+                _button.SetActive(true);
+            }
         }
         else
         {
             _timer.SetActive(false);
-            _button.SetActive(true);
+            _button.SetActive(false);
+
         }
     }
 }

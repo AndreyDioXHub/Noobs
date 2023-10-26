@@ -67,6 +67,8 @@ public class CameraView : MonoBehaviour
             return;
         }
 
+        Debug.Log($"fghfhfgh");
+
         //Debug.Log($"{Input.GetAxis("Mouse X")} { Input.GetAxis("Mouse Y")}");
 
         if (_lockMouse)
