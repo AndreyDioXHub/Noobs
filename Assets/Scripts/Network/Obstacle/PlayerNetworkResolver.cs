@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using System;
 
 /*
 	Documentation: https://mirror-networking.gitbook.io/docs/guides/networkbehaviour
@@ -9,7 +10,7 @@ using Mirror;
 
 public class PlayerNetworkResolver : NetworkBehaviour
 {
-
+    const string USER_SKIN_KEY = "user_skin";
     #region Unity Callbacks
 
     /// <summary>
@@ -30,6 +31,13 @@ public class PlayerNetworkResolver : NetworkBehaviour
         #region Конфигурация под АВАТАРА
         Debug.Log("Конфигурация под АВАТАРА отсюда");
         #endregion
+
+    }
+
+    [ClientRpc]
+    void RPC_SetSkin(int index) {
+        Debug.Log($"Set user skin {index}");
+        //TODO Set user skin
 
     }
 
@@ -69,9 +77,15 @@ public class PlayerNetworkResolver : NetworkBehaviour
     public override void OnStartLocalPlayer() {
         #region Здесь прописываем скрипты, которые относятся к локальному игроку
         Debug.Log("Конфигурация под Локального Игрока отсюда");
-
+        GetUserSkin();
 
         #endregion
+    }
+
+    [Command]
+    private void GetUserSkin() {
+        int userSkin = PlayerPrefs.GetInt(USER_SKIN_KEY, 0);
+        RPC_SetSkin(userSkin);
     }
 
     /// <summary>
