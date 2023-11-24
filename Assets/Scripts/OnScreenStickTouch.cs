@@ -12,7 +12,6 @@ using ETouch = UnityEngine.InputSystem.EnhancedTouch;
 /// A stick control displayed on screen and moved around by touch or other pointer
 /// input.
 /// </summary>
-[AddComponentMenu("Input/On-Screen Stick")]
 public class OnScreenStickTouch : OnScreenControl
 {/*
     [SerializeField]
@@ -34,8 +33,6 @@ public class OnScreenStickTouch : OnScreenControl
 
     [SerializeField]
     private Vector2 _downPosition;
-    [SerializeField]
-    private float _breackDistance = 300;
 
     private Finger _movementFinger;
 
