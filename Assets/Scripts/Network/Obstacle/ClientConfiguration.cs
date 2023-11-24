@@ -12,6 +12,13 @@ public class ClientConfiguration : NetworkBehaviour
         clientTarget.SetActive(true);
     }
 
+    public override void OnStartServer() {
+        base.OnStartServer();
+        if(isServerOnly) {
+            Destroy(clientTarget);
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
