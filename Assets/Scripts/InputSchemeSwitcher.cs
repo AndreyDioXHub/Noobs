@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,8 @@ using YG;
 
 public class InputSchemeSwitcher : MonoBehaviour
 {
-
+    [SerializeField]
+    private bool _isMobileDebug;
     [SerializeField]
     private PlayerInput _inputs;
     [SerializeField]
@@ -16,9 +18,17 @@ public class InputSchemeSwitcher : MonoBehaviour
     [SerializeField]
     private SettingScreen _setting;
     [SerializeField]
-    private GameObject _switchButtonJ;
+    CinemachineZoom _zoom;
+
     [SerializeField]
-    private GameObject _switchButtonK;
+    CinemachineInputProvider FPSInput;
+    [SerializeField]
+    CinemachineInputProvider TPSInput;
+    [SerializeField]
+    InputActionReference PCLook;
+    [SerializeField]
+    InputActionReference MobileLook;
+
 
     void Start()
     {
@@ -27,20 +37,35 @@ public class InputSchemeSwitcher : MonoBehaviour
 
     void Update()
     {
-        
+
     }
 
     public void RequestingEnvironmentData()
     {
         //string device = YandexGame.EnvironmentData.;
+
+        if (_isMobileDebug)
+        {
+            _inputs.SwitchCurrentActionMap("PlayerMobile");
+            _cameraView.SetViewParam(false, 150);
+            _mobileInputCanvas.SetActive(true);
+            _setting.SetIsMobile(true);
+            _zoom.InitMobile(true);
+            FPSInput.XYAxis = MobileLook;
+            TPSInput.XYAxis = MobileLook;
+            //SaveManager.Instance.SwitchAutoSave();
+            return;
+        }
+
         if (YandexGame.EnvironmentData.isDesktop)
         {
             _inputs.SwitchCurrentActionMap("Player");
             _cameraView.SetViewParam(true, 300);
             _mobileInputCanvas.SetActive(false);
             _setting.SetIsMobile(false);
-            _switchButtonJ.SetActive(false);
-            _switchButtonK.SetActive(false);
+            _zoom.InitMobile(false);
+            FPSInput.XYAxis = PCLook;
+            TPSInput.XYAxis = PCLook;
             return;
         }
 
@@ -50,8 +75,10 @@ public class InputSchemeSwitcher : MonoBehaviour
             _cameraView.SetViewParam(false, 150);
             _mobileInputCanvas.SetActive(true);
             _setting.SetIsMobile(true);
-            _switchButtonJ.SetActive(true);
-            _switchButtonK.SetActive(true);
+            _zoom.InitMobile(true);
+            FPSInput.XYAxis = MobileLook;
+            TPSInput.XYAxis = MobileLook;
+            //SaveManager.Instance.SwitchAutoSave();
             return;
         }
 
@@ -61,9 +88,12 @@ public class InputSchemeSwitcher : MonoBehaviour
             _cameraView.SetViewParam(false, 150);
             _mobileInputCanvas.SetActive(true);
             _setting.SetIsMobile(true);
-            _switchButtonJ.SetActive(true);
-            _switchButtonK.SetActive(true);
+            _zoom.InitMobile(true);
+            FPSInput.XYAxis = MobileLook;
+            TPSInput.XYAxis = MobileLook;
+            //SaveManager.Instance.SwitchAutoSave();
             return;
         }
+
     }
 }

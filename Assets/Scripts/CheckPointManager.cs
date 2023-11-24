@@ -62,7 +62,9 @@ public class CheckPointManager : MonoBehaviour
 
     public void ReturnToCheckPoint()
     {
-        PositionOffcetBlender.Instance.ReturnToCheckPoint(_checkPoints.Find(cp => cp.State == CheckPointState.active).transform.position);
+
+        //PositionOffcetBlender.Instance.ReturnToCheckPoint(_checkPoints.Find(cp => cp.State == CheckPointState.active).transform.position);
+        RobloxController.Instance.ReturnToCheckPoint(_checkPoints.Find(cp => cp.State == CheckPointState.active).transform.position);
     }
 
     public void SetNewRecord()
