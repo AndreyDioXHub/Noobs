@@ -26,11 +26,11 @@ public class NoobBouncer : MonoBehaviour
 
         if (other.tag.Equals("Player"))
         {
-            if (other.TryGetComponent<Movement>(out Movement movement))
+            if (other.TryGetComponent(out RobloxController movement))
             {
                 movement.Push(transform.up, _jumpHeight);
 
-                if (other.TryGetComponent<GroundCheck>(out GroundCheck groundCheck))
+                if (other.TryGetComponent(out GroundCheck groundCheck))
                 {
                     groundCheck.Pause();
                 }

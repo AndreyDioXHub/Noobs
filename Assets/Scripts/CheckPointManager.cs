@@ -112,7 +112,9 @@ public class CheckPointManager : MonoBehaviour
 
     public void SelectCheckPoint(int index)
     {
-        PositionOffcetBlender.Instance.ReturnToCheckPoint(_checkPoints[index].transform.position);
+        //PositionOffcetBlender.Instance.ReturnToCheckPoint();
+
+        RobloxController.Instance.ReturnToCheckPoint(_checkPoints[index].transform.position);
         _curvaluePrev = 0;
         AdsManager.Instance.ShowFullscreenButton();
     }
