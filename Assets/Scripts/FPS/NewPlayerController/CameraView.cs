@@ -53,7 +53,7 @@ public class CameraView : MonoBehaviour
     bool _isMoving = false;
     [SerializeField]
     Transform model;
-
+    float _sliderSensitivityValue;
     private void Awake()
     {
         Instance = this;
@@ -66,16 +66,31 @@ public class CameraView : MonoBehaviour
             _defaultCursorState = Cursor.lockState;
             Cursor.lockState = CursorLockMode.Locked;
         }
-        vcam = CameraFVP.GetComponent<CinemachineVirtualCameraBase>();
-        Set3rdView();
     }
 
+    public void Init(GameObject cameraFVP, GameObject cameraThrdVP)
+    {
+        CameraFVP = cameraFVP;
+        CameraThrdVP = cameraThrdVP;
+        vcam = CameraFVP.GetComponent<CinemachineVirtualCameraBase>();
+        CameraFVP.GetComponent<CinemachineRotation>().SetSensitivity(_sliderSensitivityValue);
+        CameraThrdVP.GetComponent<CinemachineRotation>().SetSensitivity(_sliderSensitivityValue);
+        Set3rdView();
+    }
 
     public void SetSensitivity(float sliderSensitivityValue)
     {
         _mouseSensitivity = sliderSensitivityValue * _mouseSensitivityBase;
-        CameraFVP.GetComponent<CinemachineRotation>().SetSensitivity(sliderSensitivityValue);
-        CameraThrdVP.GetComponent<CinemachineRotation>().SetSensitivity(sliderSensitivityValue);
+
+        if(CameraFVP == null || CameraThrdVP == null)
+        {
+            _sliderSensitivityValue = sliderSensitivityValue;
+        }
+        else
+        {
+            CameraFVP.GetComponent<CinemachineRotation>().SetSensitivity(sliderSensitivityValue);
+            CameraThrdVP.GetComponent<CinemachineRotation>().SetSensitivity(sliderSensitivityValue);
+        }
     }
 
 

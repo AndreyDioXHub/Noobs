@@ -7,6 +7,8 @@ using YG;
 
 public class InputSchemeSwitcher : MonoBehaviour
 {
+    public static InputSchemeSwitcher Instance;
+
     [SerializeField]
     private bool _isMobileDebug;
     [SerializeField]
@@ -19,9 +21,6 @@ public class InputSchemeSwitcher : MonoBehaviour
     private SettingScreen _setting;
 
     [SerializeField]
-    CinemachineZoom _zoom;
-
-    [SerializeField]
     CinemachineInputProvider FPSInput;
     [SerializeField]
     CinemachineInputProvider TPSInput;
@@ -30,6 +29,10 @@ public class InputSchemeSwitcher : MonoBehaviour
     [SerializeField]
     InputActionReference MobileLook;
 
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
@@ -41,8 +44,81 @@ public class InputSchemeSwitcher : MonoBehaviour
 
     }
 
+    public void Init(CinemachineInputProvider fpsInput , CinemachineInputProvider tpsInput)
+    {
+        FPSInput = fpsInput;
+        TPSInput = tpsInput;
+    }
+
+    private bool AllFieldsNotNull()
+    {
+        if (_inputs == null)
+        {
+            return false;
+        }
+        else
+        {
+            if(_cameraView == null)
+            {
+                return false;
+            }
+            else
+            {
+                if (_mobileInputCanvas == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    if (_setting == null)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        if (FPSInput == null)
+                        {
+                            return false;
+                        }
+                        else
+                        {
+                            if (TPSInput == null)
+                            {
+                                return false;
+                            }
+                            else
+                            {
+                                if (PCLook == null)
+                                {
+                                    return false;
+                                }
+                                else
+                                {
+                                    if (MobileLook == null)
+                                    {
+                                        return false;
+                                    }
+                                    else
+                                    {
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     public void RequestingEnvironmentData()
     {
+        if (!AllFieldsNotNull())
+        {
+            Debug.Log("return");
+            return;
+        }
+
         //string device = YandexGame.EnvironmentData.;
 
         if (_isMobileDebug)
@@ -51,7 +127,7 @@ public class InputSchemeSwitcher : MonoBehaviour
             _cameraView.SetViewParam(false, 150);
             _mobileInputCanvas.SetActive(true);
             _setting.SetIsMobile(true);
-            _zoom.InitMobile(true);
+            //_zoom.InitMobile(true);
             FPSInput.XYAxis = MobileLook;
             TPSInput.XYAxis = MobileLook;
             //SaveManager.Instance.SwitchAutoSave();
@@ -64,7 +140,7 @@ public class InputSchemeSwitcher : MonoBehaviour
             _cameraView.SetViewParam(true, 300);
             _mobileInputCanvas.SetActive(false);
             _setting.SetIsMobile(false);
-            _zoom.InitMobile(false);
+            //_zoom.InitMobile(false);
             FPSInput.XYAxis = PCLook;
             TPSInput.XYAxis = PCLook;
             return;
@@ -76,7 +152,7 @@ public class InputSchemeSwitcher : MonoBehaviour
             _cameraView.SetViewParam(false, 150);
             _mobileInputCanvas.SetActive(true);
             _setting.SetIsMobile(true);
-            _zoom.InitMobile(true);
+            //_zoom.InitMobile(true);
             FPSInput.XYAxis = MobileLook;
             TPSInput.XYAxis = MobileLook;
             //SaveManager.Instance.SwitchAutoSave();
@@ -89,7 +165,7 @@ public class InputSchemeSwitcher : MonoBehaviour
             _cameraView.SetViewParam(false, 150);
             _mobileInputCanvas.SetActive(true);
             _setting.SetIsMobile(true);
-            _zoom.InitMobile(true);
+            //_zoom.InitMobile(true);
             FPSInput.XYAxis = MobileLook;
             TPSInput.XYAxis = MobileLook;
             //SaveManager.Instance.SwitchAutoSave();

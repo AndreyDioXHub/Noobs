@@ -164,7 +164,6 @@ GameObject:
   - component: {fileID: 2885129400535646558}
   - component: {fileID: 2885129400535646559}
   - component: {fileID: 7161252305627220040}
-  - component: {fileID: 3155125632347236521}
   m_Layer: 0
   m_Name: CM 3rdPerson Normal
   m_TagString: Untagged
@@ -240,7 +239,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_CollideAgainst:
     serializedVersion: 2
-    m_Bits: 24
+    m_Bits: 2147483647
   m_IgnoreTag: 
   m_TransparentLayers:
     serializedVersion: 2
@@ -287,20 +286,3 @@ MonoBehaviour:
   maxRotateSpeed: {x: 5, y: 2}
   vcam: {fileID: 2885129400535646552}
   cval: 0
---- !u!114 &3155125632347236521
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2885129400535646555}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1f5e32914d0f5d4da3bd5d2db61fe01, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  zoomBound: {x: 0, y: 5}
-  zoomOffset: {x: 0, y: 0.5}
-  zoomHeight: {x: 0, y: 0.5}
-  invertMouse: 1
-  zoomSpeed: 0.001
