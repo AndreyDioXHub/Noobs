@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class RobloxController : MonoBehaviour
 {
+    public UnityEvent OnEscDown = new UnityEvent();
+
     public static RobloxController Instance;
 
     [SerializeField] 
@@ -170,6 +173,22 @@ public class RobloxController : MonoBehaviour
         {
             _isJump = true;
             _gravityVector.y = Mathf.Sqrt(_jumpHeight * -2f * _gravity) * Time.fixedDeltaTime;
+        }
+    }
+    public void OnMenu(InputAction.CallbackContext context)
+    {
+        //Read.
+        switch (context.phase)
+        {
+            case InputActionPhase.Started:
+                OnEscDown?.Invoke();
+                break;
+            case InputActionPhase.Canceled:
+                break;
+            case InputActionPhase.Performed:
+                break;
+            case InputActionPhase.Waiting:
+                break;
         }
     }
 }

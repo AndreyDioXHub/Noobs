@@ -9,7 +9,7 @@ using UnityEngine.InputSystem.EnhancedTouch;
 using ETouch = UnityEngine.InputSystem.EnhancedTouch;
 using System.Collections.Generic;
 
-public class OnScreenMouse : OnScreenControl, IPointerDownHandler, IPointerUpHandler, IDragHandler
+public class OnScreenMouse : OnScreenControl
 {
     public float MovementRange
     {
@@ -32,8 +32,6 @@ public class OnScreenMouse : OnScreenControl, IPointerDownHandler, IPointerUpHan
     [SerializeField]
     private Vector2 _positionDragPrev;
     [SerializeField]
-    private Vector2 delta;
-    [SerializeField]
     private bool _isDrag;
     [SerializeField]
     private Canvas _canvas;
@@ -47,22 +45,22 @@ public class OnScreenMouse : OnScreenControl, IPointerDownHandler, IPointerUpHan
 
     [SerializeField]
     private Vector2 _delta;
-
-    protected override string controlPathInternal
+   protected override string controlPathInternal
     {
         get => _controlPath;
         set => _controlPath = value;
     }
-    private void OnEnable()
+    protected override void OnEnable()
     {
+        base.OnEnable();
         EnhancedTouchSupport.Enable();
         ETouch.Touch.onFingerDown += HandleFingerDown;
         ETouch.Touch.onFingerUp += HandleLoseFinger;
         ETouch.Touch.onFingerMove += HandleFingerMove;
     }
-
-    private void OnDisable()
+    protected override void OnDisable()
     {
+        base.OnDisable();
         ETouch.Touch.onFingerDown -= HandleFingerDown;
         ETouch.Touch.onFingerUp -= HandleLoseFinger;
         ETouch.Touch.onFingerMove -= HandleFingerMove;
@@ -76,31 +74,58 @@ public class OnScreenMouse : OnScreenControl, IPointerDownHandler, IPointerUpHan
 
     private void Update()
     {
+
+        if (_movementFinger == null)
+        {
+            _positionDrag = Vector2.zero;
+            _positionDragPrev = Vector2.zero;
+            Debug.Log($"1) {_delta}");
+        }
+        else
+        {
+            _positionDrag = Input.mousePosition;
+            Debug.Log($"2) {_delta}");
+
+            if (_positionDrag == Vector2.zero || _positionDragPrev == Vector2.zero || _positionDrag == _positionDragPrev)
+            {
+                _delta = Vector2.zero;
+                Debug.Log($"3) {_delta}");
+            }
+            else
+            {
+                _delta = _positionDrag - _positionDragPrev;
+                Debug.Log($"4) {_delta}");
+            }
+        }
+
+        Debug.Log($"5) {_delta}");
         SendValueToControl(_delta);
+
+    }
+
+    private void LateUpdate()
+    {
+        if (_movementFinger == null)
+        {
+            _positionDrag = Vector2.zero;
+            _positionDragPrev = Vector2.zero;
+        }
+        else
+        {
+            _positionDragPrev = Input.mousePosition;
+        }
+
     }
 
     private void HandleFingerMove(Finger movedFinger)
     {
         if (movedFinger == _movementFinger)
         {
-            if(movedFinger.touchHistory.Count > 2)
-            {
-                _positionDrag = movedFinger.screenPosition / _canvas.scaleFactor;
-                _positionDragPrev = movedFinger.touchHistory[1].screenPosition / _canvas.scaleFactor;
-                _delta = _positionDragPrev - _positionDrag;
-            }
 
-            //((RectTransform)transform).anchoredPosition = screenPosition ;
-            /*
-            var delta = screenPosition - _startPos;
+        }
+        else
+        {
 
-            delta = Vector2.ClampMagnitude(delta, MovementRange);
-
-            ((RectTransform)transform).anchoredPosition = _startPos + delta;
-
-            var newPos = new Vector2(delta.x / MovementRange, delta.y / MovementRange);
-            SendValueToControl(newPos);
-            Debug.Log(newPos);*/
         }
     }
 
@@ -111,7 +136,6 @@ public class OnScreenMouse : OnScreenControl, IPointerDownHandler, IPointerUpHan
             _movementFinger = null;
             _isDrag = false;
             _delta = Vector2.zero;
-            //SendValueToControl(_delta);
         }
     }
 
@@ -119,18 +143,18 @@ public class OnScreenMouse : OnScreenControl, IPointerDownHandler, IPointerUpHan
     {
         Vector2 screenPosition = touchedFinger.screenPosition / _canvas.scaleFactor;
 
-        if (screenPosition.x < _anchoredPosition.x - _interactDistance.x || screenPosition.x > _anchoredPosition.x + _interactDistance.x)
-        {
-            if (screenPosition.y < _anchoredPosition.y - _interactDistance.y || screenPosition.y > _anchoredPosition.y + _interactDistance.y)
-            {
-                if (_movementFinger == null)
-                {
-                    _movementFinger = touchedFinger;
+        Rect r = new Rect(_anchoredPosition, _interactDistance);
+        _delta = Vector2.zero;
 
-                    _positionDrag = screenPosition;
-                    _positionDragPrev = screenPosition;
-                    _isDrag = true;
-                }
+        if (!r.Contains(screenPosition))
+        {
+            if (_movementFinger == null)
+            {
+                _movementFinger = touchedFinger;
+
+               /* _positionDrag = screenPosition;
+                _positionDragPrev = screenPosition;*/
+                _isDrag = true;
             }
         }
     }
@@ -140,15 +164,4 @@ public class OnScreenMouse : OnScreenControl, IPointerDownHandler, IPointerUpHan
         _isDrag = false;
     }
 
-    public void OnPointerDown(PointerEventData eventData)
-    {
-    }
-
-    public void OnPointerUp(PointerEventData eventData)
-    {
-    }
-
-    public void OnDrag(PointerEventData eventData)
-    {
-    }
 }

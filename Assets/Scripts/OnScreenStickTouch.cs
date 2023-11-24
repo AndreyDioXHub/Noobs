@@ -13,7 +13,8 @@ using ETouch = UnityEngine.InputSystem.EnhancedTouch;
 /// input.
 /// </summary>
 public class OnScreenStickTouch : OnScreenControl
-{/*
+{
+    /*
     [SerializeField]
     private RectTransform _rect;*/
     /*[SerializeField]
@@ -59,30 +60,36 @@ public class OnScreenStickTouch : OnScreenControl
         set => _controlPath = value;
     }
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
+        base.OnEnable();
         EnhancedTouchSupport.Enable();
         ETouch.Touch.onFingerDown += HandleFingerDown;
         ETouch.Touch.onFingerUp += HandleLoseFinger;
         ETouch.Touch.onFingerMove += HandleFingerMove;
     }
-
-    private void OnDisable()
+    protected override void OnDisable()
     {
+        base.OnDisable();
         ETouch.Touch.onFingerDown -= HandleFingerDown;
         ETouch.Touch.onFingerUp -= HandleLoseFinger;
         ETouch.Touch.onFingerMove -= HandleFingerMove;
         EnhancedTouchSupport.Disable();
     }
-
+    
     private void Start()
     {
         _startPos = ((RectTransform)transform).anchoredPosition;
     }
 
-    public void Update()
+    private void FixedUpdate()
     {
         SendValueToControl(_delta);
+
+    }
+
+    public void LateUpdate()
+    {
     }
 
     private void HandleFingerMove(Finger movedFinger)
