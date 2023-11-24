@@ -17,6 +17,7 @@ public class InputSchemeSwitcher : MonoBehaviour
     private GameObject _mobileInputCanvas;
     [SerializeField]
     private SettingScreen _setting;
+    /*
     [SerializeField]
     CinemachineZoom _zoom;
 
