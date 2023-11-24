@@ -41,7 +41,7 @@ public class AdsManager : MonoBehaviour
     }
 
     [SerializeField]
-    private float _time, _timeCur, _timeBig, _timeBigCur;
+    private float _time, _timeCur, _timeB, _timeBCur, _timeBig, _timeBigCur;
     [SerializeField]
     private bool _isWasFullScreen;
 
@@ -65,10 +65,12 @@ public class AdsManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        _sdk._FullscreenShow();
+        /*
         if (scene.name.Equals("ads"))
         {
             _sdk._FullscreenShow();
-        }
+        }*/
         //do stuff
     }
 
@@ -90,6 +92,15 @@ public class AdsManager : MonoBehaviour
         {
         }*/
         _isWasFullScreen = true;
+    }
+
+    public void ShowFullscreenButton()
+    {
+        if(_timeBCur == _timeB)
+        {
+            _timeBCur = 0;
+            _sdk._FullscreenShow();
+        }
     }
 
     public void GetReward()
@@ -118,15 +129,22 @@ public class AdsManager : MonoBehaviour
             }
         }
 
-        _timeBigCur += Time.deltaTime;
-
-        if (_timeBigCur > _timeBig)
+        if (_timeBig > 0)
         {
-            _timeBigCur = 0;
-            if(AdsScreen.Instance != null)
+            _timeBigCur += Time.deltaTime;
+
+            if (_timeBigCur > _timeBig)
             {
-                AdsScreen.Instance.gameObject.SetActive(true);
+                _timeBigCur = 0;
+                if (AdsScreen.Instance != null)
+                {
+                    AdsScreen.Instance.gameObject.SetActive(true);
+                }
             }
         }
+
+        _timeBCur += Time.deltaTime;
+        _timeBCur = _timeBCur > _timeB ? _timeB : _timeBCur;
+
     }
 }

@@ -22,7 +22,7 @@ public class CheckPoint : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         CheckPointManager.Instance.SetActiveCheckPoint(this);
-        _box.enabled = false;
+        //_box.enabled = false;
     }
     /*
     public bool TrySetActive()

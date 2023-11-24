@@ -17,6 +17,6 @@ public class DieCollider : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         LifeManager.Instance.ProcessLife();
-        CheckPointManager.Instance.SetNewRecord();
+        //CheckPointManager.Instance.SetNewRecord();
     }
 }
