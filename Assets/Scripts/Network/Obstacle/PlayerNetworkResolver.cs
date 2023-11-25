@@ -111,7 +111,8 @@ public class PlayerNetworkResolver : NetworkBehaviour
     /// <para>Useful for saving object data in persistent storage</para>
     /// </summary>
     public override void OnStopServer() {
-        Debug.Log("Save user setting by it GUID");
+        Debug.Log("Save user settings by it GUID");
+        //TODO Здесь сохраняем данные о пользователе на сервере
     }
 
     /// <summary>
@@ -231,7 +232,7 @@ public class PlayerNetworkResolver : NetworkBehaviour
     /// </summary>
     public override void OnStopLocalPlayer() {
         Debug.Log("Try save data about player");
-        //TODO Здесь сохраняем пользовательские данны на сервер.
+        //TODO Здесь сохраняем пользовательские данные локально, если необходимо.
     }
 
     /// <summary>
