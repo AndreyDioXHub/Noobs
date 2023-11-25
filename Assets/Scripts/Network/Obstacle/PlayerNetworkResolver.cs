@@ -52,6 +52,7 @@ public class PlayerNetworkResolver : NetworkBehaviour
 
     const string USER_SKIN_KEY = "user_skin";
     const string USER_NAME_KEY = "user_name";
+    const string USER_GUID_KEY = "user_guid";
 
     [SyncVar(hook = nameof(OnSkinIndexChanged))]
     int skinIndex = 0;
@@ -140,6 +141,10 @@ public class PlayerNetworkResolver : NetworkBehaviour
         #region Здесь прописываем скрипты, которые относятся к локальному игроку
         Debug.Log("Конфигурация под Локального Игрока отсюда");
 
+        if (PlayerPrefs.HasKey(USER_GUID_KEY)) { 
+            TryGetSave(PlayerPrefs.GetString(USER_GUID_KEY)); 
+        }
+
         _characterController.enabled = true;
         _robloxController.enabled = true;
         _cameraView.enabled = true;
@@ -220,7 +225,10 @@ public class PlayerNetworkResolver : NetworkBehaviour
     /// Called when the local player object is being stopped.
     /// <para>This happens before OnStopClient(), as it may be triggered by an ownership message from the server, or because the player object is being destroyed. This is an appropriate place to deactivate components or functionality that should only be active for the local player, such as cameras and input.</para>
     /// </summary>
-    public override void OnStopLocalPlayer() {}
+    public override void OnStopLocalPlayer() {
+        Debug.Log("Try save data about player");
+
+    }
 
     /// <summary>
     /// This is invoked on behaviours that have authority, based on context and <see cref="NetworkIdentity.hasAuthority">NetworkIdentity.hasAuthority</see>.
@@ -237,6 +245,23 @@ public class PlayerNetworkResolver : NetworkBehaviour
 
     #endregion
 
+    /// <summary>
+    /// Загрузка информации об игроке.
+    /// </summary>
+    /// <param name="guid"></param>
+    [Command]
+    private void TryGetSave(string guid) {
+        if(PlayerPrefs.HasKey(guid)) {
+            //TODO Apply to user
+            string data = PlayerPrefs.GetString(guid, "");
+            TRPC_ApplySavesFromServer(data);
+        }
+    }
+
+    [TargetRpc]
+    private void TRPC_ApplySavesFromServer(string data) {
+        Debug.Log("Apply data from server");
+    }
 
     private string GetDefaultName() {
         return "DefaultName";
