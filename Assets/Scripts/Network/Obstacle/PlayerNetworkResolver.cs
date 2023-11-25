@@ -43,6 +43,9 @@ public class PlayerNetworkResolver : NetworkBehaviour
     [SerializeField]
     InputActionReference MobileLook;
 
+    [SerializeField]
+    ModelDirection _modelDirection;
+
     const string USER_SKIN_KEY = "user_skin";
     const string USER_NAME_KEY = "user_name";
 
@@ -51,6 +54,9 @@ public class PlayerNetworkResolver : NetworkBehaviour
 
     [SyncVar(hook = nameof(OnPlayerNameChanged))]
     string username = string.Empty;
+
+    [SyncVar(hook = nameof(OnAxisChanged))]
+    Vector3 AxisMove;
     
     #region Unity Callbacks
 
@@ -162,6 +168,20 @@ public class PlayerNetworkResolver : NetworkBehaviour
         //TODO Set user name
 
     }
+
+    public void OnMove(InputAction.CallbackContext context) {
+        Vector2 val = context.ReadValue<Vector2>();
+        AxisMove = new Vector3(val.x, 0, val.y);
+    }
+    
+    private void OnAxisChanged(Vector3 oldval, Vector3 newval) {
+        if(!isLocalPlayer) {
+            
+            _modelDirection.OnAvatarMove(newval);
+        }
+    }
+
+
     /// <summary>
     /// Called when the local player object is being stopped.
     /// <para>This happens before OnStopClient(), as it may be triggered by an ownership message from the server, or because the player object is being destroyed. This is an appropriate place to deactivate components or functionality that should only be active for the local player, such as cameras and input.</para>

@@ -29,6 +29,8 @@ public class AnimatorController : MonoBehaviour
 
     void Update()
     {
+        #region OnlyLocalPlayer
+
         if (_groundCheck.IsGrounded)
         {
             _animator.SetBool("Jump", false);
@@ -45,16 +47,6 @@ public class AnimatorController : MonoBehaviour
         {
             _animator.SetBool("Jump", true);
         }
-        Vector3 dir = _direction.position - transform.position;
-
-        if (dir.magnitude > 0.2f)
-        {
-            _model.rotation = Quaternion.LookRotation(dir, Vector3.up);
-        }
-        else
-        {
-            // _model.rotation = transform.rotation;
-        }
 
         _animator.SetFloat("Blend", _blend);
 
@@ -68,6 +60,22 @@ public class AnimatorController : MonoBehaviour
             _blend += 5 * Time.deltaTime;
         }
 
+        #endregion
+
+        #region Union
+
+        Vector3 dir = _direction.position - transform.position;
+
+        if (dir.magnitude > 0.2f)
+        {
+            _model.rotation = Quaternion.LookRotation(dir, Vector3.up);
+        }
+        else
+        {
+            // _model.rotation = transform.rotation;
+        }
+
+        #endregion
     }
 
     public void OnJump(bool jump)

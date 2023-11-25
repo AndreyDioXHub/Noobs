@@ -18,6 +18,12 @@ public class ModelDirection : MonoBehaviour
         _worldPos = transform.position;
     }
 
+    public void OnAvatarMove(Vector3 axisNet) {
+        _axisMove = axisNet;
+        _transitionTimeCur = 0;
+        _worldPos = transform.position;
+    }
+
     void Start()
     {
         _worldPos = transform.position;
