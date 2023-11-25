@@ -5,12 +5,21 @@ using UnityEngine.UI;
 
 public class MouseSensitivityManager : MonoBehaviour
 {
+    public static MouseSensitivityManager Instance;
+
+    public float SliderValue => _sliderValue;
+
     [SerializeField]
     private CameraView _cameraView;
     [SerializeField]
     private Slider _slider;
     [SerializeField]
     private float _sliderValue;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
@@ -20,10 +29,20 @@ public class MouseSensitivityManager : MonoBehaviour
 
     public void UpdateValue(float value)
     {
+        if(_cameraView == null)
+        {
+            return;
+        }
+
         _sliderValue = value;
         PlayerPrefs.SetFloat(PlayerPrefsConsts.sensitivity, _sliderValue);
         _slider.value = _sliderValue;
         _cameraView.SetSensitivity(_sliderValue);
+    }
+
+    public void Init(CameraView cameraView)
+    {
+        _cameraView = cameraView;
     }
 
 }

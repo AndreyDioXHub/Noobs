@@ -7,10 +7,16 @@ public class NoobTimer : MonoBehaviour
 {
     [SerializeField]
     private TextMeshProUGUI _text0;
+    [SerializeField]
+    private GameObject _playerPrefab;
+
 
     void Start()
     {
-        
+        if(_playerPrefab != null)
+        {
+            var go = Instantiate(_playerPrefab);
+        }
     }
 
     // Update is called once per frame

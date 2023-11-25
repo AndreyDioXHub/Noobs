@@ -9,17 +9,23 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Noob 2
   m_Shader: {fileID: -6465566751694194690, guid: 4404fde0494c8db44bc6651380b5bd47, type: 3}
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _ALPHATEST_ON
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap: {}
+  stringTagMap:
+    RenderType: TransparentCutout
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _SampleTexture2DLOD_4156ac430fd94f0b953ec496e3ee36bb_Texture_1:
+        m_Texture: {fileID: 2800000, guid: cdc4c2ef1ac69a24f96653e067ab5532, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Texture2D:
         m_Texture: {fileID: 2800000, guid: eb92e0999821a1e469f05a877799a8d8, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -38,14 +44,25 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _AlphaClip: 1
+    - _Blend: 0
+    - _CastShadows: 1
+    - _Cull: 2
+    - _DstBlend: 0
     - _Edge: 0
     - _Noise: 10
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _SrcBlend: 1
     - _Step: 0
+    - _Surface: 0
     - _Tresh: 0
+    - _ZTest: 4
+    - _ZWrite: 1
+    - _ZWriteControl: 0
     m_Colors:
     - _Color: {r: 0, g: 0.008504391, b: 1, a: 1}
+    - _MainColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &2301984484185515355
 MonoBehaviour:
