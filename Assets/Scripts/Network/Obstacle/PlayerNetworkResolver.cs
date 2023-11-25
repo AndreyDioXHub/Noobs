@@ -11,6 +11,14 @@ using System;
 public class PlayerNetworkResolver : NetworkBehaviour
 {
     const string USER_SKIN_KEY = "user_skin";
+    const string USER_NAME_KEY = "user_name";
+
+    [SyncVar(hook = nameof(OnSkinIndexChanged))]
+    int skinIndex = 0;
+
+    [SyncVar(hook = nameof(OnPlayerNameChanged))]
+    string username = string.Empty;
+    
     #region Unity Callbacks
 
     /// <summary>
@@ -31,13 +39,6 @@ public class PlayerNetworkResolver : NetworkBehaviour
         #region Конфигурация под АВАТАРА
         Debug.Log("Конфигурация под АВАТАРА отсюда");
         #endregion
-
-    }
-
-    [ClientRpc]
-    void RPC_SetSkin(int index) {
-        Debug.Log($"Set user skin {index}");
-        //TODO Set user skin
 
     }
 
@@ -62,7 +63,12 @@ public class PlayerNetworkResolver : NetworkBehaviour
     /// Called on every NetworkBehaviour when it is activated on a client.
     /// <para>Objects on the host have this function called, as there is a local client on the host. The values of SyncVars on object are guaranteed to be initialized correctly with the latest state from the server when this function is called on the client.</para>
     /// </summary>
-    public override void OnStartClient() { }
+    public override void OnStartClient() { 
+        if(!isLocalPlayer) {
+            //Read player name
+
+        }
+    }
 
     /// <summary>
     /// This is invoked on clients when the server has caused this object to be destroyed.
@@ -84,10 +90,20 @@ public class PlayerNetworkResolver : NetworkBehaviour
 
     [Command]
     private void GetUserSkin() {
-        int userSkin = PlayerPrefs.GetInt(USER_SKIN_KEY, 0);
-        RPC_SetSkin(userSkin);
+        skinIndex = PlayerPrefs.GetInt(USER_SKIN_KEY, 0);
+        username = PlayerPrefs.GetString(USER_NAME_KEY, string.Empty);
     }
 
+    private void OnSkinIndexChanged(int oldindex, int newindex) {
+        Debug.Log($"Set user skin {newindex}");
+        //TODO Set user skin
+
+    }
+    private void OnPlayerNameChanged(string oldname, string newname) {
+        Debug.Log($"Set user name {newname}");
+        //TODO Set user name
+
+    }
     /// <summary>
     /// Called when the local player object is being stopped.
     /// <para>This happens before OnStopClient(), as it may be triggered by an ownership message from the server, or because the player object is being destroyed. This is an appropriate place to deactivate components or functionality that should only be active for the local player, such as cameras and input.</para>
