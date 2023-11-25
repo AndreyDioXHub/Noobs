@@ -4,6 +4,7 @@ using Mirror;
 using System;
 using UnityEngine.InputSystem;
 using Cinemachine;
+using TMPro;
 
 /*
 	Documentation: https://mirror-networking.gitbook.io/docs/guides/networkbehaviour
@@ -46,6 +47,9 @@ public class PlayerNetworkResolver : NetworkBehaviour
     [SerializeField]
     ModelDirection _modelDirection;
 
+    [SerializeField]
+    TMP_Text nameField;
+
     const string USER_SKIN_KEY = "user_skin";
     const string USER_NAME_KEY = "user_name";
 
@@ -57,7 +61,13 @@ public class PlayerNetworkResolver : NetworkBehaviour
 
     [SyncVar(hook = nameof(OnAxisChanged))]
     Vector3 AxisMove;
-    
+
+    [SyncVar(hook = nameof(OnGroundChanged))]
+    bool n_IsGrounded = true;
+
+    [SyncVar(hook = nameof(OnBlendChanged))]
+    float n_blend = 0;
+
     #region Unity Callbacks
 
     /// <summary>
@@ -71,6 +81,7 @@ public class PlayerNetworkResolver : NetworkBehaviour
     // NOTE: Do not put objects in DontDestroyOnLoad (DDOL) in Awake.  You can do that in Start instead.
     void Awake()
     {
+        nameField.gameObject.SetActive(false);
     }
 
     void Start()
@@ -102,10 +113,15 @@ public class PlayerNetworkResolver : NetworkBehaviour
     /// Called on every NetworkBehaviour when it is activated on a client.
     /// <para>Objects on the host have this function called, as there is a local client on the host. The values of SyncVars on object are guaranteed to be initialized correctly with the latest state from the server when this function is called on the client.</para>
     /// </summary>
-    public override void OnStartClient() { 
-        if(!isLocalPlayer) {
+    public override void OnStartClient() {
+        
+        if (!isLocalPlayer) {
             //Read player name
-
+            //Enable avatar
+            _animatorController.IsLocalPlayer = isLocalPlayer;
+            _animatorController.enabled = true;
+            nameField.gameObject.SetActive(true);
+            nameField.text = username;
         }
     }
 
@@ -129,6 +145,9 @@ public class PlayerNetworkResolver : NetworkBehaviour
         _cameraView.enabled = true;
         _inputs.enabled = true;
         _groundCheck.enabled = true;
+        
+        _animatorController.IsLocalPlayer = isLocalPlayer;
+        _animatorController.MovingStateChange += OnLocalplayerChangeMoveState;
         _animatorController.enabled = true;
 
         MouseSensitivityManager.Instance.Init(_cameraView);
@@ -152,11 +171,14 @@ public class PlayerNetworkResolver : NetworkBehaviour
         #endregion
     }
 
+    
+
     [Command]
     private void GetUserSkin() {
         skinIndex = PlayerPrefs.GetInt(USER_SKIN_KEY, 0);
-        username = PlayerPrefs.GetString(USER_NAME_KEY, string.Empty);
+        username = PlayerPrefs.GetString(USER_NAME_KEY, GetDefaultName());
     }
+
 
     private void OnSkinIndexChanged(int oldindex, int newindex) {
         Debug.Log($"Set user skin {newindex}");
@@ -166,7 +188,7 @@ public class PlayerNetworkResolver : NetworkBehaviour
     private void OnPlayerNameChanged(string oldname, string newname) {
         Debug.Log($"Set user name {newname}");
         //TODO Set user name
-
+        if (!isLocalPlayer) nameField.text = newname;
     }
 
     public void OnMove(InputAction.CallbackContext context) {
@@ -176,9 +198,21 @@ public class PlayerNetworkResolver : NetworkBehaviour
     
     private void OnAxisChanged(Vector3 oldval, Vector3 newval) {
         if(!isLocalPlayer) {
-            
             _modelDirection.OnAvatarMove(newval);
+            _animatorController.AxisMove = newval;
         }
+    }
+
+    private void OnGroundChanged(bool oldval, bool newval) {
+        if(!isLocalPlayer) _animatorController.IsGrounded = newval;
+    }
+
+    private void OnBlendChanged(float oldval, float newval) {
+        if (!isLocalPlayer) _animatorController.Blend = newval;
+    }
+
+    private void OnLocalplayerChangeMoveState(bool state) {
+        n_IsGrounded = state;
     }
 
 
@@ -202,4 +236,9 @@ public class PlayerNetworkResolver : NetworkBehaviour
     public override void OnStopAuthority() { }
 
     #endregion
+
+
+    private string GetDefaultName() {
+        return "DefaultName";
+    }
 }

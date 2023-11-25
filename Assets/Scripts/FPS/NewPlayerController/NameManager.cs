@@ -37,7 +37,7 @@ public class NameManager : MonoBehaviour
     }
 
     public void Init() {
-        _peopleCountText.text = $"{_names[Random.Range(0, _names.Count)]}";
+        if(_peopleCountText != null) _peopleCountText.text = $"{_names[Random.Range(0, _names.Count)]}";
         _mainCamera = Camera.main.gameObject;
     }
 }

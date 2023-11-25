@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -22,8 +24,14 @@ public class AnimatorController : MonoBehaviour
     [SerializeField]
     private float _blend, sencity = 0.1f;
 
-    void Start()
-    {
+    public bool IsGrounded = true;
+
+    public bool IsLocalPlayer = false;
+    public float Blend { get => _blend; set { _blend = value; } }
+    public Vector3 AxisMove = Vector3.zero;
+
+    public event Action<Boolean> MovingStateChange = delegate { };
+    void Start() {
 
     }
 
@@ -31,17 +39,23 @@ public class AnimatorController : MonoBehaviour
     {
         #region OnlyLocalPlayer
 
-        if (_groundCheck.IsGrounded)
+        bool moving = false;
+
+        if(IsLocalPlayer) {
+            bool prevstate = IsGrounded;
+            IsGrounded = _groundCheck.IsGrounded;
+            if(prevstate != IsGrounded) {
+                MovingStateChange?.Invoke(IsGrounded);
+            }
+            moving = _axisMove.sqrMagnitude > 0;
+        } else {
+            //Apply values from network data
+            moving = AxisMove.sqrMagnitude > 0;
+        }
+        if (IsGrounded)
         {
             _animator.SetBool("Jump", false);
-            if (_axisMove.magnitude > 0)
-            {
-                _animator.SetBool("Run", true);
-            }
-            else
-            {
-                _animator.SetBool("Run", false);
-            }
+            _animator.SetBool("Run", moving);
         }
         else
         {
@@ -86,7 +100,6 @@ public class AnimatorController : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        //Read.
         _axisMove = context.ReadValue<Vector2>();
     }
 
