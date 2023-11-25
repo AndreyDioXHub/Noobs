@@ -17,7 +17,7 @@ public class CheckPointManager : MonoBehaviour
     [SerializeField]
     private GameObject _winScreen;
     [SerializeField]
-    private Transform _plaerTransform;
+    private Transform _playerTransform;
     [SerializeField]
     private List<CheckPoint> _checkPoints = new List<CheckPoint>();
     [SerializeField]
@@ -31,9 +31,15 @@ public class CheckPointManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI _text;
     private int _scoreTotal;
+
     private void Awake()
     {
         Instance = this;
+    }
+    
+    public void Init(Transform playerTransform)
+    {
+        _playerTransform = playerTransform;
     }
 
     void Start()
@@ -51,7 +57,7 @@ public class CheckPointManager : MonoBehaviour
             _scoreBonus = _scoreBonus < 0 ? 0 : _scoreBonus;
         }
 
-        _curvalue = _plaerTransform.position.z - _checkPoints[0].transform.position.z;
+        _curvalue = _playerTransform.position.z - _checkPoints[0].transform.position.z;
         _curvalue = _curvalue < 0? 0: _curvalue / _distance;
         _curvalue = _curvalue < _curvaluePrev ? _curvaluePrev : _curvalue;
         _progressCur.fillAmount = _curvalue;
@@ -62,10 +68,12 @@ public class CheckPointManager : MonoBehaviour
 
     public void ReturnToCheckPoint()
     {
-
-        //PositionOffcetBlender.Instance.ReturnToCheckPoint(_checkPoints.Find(cp => cp.State == CheckPointState.active).transform.position);
-        RobloxController.Instance.ReturnToCheckPoint(_checkPoints.Find(cp => cp.State == CheckPointState.active).transform.position);
+        if(_playerTransform != null)
+        {
+            _playerTransform.GetComponent<RobloxController>().ReturnToCheckPoint(_checkPoints.Find(cp => cp.State == CheckPointState.active).transform.position);
+        }
     }
+
     /*
     public void SetNewRecord()
     {
@@ -112,10 +120,11 @@ public class CheckPointManager : MonoBehaviour
 
     public void SelectCheckPoint(int index)
     {
-        //PositionOffcetBlender.Instance.ReturnToCheckPoint();
-
-        RobloxController.Instance.ReturnToCheckPoint(_checkPoints[index].transform.position);
-        _curvaluePrev = 0;
-        AdsManager.Instance.ShowFullscreenButton();
+        if (_playerTransform != null)
+        {
+            _playerTransform.GetComponent<RobloxController>().ReturnToCheckPoint(_checkPoints[index].transform.position);
+            _curvaluePrev = 0;
+            AdsManager.Instance.ShowFullscreenButton();
+        }
     }
 }

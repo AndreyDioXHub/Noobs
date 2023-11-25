@@ -44,10 +44,12 @@ public class InputSchemeSwitcher : MonoBehaviour
 
     }
 
-    public void Init(CinemachineInputProvider fpsInput , CinemachineInputProvider tpsInput)
+    public void Init(CinemachineInputProvider fpsInput , CinemachineInputProvider tpsInput, PlayerInput inputs, CameraView cameraView)
     {
         FPSInput = fpsInput;
         TPSInput = tpsInput;
+        _inputs = inputs;
+        _cameraView = cameraView;
     }
 
     private bool AllFieldsNotNull()

@@ -66,6 +66,9 @@ public class CameraView : MonoBehaviour
             _defaultCursorState = Cursor.lockState;
             Cursor.lockState = CursorLockMode.Locked;
         }
+
+        SetSensitivity(MouseSensitivityManager.Instance.SliderValue);
+        CamNode1 = Camera.main.transform.gameObject;
     }
 
     public void Init(GameObject cameraFVP, GameObject cameraThrdVP)
@@ -110,7 +113,7 @@ public class CameraView : MonoBehaviour
             adsView = AdsButtonView.Instance.Parent.activeSelf;
         }
 
-        if (AdsScreen.Instance.gameObject.activeSelf || adsView || CheckPointManager.Instance.IsWin || SettingScreen.Instance.gameObject.activeSelf)// || TutorialCanvas.Instance.gameObject.activeSelf)// || BlockCountManager.Instance.BlocksCount == 0)
+        if (AdsScreen.Instance.gameObject.activeSelf || adsView || CheckPointManager.Instance.IsWin || SettingScreen.Instance.gameObject.activeSelf || CamNode1 == null)// || TutorialCanvas.Instance.gameObject.activeSelf)// || BlockCountManager.Instance.BlocksCount == 0)
         {
             Cursor.lockState = _defaultCursorState;
             return;

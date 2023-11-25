@@ -52,7 +52,7 @@ public class RobloxController : MonoBehaviour
 
     void Start()
     {
-        
+        _cam = Camera.main.transform;
     }
 
     void Update()
@@ -104,24 +104,24 @@ public class RobloxController : MonoBehaviour
         _controller.Move(_velocity * Time.fixedDeltaTime);
 
         _gravityVector.y += _gravity * Time.fixedDeltaTime * Time.fixedDeltaTime;
-        
+
+        if (_isJump)
+        {
+            _inAirTimeCur += Time.fixedDeltaTime;
+
+            if (_isGrounded && _inAirTimeCur > _inAirTime)
+            {
+                _isJump = false;
+                _inAirTimeCur = 0;
+            }
+        }
+        else
+        {
+            _gravityVector = Vector3.zero;
+            _gravityVector.y = _gravity * Time.fixedDeltaTime;
+        }
         if (_groundCheck.IsGrounded)
         {
-            if (_isJump)
-            {
-                _inAirTimeCur += Time.fixedDeltaTime;
-
-                if (_groundCheck.IsGrounded && _inAirTimeCur > _inAirTime)
-                {
-                    _isJump = false;
-                    _inAirTimeCur = 0;
-                }
-            }
-            else
-            {
-                _gravityVector = Vector3.zero;
-                _gravityVector.y = _gravity * Time.fixedDeltaTime;
-            }
         }
         else
         {
@@ -133,6 +133,7 @@ public class RobloxController : MonoBehaviour
 
     public virtual void Push(Vector3 direction, float height)
     {
+        _isJump = true;
         _gravityVector = direction * Mathf.Sqrt(height * -2f * _gravity) * Time.fixedDeltaTime;
     }
 

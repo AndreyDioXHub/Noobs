@@ -2,9 +2,13 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerConfigger : MonoBehaviour
 {
+    [SerializeField]
+    private RobloxController _controller;
+
     [SerializeField]
     private GameObject TPSPrefab;
     [SerializeField]
@@ -19,6 +23,8 @@ public class PlayerConfigger : MonoBehaviour
     private GameObject FPS;
     [SerializeField]
     private CameraView _cameraView;
+    [SerializeField]
+    private PlayerInput _inputs;
 
 
     void Start()
@@ -28,8 +34,13 @@ public class PlayerConfigger : MonoBehaviour
         FPS = Instantiate(FPSPrefab);
         FPS.GetComponent<CinemachineVirtualCamera>().Follow = _cameraCenterFPS;
         _cameraView.Init(FPS, TPS);
-        InputSchemeSwitcher.Instance.Init(FPS.GetComponent<CinemachineInputProvider>(), TPS.GetComponent<CinemachineInputProvider>());
+        InputSchemeSwitcher.Instance.Init(FPS.GetComponent<CinemachineInputProvider>(), 
+            TPS.GetComponent<CinemachineInputProvider>(),
+            _inputs,
+            _cameraView);
         InputSchemeSwitcher.Instance.RequestingEnvironmentData();
+        CheckPointManager.Instance.Init(transform);
+        _controller.OnEscDown.AddListener(SettingScreen.Instance.SwitchScreenState);
     }
 
 
