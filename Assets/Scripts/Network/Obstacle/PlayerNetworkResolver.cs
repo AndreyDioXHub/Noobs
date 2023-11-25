@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using System;
+using UnityEngine.InputSystem;
+using Cinemachine;
 
 /*
 	Documentation: https://mirror-networking.gitbook.io/docs/guides/networkbehaviour
@@ -10,6 +12,37 @@ using System;
 
 public class PlayerNetworkResolver : NetworkBehaviour
 {
+
+    [SerializeField]
+    private CharacterController _characterController;
+    [SerializeField]
+    private RobloxController _robloxController;
+    [SerializeField]
+    private GroundCheck _groundCheck;
+    [SerializeField]
+    private AnimatorController _animatorController;
+
+    [SerializeField]
+    private GameObject TPSPrefab;
+    [SerializeField]
+    private GameObject FPSPrefab;
+    [SerializeField]
+    private Transform _cameraCenterTPS;
+    [SerializeField]
+    private Transform _cameraCenterFPS;
+    [SerializeField]
+    private GameObject TPS;
+    [SerializeField]
+    private GameObject FPS;
+    [SerializeField]
+    private CameraView _cameraView;
+    [SerializeField]
+    private PlayerInput _inputs;
+    [SerializeField]
+    InputActionReference PCLook;
+    [SerializeField]
+    InputActionReference MobileLook;
+
     const string USER_SKIN_KEY = "user_skin";
     const string USER_NAME_KEY = "user_name";
 
@@ -80,9 +113,34 @@ public class PlayerNetworkResolver : NetworkBehaviour
     /// Called when the local player object has been set up.
     /// <para>This happens after OnStartClient(), as it is triggered by an ownership message from the server. This is an appropriate place to activate components or functionality that should only be active for the local player, such as cameras and input.</para>
     /// </summary>
-    public override void OnStartLocalPlayer() {
+    public override void OnStartLocalPlayer() 
+    {
         #region Здесь прописываем скрипты, которые относятся к локальному игроку
         Debug.Log("Конфигурация под Локального Игрока отсюда");
+
+        _characterController.enabled = true;
+        _robloxController.enabled = true;
+        _cameraView.enabled = true;
+        _inputs.enabled = true;
+        _groundCheck.enabled = true;
+        _animatorController.enabled = true;
+
+        MouseSensitivityManager.Instance.Init(_cameraView);
+        TPS = Instantiate(TPSPrefab);
+        TPS.GetComponent<CinemachineVirtualCamera>().Follow = _cameraCenterTPS;
+        FPS = Instantiate(FPSPrefab);
+        FPS.GetComponent<CinemachineVirtualCamera>().Follow = _cameraCenterFPS;
+        _cameraView.Init(FPS, TPS);
+        InputSchemeSwitcher.Instance.Init(FPS.GetComponent<CinemachineInputProvider>(),
+            TPS.GetComponent<CinemachineInputProvider>(),
+            _inputs,
+            _cameraView,
+            PCLook,
+            MobileLook);
+        InputSchemeSwitcher.Instance.RequestingEnvironmentData();
+        CheckPointManager.Instance.Init(transform);
+        _robloxController.OnEscDown.AddListener(SettingScreen.Instance.SwitchScreenState);
+
         GetUserSkin();
 
         #endregion

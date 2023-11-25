@@ -23,6 +23,11 @@ public class GroundCheck : MonoBehaviour
     [SerializeField]
     private bool _isGrounded;
 
+    private void Awake()
+    {
+        this.enabled = false;
+    }
+
     public void Pause()
     {
         StartCoroutine(CoroutinePause());
