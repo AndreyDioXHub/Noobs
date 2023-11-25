@@ -69,6 +69,8 @@ public class PlayerNetworkResolver : NetworkBehaviour
     [SyncVar(hook = nameof(OnBlendChanged))]
     float n_blend = 0;
 
+    string User_GUID;
+
     #region Unity Callbacks
 
     /// <summary>
@@ -108,7 +110,9 @@ public class PlayerNetworkResolver : NetworkBehaviour
     /// Invoked on the server when the object is unspawned
     /// <para>Useful for saving object data in persistent storage</para>
     /// </summary>
-    public override void OnStopServer() { }
+    public override void OnStopServer() {
+        Debug.Log("Save user setting by it GUID");
+    }
 
     /// <summary>
     /// Called on every NetworkBehaviour when it is activated on a client.
@@ -227,7 +231,7 @@ public class PlayerNetworkResolver : NetworkBehaviour
     /// </summary>
     public override void OnStopLocalPlayer() {
         Debug.Log("Try save data about player");
-
+        //TODO «десь сохран€ем пользовательские данны на сервер.
     }
 
     /// <summary>
@@ -251,6 +255,7 @@ public class PlayerNetworkResolver : NetworkBehaviour
     /// <param name="guid"></param>
     [Command]
     private void TryGetSave(string guid) {
+        User_GUID = guid;
         if(PlayerPrefs.HasKey(guid)) {
             //TODO Apply to user
             string data = PlayerPrefs.GetString(guid, "");
