@@ -32,13 +32,15 @@ public class SkinManager : MonoBehaviour
     [SerializeField]
     private Color _hairSelectedColor;
     [SerializeField]
-    private Color _hairEquipedColor;
+    private int _hairSelectedIndex;
     [SerializeField]
     private Color _tshirtColor;
     [SerializeField]
     private Color _pantsColor;
     [SerializeField]
     private Color _shoesColor;
+    [SerializeField]
+    private int _faceSelectedIndex;
 
     [SerializeField]
     private List<Texture2D> _faces = new List<Texture2D>();
@@ -56,19 +58,19 @@ public class SkinManager : MonoBehaviour
     private SkinsInfo _info = new SkinsInfo();
 
     [SerializeField]
-    private Palitra _bodyPalitra;
+    private SkinWindow _bodyPalitra;
     [SerializeField]
-    private Palitra _hairPalitra;
+    private SkinWindow _hairPalitra;
     [SerializeField]
-    private Palitra _tshirtPalitra;
+    private SkinWindow _tshirtPalitra;
     [SerializeField]
-    private Palitra _pantsPalitra;
+    private SkinWindow _pantsPalitra;
     [SerializeField]
-    private Palitra _shoesPalitra;
+    private SkinWindow _shoesPalitra;
     [SerializeField]
-    private HairSelected _hairSelected;
+    private SkinWindow _hair;
     [SerializeField]
-    private FaceSelect _faceSelect;
+    private SkinWindow _face;
 
     [SerializeField]
     private List<Color> _colors = new List<Color>();
@@ -149,14 +151,24 @@ public class SkinManager : MonoBehaviour
 
         EquipSex(_info.eqyuipedSex);
 
-        _bodyPalitra.Init(_info.bodyColors);
-        _hairPalitra.Init(_info.hairColors);
-        _tshirtPalitra.Init(_info.tshirtColors);
-        _pantsPalitra.Init(_info.pantsColors);
-        _shoesPalitra.Init(_info.shoesColors);
+        _bodyPalitra.Init(_info.bodyColors, _info.eqyuipedBody);
+        _bodyColor = _colors[_info.eqyuipedBody];
 
-        _hairSelected.Init(_info.hairs);
-        _faceSelect.Init(_info.faces);
+        _hairPalitra.Init(_info.hairColors, _info.eqyuipedHairColor);
+        _hairSelectedColor = _colors[_info.eqyuipedHairColor];
+
+        _tshirtPalitra.Init(_info.tshirtColors, _info.eqyuipedTshirt);
+        _tshirtColor = _colors[_info.eqyuipedTshirt];
+
+        _pantsPalitra.Init(_info.pantsColors, _info.eqyuipedPants);
+        _pantsColor = _colors[_info.eqyuipedPants];
+
+        _shoesPalitra.Init(_info.shoesColors, _info.eqyuipedShoes);
+        _shoesColor = _colors[_info.eqyuipedShoes];
+
+        _hair.Init(_info.hairs, _info.eqyuipedHair);
+        _face.Init(_info.faces, _info.eqyuipedFace);
+        _playerMTL.SetTexture("_FaceMask", _faces[_info.eqyuipedFace]);
 
         for (int i = 0; i < _elementsMale.Length; i++)
         {
@@ -177,6 +189,12 @@ public class SkinManager : MonoBehaviour
         }
 
 
+    }
+
+    [ContextMenu("ClearPrefs")]
+    public void ClearPrefs()
+    {
+        PlayerPrefs.DeleteAll();
     }
 
     void Update()
@@ -211,7 +229,7 @@ public class SkinManager : MonoBehaviour
 
         for (int i = 0; i < _hairMaterials.Count; i++)
         {
-            _hairMaterials[i].SetColor("_MainColor", _hairEquipedColor);
+            _hairMaterials[i].SetColor("_MainColor", _hairSelectedColor);
         }
 
         string infoJSON = JsonConvert.SerializeObject(_info);
@@ -230,112 +248,142 @@ public class SkinManager : MonoBehaviour
 
     }
 
-    public void SelectBodyColor(Color bodyColor)
+    public void BodyColorSelect(int index)
     {
-        _bodyColor = bodyColor;
+        _bodyColor = _colors[index];
         _playerEditMTL.SetColor("_BodyColor", _bodyColor);
 
     }
 
-    public void EquipBodyColor(Color bodyColor)
+    public void BodyColorEquip(int index)
     {
-        _bodyColor = bodyColor;
+        _bodyColor = _colors[index];
         _playerMTL.SetColor("_BodyColor", _bodyColor);
-
-        int index = _colors.FindIndex(c => c == bodyColor);
         _info.eqyuipedBody = index;
     }
 
-    public void SelectHairColor(Color color)
+    public void BodyColorBuy(int index)
     {
-        _hairSelectedColor = color;
+        _info.bodyColors[index] = true;
+    }
+
+    public void HairColorSelect(int index)
+    {
+        _hairSelectedColor = _colors[index];
+
         for (int i = 0; i < _hairMaterials.Count; i++)
         {
             _hairMaterials[i].SetColor("_MainColor", _hairSelectedColor);
         }
     }
 
-    public void EquipHairColor(Color color)
+    public void HairColorEquip(int index)
     {
-        _hairEquipedColor = color;
+        _hairSelectedColor = _colors[index];
 
-        int index = _colors.FindIndex(c => c == color);
         _info.eqyuipedHairColor = index;
     }
 
-    public void SelectHair(int index)
+    public void HairColorBuy(int index)
     {
+        _info.hairColors[index] = true;
+    }
+
+    public void HairSelect(int index)
+    {
+        _hairSelectedIndex = index;
 
         for (int i = 0; i < _elementsMale.Length; i++)
         {
             _elementsMale[i].Select(index);
         }
+
         for (int i = 0; i < _elementsFemale.Length; i++)
         {
             _elementsFemale[i].Select(index);
         }
     }
 
-    public void EquipHair(int index)
+    public void HairBuy(int index)
+    {
+        _info.hairs[index] = true;
+    }
+
+    public void HairEquip(int index)
     {
         _equipedHairIndex = index;
         _info.eqyuipedHair = index;
     }
 
-    public void SelectFace(int index)
+    public void FaceSelect(int index)
     {
+        _faceSelectedIndex = index;
         _playerEditMTL.SetTexture("_FaceMask", _faces[index]);
     }
 
-    public void EquipFace(int index)
+    public void FaceEquip(int index)
     {
         _playerMTL.SetTexture("_FaceMask", _faces[index]);
         _info.eqyuipedFace = index;
     }
-
-    public void SelectTShirtColor(Color color)
+    public void FaceBuy(int index)
     {
-        _tshirtColor = color;
+        _info.faces[index] = true;
+    }
+
+
+
+    public void TShirtColorSelect(int index)
+    {
+        _tshirtColor = _colors[index];
         _playerEditMTL.SetColor("_TshirtColor", _tshirtColor);
     }
 
-    public void EquipTShirtColor(Color color)
+    public void TShirtColorEquip(int index)
     {
-        _tshirtColor = color;
+        _tshirtColor = _colors[index];
         _playerMTL.SetColor("_TshirtColor", _tshirtColor);
 
-        int index = _colors.FindIndex(c => c == color);
         _info.eqyuipedTshirt = index;
     }
-
-    public void SelectPantsColor(Color color)
+    public void TShirtColorBuy(int index)
     {
-        _pantsColor = color;
+        _info.hairColors[index] = true;
+    }
+
+    public void PantsColorSelect(int index)
+    {
+        _pantsColor = _colors[index];
         _playerEditMTL.SetColor("_PentsColor", _pantsColor);
     }
 
-    public void EquipPantsColor(Color color)
+    public void PantsColorEquip(int index)
     {
-        _pantsColor = color;
+        _pantsColor = _colors[index];
         _playerMTL.SetColor("_PentsColor", _pantsColor);
-
-        int index = _colors.FindIndex(c => c == color);
         _info.eqyuipedPants = index;
     }
 
-    public void SelectShoesColor(Color color)
+    public void PantColorBuy(int index)
     {
-        _shoesColor = color;
+        _info.pantsColors[index] = true;
+    }
+
+    public void ShoesColorSelect(int index)
+    {
+        _shoesColor = _colors[index];
         _playerEditMTL.SetColor("_ShoesColor", _shoesColor);
     }
 
-    public void EquipShoesColor(Color color)
+    public void ShoesColorEquip(int index)
     {
-        _shoesColor = color;
+        _shoesColor = _colors[index];
         _playerMTL.SetColor("_ShoesColor", _shoesColor);
-
-        int index = _colors.FindIndex(c => c == color);
         _info.eqyuipedShoes = index;
+    }
+    public void ShoesColorBuy(int index)
+    {
+        _info.shoesColors[index] = true;
     }
 
 }

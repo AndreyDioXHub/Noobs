@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class Palitra : MonoBehaviour
 {
+    public UnityEvent<int> OnColorBuyed = new UnityEvent<int>();
     public UnityEvent<Color> OnColorSelect = new UnityEvent<Color>();
     public UnityEvent<Color> OnColorEquiped = new UnityEvent<Color>();
 
@@ -109,6 +110,7 @@ public class Palitra : MonoBehaviour
         if (CoinManager.Instance.TryToBuy(_cost))
         {
             _avalebleColors[_selectedColorIndex] = true;
+            OnColorBuyed?.Invoke(_selectedColorIndex);
             WatButtons();
         }
     }
