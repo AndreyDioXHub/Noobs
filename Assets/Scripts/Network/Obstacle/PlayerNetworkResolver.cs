@@ -60,6 +60,8 @@ public class PlayerNetworkResolver : NetworkBehaviour
     [SyncVar(hook = nameof(OnPlayerNameChanged))]
     string username = string.Empty;
 
+    public string UserName { get { return username; } }
+
     [SyncVar(hook = nameof(OnAxisChanged))]
     Vector3 AxisMove;
 

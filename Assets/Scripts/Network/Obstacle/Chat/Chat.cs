@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using UnityEngine.Events;
 
 /*
 	Documentation: https://mirror-networking.gitbook.io/docs/guides/networkbehaviour
@@ -9,15 +10,17 @@ using Mirror;
 
 public class Chat : NetworkBehaviour
 {
+    // This is only set on client to the name of the local player
+    internal static string localPlayerName;
+
+    public UnityEvent<string> OnChatMessage;
+    public UnityEvent<string, string> OnChatMessageExtend;
+
+    // Server-only cross-reference of connections to player names
+    internal static readonly Dictionary<NetworkConnectionToClient, string> connNames = new Dictionary<NetworkConnectionToClient, string>();
+
     #region Unity Callbacks
 
-    /// <summary>
-    /// Add your validation code here after the base.OnValidate(); call.
-    /// </summary>
-    protected override void OnValidate()
-    {
-        base.OnValidate();
-    }
 
     // NOTE: Do not put objects in DontDestroyOnLoad (DDOL) in Awake.  You can do that in Start instead.
     void Awake()
@@ -37,7 +40,41 @@ public class Chat : NetworkBehaviour
     /// <para>This could be triggered by NetworkServer.Listen() for objects in the scene, or by NetworkServer.Spawn() for objects that are dynamically created.</para>
     /// <para>This will be called for objects on a "host" as well as for object on a dedicated server.</para>
     /// </summary>
-    public override void OnStartServer() { }
+    public override void OnStartServer() {
+        connNames.Clear();
+    }
+
+    [Command(requiresAuthority = false)]
+    void CmdSend(string message, NetworkConnectionToClient sender = null) {
+        if (!connNames.ContainsKey(sender))
+            connNames.Add(sender, sender.identity.GetComponent<PlayerNetworkResolver>().UserName);
+
+        if (!string.IsNullOrWhiteSpace(message))
+            RpcReceive(connNames[sender], message.Trim());
+    }
+
+
+    [ClientRpc]
+    void RpcReceive(string playerName, string message) {
+        OnChatMessageExtend?.Invoke(playerName, message);
+        string prettyMessage = playerName == localPlayerName ?
+            $"<color=red>{playerName}:</color> {message}" :
+            $"<color=blue>{playerName}:</color> {message}";
+        OnChatMessage?.Invoke(prettyMessage);
+    }
+
+    public void OnEndEdit(string input) {
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetButtonDown("Submit"))
+            SendChatMessage(input);
+    }
+
+    // Called by OnEndEdit above and UI element SendButton.OnClick
+    public void SendChatMessage(string message) {
+        if (!string.IsNullOrWhiteSpace(message)) {
+            CmdSend(message.Trim());
+            message = string.Empty;
+        }
+    }
 
     /// <summary>
     /// Invoked on the server when the object is unspawned
