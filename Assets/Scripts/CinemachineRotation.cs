@@ -30,11 +30,37 @@ public class CinemachineRotation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        bool adsView = false;
+
+        if (AdsButtonView.Instance != null)
+        {
+            adsView = AdsButtonView.Instance.Parent.activeSelf;
+        }
+
+        if (AdsScreen.Instance.gameObject.activeSelf || adsView || CheckPointManager.Instance.IsWin || SettingScreen.Instance.gameObject.activeSelf)// || TutorialCanvas.Instance.gameObject.activeSelf)// || BlockCountManager.Instance.BlocksCount == 0)
+        {
+            if (lookBase != null)
+            {
+                lookBase.m_VerticalAxis.m_MaxSpeed = 0;
+                lookBase.m_HorizontalAxis.m_MaxSpeed = 0;
+            }
+
+        }
+        else
+        {
+            if (lookBase != null)
+            {
+                lookBase.m_VerticalAxis.m_MaxSpeed = cval * maxRotateSpeed.y;
+                lookBase.m_HorizontalAxis.m_MaxSpeed = cval * maxRotateSpeed.x;
+            }
+
+        }
     }
 
-    public void SetSensitivity(float val) {
-        if(lookBase != null) {
+    public void SetSensitivity(float val) 
+    {
+        if(lookBase != null) 
+        {
             cval = val;
             lookBase.m_VerticalAxis.m_MaxSpeed = val * maxRotateSpeed.y;
             lookBase.m_HorizontalAxis.m_MaxSpeed = val * maxRotateSpeed.x;
