@@ -8,6 +8,40 @@ public class HairColorModel : MonoBehaviour
     private List<GameObject> _hairs = new List<GameObject>();
     [SerializeField]
     private int _index;
+    private float _time = 0.1f;
+
+   private void OnEnable()
+    {
+        if (SkinManager.Instance == null)
+        {
+            StartCoroutine(LaterOnEnable());
+        }
+        else
+        {
+            Select(SkinManager.Instance.HairSelectedIndex);
+            SkinManager.Instance.OnHairChanged.AddListener(Select);
+        }
+    }
+
+    IEnumerator LaterOnEnable()
+    {
+        yield return new WaitForSeconds(_time);
+
+        if (SkinManager.Instance == null)
+        {
+            StartCoroutine(LaterOnEnable());
+        }
+        else
+        {
+            Select(SkinManager.Instance.HairSelectedIndex);
+            SkinManager.Instance.OnHairChanged.AddListener(Select);
+        }
+    }
+
+    private void OnDisable()
+    {
+        SkinManager.Instance.OnHairChanged.RemoveListener(Select);
+    }
 
 
     void Start()

@@ -2,11 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using Newtonsoft.Json;
 using Random = UnityEngine.Random;
 
 public class SkinManager : MonoBehaviour
 {
+    public static SkinManager Instance;
+    public UnityEvent<int> OnHairChanged = new UnityEvent<int>();
+    public int HairSelectedIndex { get => _hairSelectedIndex; }
+
     [SerializeField]
     private Material _playerMTL;
     [SerializeField]
@@ -45,10 +50,6 @@ public class SkinManager : MonoBehaviour
     [SerializeField]
     private List<Texture2D> _faces = new List<Texture2D>();
     [SerializeField]
-    private HairColorModel[] _elementsMale;
-    [SerializeField]
-    private HairColorModel[] _elementsFemale;
-    [SerializeField]
     private List<Material> _hairMaterials = new List<Material>();
 
     [SerializeField]
@@ -75,6 +76,11 @@ public class SkinManager : MonoBehaviour
     [SerializeField]
     private List<Color> _colors = new List<Color>();
 
+    private void Awake()
+    {
+        Instance = this; 
+        OnHairChanged = new UnityEvent<int>();
+    }
 
     void Start()
     {
@@ -170,15 +176,9 @@ public class SkinManager : MonoBehaviour
         _face.Init(_info.faces, _info.eqyuipedFace);
         _playerMTL.SetTexture("_FaceMask", _faces[_info.eqyuipedFace]);
 
-        for (int i = 0; i < _elementsMale.Length; i++)
-        {
-            _elementsMale[i].Select(_info.eqyuipedHair);
-        }
+        _hairSelectedIndex = _info.eqyuipedHair;
 
-        for (int i = 0; i < _elementsFemale.Length; i++)
-        {
-            _elementsFemale[i].Select(_info.eqyuipedHair);
-        }
+        OnHairChanged?.Invoke(_info.eqyuipedHair);
 
         _equipedHairIndex = _info.eqyuipedHair;
 
@@ -218,14 +218,7 @@ public class SkinManager : MonoBehaviour
         _bodyMale.material = _playerMTL;
         _bodyFemale.material = _playerMTL;
 
-        for (int i = 0; i < _elementsMale.Length; i++)
-        {
-            _elementsMale[i].Select(_equipedHairIndex);
-        }
-        for (int i = 0; i < _elementsFemale.Length; i++)
-        {
-            _elementsFemale[i].Select(_equipedHairIndex);
-        }
+        OnHairChanged?.Invoke(_equipedHairIndex);
 
         for (int i = 0; i < _hairMaterials.Count; i++)
         {
@@ -293,15 +286,7 @@ public class SkinManager : MonoBehaviour
     {
         _hairSelectedIndex = index;
 
-        for (int i = 0; i < _elementsMale.Length; i++)
-        {
-            _elementsMale[i].Select(index);
-        }
-
-        for (int i = 0; i < _elementsFemale.Length; i++)
-        {
-            _elementsFemale[i].Select(index);
-        }
+        OnHairChanged?.Invoke(index);
     }
 
     public void HairBuy(int index)

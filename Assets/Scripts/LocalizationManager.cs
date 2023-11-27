@@ -50,7 +50,7 @@ public class LocalizationManager : MonoBehaviour
         {
             _local = "en";
         }
-
+        /*
         switch (_local)
         {
             case "ru":
@@ -59,7 +59,7 @@ public class LocalizationManager : MonoBehaviour
                 break;
             default:
                 break;
-        }
+        }*/
 
         LocalizationStrings.SetLanguage(_local);
 
@@ -70,6 +70,7 @@ public class LocalizationManager : MonoBehaviour
 
         LocalizationStrings.first_start = false;
     }
+
     public void ChangeLanguage()
     {
         switch (_local)

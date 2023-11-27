@@ -29,13 +29,14 @@ public class MouseSensitivityManager : MonoBehaviour
 
     public void UpdateValue(float value)
     {
-        if(_cameraView == null)
+        _sliderValue = value;
+        PlayerPrefs.SetFloat(PlayerPrefsConsts.sensitivity, _sliderValue);
+
+        if (_cameraView == null)
         {
             return;
         }
 
-        _sliderValue = value;
-        PlayerPrefs.SetFloat(PlayerPrefsConsts.sensitivity, _sliderValue);
         _slider.value = _sliderValue;
         _cameraView.SetSensitivity(_sliderValue);
     }

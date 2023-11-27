@@ -19,7 +19,7 @@ public class TextLocalizer : MonoBehaviour
 
     void Update()
     {
-        
+
     }
 
     public void UpdateText()
@@ -31,7 +31,7 @@ public class TextLocalizer : MonoBehaviour
                 _text.text = LocalizationStrings.Strings[_key];
 
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Debug.Log($"TextLocalizer {_key}");
             }
