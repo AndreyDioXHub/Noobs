@@ -15,12 +15,15 @@ public class ChatTexts : MonoBehaviour
             }
             else
             {
-                return Instance.gameObject.activeSelf;
+                return Instance.ChatView.activeSelf;
             }
         }
     }
 
     public static ChatTexts Instance;
+
+    [SerializeField]
+    GameObject ChatView;
 
     [SerializeField]
     private Notification notificationView;
@@ -34,14 +37,15 @@ public class ChatTexts : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        CloseChat();
     }
     public void OpenChat()
     {
-        gameObject.SetActive(true);
+        ChatView.SetActive(true);
     }
     public void CloseChat()
     {
-        gameObject.SetActive(false);
+        ChatView.SetActive(false);
     }
 
     public void ShowChatText(string user, string message) {

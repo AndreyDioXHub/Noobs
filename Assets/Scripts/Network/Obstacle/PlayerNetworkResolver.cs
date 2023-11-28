@@ -50,9 +50,6 @@ public class PlayerNetworkResolver : NetworkBehaviour
     [SerializeField]
     TMP_Text nameField;
 
-    const string USER_SKIN_KEY = "user_skin";
-    const string USER_NAME_KEY = "user_name";
-    const string USER_GUID_KEY = "user_guid";
 
     [SyncVar(hook = nameof(OnSkinIndexChanged))]
     int skinIndex = 0;
@@ -148,8 +145,8 @@ public class PlayerNetworkResolver : NetworkBehaviour
         #region Здесь прописываем скрипты, которые относятся к локальному игроку
         Debug.Log("Конфигурация под Локального Игрока отсюда");
 
-        if (PlayerPrefs.HasKey(USER_GUID_KEY)) { 
-            TryGetSave(PlayerPrefs.GetString(USER_GUID_KEY)); 
+        if (PlayerPrefs.HasKey(PlayerPrefsConsts.USER_GUID_KEY)) { 
+            TryGetSave(PlayerPrefs.GetString(PlayerPrefsConsts.USER_GUID_KEY)); 
         }
 
         _characterController.enabled = true;
@@ -189,8 +186,8 @@ public class PlayerNetworkResolver : NetworkBehaviour
 
     [Command]
     private void GetUserSkin() {
-        skinIndex = PlayerPrefs.GetInt(USER_SKIN_KEY, 0);
-        username = PlayerPrefs.GetString(USER_NAME_KEY, GetDefaultName());
+        skinIndex = PlayerPrefs.GetInt(PlayerPrefsConsts.USER_SKIN_KEY, 0);
+        username = PlayerPrefs.GetString(PlayerPrefsConsts.USER_NAME_KEY, GetDefaultName());
     }
 
 

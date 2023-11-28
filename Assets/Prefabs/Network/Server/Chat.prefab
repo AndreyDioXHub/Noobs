@@ -185,7 +185,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &9154207545933243237
 RectTransform:
   m_ObjectHideFlags: 0
@@ -582,14 +582,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 499e2ff557369ef429deae8b4aa5d01a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ChatView: {fileID: 7212141045813129033}
   notificationView: {fileID: 4116613593081836863}
   defaulOption:
     title: 
     text: 
-    color: {r: 0.7830189, g: 0.7830189, b: 0.7830189, a: 1}
+    color: {r: 0, g: 0, b: 0, a: 1}
     icon: {fileID: 0}
     delay: 2
-    duration: 2
+    duration: 0
     ignoreTimeScale: 1
 --- !u!1 &5817893148086042437
 GameObject:
