@@ -4,6 +4,23 @@ using UnityEngine;
 
 public class SettingScreen : MonoBehaviour
 {
+
+
+    public static bool IsActive
+    {
+        get
+        {
+            if (Instance == null)
+            {
+                return false;
+            }
+            else
+            {
+                return Instance.gameObject.activeSelf;
+            }
+        }
+    }
+
     public static SettingScreen Instance;
 
     [SerializeField]

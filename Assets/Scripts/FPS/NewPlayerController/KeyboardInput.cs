@@ -101,14 +101,7 @@ public class KeyboardInput : MonoBehaviour
 
     public virtual void FixedUpdate()
     {
-        bool adsView = false;
-
-        if (AdsButtonView.Instance != null)
-        {
-            adsView = AdsButtonView.Instance.Parent.activeSelf;
-        }
-
-        if (SettingScreen.Instance.gameObject.activeSelf || AdsScreen.Instance.gameObject.activeSelf || adsView || CheckPointManager.Instance.IsWin)// || BlockCountManager.Instance.BlocksCount == 0)
+        if (SettingScreen.IsActive || AdsScreen.IsActive || AdsButtonView.IsActive || CheckPointManager.Instance.IsWin)// || BlockCountManager.Instance.BlocksCount == 0)
         {
             return;
         }

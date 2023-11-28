@@ -5,6 +5,22 @@ using UnityEngine.Events;
 
 public class AdsScreen : MonoBehaviour
 {
+
+    public static bool IsActive
+    {
+        get
+        {
+            if (Instance == null)
+            {
+                return false;
+            }
+            else
+            {
+                return Instance.gameObject.activeSelf;
+            }
+        }
+    }
+
     public static AdsScreen Instance;
 
     public UnityEvent OnTimeIsUp = new UnityEvent();

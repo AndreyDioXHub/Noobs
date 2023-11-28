@@ -105,15 +105,7 @@ public class CameraView : MonoBehaviour
 
     public void Update()
     {
-
-        bool adsView = false;
-
-        if (AdsButtonView.Instance != null)
-        {
-            adsView = AdsButtonView.Instance.Parent.activeSelf;
-        }
-
-        if (AdsScreen.Instance.gameObject.activeSelf || adsView || CheckPointManager.Instance.IsWin || SettingScreen.Instance.gameObject.activeSelf || CamNode1 == null)// || TutorialCanvas.Instance.gameObject.activeSelf)// || BlockCountManager.Instance.BlocksCount == 0)
+        if (AdsScreen.IsActive || AdsButtonView.IsActive || CheckPointManager.Instance.IsWin || SettingScreen.IsActive || CamNode1 == null || ChatTexts.IsActive)// || TutorialCanvas.Instance.gameObject.activeSelf)// || BlockCountManager.Instance.BlocksCount == 0)
         {
             Cursor.lockState = _defaultCursorState;
             return;

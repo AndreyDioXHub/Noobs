@@ -61,47 +61,47 @@ public class RobloxController : MonoBehaviour
 
     public virtual void FixedUpdate()
     {
-        bool adsView = false;
 
-        if (AdsButtonView.Instance != null)
+        Debug.Log($"{ SettingScreen.IsActive} {AdsScreen.IsActive} {AdsButtonView.IsActive} {CheckPointManager.Instance.IsWin} {ChatTexts.IsActive}");
+
+        if (SettingScreen.IsActive || AdsScreen.IsActive || AdsButtonView.IsActive || CheckPointManager.Instance.IsWin || ChatTexts.IsActive)// || BlockCountManager.Instance.BlocksCount == 0)
         {
-            adsView = AdsButtonView.Instance.Parent.activeSelf;
-        }
 
-        if (SettingScreen.Instance.gameObject.activeSelf || AdsScreen.Instance.gameObject.activeSelf || adsView || CheckPointManager.Instance.IsWin)// || BlockCountManager.Instance.BlocksCount == 0)
+        }
+        else
         {
-            return;
+
+            _isGrounded = _groundCheck.IsGrounded;
+            Vector3 direction = new Vector3(_axisMove.x, 0f, _axisMove.y).normalized;
+
+            if (direction.magnitude >= 0.1f)
+            {
+                float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + _cam.eulerAngles.y;
+                float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref _turnSmoothVelocity, _turnSmoothTime);
+                transform.rotation = Quaternion.Euler(0f, angle, 0f);
+
+                Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+                _controller.Move(moveDir.normalized * _speed * Time.fixedDeltaTime);
+                _isMoving = true;
+            }
+
+            if (direction.magnitude <= 0.0f)
+            {
+                _isMoving = false;
+            }
+            /*
+            if (_isJump && _isGrounded)
+            {
+                _isJump = false;
+
+                _velocity.y = Mathf.Sqrt(_jumpHeight * -2f * _gravity);
+            }
+
+            _velocity.y += _gravity * Time.deltaTime;*/
+
+            _controller.Move(_velocity * Time.fixedDeltaTime);
+
         }
-
-        _isGrounded = _groundCheck.IsGrounded;
-        Vector3 direction = new Vector3(_axisMove.x, 0f, _axisMove.y).normalized;
-
-        if (direction.magnitude >= 0.1f)
-        {
-            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + _cam.eulerAngles.y;
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref _turnSmoothVelocity, _turnSmoothTime);
-            transform.rotation = Quaternion.Euler(0f, angle, 0f);
-
-            Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            _controller.Move(moveDir.normalized * _speed * Time.fixedDeltaTime);
-            _isMoving = true;
-        }
-
-        if (direction.magnitude <= 0.0f)
-        {
-            _isMoving = false;
-        }
-        /*
-        if (_isJump && _isGrounded)
-        {
-            _isJump = false;
-
-            _velocity.y = Mathf.Sqrt(_jumpHeight * -2f * _gravity);
-        }
-
-        _velocity.y += _gravity * Time.deltaTime;*/
-
-        _controller.Move(_velocity * Time.fixedDeltaTime);
 
         _gravityVector.y += _gravity * Time.fixedDeltaTime * Time.fixedDeltaTime;
 
@@ -152,7 +152,11 @@ public class RobloxController : MonoBehaviour
     }
     public void OnJump(InputAction.CallbackContext context)
     {
-        //Read.
+        if (SettingScreen.IsActive || AdsScreen.IsActive || AdsButtonView.IsActive || CheckPointManager.Instance.IsWin || ChatTexts.IsActive)// || BlockCountManager.Instance.BlocksCount == 0)
+        {
+            return;
+        }
+
         switch (context.phase)
         {
             case InputActionPhase.Started:

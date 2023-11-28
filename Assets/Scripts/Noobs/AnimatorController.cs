@@ -39,6 +39,11 @@ public class AnimatorController : MonoBehaviour
     {
         #region OnlyLocalPlayer
 
+        if (ChatTexts.IsActive)
+        {
+            return;
+        }
+
         bool moving = false;
 
         if(IsLocalPlayer) {
@@ -100,6 +105,7 @@ public class AnimatorController : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
+
         _axisMove = context.ReadValue<Vector2>();
     }
 

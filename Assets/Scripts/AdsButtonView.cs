@@ -5,6 +5,21 @@ using UnityEngine;
 
 public class AdsButtonView : MonoBehaviour
 {
+
+    public static bool IsActive
+    {
+        get
+        {
+            if (Instance == null)
+            {
+                return false;
+            }
+            else
+            {
+                return Instance.Parent.activeSelf;
+            }
+        }
+    }
     public static AdsButtonView Instance;
     public GameObject Parent;
 

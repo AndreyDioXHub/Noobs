@@ -5,6 +5,22 @@ using UnityEngine;
 
 public class ChatTexts : MonoBehaviour
 {
+    public static bool IsActive
+    {
+        get
+        {
+            if (Instance == null)
+            {
+                return false;
+            }
+            else
+            {
+                return Instance.gameObject.activeSelf;
+            }
+        }
+    }
+
+    public static ChatTexts Instance;
 
     [SerializeField]
     private Notification notificationView;
@@ -14,6 +30,11 @@ public class ChatTexts : MonoBehaviour
     NotificationOptions defaulOption;
 
     // Start is called before the first frame update
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     public void ShowChatText(string user, string message) {
         //notificationView.AddItem();
