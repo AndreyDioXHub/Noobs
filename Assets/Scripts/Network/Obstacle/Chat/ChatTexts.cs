@@ -28,6 +28,13 @@ public class ChatTexts : MonoBehaviour
     [SerializeField]
     private Notification notificationView;
 
+    [Header("Colors")]
+    [SerializeField] Color localUserName = Color.black;
+    [SerializeField] Color localUserText = Color.black;
+    [SerializeField] Color remoteUserName = Color.black;
+    [SerializeField] Color remoteUserText = Color.black;
+
+
 
     [SerializeField]
     NotificationOptions defaulOption;
@@ -51,8 +58,18 @@ public class ChatTexts : MonoBehaviour
     public void ShowChatText(string user, string message) {
         //notificationView.AddItem();
         NotificationOptions opt = new NotificationOptions(defaulOption);
-        opt.text = message;
-        opt.title = user;
+        opt.text = StylizeText(user, message);
+        //opt.title = user;
         notificationView.AddItem(opt);
+    }
+
+    private string StylizeText(string username, string message) {
+        bool islocal = username == Chat.localPlayerName;
+        string ucolor = ColorUtility.ToHtmlStringRGB(islocal? localUserName : remoteUserName);
+        string mcolor = ColorUtility.ToHtmlStringRGB(islocal? localUserText : remoteUserText);
+
+        string prettyString = $"<color=#{ucolor}>[{username}]:</color> <color=#{mcolor}>{message}</color>";
+
+        return prettyString;
     }
 }

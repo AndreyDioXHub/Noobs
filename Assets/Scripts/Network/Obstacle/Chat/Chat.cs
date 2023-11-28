@@ -18,8 +18,7 @@ public class Chat : NetworkBehaviour
 
     public UnityEvent<string> OnChatMessage;
     public UnityEvent<string, string> OnChatMessageExtend;
-
-    public InputAction OpenChatCommand;
+    public UnityEvent OnMessageSubmitting;
 
 
     // Server-only cross-reference of connections to player names
@@ -79,8 +78,9 @@ public class Chat : NetworkBehaviour
     public void SendChatMessage(string message) {
         if (!string.IsNullOrWhiteSpace(message)) {
             CmdSend(message.Trim());
-            message = string.Empty;
+            //Clear local input
         }
+        OnMessageSubmitting?.Invoke();
     }
 
     /// <summary>
@@ -107,13 +107,7 @@ public class Chat : NetworkBehaviour
     /// </summary>
     public override void OnStartLocalPlayer() {
         //TODO Register action
-        OpenChatCommand.started += ShowInput;
-        OpenChatCommand.Enable();
 
-    }
-
-    private void ShowInput(InputAction.CallbackContext context) {
-        Debug.Log("Try show input");
     }
 
     /// <summary>
