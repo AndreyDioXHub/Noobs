@@ -81,6 +81,7 @@ public static class LocalizationStrings
         { "connect", "Подключиться"},
         { "serverisfull", "Сервер переполнен"},
         { "tryconnectinglater", "попробуйте подключиться позже"},
+        { "leavegame", "Покинуть игру"},
     };
 
     public static Dictionary<string, string> StringsRu = new Dictionary<string, string>()
@@ -160,6 +161,7 @@ public static class LocalizationStrings
         { "connect", "Подключиться"},
         { "serverisfull", "Сервер переполнен"},
         { "tryconnectinglater", "попробуйте подключиться позже"},
+        { "leavegame", "Покинуть игру"},
     };
 
     public static Dictionary<string, string> StringsEn = new Dictionary<string, string>()
@@ -239,6 +241,7 @@ public static class LocalizationStrings
         { "connect", "Connect"},
         { "serverisfull", "Server is full"},
         { "tryconnectinglater", "try connecting later"},
+        { "leavegame", "Leave game"},
     };
 
     public static void SetLanguage(string lang)

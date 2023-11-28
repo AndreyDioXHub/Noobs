@@ -19,9 +19,9 @@ public class SkinManager : MonoBehaviour
     private Material _playerEditMTL;
 
     [SerializeField]
-    private GameObject _male;
+    private List<GameObject> _males = new List<GameObject>();
     [SerializeField]
-    private GameObject _female;
+    private List<GameObject> _females = new List<GameObject>();
 
     [SerializeField]
     private GameObject _maleActive;
@@ -29,9 +29,9 @@ public class SkinManager : MonoBehaviour
     private GameObject _femaleActive;
 
     [SerializeField]
-    private Renderer _bodyMale;
+    private List<Renderer> _bodysMale = new List<Renderer>();
     [SerializeField]
-    private Renderer _bodyFemale;
+    private List<Renderer> _bodysFemale = new List<Renderer>();
 
     [SerializeField]
     private Color _bodyColor;
@@ -227,14 +227,29 @@ public class SkinManager : MonoBehaviour
         _playerEditMTL.SetColor("_PentsColor", _playerMTL.GetColor("_PentsColor"));
         _playerEditMTL.SetColor("_ShoesColor", _playerMTL.GetColor("_ShoesColor"));
         _playerEditMTL.SetTexture("_FaceMask", _playerMTL.GetTexture("_FaceMask"));
-        _bodyMale.material = _playerEditMTL;
-        _bodyFemale.material = _playerEditMTL;
+
+        foreach (var male in _bodysMale)
+        {
+            male.material = _playerEditMTL;
+        }
+
+        foreach (var female in _bodysFemale)
+        {
+            female.material = _playerEditMTL;
+        }
     }
 
     public void CloseSkinsPanel()
     {
-        _bodyMale.material = _playerMTL;
-        _bodyFemale.material = _playerMTL;
+        foreach (var male in _bodysMale)
+        {
+            male.material = _playerMTL;
+        }
+
+        foreach (var female in _bodysFemale)
+        {
+            female.material = _playerMTL;
+        }
 
         OnHairChanged?.Invoke(_equipedHairIndex);
 
@@ -251,12 +266,18 @@ public class SkinManager : MonoBehaviour
     {
         _info.eqyuipedSex = index;
 
-        _male.SetActive(index == 0);
-        _female.SetActive(index == 1);
+        foreach(var male in _males)
+        {
+            male.SetActive(index == 0);
+        }
+
+        foreach(var female in _females)
+        {
+            female.SetActive(index == 1);
+        }
 
         _maleActive.SetActive(index == 0);
         _femaleActive.SetActive(index == 1);
-
     }
 
     public void BodyColorSelect(int index)

@@ -8,9 +8,9 @@ using UnityEngine.InputSystem;
 public class AnimatorController : MonoBehaviour
 {
     [SerializeField]
-    private Transform _model;
+    private List<Transform> _models = new List<Transform>();
     [SerializeField]
-    private Animator _animator;
+    private List<Animator> _animators = new List<Animator>();
     [SerializeField]
     private GroundCheck _groundCheck;
     [SerializeField]
@@ -59,15 +59,28 @@ public class AnimatorController : MonoBehaviour
         }
         if (IsGrounded)
         {
-            _animator.SetBool("Jump", false);
-            _animator.SetBool("Run", moving);
+            foreach (var animator in _animators)
+            {
+                animator.SetBool("Jump", false);
+            }
+
+            foreach (var animator in _animators)
+            {
+                animator.SetBool("Run", moving);
+            }
         }
         else
         {
-            _animator.SetBool("Jump", true);
+            foreach (var animator in _animators)
+            {
+                animator.SetBool("Jump", true);
+            }
         }
 
-        _animator.SetFloat("Blend", _blend);
+        foreach (var animator in _animators)
+        {
+            animator.SetFloat("Blend", _blend);
+        }
 
         if (_blend > 0.05f)
         {
@@ -87,7 +100,10 @@ public class AnimatorController : MonoBehaviour
 
         if (dir.magnitude > 0.2f)
         {
-            _model.rotation = Quaternion.LookRotation(dir, Vector3.up);
+            foreach(var model in _models)
+            {
+                model.rotation = Quaternion.LookRotation(dir, Vector3.up);
+            }
         }
         else
         {
@@ -99,7 +115,10 @@ public class AnimatorController : MonoBehaviour
 
     public void OnJump(bool jump)
     {
-        _animator.SetBool("Jump", jump);
+        foreach (var animator in _animators)
+        {
+            animator.SetBool("Jump", jump);
+        }
     }
 
 
