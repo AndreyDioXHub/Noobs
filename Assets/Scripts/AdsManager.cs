@@ -23,13 +23,13 @@ public class AdsManager : MonoBehaviour
         {
             string result = "";
 
-            if (_timeCur < 10)
+            if (_timeRewardedCur < 10)
             {
-                result = $"0{ (int)_timeCur }/60";
+                result = $"0{ (int)_timeRewardedCur }/60";
             }
             else
             {
-                result = $"{ (int)_timeCur }/60";
+                result = $"{ (int)_timeRewardedCur }/60";
             }
             //_timeCur.ToString(".#");
             /*
@@ -41,9 +41,7 @@ public class AdsManager : MonoBehaviour
     }
 
     [SerializeField]
-    private float _time, _timeCur, _timeB, _timeBCur, _timeBig, _timeBigCur;
-    [SerializeField]
-    private bool _isWasFullScreen;
+    private float _timeRewarded, _timeRewardedCur, _timeBetweenCheckpoints, _timeBetweenCheckpointsCur, _timeFullScreen, _timeFullScreenCur;
 
   private void Awake()
     {
@@ -59,13 +57,14 @@ public class AdsManager : MonoBehaviour
 
     void Start()
     {
+        //ShowFullscreen();
         //_time = _infoYG.fullscreenAdInterval; 
-        SceneManager.sceneLoaded += OnSceneLoaded;
+        //SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        _sdk._FullscreenShow();
+        //_sdk._FullscreenShow();
         /*
         if (scene.name.Equals("ads"))
         {
@@ -80,6 +79,7 @@ public class AdsManager : MonoBehaviour
         _sdk._RewardedShow(1);
     }
 
+    [ContextMenu("ShowFullscreen")]
     public void ShowFullscreen()
     {
         _sdk._FullscreenShow();
@@ -91,26 +91,19 @@ public class AdsManager : MonoBehaviour
         else
         {
         }*/
-        _isWasFullScreen = true;
     }
 
     public void ShowFullscreenButton()
     {
-        if(_timeBCur == _timeB)
+        if(_timeBetweenCheckpointsCur == _timeBetweenCheckpoints)
         {
-            _timeBCur = 0;
+            _timeBetweenCheckpointsCur = 0;
             _sdk._FullscreenShow();
         }
     }
 
     public void GetReward()
     {
-        if (_isWasFullScreen)
-        {
-            _isWasFullScreen = false;
-            //return;
-        }
-
         OnReward?.Invoke();
         //BlockCountManager.Instance.ResetBlockCount();
         IsPaused = true;
@@ -120,22 +113,22 @@ public class AdsManager : MonoBehaviour
     {
         if (IsPaused)
         {
-            _timeCur += Time.deltaTime;
+            _timeRewardedCur += Time.deltaTime;
 
-            if(_timeCur > _time)
+            if(_timeRewardedCur > _timeRewarded)
             {
-                _timeCur = 0;
+                _timeRewardedCur = 0;
                 IsPaused = false;
             }
         }
 
-        if (_timeBig > 0)
+        if (_timeFullScreen > 0)
         {
-            _timeBigCur += Time.deltaTime;
+            _timeFullScreenCur += Time.deltaTime;
 
-            if (_timeBigCur > _timeBig)
+            if (_timeFullScreenCur > _timeFullScreen)
             {
-                _timeBigCur = 0;
+                _timeFullScreenCur = 0;
                 if (AdsScreen.Instance != null)
                 {
                     AdsScreen.Instance.gameObject.SetActive(true);
@@ -143,8 +136,8 @@ public class AdsManager : MonoBehaviour
             }
         }
 
-        _timeBCur += Time.deltaTime;
-        _timeBCur = _timeBCur > _timeB ? _timeB : _timeBCur;
+        _timeBetweenCheckpointsCur += Time.deltaTime;
+        _timeBetweenCheckpointsCur = _timeBetweenCheckpointsCur > _timeBetweenCheckpoints ? _timeBetweenCheckpoints : _timeBetweenCheckpointsCur;
 
     }
 }

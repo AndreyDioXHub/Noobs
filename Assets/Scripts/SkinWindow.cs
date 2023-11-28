@@ -43,7 +43,14 @@ public class SkinWindow : MonoBehaviour
     {
         for (int i = 0; i < avalable.Count; i++)
         {
-            _avalebleElements.Add(i, avalable[i]);
+            if(_avalebleElements.TryGetValue(i, out bool result))
+            {
+                _avalebleElements[i] = avalable[i];
+            }
+            else
+            {
+                _avalebleElements.Add(i, avalable[i]);
+            }
         }
 
         if (selectedIndex >= 0)

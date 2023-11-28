@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class CoinManager : MonoBehaviour
@@ -8,6 +9,8 @@ public class CoinManager : MonoBehaviour
 
     [SerializeField]
     private int _coins;
+    [SerializeField]
+    private TextMeshProUGUI _text;
 
     private void Awake()
     {
@@ -16,12 +19,12 @@ public class CoinManager : MonoBehaviour
 
     void Start()
     {
-        
+        _coins = PlayerPrefs.GetInt("coins", 0);
     }
 
     void Update()
     {
-
+        _text.text = _coins.ToString();
     }
     public bool CheckMoney(int cost)
     {
@@ -43,14 +46,30 @@ public class CoinManager : MonoBehaviour
         {
             result = true;
             _coins -= cost;
+
             if (_coins < 0)
             {
                 result = false;
                 _coins += cost;
             }
+
+            PlayerPrefs.SetInt("coins", _coins);
         }
 
         return result;
-
     }
+
+    public void AddMoney(int count)
+    {
+        _coins += count;
+        PlayerPrefs.SetInt("coins", _coins);
+    }
+
+    [ContextMenu("AddMoney")]
+    public void AddMoney()
+    {
+        AddMoney(500);
+    }
+
+
 }

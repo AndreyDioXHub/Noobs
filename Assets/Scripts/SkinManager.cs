@@ -10,6 +10,7 @@ public class SkinManager : MonoBehaviour
 {
     public static SkinManager Instance;
     public UnityEvent<int> OnHairChanged = new UnityEvent<int>();
+    public UnityEvent OnHasPesel = new UnityEvent();
     public int HairSelectedIndex { get => _hairSelectedIndex; }
 
     [SerializeField]
@@ -180,6 +181,11 @@ public class SkinManager : MonoBehaviour
 
         OnHairChanged?.Invoke(_info.eqyuipedHair);
 
+        if (_info.hairs[4])
+        {
+            OnHasPesel?.Invoke();
+        }
+
         _equipedHairIndex = _info.eqyuipedHair;
 
 
@@ -200,6 +206,18 @@ public class SkinManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void EquipPesel()
+    {
+        _equipedHairIndex = 4;
+        _info.eqyuipedHair = 4;
+        _info.hairs[4] = true;
+        _hair.Init(_info.hairs, _info.eqyuipedHair);
+        OnHairChanged?.Invoke(_equipedHairIndex);
+        string infoJSON = JsonConvert.SerializeObject(_info);
+        PlayerPrefs.SetString("user_skin", infoJSON);
+
     }
 
     public void OpenSkinsPanel()
@@ -292,6 +310,11 @@ public class SkinManager : MonoBehaviour
     public void HairBuy(int index)
     {
         _info.hairs[index] = true;
+
+        if (_info.hairs[4])
+        {
+            OnHasPesel?.Invoke();
+        }
     }
 
     public void HairEquip(int index)

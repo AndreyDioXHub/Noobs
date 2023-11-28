@@ -431,6 +431,8 @@ namespace YG
 
         public void _FullscreenShow()
         {
+            Debug.Log("Fullscreen Show");
+
             if (!nowFullAd && !nowVideoAd &&
                 timerShowAd >= infoYG.fullscreenAdInterval)
             {
