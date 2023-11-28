@@ -1,0 +1,49 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+
+public class PlayerNameToPref : MonoBehaviour
+{
+    [SerializeField]
+    TMP_Text viewText;
+    [SerializeField]
+    TMP_InputField inputField;
+
+    string username = "";
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        LoadSave();
+    }
+
+    private void LoadSave() {
+        username = PlayerPrefs.GetString(PlayerPrefsConsts.USER_NAME_KEY, GetDefaultName());
+        if(viewText != null) {
+            viewText.text = username;
+        }
+        if(inputField != null) {
+            inputField.text = username;
+        }
+    }
+
+    private string GetDefaultName() {
+        //TODO
+        return string.Empty;
+    }
+
+
+    public void SetNewName(string newName) {
+        if(string.IsNullOrWhiteSpace(newName)) {
+            inputField.text = username;
+            return;
+        }
+        if(viewText != null) {
+            viewText.text = newName;
+        }
+        PlayerPrefs.SetString(PlayerPrefsConsts.USER_NAME_KEY, newName);
+        PlayerPrefs.Save();
+    }
+}
