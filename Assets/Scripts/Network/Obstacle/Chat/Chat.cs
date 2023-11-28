@@ -2,6 +2,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
+using System;
+using DevionGames.UIWidgets;
 
 /*
 	Documentation: https://mirror-networking.gitbook.io/docs/guides/networkbehaviour
@@ -16,6 +19,9 @@ public class Chat : NetworkBehaviour
     public UnityEvent<string> OnChatMessage;
     public UnityEvent<string, string> OnChatMessageExtend;
 
+    public InputAction OpenChatCommand;
+
+
     // Server-only cross-reference of connections to player names
     internal static readonly Dictionary<NetworkConnectionToClient, string> connNames = new Dictionary<NetworkConnectionToClient, string>();
 
@@ -29,6 +35,7 @@ public class Chat : NetworkBehaviour
 
     void Start()
     {
+
     }
 
     #endregion
@@ -98,7 +105,16 @@ public class Chat : NetworkBehaviour
     /// Called when the local player object has been set up.
     /// <para>This happens after OnStartClient(), as it is triggered by an ownership message from the server. This is an appropriate place to activate components or functionality that should only be active for the local player, such as cameras and input.</para>
     /// </summary>
-    public override void OnStartLocalPlayer() { }
+    public override void OnStartLocalPlayer() {
+        //TODO Register action
+        OpenChatCommand.started += ShowInput;
+        OpenChatCommand.Enable();
+
+    }
+
+    private void ShowInput(InputAction.CallbackContext context) {
+        Debug.Log("Try show input");
+    }
 
     /// <summary>
     /// Called when the local player object is being stopped.
