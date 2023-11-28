@@ -75,5 +75,6 @@ public class ChatTexts : MonoBehaviour
         string prettyString = $"<color=#{ucolor}>[{username}]:</color> <color=#{mcolor}>{message}</color>";
 
         return prettyString;
+        
     }
 }

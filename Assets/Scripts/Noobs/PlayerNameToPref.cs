@@ -39,6 +39,9 @@ public class PlayerNameToPref : MonoBehaviour
         if(string.IsNullOrWhiteSpace(newName)) {
             inputField.text = username;
             return;
+        } else {
+            newName = CensoredList.ReplaceText(newName);
+            inputField.text = newName;
         }
         if(viewText != null) {
             viewText.text = newName;
