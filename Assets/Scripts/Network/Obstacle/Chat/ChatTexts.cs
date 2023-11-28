@@ -55,6 +55,10 @@ public class ChatTexts : MonoBehaviour
         ChatView.SetActive(false);
     }
 
+    public void ToggleChat() {
+        ChatView.SetActive(!ChatView.activeSelf);
+    }
+
     public void ShowChatText(string user, string message) {
         //notificationView.AddItem();
         NotificationOptions opt = new NotificationOptions(defaulOption);
