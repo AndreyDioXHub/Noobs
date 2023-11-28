@@ -63,6 +63,10 @@ public class RobloxController : MonoBehaviour
     public virtual void FixedUpdate()
     {
 
+        if (transform.position.y < 0)
+        {
+            return;
+        }
         //Debug.Log($"{ SettingScreen.IsActive} {AdsScreen.IsActive} {AdsButtonView.IsActive} {CheckPointManager.Instance.IsWin} {ChatTexts.IsActive}");
 
         if (SettingScreen.IsActive || AdsScreen.IsActive || AdsButtonView.IsActive || CheckPointManager.Instance.IsWin || ChatTexts.IsActive)// || BlockCountManager.Instance.BlocksCount == 0)

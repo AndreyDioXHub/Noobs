@@ -5,6 +5,7 @@ using System;
 using UnityEngine.InputSystem;
 using Cinemachine;
 using TMPro;
+using Newtonsoft.Json;
 
 /*
 	Documentation: https://mirror-networking.gitbook.io/docs/guides/networkbehaviour
@@ -13,6 +14,19 @@ using TMPro;
 
 public class PlayerNetworkResolver : NetworkBehaviour
 {
+
+    [SerializeField]
+    private List<GameObject> _males = new List<GameObject>();
+    [SerializeField]
+    private List<GameObject> _females = new List<GameObject>();
+
+    [SerializeField]
+    private List<Renderer> _bodysMale = new List<Renderer>();
+    [SerializeField]
+    private List<Renderer> _bodysFemale = new List<Renderer>();
+
+    [SerializeField]
+    private SkinsInfo _info = new SkinsInfo();
 
     [SerializeField]
     private CharacterController _characterController;
@@ -188,6 +202,26 @@ public class PlayerNetworkResolver : NetworkBehaviour
     private void GetUserSkin() {
         skinIndex = PlayerPrefs.GetInt(PlayerPrefsConsts.USER_SKIN_KEY, 0);
         username = PlayerPrefs.GetString(PlayerPrefsConsts.USER_NAME_KEY, GetDefaultName());
+
+        string infoJSON = PlayerPrefs.GetString("user_skin", "");
+        _info = JsonConvert.DeserializeObject<SkinsInfo>(infoJSON);
+
+        EquipSex(_info.eqyuipedSex);
+    }
+
+    public void EquipSex(int index)
+    {
+        _info.eqyuipedSex = index;
+
+        foreach (var male in _males)
+        {
+            male.SetActive(index == 0);
+        }
+
+        foreach (var female in _females)
+        {
+            female.SetActive(index == 1);
+        }
     }
 
 
