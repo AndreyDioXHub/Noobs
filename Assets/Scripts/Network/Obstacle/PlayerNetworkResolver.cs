@@ -176,8 +176,8 @@ public class PlayerNetworkResolver : NetworkBehaviour
         _robloxController.OnEscDown.AddListener(SettingScreen.Instance.SwitchScreenState);
         _robloxController.OnEscDown.AddListener(ChatTexts.Instance.CloseChat);
         _robloxController.OnEnterDown.AddListener(ChatTexts.Instance.OpenChat);
-
         GetUserSkin();
+        Chat.localPlayerName = username;
 
         #endregion
     }
@@ -200,6 +200,7 @@ public class PlayerNetworkResolver : NetworkBehaviour
         Debug.Log($"Set user name {newname}");
         //TODO Set user name
         if (!isLocalPlayer) nameField.text = newname;
+        Chat.localPlayerName = newname;
     }
 
     public void OnMove(InputAction.CallbackContext context) {
