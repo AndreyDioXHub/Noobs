@@ -177,6 +177,8 @@ public class PlayerNetworkResolver : NetworkBehaviour
         InputSchemeSwitcher.Instance.RequestingEnvironmentData();
         CheckPointManager.Instance.Init(transform);
         _robloxController.OnEscDown.AddListener(SettingScreen.Instance.SwitchScreenState);
+        _robloxController.OnEscDown.AddListener(ChatTexts.Instance.CloseChat);
+        _robloxController.OnEnterDown.AddListener(ChatTexts.Instance.OpenChat);
 
         GetUserSkin();
 

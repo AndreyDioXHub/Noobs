@@ -64,6 +64,11 @@ public class SettingScreen : MonoBehaviour
 
     public void SwitchScreenState()
     {
+        if (ChatTexts.IsActive)
+        {
+            return;
+        }
+
         gameObject.SetActive(!gameObject.activeSelf);
     }
 

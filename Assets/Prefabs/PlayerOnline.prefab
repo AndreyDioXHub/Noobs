@@ -443,19 +443,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OnEscDown:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SettingScreen, Assembly-CSharp
-        m_MethodName: SwitchScreenState
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+  OnEnterDown:
+    m_PersistentCalls:
+      m_Calls: []
   _controller: {fileID: 7635699013819483984}
   _cam: {fileID: 0}
   _groundCheck: {fileID: 5424824734585482630}
@@ -852,6 +843,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: db532a41-feb4-4149-ab78-2139cce6f618
     m_ActionName: PlayerMobile/Inventory Next
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5424824734585482624}
+        m_TargetAssemblyTypeName: RobloxController, Assembly-CSharp
+        m_MethodName: OnEnter
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 7545b03c-3f08-4f68-9876-3e389d1c89a8
+    m_ActionName: Player/Enter[/Keyboard/enter]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

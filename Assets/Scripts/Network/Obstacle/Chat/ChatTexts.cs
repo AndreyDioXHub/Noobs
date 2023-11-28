@@ -35,6 +35,14 @@ public class ChatTexts : MonoBehaviour
     {
         Instance = this;
     }
+    public void OpenChat()
+    {
+        gameObject.SetActive(true);
+    }
+    public void CloseChat()
+    {
+        gameObject.SetActive(false);
+    }
 
     public void ShowChatText(string user, string message) {
         //notificationView.AddItem();

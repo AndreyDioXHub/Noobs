@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 public class RobloxController : MonoBehaviour
 {
     public UnityEvent OnEscDown = new UnityEvent();
+    public UnityEvent OnEnterDown = new UnityEvent();
 
     public static RobloxController Instance;
 
@@ -187,6 +188,23 @@ public class RobloxController : MonoBehaviour
         {
             case InputActionPhase.Started:
                 OnEscDown?.Invoke();
+                break;
+            case InputActionPhase.Canceled:
+                break;
+            case InputActionPhase.Performed:
+                break;
+            case InputActionPhase.Waiting:
+                break;
+        }
+    }
+
+    public void OnEnter(InputAction.CallbackContext context)
+    {
+        //Read.
+        switch (context.phase)
+        {
+            case InputActionPhase.Started:
+                OnEnterDown?.Invoke();
                 break;
             case InputActionPhase.Canceled:
                 break;
