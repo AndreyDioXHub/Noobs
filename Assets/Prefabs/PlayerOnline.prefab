@@ -489,7 +489,22 @@ MonoBehaviour:
     hairIndexes: 
     materialReference: {fileID: 0}
     isInitedHairMaterial: 1
-  _hairMaterials: []
+  _info:
+    eqyuipedSex: 0
+    eqyuipedBody: 0
+    eqyuipedHair: 0
+    eqyuipedHairColor: 0
+    eqyuipedTshirt: 0
+    eqyuipedPants: 0
+    eqyuipedShoes: 0
+    eqyuipedFace: 0
+    bodyColors: 
+    hairs: 
+    hairColors: 
+    tshirtColors: 
+    pantsColors: 
+    shoesColors: 
+    faces: 
 --- !u!114 &619010311784695260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -974,7 +989,7 @@ MonoBehaviour:
     m_ActionName: Player/Enter[/Keyboard/enter]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: Player
+  m_DefaultActionMap: PlayerMobile
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!114 &6812945702092684792
