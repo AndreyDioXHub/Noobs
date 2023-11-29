@@ -24,7 +24,7 @@ public class ModelSkiinManager : MonoBehaviour
     private List<HairInfo> _hairInfos = new List<HairInfo>();
 
     [SerializeField]
-    private List<Material> _hairMaterials = new List<Material>();
+    private SkinsInfo _info;
 
     void Start()
     {
@@ -32,6 +32,8 @@ public class ModelSkiinManager : MonoBehaviour
 
     public void EquipSkin(SkinsInfo info)
     {
+        _info = info;
+
         if (_playerMTL == null)
         {
             _playerMTL = new Material(_bodysMale[0].material);
@@ -76,19 +78,36 @@ public class ModelSkiinManager : MonoBehaviour
                 hair.SetActive(info.eqyuipedHair == i);
             }
         }
+
+        /*
+        foreach(var hmtl in _hairMaterials)
+        {
+            hmtl.SetColor("_MainColor", SkinManager.Colors[info.eqyuipedHairColor]);
+        }*/
     }
 
     private void InitMaterial(Material reference, List<int> indexes, List<Renderer> renderers, bool inBool, out bool outBool )
     {
-        if (!inBool)
+        if (inBool)
+        {
+            foreach (var i in indexes)
+            {
+                foreach (var r in renderers)
+                {
+                    r.materials[i].SetColor("_MainColor", SkinManager.Colors[_info.eqyuipedHairColor]);
+                }
+            }
+        }
+        else
         {
             Material mtl = new Material(reference);
-            _hairMaterials.Add(mtl);
+
             foreach (var i in indexes)
             {
                 foreach (var r in renderers)
                 {
                     r.materials[i] = mtl;
+                    r.materials[i].SetColor("_MainColor", SkinManager.Colors[_info.eqyuipedHairColor]);
                 }
             }
         }
