@@ -77,7 +77,8 @@ public class Chat : NetworkBehaviour
     // Called by OnEndEdit above and UI element SendButton.OnClick
     public void SendChatMessage(string message) {
         if (!string.IsNullOrWhiteSpace(message)) {
-            CmdSend(message.Trim());
+            message = CensoredList.ReplaceText(message.Trim());
+            CmdSend(message);
             //Clear local input
         }
         OnMessageSubmitting?.Invoke();

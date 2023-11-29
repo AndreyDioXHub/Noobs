@@ -40,7 +40,7 @@ namespace Censored
 
             foreach (string censoredWord in CensoredWords)
             {
-                var regularExpression = ToRegexPattern(censoredWord);
+                var regularExpression = censoredWord;// ToRegexPattern(censoredWord);
 
                 censoredText = Regex.Replace(censoredText, regularExpression, StarCensoredMatch,
                     RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);

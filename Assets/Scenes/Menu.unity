@@ -690,6 +690,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3335432888654529232, guid: 7d43d6e1c2f326045b7936fe50484b7c, type: 3}
+      propertyPath: replace
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4492615375821459977, guid: 7d43d6e1c2f326045b7936fe50484b7c, type: 3}
       propertyPath: m_Name
       value: Censor
