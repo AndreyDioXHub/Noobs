@@ -14,19 +14,11 @@ using Newtonsoft.Json;
 
 public class PlayerNetworkResolver : NetworkBehaviour
 {
-
-    [SerializeField]
-    private List<GameObject> _males = new List<GameObject>();
-    [SerializeField]
-    private List<GameObject> _females = new List<GameObject>();
-
-    [SerializeField]
-    private List<Renderer> _bodysMale = new List<Renderer>();
-    [SerializeField]
-    private List<Renderer> _bodysFemale = new List<Renderer>();
-
     [SerializeField]
     private SkinsInfo _info = new SkinsInfo();
+
+    [SerializeField]
+    private ModelSkiinManager _modelSkinManager;
 
     [SerializeField]
     private CharacterController _characterController;
@@ -212,9 +204,9 @@ public class PlayerNetworkResolver : NetworkBehaviour
         ApplySkin(_info);
     }
 
-    private void ApplySkin(SkinsInfo info) {
-        //TODO
-
+    private void ApplySkin(SkinsInfo info) 
+    {
+        _modelSkinManager.EquipSkin(info);
     }
 
 
