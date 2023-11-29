@@ -82,6 +82,8 @@ public static class LocalizationStrings
         { "serverisfull", "Сервер переполнен"},
         { "tryconnectinglater", "попробуйте подключиться позже"},
         { "leavegame", "Покинуть игру"},
+        { "openchatnotification", "* Нажмите \"Enter\", чтобы открыть чат"},
+        { "closechatnotification", "* Нажмите \"Esc\", чтобы закрыть чат"},
     };
 
     public static Dictionary<string, string> StringsRu = new Dictionary<string, string>()
@@ -162,6 +164,8 @@ public static class LocalizationStrings
         { "serverisfull", "Сервер переполнен"},
         { "tryconnectinglater", "попробуйте подключиться позже"},
         { "leavegame", "Покинуть игру"},
+        { "openchatnotification", "* Нажмите \"Enter\", чтобы открыть чат"},
+        { "closechatnotification", "* Нажмите \"Esc\", чтобы закрыть чат"},
     };
 
     public static Dictionary<string, string> StringsEn = new Dictionary<string, string>()
@@ -242,6 +246,8 @@ public static class LocalizationStrings
         { "serverisfull", "Server is full"},
         { "tryconnectinglater", "try connecting later"},
         { "leavegame", "Leave game"},
+        { "openchatnotification", "* Press \"Enter\" to open chat"},
+        { "closechatnotification", "* Press \"Esc\" to close chat"},
     };
 
     public static void SetLanguage(string lang)

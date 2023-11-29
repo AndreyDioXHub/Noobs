@@ -15,7 +15,7 @@ public class ChatTexts : MonoBehaviour
             }
             else
             {
-                return Instance.ChatView.activeSelf;
+                return Instance._chatIsOpen;// ChatView.activeSelf;
             }
         }
     }
@@ -23,7 +23,7 @@ public class ChatTexts : MonoBehaviour
     public static ChatTexts Instance;
 
     [SerializeField]
-    GameObject ChatView;
+    private List<GameObject> _switchedes = new List<GameObject>();
 
     [SerializeField]
     private Notification notificationView;
@@ -34,6 +34,17 @@ public class ChatTexts : MonoBehaviour
     [SerializeField] Color remoteUserName = Color.black;
     [SerializeField] Color remoteUserText = Color.black;
 
+    [SerializeField]
+    private bool _chatIsOpen;
+
+    [SerializeField]
+    private RectTransform _chatView;
+    [SerializeField]
+    private GameObject _openNotification;
+    [SerializeField]
+    private GameObject _closeNotification;
+    [SerializeField]
+    private GameObject _inputField;
 
 
     [SerializeField]
@@ -48,18 +59,71 @@ public class ChatTexts : MonoBehaviour
     }
     public void OpenChat()
     {
-        ChatView.SetActive(true);
+        if (SettingScreen.IsActive)
+        {
+            foreach(var sw in _switchedes)
+            {
+                sw.SetActive(false);
+            }
+        }
+        else
+        {
+            foreach (var sw in _switchedes)
+            {
+                sw.SetActive(true);
+            }
+            _chatIsOpen = true;
+            _chatView.sizeDelta = new Vector2(660, 400);
+            _openNotification.SetActive(false);
+            _closeNotification.SetActive(true);
+            _inputField.SetActive(true);
+        }
+
+        //ChatView.SetActive(true);
     }
+
     public void CloseChat()
     {
-        ChatView.SetActive(false);
+        if (SettingScreen.IsActive)
+        {
+            foreach (var sw in _switchedes)
+            {
+                sw.SetActive(false);
+            }
+        }
+        else
+        {
+            foreach (var sw in _switchedes)
+            {
+                sw.SetActive(true);
+            }
+            _chatIsOpen = false;
+            _chatView.sizeDelta = new Vector2(660, 60);
+            _openNotification.SetActive(true);
+            _closeNotification.SetActive(false);
+            _inputField.SetActive(false);
+        }
+        //ChatView.SetActive(false);
     }
 
-    public void ToggleChat() {
-        ChatView.SetActive(!ChatView.activeSelf);
+    public void ToggleChat() 
+    {
+        _chatIsOpen = !_chatIsOpen;
+
+        if (_chatIsOpen)
+        {
+            OpenChat();
+        }
+        else
+        {
+            CloseChat();
+        }
+
+       // ChatView.SetActive(!ChatView.activeSelf);
     }
 
-    public void ShowChatText(string user, string message) {
+    public void ShowChatText(string user, string message) 
+    {
         //notificationView.AddItem();
         NotificationOptions opt = new NotificationOptions(defaulOption);
         opt.text = StylizeText(user, message);
@@ -67,7 +131,8 @@ public class ChatTexts : MonoBehaviour
         notificationView.AddItem(opt);
     }
 
-    private string StylizeText(string username, string message) {
+    private string StylizeText(string username, string message) 
+    {
         bool islocal = username == Chat.localPlayerName;
         string ucolor = ColorUtility.ToHtmlStringRGB(islocal? localUserName : remoteUserName);
         string mcolor = ColorUtility.ToHtmlStringRGB(islocal? localUserText : remoteUserText);
