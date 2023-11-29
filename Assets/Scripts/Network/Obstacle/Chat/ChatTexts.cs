@@ -44,12 +44,17 @@ public class ChatTexts : MonoBehaviour
     [SerializeField]
     private GameObject _closeNotification;
     [SerializeField]
+    private GameObject _openNotificationM;
+    [SerializeField]
+    private GameObject _closeNotificationM;
+    [SerializeField]
     private GameObject _inputField;
 
 
     [SerializeField]
     NotificationOptions defaulOption;
 
+    public bool IsMobile;
     // Start is called before the first frame update
 
     private void Awake()
@@ -57,6 +62,18 @@ public class ChatTexts : MonoBehaviour
         Instance = this;
         CloseChat();
     }
+
+    public void SetMobile()
+    {
+        IsMobile = true;
+
+        _openNotification.SetActive(false);
+        _closeNotification.SetActive(false);
+
+        _openNotificationM.SetActive(true);
+        _closeNotificationM.SetActive(false);
+    }
+
     public void OpenChat()
     {
         if (SettingScreen.IsActive)
@@ -74,8 +91,24 @@ public class ChatTexts : MonoBehaviour
             }
             _chatIsOpen = true;
             _chatView.sizeDelta = new Vector2(660, 400);
-            _openNotification.SetActive(false);
-            _closeNotification.SetActive(true);
+
+            if (IsMobile)
+            {
+                _openNotificationM.SetActive(false);
+                _closeNotificationM.SetActive(true);
+
+                _openNotification.SetActive(false);
+                _closeNotification.SetActive(false);
+            }
+            else
+            {
+                _openNotification.SetActive(false);
+                _closeNotification.SetActive(true);
+
+                _openNotificationM.SetActive(false);
+                _closeNotificationM.SetActive(false);
+            }
+
             _inputField.SetActive(true);
         }
 
@@ -99,8 +132,24 @@ public class ChatTexts : MonoBehaviour
             }
             _chatIsOpen = false;
             _chatView.sizeDelta = new Vector2(660, 60);
-            _openNotification.SetActive(true);
-            _closeNotification.SetActive(false);
+
+            if (IsMobile)
+            {
+                _openNotificationM.SetActive(true);
+                _closeNotificationM.SetActive(false);
+
+                _openNotification.SetActive(false);
+                _closeNotification.SetActive(false);
+            }
+            else
+            {
+                _openNotification.SetActive(true);
+                _closeNotification.SetActive(false);
+
+                _openNotificationM.SetActive(false);
+                _closeNotificationM.SetActive(false);
+            }
+
             _inputField.SetActive(false);
         }
         //ChatView.SetActive(false);

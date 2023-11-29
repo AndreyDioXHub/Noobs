@@ -84,6 +84,8 @@ public static class LocalizationStrings
         { "leavegame", "Покинуть игру"},
         { "openchatnotification", "* Нажмите \"Enter\", чтобы открыть чат"},
         { "closechatnotification", "* Нажмите \"Esc\", чтобы закрыть чат"},
+        { "openchatnotificationM", "* Нажмите \"значок чата\", чтобы открыть чат"},
+        { "closechatnotificationM", "* Нажмите \"значок чата\", чтобы закрыть чат"},
     };
 
     public static Dictionary<string, string> StringsRu = new Dictionary<string, string>()
@@ -166,6 +168,8 @@ public static class LocalizationStrings
         { "leavegame", "Покинуть игру"},
         { "openchatnotification", "* Нажмите \"Enter\", чтобы открыть чат"},
         { "closechatnotification", "* Нажмите \"Esc\", чтобы закрыть чат"},
+        { "openchatnotificationM", "* Нажмите \"значок чата\", чтобы открыть чат"},
+        { "closechatnotificationM", "* Нажмите \"значок чата\", чтобы закрыть чат"},
     };
 
     public static Dictionary<string, string> StringsEn = new Dictionary<string, string>()
@@ -248,6 +252,8 @@ public static class LocalizationStrings
         { "leavegame", "Leave game"},
         { "openchatnotification", "* Press \"Enter\" to open chat"},
         { "closechatnotification", "* Press \"Esc\" to close chat"},
+        { "openchatnotificationM", "* Press \"chat icon\" to open chat"},
+        { "closechatnotificationM", "* Press \"chat icon\" to close chat"},
     };
 
     public static void SetLanguage(string lang)

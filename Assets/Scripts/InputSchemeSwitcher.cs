@@ -134,6 +134,7 @@ public class InputSchemeSwitcher : MonoBehaviour
             //_zoom.InitMobile(true);
             FPSInput.XYAxis = MobileLook;
             TPSInput.XYAxis = MobileLook;
+            ChatTexts.Instance.SetMobile();
             //SaveManager.Instance.SwitchAutoSave();
             return;
         }
@@ -147,6 +148,7 @@ public class InputSchemeSwitcher : MonoBehaviour
             //_zoom.InitMobile(false);
             FPSInput.XYAxis = PCLook;
             TPSInput.XYAxis = PCLook;
+            ChatTexts.Instance.IsMobile = false;
             return;
         }
 
@@ -159,6 +161,7 @@ public class InputSchemeSwitcher : MonoBehaviour
             //_zoom.InitMobile(true);
             FPSInput.XYAxis = MobileLook;
             TPSInput.XYAxis = MobileLook;
+            ChatTexts.Instance.SetMobile();
             //SaveManager.Instance.SwitchAutoSave();
             return;
         }
@@ -172,6 +175,7 @@ public class InputSchemeSwitcher : MonoBehaviour
             //_zoom.InitMobile(true);
             FPSInput.XYAxis = MobileLook;
             TPSInput.XYAxis = MobileLook;
+            ChatTexts.Instance.SetMobile();
             //SaveManager.Instance.SwitchAutoSave();
             return;
         }
