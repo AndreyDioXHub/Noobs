@@ -82,7 +82,10 @@ public class PlayerNetworkResolver : NetworkBehaviour
     [SyncVar(hook = nameof(OnBlendChanged))]
     float n_blend = 0;
 
+    [SyncVar(hook = nameof(OnSkinChanged))]
+    string skin_data = string.Empty;
     string User_GUID;
+
 
     #region Unity Callbacks
 
@@ -206,6 +209,8 @@ public class PlayerNetworkResolver : NetworkBehaviour
         string infoJSON = PlayerPrefs.GetString("user_skin", "");
         _info = JsonConvert.DeserializeObject<SkinsInfo>(infoJSON);
 
+        skin_data = infoJSON;
+
         EquipSex(_info.eqyuipedSex);
     }
 
@@ -224,6 +229,15 @@ public class PlayerNetworkResolver : NetworkBehaviour
         }
     }
 
+
+    private void OnSkinChanged(string olddata, string newdata) {
+        if(!olddata.Equals(newdata) && ! isLocalPlayer) {
+            //Apply to AVATAR
+            //TODO
+            _info = JsonConvert.DeserializeObject<SkinsInfo>(newdata);
+            EquipSex(_info.eqyuipedSex);
+        }
+    }
 
     private void OnSkinIndexChanged(int oldindex, int newindex) {
         Debug.Log($"Set user skin {newindex}");
