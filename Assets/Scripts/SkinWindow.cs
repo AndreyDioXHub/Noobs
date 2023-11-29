@@ -78,6 +78,12 @@ public class SkinWindow : MonoBehaviour
         OnElementSelect?.Invoke(_selectedElementIndex);
     }
 
+    private void OnDisable()
+    {
+        _buyButton.GetComponent<Button>().onClick.RemoveListener(BuyElement);
+        _equipButton.GetComponent<Button>().onClick.RemoveListener(EquipElement);
+    }
+
     public void SelectElement(int index)
     {
         _selectedElementIndex = index;
