@@ -257,6 +257,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3635008893190248864}
   - component: {fileID: 112073897434445090}
+  - component: {fileID: 2429902065597327693}
   m_Layer: 0
   m_Name: Textfield
   m_TagString: Untagged
@@ -335,6 +336,21 @@ MonoBehaviour:
   - Kessenang
   - Zeinir
   _mainCamera: {fileID: 0}
+--- !u!114 &2429902065597327693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6825560090465829007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3152641fc46542b47be3f28e9e02f295, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameField: {fileID: 3805469826951910637}
+  showTime: 3
+  fadeTime: 1
 --- !u!1 &7635699013819483998
 GameObject:
   m_ObjectHideFlags: 0
@@ -552,7 +568,7 @@ MonoBehaviour:
   PCLook: {fileID: -7815973271342003743, guid: 2a36b58d3c96e764ea4ed8ebbd03b7ba, type: 3}
   MobileLook: {fileID: 3135859278886229363, guid: 2a36b58d3c96e764ea4ed8ebbd03b7ba, type: 3}
   _modelDirection: {fileID: 5644810387811423766}
-  nameField: {fileID: 3805469826951910637}
+  nameField: {fileID: 2429902065597327693}
 --- !u!114 &5424824734585482624
 MonoBehaviour:
   m_ObjectHideFlags: 0

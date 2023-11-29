@@ -54,7 +54,8 @@ public class PlayerNetworkResolver : NetworkBehaviour
     ModelDirection _modelDirection;
 
     [SerializeField]
-    TMP_Text nameField;
+    //TMP_Text nameField;
+    ChatOnHead nameField;
 
     [SyncVar(hook = nameof(OnPlayerNameChanged))]
     string username = string.Empty;
@@ -130,9 +131,9 @@ public class PlayerNetworkResolver : NetworkBehaviour
             //Enable avatar
             _animatorController.IsLocalPlayer = isLocalPlayer;
             _animatorController.enabled = true;
-            nameField.gameObject.SetActive(true);
-            nameField.text = username;
         }
+        nameField.gameObject.SetActive(true);
+        nameField.Init(username, isLocalPlayer);
     }
 
     /// <summary>
@@ -222,7 +223,7 @@ public class PlayerNetworkResolver : NetworkBehaviour
     private void OnPlayerNameChanged(string oldname, string newname) {
         Debug.Log($"Set user name {newname}");
         //TODO Set user name
-        if (!isLocalPlayer) nameField.text = newname;
+        if (!isLocalPlayer) nameField.Init(newname, isLocalPlayer);
         Chat.localPlayerName = newname;
     }
 

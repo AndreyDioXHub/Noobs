@@ -20,6 +20,7 @@ public class Chat : NetworkBehaviour
     public UnityEvent<string, string> OnChatMessageExtend;
     public UnityEvent OnMessageSubmitting;
 
+    public static Chat Instance { get; private set; }
 
     // Server-only cross-reference of connections to player names
     internal static readonly Dictionary<NetworkConnectionToClient, string> connNames = new Dictionary<NetworkConnectionToClient, string>();
@@ -30,6 +31,7 @@ public class Chat : NetworkBehaviour
     // NOTE: Do not put objects in DontDestroyOnLoad (DDOL) in Awake.  You can do that in Start instead.
     void Awake()
     {
+        Instance = this;
     }
 
     void Start()
