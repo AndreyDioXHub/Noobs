@@ -21,7 +21,6 @@ public class LocalizationManager : MonoBehaviour
     {
         _texts = Resources.FindObjectsOfTypeAll<TextLocalizer>();
         _sdk._RequestingEnvironmentData();
-        OnRequestingEnvironmentData?.Invoke();
 
         if (LocalizationStrings.first_start)
         {
@@ -31,6 +30,7 @@ public class LocalizationManager : MonoBehaviour
         {
             _local = PlayerPrefs.GetString(PlayerPrefsConsts.local, "ru");
         }
+        OnRequestingEnvironmentData?.Invoke();
     }
 
     void Update()
@@ -68,7 +68,11 @@ public class LocalizationManager : MonoBehaviour
             t.UpdateText();
         }
 
+        PlayerPrefs.SetString(PlayerPrefsConsts.local, _local);
+        PlayerPrefs.Save();
+
         LocalizationStrings.first_start = false;
+
     }
 
     public void ChangeLanguage()

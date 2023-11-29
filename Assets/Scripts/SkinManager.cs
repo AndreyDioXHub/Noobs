@@ -8,6 +8,8 @@ using Random = UnityEngine.Random;
 
 public class SkinManager : MonoBehaviour
 {
+    public UnityEvent<string> OnSkinInfoChanged = new UnityEvent<string>();
+
     public static SkinManager Instance;
     public UnityEvent<int> OnHairChanged = new UnityEvent<int>();
     public UnityEvent OnHasPesel = new UnityEvent();

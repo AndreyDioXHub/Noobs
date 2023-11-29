@@ -64,10 +64,6 @@ public class PlayerNetworkResolver : NetworkBehaviour
     [SerializeField]
     TMP_Text nameField;
 
-
-    [SyncVar(hook = nameof(OnSkinIndexChanged))]
-    int skinIndex = 0;
-
     [SyncVar(hook = nameof(OnPlayerNameChanged))]
     string username = string.Empty;
 
@@ -195,38 +191,30 @@ public class PlayerNetworkResolver : NetworkBehaviour
         _robloxController.OnEnterDown.AddListener(ChatTexts.Instance.OpenChat);
         GetUserSkin();
         Chat.localPlayerName = username;
-
+        SkinManager.Instance.OnSkinInfoChanged.AddListener(GetUserSkin);
         #endregion
     }
 
     
 
-    [Command]
+    //[Command]
     private void GetUserSkin() {
-        skinIndex = PlayerPrefs.GetInt(PlayerPrefsConsts.USER_SKIN_KEY, 0);
         username = PlayerPrefs.GetString(PlayerPrefsConsts.USER_NAME_KEY, GetDefaultName());
 
         string infoJSON = PlayerPrefs.GetString("user_skin", "");
-        _info = JsonConvert.DeserializeObject<SkinsInfo>(infoJSON);
-
-        skin_data = infoJSON;
-
-        EquipSex(_info.eqyuipedSex);
+        GetUserSkin(infoJSON);
+        
     }
 
-    public void EquipSex(int index)
-    {
-        _info.eqyuipedSex = index;
+    private void GetUserSkin(string skindata) {
+        skin_data = skindata;
+        _info = JsonConvert.DeserializeObject<SkinsInfo>(skindata);
+        ApplySkin(_info);
+    }
 
-        foreach (var male in _males)
-        {
-            male.SetActive(index == 0);
-        }
+    private void ApplySkin(SkinsInfo info) {
+        //TODO
 
-        foreach (var female in _females)
-        {
-            female.SetActive(index == 1);
-        }
     }
 
 
@@ -235,15 +223,10 @@ public class PlayerNetworkResolver : NetworkBehaviour
             //Apply to AVATAR
             //TODO
             _info = JsonConvert.DeserializeObject<SkinsInfo>(newdata);
-            EquipSex(_info.eqyuipedSex);
+            ApplySkin(_info);
         }
     }
 
-    private void OnSkinIndexChanged(int oldindex, int newindex) {
-        Debug.Log($"Set user skin {newindex}");
-        //TODO Set user skin
-
-    }
     private void OnPlayerNameChanged(string oldname, string newname) {
         Debug.Log($"Set user name {newname}");
         //TODO Set user name
