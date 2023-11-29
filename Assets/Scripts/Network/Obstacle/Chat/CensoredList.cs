@@ -3,6 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Censored;
+using System.IO;
+using System.Linq;
+
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class CensoredList : MonoBehaviour
 {
@@ -14,6 +21,9 @@ public class CensoredList : MonoBehaviour
 
     [SerializeField]
     string locale = "ru";
+    
+    [SerializeField]
+    bool replace = false;
 
     private void Awake() {
         if (instance == null) {
@@ -53,6 +63,16 @@ public class CensoredList : MonoBehaviour
 
     [ContextMenu("Load list from file")]
     private void LoadFromFile() {
-        //TODO
+        #region Unity editor
+#if UNITY_EDITOR
+        string tfile = EditorUtility.OpenFilePanel("Select file",Application.dataPath, "txt");
+        string[] listItems = File.ReadAllLines(tfile);
+        if(replace) {
+            filterList = listItems.ToList<string>();
+        } else {
+            filterList.AddRange(listItems);
+        }
+#endif
+#endregion
     }
 }
