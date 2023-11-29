@@ -29,10 +29,7 @@ public class SkinManager : MonoBehaviour
         }
     }
 
-
-    [SerializeField]
     private Material _playerMTL;
-    [SerializeField]
     private Material _playerEditMTL;
 
     [SerializeField]
