@@ -14,7 +14,7 @@ using DevionGames.UIWidgets;
 public class Chat : NetworkBehaviour
 {
     // This is only set on client to the name of the local player
-    internal static string localPlayerName;
+    internal static string localPlayerName { get; set; }
 
     public UnityEvent<string> OnChatMessage;
     public UnityEvent<string, string> OnChatMessageExtend;

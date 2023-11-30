@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using TMPro;
 using UnityEngine;
 
@@ -14,7 +15,7 @@ public class ChatOnHead : MonoBehaviour
     [SerializeField]
     float fadeTime = 1;
 
-    string userName = string.Empty;
+    string userName;// = string.Empty;
     bool showName = false;
 
     // Start is called before the first frame update
@@ -29,24 +30,30 @@ public class ChatOnHead : MonoBehaviour
         
     }
 
-    public void Init(string playername, bool isLocalPlayer) {
+    public void Init(string playername, bool isLocalPlayer, bool requireRegisterListener = true) {
         userName = playername;
         showName = !isLocalPlayer;
         nameField.text = userName;
         Debug.Log(Chat.Instance);
-        Chat.Instance.OnChatMessageExtend.AddListener(OnChatMessage);
+        if(requireRegisterListener) Chat.Instance.OnChatMessageExtend.AddListener(OnChatMessage);
     }
 
     public void OnChatMessage(string sendername, string message) {
-        Debug.Log($"{sendername}: {message}");
-        if(Chat.localPlayerName.Equals(sendername)) {
+        Debug.Log($"{sendername}: {message}, username is<b>{userName}</b>, local player name is {Chat.localPlayerName}");
+        if(userName.Equals(sendername)) {
             Debug.Log($"{sendername}: is Equals");
             StopAllCoroutines();
             nameField.CrossFadeAlpha(1, 0, true);
+            message = SetFormatting(message);
             StartCoroutine(NewChatMessage(message));
             //TODO Send to network
 
         }
+    }
+
+    private string SetFormatting(string message) {
+        return $"<size=8>{message}</size>";
+
     }
 
     private IEnumerator NewChatMessage(string message) {

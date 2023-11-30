@@ -184,6 +184,7 @@ public class PlayerNetworkResolver : NetworkBehaviour
         _robloxController.OnEnterDown.AddListener(ChatTexts.Instance.OpenChat);
         GetUserSkin();
         Chat.localPlayerName = username;
+        nameField.Init(username, isLocalPlayer, false);
         SkinManager.Instance.OnSkinInfoChanged.AddListener(GetUserSkin);
         #endregion
     }
@@ -224,7 +225,7 @@ public class PlayerNetworkResolver : NetworkBehaviour
         Debug.Log($"Set user name {newname}");
         //TODO Set user name
         if (!isLocalPlayer) nameField.Init(newname, isLocalPlayer);
-        Chat.localPlayerName = newname;
+        if (isLocalPlayer) Chat.localPlayerName = newname;
     }
 
     public void OnMove(InputAction.CallbackContext context) {
