@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -66,7 +65,8 @@ public class ChatOnHead : MonoBehaviour
     {
         _messageIMG.CrossFadeAlpha(1, 0, true);
         nameField.text = message;
-        LayoutRebuilder.ForceRebuildLayoutImmediate(_root);
+        LayoutRebuilder.ForceRebuildLayoutImmediate(_messageIMG.rectTransform);
+        //LayoutRebuilder.ForceRebuildLayoutImmediate(_root);
 
          yield return new WaitForSeconds(showTime);
         nameField.CrossFadeAlpha(0, fadeTime, true);
