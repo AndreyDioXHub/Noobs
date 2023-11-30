@@ -4,11 +4,16 @@ using System.Collections.Generic;
 using System.Drawing;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ChatOnHead : MonoBehaviour
 {
     [SerializeField]
     TMP_Text nameField;
+    [SerializeField]
+    private RectTransform _root;
+    [SerializeField]
+    private Image _messageIMG;
 
     [SerializeField]
     float showTime = 3;
@@ -22,6 +27,7 @@ public class ChatOnHead : MonoBehaviour
     void Start()
     {
         nameField.text = showName ? userName : "";
+        _messageIMG.CrossFadeAlpha(0, 0, true);
     }
 
     // Update is called once per frame
@@ -51,15 +57,20 @@ public class ChatOnHead : MonoBehaviour
         }
     }
 
-    private string SetFormatting(string message) {
-        return $"<size=8>{message}</size>";
-
+    private string SetFormatting(string message)
+    {
+        return $"<size=150>{message}</size>";
     }
 
-    private IEnumerator NewChatMessage(string message) {
+    private IEnumerator NewChatMessage(string message) 
+    {
+        _messageIMG.CrossFadeAlpha(1, 0, true);
         nameField.text = message;
-        yield return new WaitForSeconds(showTime);
+        LayoutRebuilder.ForceRebuildLayoutImmediate(_root);
+
+         yield return new WaitForSeconds(showTime);
         nameField.CrossFadeAlpha(0, fadeTime, true);
+        _messageIMG.CrossFadeAlpha(0, fadeTime, true);
         yield return new WaitForSeconds(fadeTime);
         nameField.text = showName ? userName: "";
         nameField.CrossFadeAlpha(1, 0, true);
