@@ -79,6 +79,7 @@ public static class LocalizationStrings
         { "freeskin", "Бесплатный скин"},
         { "freeskinpes", "Посмотрите рекламу и бесплатно получите шапку песика"},
         { "connect", "Подключиться"},
+        { "refresh", "Обновить"},
         { "serverisfull", "Сервер переполнен"},
         { "tryconnectinglater", "попробуйте подключиться позже"},
         { "leavegame", "Покинуть игру"},
@@ -86,6 +87,9 @@ public static class LocalizationStrings
         { "closechatnotification", "* Нажмите \"Esc\", чтобы закрыть чат"},
         { "openchatnotificationM", "* Нажмите \"значок чата\", чтобы открыть чат"},
         { "closechatnotificationM", "* Нажмите \"значок чата\", чтобы закрыть чат"},
+        { "checkpoints", "Чекпоинты"},
+        { "checkpointselect", "Выбор чекпоинта"},
+        { "checkpointselectavaleble", "Перейдите к доступному чекпоинту"},
     };
 
     public static Dictionary<string, string> StringsRu = new Dictionary<string, string>()
@@ -163,6 +167,7 @@ public static class LocalizationStrings
         { "freeskin", "Бесплатный скин"},
         { "freeskinpes", "Посмотрите рекламу и бесплатно получите шапку песика"},
         { "connect", "Подключиться"},
+        { "refresh", "Обновить"},
         { "serverisfull", "Сервер переполнен"},
         { "tryconnectinglater", "попробуйте подключиться позже"},
         { "leavegame", "Покинуть игру"},
@@ -170,6 +175,9 @@ public static class LocalizationStrings
         { "closechatnotification", "* Нажмите \"Esc\", чтобы закрыть чат"},
         { "openchatnotificationM", "* Нажмите \"значок чата\", чтобы открыть чат"},
         { "closechatnotificationM", "* Нажмите \"значок чата\", чтобы закрыть чат"},
+        { "checkpoints", "Чекпоинты"},
+        { "checkpointselect", "Выбор чекпоинта"},
+        { "checkpointselectavaleble", "Перейдите к доступному чекпоинту"},
     };
 
     public static Dictionary<string, string> StringsEn = new Dictionary<string, string>()
@@ -247,6 +255,7 @@ public static class LocalizationStrings
         { "freeskin", "Free skin"},
         { "freeskinpes", "Watch the ad and get a free dog hat"},
         { "connect", "Connect"},
+        { "refresh", "Refresh"},
         { "serverisfull", "Server is full"},
         { "tryconnectinglater", "try connecting later"},
         { "leavegame", "Leave game"},
@@ -254,6 +263,9 @@ public static class LocalizationStrings
         { "closechatnotification", "* Press \"Esc\" to close chat"},
         { "openchatnotificationM", "* Press \"chat icon\" to open chat"},
         { "closechatnotificationM", "* Press \"chat icon\" to close chat"},
+        { "checkpoints", "Checkpoints"},
+        { "checkpointselect", "Select checkpoint"},
+        { "checkpointselectavaleble", "Go to an available checkpoint"},
     };
 
     public static void SetLanguage(string lang)
