@@ -23,14 +23,28 @@ public class MoneyView : MonoBehaviour
     void Start()
     {
         _textChanged.CrossFadeAlpha(0, 0, true);
-        CoinManager.Instance.OnMoneyAdded.AddListener(Added);
-        CoinManager.Instance.OnMoneyRemoved.AddListener(Removed);
     }
 
     void Update()
     {
         _text.text = CoinManager.Instance.Coins.ToString();
     }
+
+    private void OnEnable()
+    {
+        CoinManager.Instance.OnMoneyAdded.AddListener(Added);
+        CoinManager.Instance.OnMoneyRemoved.AddListener(Removed);
+        _textChanged.CrossFadeAlpha(0, 0, true);
+    }
+
+    private void OnDisable()
+    {
+        CoinManager.Instance.OnMoneyAdded.RemoveListener(Added);
+        CoinManager.Instance.OnMoneyRemoved.RemoveListener(Removed);
+        StopAllCoroutines();
+        _textChanged.CrossFadeAlpha(0, 0, true);
+    }
+
 
     public void Added(int count)
     {
@@ -39,11 +53,7 @@ public class MoneyView : MonoBehaviour
         _durationCur = 0;
         _textChanged.CrossFadeAlpha(0, 0, true);
         _changed.anchoredPosition = Vector2.Lerp(_start, _end, 1);
-
-        if (gameObject.activeSelf)
-        {
-            StartCoroutine(Coroutine(true));
-        }
+        StartCoroutine(Coroutine(true));
     }
 
     public void Removed(int count)
@@ -53,11 +63,7 @@ public class MoneyView : MonoBehaviour
         _durationCur = 0;
         _textChanged.CrossFadeAlpha(1, 0, true);
         _changed.anchoredPosition = Vector2.Lerp(_end, _start, 1);
-
-        if (gameObject.activeSelf)
-        {
-            StartCoroutine(Coroutine(false));
-        }
+        StartCoroutine(Coroutine(false));
     }
 
     IEnumerator Coroutine(bool up)
