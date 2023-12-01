@@ -90,6 +90,8 @@ public static class LocalizationStrings
         { "checkpoints", "Чекпоинты"},
         { "checkpointselect", "Выбор чекпоинта"},
         { "checkpointselectavaleble", "Перейдите к доступному чекпоинту"},
+        { "authorization", "Авторизация"},
+        { "authorizationmessage", "Авторизуйтесь, чтобы не потерять прогресс"},
     };
 
     public static Dictionary<string, string> StringsRu = new Dictionary<string, string>()
@@ -178,6 +180,8 @@ public static class LocalizationStrings
         { "checkpoints", "Чекпоинты"},
         { "checkpointselect", "Выбор чекпоинта"},
         { "checkpointselectavaleble", "Перейдите к доступному чекпоинту"},
+        { "authorization", "Авторизация"},
+        { "authorizationmessage", "Авторизуйтесь, чтобы не потерять прогресс"},
     };
 
     public static Dictionary<string, string> StringsEn = new Dictionary<string, string>()
@@ -266,6 +270,8 @@ public static class LocalizationStrings
         { "checkpoints", "Checkpoints"},
         { "checkpointselect", "Select checkpoint"},
         { "checkpointselectavaleble", "Go to an available checkpoint"},
+        { "authorization", "Authorization"},
+        { "authorizationmessage", "Log in so you don't lose progress"},
     };
 
     public static void SetLanguage(string lang)

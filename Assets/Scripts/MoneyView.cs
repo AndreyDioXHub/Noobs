@@ -20,20 +20,40 @@ public class MoneyView : MonoBehaviour
     [SerializeField]
     private float _duration = 1, _durationCur;
 
+    [SerializeField]
+    private bool _wait;
+
+
     void Start()
     {
         _textChanged.CrossFadeAlpha(0, 0, true);
+
+        if (_wait)
+        {
+            CoinManager.Instance.OnMoneyAdded.AddListener(Added);
+            CoinManager.Instance.OnMoneyRemoved.AddListener(Removed);
+            _wait = false;
+        }
     }
 
     void Update()
     {
+
         _text.text = CoinManager.Instance.Coins.ToString();
     }
 
     private void OnEnable()
     {
-        CoinManager.Instance.OnMoneyAdded.AddListener(Added);
-        CoinManager.Instance.OnMoneyRemoved.AddListener(Removed);
+        if (CoinManager.Instance == null)
+        {
+            _wait = true;
+        }
+        else
+        {
+            CoinManager.Instance.OnMoneyAdded.AddListener(Added);
+            CoinManager.Instance.OnMoneyRemoved.AddListener(Removed);
+        }
+
         _textChanged.CrossFadeAlpha(0, 0, true);
     }
 
