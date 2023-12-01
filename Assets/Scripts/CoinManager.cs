@@ -15,6 +15,9 @@ public class CoinManager : MonoBehaviour
 
     [SerializeField]
     private int _coins;
+    [SerializeField]
+    private bool _isMyReward;
+
     /*
     [SerializeField]
     private TextMeshProUGUI _text;*/
@@ -32,6 +35,20 @@ public class CoinManager : MonoBehaviour
     void Update()
     {
         //_text.text = _coins.ToString();
+    }
+
+    public void ShowRewardForMoney()
+    {
+        _isMyReward = true;
+        AdsManager.Instance.ShowRewardedAd();
+    }
+
+    public void Rewarded()
+    {
+        if (_isMyReward)
+        {
+            AddMoney(20);
+        }
     }
 
     public bool CheckMoney(int cost)

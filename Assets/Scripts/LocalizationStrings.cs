@@ -92,6 +92,11 @@ public static class LocalizationStrings
         { "checkpointselectavaleble", "Перейдите к доступному чекпоинту"},
         { "authorization", "Авторизация"},
         { "authorizationmessage", "Авторизуйтесь, чтобы не потерять прогресс"},
+        { "newcheckpoint", "**Доступен новый чекпоинт**"},
+        { "win", "Вы выиграли"},
+        { "winscore", "Ваш счет:"},
+        { "winsbet", "Улучшите свой результат или посмотрите другие наши игры"},
+        { "tostart", "В начало"},
     };
 
     public static Dictionary<string, string> StringsRu = new Dictionary<string, string>()
@@ -182,6 +187,11 @@ public static class LocalizationStrings
         { "checkpointselectavaleble", "Перейдите к доступному чекпоинту"},
         { "authorization", "Авторизация"},
         { "authorizationmessage", "Авторизуйтесь, чтобы не потерять прогресс"},
+        { "newcheckpoint", "**Доступен новый чекпоинт**"},
+        { "win", "Вы выиграли"},
+        { "winscore", "Ваш счет:"},
+        { "winsbet", "Улучшите свой результат или посмотрите другие наши игры"},
+        { "tostart", "В начало"},
     };
 
     public static Dictionary<string, string> StringsEn = new Dictionary<string, string>()
@@ -272,6 +282,11 @@ public static class LocalizationStrings
         { "checkpointselectavaleble", "Go to an available checkpoint"},
         { "authorization", "Authorization"},
         { "authorizationmessage", "Log in so you don't lose progress"},
+        { "newcheckpoint", "**New checkpoint available**"},
+        { "win", "You won"},
+        { "winscore", "You score:"},
+        { "winsbet", "Improve your score or check out our other games"},
+        { "tostart", "To start"},
     };
 
     public static void SetLanguage(string lang)

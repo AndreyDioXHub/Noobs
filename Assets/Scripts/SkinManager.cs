@@ -248,6 +248,7 @@ public class SkinManager : MonoBehaviour
         _info.hairs[4] = true;
         _hair.Init(_info.hairs, _info.eqyuipedHair);
         OnHairChanged?.Invoke(_equipedHairIndex);
+        CloseSkinsPanel();
         string infoJSON = JsonConvert.SerializeObject(_info);
         PlayerPrefs.SetString("user_skin", infoJSON);
 

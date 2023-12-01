@@ -21,19 +21,15 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: OceanWater
-  m_Shader: {fileID: 4800000, guid: 650dd9526735d5b46b79224bc6e94025, type: 3}
-  m_ValidKeywords:
-  - _SURFACE_TYPE_TRANSPARENT
+  m_Shader: {fileID: -6465566751694194690, guid: 4a04e63841310a64596a27f38d051fe1, type: 3}
+  m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
-  stringTagMap:
-    RenderType: Transparent
-  disabledShaderPasses:
-  - DepthOnly
-  - SHADOWCASTER
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -133,6 +129,9 @@ Material:
     - _CausticPowerDeep: 1
     - _CausticScale: 30
     - _CausticScaleDepp: 29.94
+    - _CausticSize: 5
+    - _CausticSize_1: 0.0378
+    - _CausticSpeed: 0.2
     - _CellDencity: 20
     - _CellDensity: 500
     - _ClearCoatMask: 0
@@ -161,7 +160,7 @@ Material:
     - _FoamHorizontCutOffPower: 100
     - _FoamScale: 80000
     - _FoamSpeed: 0.6
-    - _FoamTransParency: 0.624
+    - _FoamTransParency: 0.535
     - _FoamWaveClamp: 1
     - _FoamWaveCutOffIntencity: 0.57
     - _FoamWaveCutOffPower: 7.55
@@ -193,7 +192,7 @@ Material:
     - _SrcBlend: 5
     - _Step: 0.0318
     - _Surface: 1
-    - _Transparency: 1
+    - _Transparency: 0.205
     - _TransparencyCaustic: 1
     - _TransparencyCaustics: 1
     - _TransparencyDeep: 1
@@ -241,7 +240,7 @@ Material:
     - _WaveSpeedC: 1
     - _WavesAmplitude: 3
     - _WavesMaskRotation: 180
-    - _WavesTime: 258.8013
+    - _WavesTime: 4
     - _WorkflowMode: 1
     - _ZTest: 4
     - _ZWrite: 0
@@ -256,7 +255,7 @@ Material:
     - _ColorCausticFoam: {r: 0.83637416, g: 0.92177266, b: 0.990566, a: 1}
     - _ColorFoam: {r: 1, g: 0.97075474, b: 0.8537736, a: 1}
     - _ColorFoamDeep: {r: 0.8039216, g: 0.86153674, b: 0.8745098, a: 1}
-    - _ColorWaterDeep: {r: 0, g: 0.54509807, b: 1, a: 1}
+    - _ColorWaterDeep: {r: 0.15966538, g: 0.5490226, b: 0.8679245, a: 1}
     - _ColorWaterRealyDeep: {r: 0.009611944, g: 0.3742638, b: 0.6792453, a: 1}
     - _ColorWaterShallow: {r: 0.2509804, g: 0.6627451, b: 1, a: 1}
     - _DeepWater: {r: 0, g: 0.45636794, b: 0.8113208, a: 1}

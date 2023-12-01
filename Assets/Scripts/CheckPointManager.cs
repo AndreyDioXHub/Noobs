@@ -32,6 +32,12 @@ public class CheckPointManager : MonoBehaviour
     private TextMeshProUGUI _text;
     private int _scoreTotal;
 
+    [SerializeField]
+    private TextMeshProUGUI _newcheckpointText;
+    [SerializeField]
+    private float _duration = 3;
+
+
     private void Awake()
     {
         Instance = this;
@@ -44,6 +50,7 @@ public class CheckPointManager : MonoBehaviour
 
     void Start()
     {
+        _newcheckpointText.CrossFadeAlpha(0,0,true);
         _distance = _checkPoints[_checkPoints.Count - 1].transform.position.z - _checkPoints[0].transform.position.z;
         //_score = _distance;
         _scoreBonus = _distance;
@@ -64,7 +71,25 @@ public class CheckPointManager : MonoBehaviour
         _progressEmpty.fillAmount = 1 - _curvalue;
         _curvaluePrev = _curvalue;
         _score = _curvalue * _distance;
+
+        if (IsWin)
+        {
+            if (SettingScreen.IsActive)
+            {
+                _winScreen.SetActive(false);
+            }
+            else
+            {
+                _winScreen.SetActive(true);
+            }
+        }
+        else
+        {
+            _winScreen.SetActive(false);
+        }
     }
+
+
 
     public void ReturnToCheckPoint()
     {
@@ -91,6 +116,29 @@ public class CheckPointManager : MonoBehaviour
         YandexGame.NewLeaderboardScores(leaderboardYG.nameLB, record);
     }*/
 
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
+
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
+    }
+
+    public void ShowNewPointMessage()
+    {
+        StartCoroutine(ShowNewPointMessageCoroutine());
+    }
+
+    IEnumerator ShowNewPointMessageCoroutine()
+    {
+        _newcheckpointText.CrossFadeAlpha(1, _duration, true);
+        yield return new WaitForSeconds(_duration);
+        _newcheckpointText.CrossFadeAlpha(0, _duration, true);
+
+    }
+
     public void SetActiveCheckPoint(CheckPoint active)
     {
         foreach(var checkPoint in _checkPoints)
@@ -103,6 +151,7 @@ public class CheckPointManager : MonoBehaviour
         int index = _checkPoints.FindIndex(cp => cp.State == CheckPointState.active);
         float value = (_checkPoints[index].transform.position.z - _checkPoints[0].transform.position.z) / _distance;
         _progressCheckPoints.fillAmount = value;
+
         if (cpcur.IsFinish)
         {
             IsWin = true;
@@ -118,6 +167,11 @@ public class CheckPointManager : MonoBehaviour
         }
     }
 
+    public void CloseWinScreen()
+    {
+        IsWin = false;
+    }
+
     public void SelectCheckPoint(int index)
     {
         if (_playerTransform != null)
@@ -130,6 +184,14 @@ public class CheckPointManager : MonoBehaviour
             {
                 SettingScreen.Instance.SwitchScreenState();
             }
+
+            if (index == 0)
+            {
+                IsWin = false;
+            }
+
+            var cpcur = _checkPoints.Find(cp => cp.IsFinish);
+            cpcur.gameObject.SetActive(true);
         }
     }
 }

@@ -18,6 +18,8 @@ public class LifeManager : MonoBehaviour
     private GameObject _reloadButton;
     [SerializeField]
     private bool _isDead;
+    [SerializeField]
+    private bool _isMyReward;
 
 
     private void Awake()
@@ -91,6 +93,20 @@ public class LifeManager : MonoBehaviour
         else
         {
 
+        }
+    }
+
+    public void ShowRewardForLife()
+    {
+        _isMyReward = true;
+        AdsManager.Instance.ShowRewardedAd();
+    }
+
+    public void Rewarded()
+    {
+        if (_isMyReward)
+        {
+            Respawn();
         }
     }
 

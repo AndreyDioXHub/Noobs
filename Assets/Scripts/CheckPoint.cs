@@ -54,6 +54,11 @@ public class CheckPoint : MonoBehaviour
         {
             CheckPointManager.Instance.SetActiveCheckPoint(this);
 
+            if (IsFinish)
+            {
+                gameObject.SetActive(false);
+                CoinManager.Instance.AddMoney(150);
+            }
 
             if (_checkPointButton != null)
             {
@@ -62,6 +67,7 @@ public class CheckPoint : MonoBehaviour
                     if (_checkPointIndex != 0)
                     {
                         CoinManager.Instance.AddMoney(50);
+                        CheckPointManager.Instance.ShowNewPointMessage();
                     }
 
                     PlayerPrefs.SetInt($"{PlayerPrefsConsts.checkpoint}{_checkPointIndex}", 1);
