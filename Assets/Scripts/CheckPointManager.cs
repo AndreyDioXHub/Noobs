@@ -125,6 +125,11 @@ public class CheckPointManager : MonoBehaviour
             _playerTransform.GetComponent<RobloxController>().ReturnToCheckPoint(_checkPoints[index].transform.position);
             _curvaluePrev = 0;
             AdsManager.Instance.ShowFullscreenButton();
+
+            if (SettingScreen.IsActive)
+            {
+                SettingScreen.Instance.SwitchScreenState();
+            }
         }
     }
 }

@@ -16,6 +16,9 @@ public class LifeManager : MonoBehaviour
     private GameObject _respButton;
     [SerializeField]
     private GameObject _reloadButton;
+    [SerializeField]
+    private bool _isDead;
+
 
     private void Awake()
     {
@@ -40,14 +43,32 @@ public class LifeManager : MonoBehaviour
             _respButton.SetActive(false);
             _reloadButton.SetActive(true);
         }
+
+        if (_isDead)
+        {
+            if (SettingScreen.IsActive)
+            {
+                _dieStreen.SetActive(false);
+            }
+            else
+            {
+                _dieStreen.SetActive(true);
+            }
+        }
+        else
+        {
+            _dieStreen.SetActive(false);
+        }
     }
 
-    public void ProcessLife()
+    public void PlayerDead()
     {
         //Debug.Log("ProcessLife");
-        _dieStreen.SetActive(true);
+        _isDead = true;
         //Respawn();
     }
+
+
 
     public void MinusLife()
     {
@@ -75,7 +96,7 @@ public class LifeManager : MonoBehaviour
 
     public void Respawn()
     {
-        _dieStreen.SetActive(false);
+        _isDead = false;
         CheckPointManager.Instance.ReturnToCheckPoint();
     }
 
