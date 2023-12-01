@@ -54,10 +54,16 @@ public class CheckPoint : MonoBehaviour
         {
             CheckPointManager.Instance.SetActiveCheckPoint(this);
 
+
             if (_checkPointButton != null)
             {
                 if (_checkPointIndex >= 0 && !_avaleble)
                 {
+                    if (_checkPointIndex != 0)
+                    {
+                        CoinManager.Instance.AddMoney(50);
+                    }
+
                     PlayerPrefs.SetInt($"{PlayerPrefsConsts.checkpoint}{_checkPointIndex}", 1);
                     _avaleble = true;
                     _checkPointButton.interactable = true;
