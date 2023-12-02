@@ -22,7 +22,7 @@ public class ServerConnectButton : MonoBehaviour
     [SerializeField]
     private int _countCur = 3;
 
-    private GameServer _server;
+    private GameServerData _server;
 
 
     void Start()
@@ -36,7 +36,7 @@ public class ServerConnectButton : MonoBehaviour
         
     }
 
-    public void Init(GameServer gmsrv) {
+    public void Init(GameServerData gmsrv) {
         _server = gmsrv;
         if(!int.TryParse(_server.Players,out _countCur)) {
             _countCur = -1;  //FOR TEST

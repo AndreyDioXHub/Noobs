@@ -16,11 +16,11 @@ namespace cyraxchel.network {
     public class NoobsLobby : MonoBehaviour {
 
         public UnityEvent OnAuthenticationFailed = new UnityEvent();
-        public UnityEvent<List<GameServer>> OnListLobbiesLoaded = new UnityEvent<List<GameServer>>();
+        public UnityEvent<List<GameServerData>> OnListLobbiesLoaded = new UnityEvent<List<GameServerData>>();
         public static NoobsLobby Instance { get; private set; }
         public bool HasLobbies { get => Lobbies != null && Lobbies.Any(); }
 
-        public List<GameServer> Lobbies;
+        public List<GameServerData> Lobbies;
 
         Lobby currentLobby;
 
@@ -53,7 +53,7 @@ namespace cyraxchel.network {
 
                 if(foundLobbies.Any()) {
                     Debug.Log("Found lobbies:\n" + JsonConvert.SerializeObject(foundLobbies));
-                    Lobbies = new List<GameServer>();
+                    Lobbies = new List<GameServerData>();
                     foreach (var item in foundLobbies) {
                         string addr = "--";
                         DataObject dobj;
@@ -64,7 +64,7 @@ namespace cyraxchel.network {
                         if(item.Data.TryGetValue(NoobsLobbyServer.D_PLAYERS_COUNT, out dobj)) {
                             playersCount = dobj.Value;
                         }
-                        GameServer gs = new GameServer() {
+                        GameServerData gs = new GameServerData() {
                             Name = item.Name,
                             Id = item.Id,
                             Address = addr,

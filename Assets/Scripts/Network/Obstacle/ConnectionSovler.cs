@@ -20,7 +20,7 @@ namespace cyraxchel.network.server {
         List<string> DataServers;       //Список серверов-источников адресов игровых серверов
 
         [SerializeField]
-        List<GameServer> GameServers;
+        List<GameServerData> GameServers;
 
         const string LAST_SERVER = "cs_last_server";
 

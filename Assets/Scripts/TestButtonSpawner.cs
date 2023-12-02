@@ -35,7 +35,7 @@ public class TestButtonSpawner : MonoBehaviour
         NoobsLobby.Instance.OnListLobbiesLoaded.RemoveListener(RefreshServerList);
     }
 
-    private void RefreshServerList(List<GameServer> servers) {
+    private void RefreshServerList(List<GameServerData> servers) {
         Debug.Log("RefreshServerList call");
         if(conten.childCount > 0) {
             while(conten.childCount > 0) {

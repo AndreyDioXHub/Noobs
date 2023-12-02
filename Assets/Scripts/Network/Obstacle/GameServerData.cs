@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace cyraxchel.network.server {
     [Serializable]
-    public class GameServer {
+    public class GameServerData {
         public string Name = string.Empty;
         //TODO Name by locals
         public Dictionary<string, string> Names;
