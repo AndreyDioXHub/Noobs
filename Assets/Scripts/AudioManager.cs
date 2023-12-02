@@ -14,6 +14,18 @@ public class AudioManager : MonoBehaviour
     [SerializeField]
     private float _volume = 1;
 
+    [SerializeField]
+    private AudioSource _music;
+    [SerializeField]
+    private GameObject _audioMusicOn;
+    [SerializeField]
+    private GameObject _audioMusicOff;
+    [SerializeField]
+    private Slider _audioMusicSlider;
+    [SerializeField]
+    private float _volumeMusic = 1;
+
+
     void Start()
     {
         _volume = PlayerPrefs.GetFloat(PlayerPrefsConsts.audio, 1);
@@ -34,6 +46,27 @@ public class AudioManager : MonoBehaviour
             {
                 _audioOn.SetActive(true);
                 _audioOff.SetActive(false);
+            }
+        }
+
+        _volumeMusic = PlayerPrefs.GetFloat(PlayerPrefsConsts.music, 1);
+        _volumeMusic = _volumeMusic > 1 ? 1 : _volumeMusic;
+
+        _music.volume = _volumeMusic * 0.5f;
+
+        if (_audioMusicOn != null && _audioMusicOff != null && _audioMusicSlider != null)
+        {
+            _audioMusicSlider.value = _volumeMusic;
+
+            if (_volumeMusic == 0)
+            {
+                _audioMusicOn.SetActive(false);
+                _audioMusicOff.SetActive(true);
+            }
+            else
+            {
+                _audioMusicOn.SetActive(true);
+                _audioMusicOff.SetActive(false);
             }
         }
     }
@@ -58,6 +91,30 @@ public class AudioManager : MonoBehaviour
             {
                 _audioOn.SetActive(true);
                 _audioOff.SetActive(false);
+            }
+        }
+    }
+
+    public void UpdateMusicVolume(float value)
+    {
+        _volumeMusic = value;
+        PlayerPrefs.SetFloat(PlayerPrefsConsts.music, _volumeMusic);
+
+        _music.volume = _volumeMusic * 0.5f;
+
+        if (_audioMusicOn != null && _audioMusicOff != null && _audioMusicSlider != null)
+        {
+            _audioMusicSlider.value = _volumeMusic;
+
+            if (_volumeMusic == 0)
+            {
+                _audioMusicOn.SetActive(false);
+                _audioMusicOff.SetActive(true);
+            }
+            else
+            {
+                _audioMusicOn.SetActive(true);
+                _audioMusicOff.SetActive(false);
             }
         }
     }
