@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Mirror;
+using UnityEngine.Events;
 
 /*
 	Documentation: https://mirror-networking.gitbook.io/docs/components/network-manager
@@ -14,6 +15,9 @@ public class ObstacleNetworkManager : NetworkManager
     // have to cast to this type everywhere.
     public static new ObstacleNetworkManager singleton => (ObstacleNetworkManager)NetworkManager.singleton;
 
+    public int CurrentPlayersCount { get; private set; }
+
+    public UnityEvent<int> ServerPlayerCountChanged = new UnityEvent<int>();
     /// <summary>
     /// Runs on both Server and Client
     /// Networking is NOT initialized when this fires
@@ -130,7 +134,10 @@ public class ObstacleNetworkManager : NetworkManager
     /// <para>Unity calls this on the Server when a Client connects to the Server. Use an override to tell the NetworkManager what to do when a client connects to the server.</para>
     /// </summary>
     /// <param name="conn">Connection from client.</param>
-    public override void OnServerConnect(NetworkConnectionToClient conn) { }
+    public override void OnServerConnect(NetworkConnectionToClient conn) {
+        CurrentPlayersCount++;
+        ServerPlayerCountChanged?.Invoke(CurrentPlayersCount);
+    }
 
     /// <summary>
     /// Called on the server when a client is ready.
@@ -160,6 +167,8 @@ public class ObstacleNetworkManager : NetworkManager
     public override void OnServerDisconnect(NetworkConnectionToClient conn)
     {
         base.OnServerDisconnect(conn);
+        CurrentPlayersCount = Mathf.Max(0, CurrentPlayersCount-1);
+        ServerPlayerCountChanged?.Invoke(CurrentPlayersCount);
     }
 
     /// <summary>

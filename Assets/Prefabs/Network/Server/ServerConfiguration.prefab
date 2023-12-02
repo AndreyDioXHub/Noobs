@@ -50,6 +50,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   target: {fileID: 0}
+  serverLobby: {fileID: 4128231739481967028}
 --- !u!114 &8144465508669692150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79,3 +80,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3027fe495ef808d4faa0dc0bc8aeda98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serverAddress: 
+  servername: server
+  maxPlayers: 100
