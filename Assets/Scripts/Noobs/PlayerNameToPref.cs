@@ -10,6 +10,9 @@ public class PlayerNameToPref : MonoBehaviour
     TMP_Text viewText;
     [SerializeField]
     TMP_InputField inputField;
+    [SerializeField]
+    private List<string> _names = new List<string>();
+
 
     string username = "";
 
@@ -31,7 +34,8 @@ public class PlayerNameToPref : MonoBehaviour
 
     private string GetDefaultName() {
         //TODO
-        return string.Empty;
+        string result = _names[UnityEngine.Random.Range(0, _names.Count)];
+        return result;// string.Empty;
     }
 
 
