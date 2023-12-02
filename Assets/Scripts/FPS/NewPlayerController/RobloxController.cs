@@ -8,6 +8,9 @@ public class RobloxController : MonoBehaviour
 {
     public UnityEvent OnEscDown = new UnityEvent();
     public UnityEvent OnEnterDown = new UnityEvent();
+    public UnityEvent OnJumpPressed = new UnityEvent();
+    public UnityEvent OnDie = new UnityEvent();
+    
 
     public static RobloxController Instance;
 
@@ -41,7 +44,10 @@ public class RobloxController : MonoBehaviour
     [SerializeField]
     private Vector2 _axisMove;
     [SerializeField]
-    protected Vector3 _gravityVector;
+    private Vector3 _gravityVector;
+    [SerializeField]
+    private PlayerSounds _sounds;
+
 
     private float _inAirTime = 0.1f;
     private float _inAirTimeCur;
@@ -67,6 +73,16 @@ public class RobloxController : MonoBehaviour
         {
             return;
         }
+
+        if (_isGrounded)
+        {
+            _sounds.PlayMove(_axisMove.magnitude > 0);
+        }
+        else
+        {
+            _sounds.PlayMove(false);
+        }
+
         //Debug.Log($"{ SettingScreen.IsActive} {AdsScreen.IsActive} {AdsButtonView.IsActive} {CheckPointManager.Instance.IsWin} {ChatTexts.IsActive}");
 
         if (SettingScreen.IsActive || AdsScreen.IsActive || AdsButtonView.IsActive || CheckPointManager.Instance.IsWin || ChatTexts.IsActive)// || BlockCountManager.Instance.BlocksCount == 0)
@@ -155,6 +171,7 @@ public class RobloxController : MonoBehaviour
         //Read.
         _axisMove = context.ReadValue<Vector2>();
     }
+
     public void OnJump(InputAction.CallbackContext context)
     {
         if (SettingScreen.IsActive || AdsScreen.IsActive || AdsButtonView.IsActive || CheckPointManager.Instance.IsWin || ChatTexts.IsActive)// || BlockCountManager.Instance.BlocksCount == 0)
@@ -183,6 +200,7 @@ public class RobloxController : MonoBehaviour
         {
             _isJump = true;
             _gravityVector.y = Mathf.Sqrt(_jumpHeight * -2f * _gravity) * Time.fixedDeltaTime;
+            OnJumpPressed?.Invoke();
         }
     }
     public void OnMenu(InputAction.CallbackContext context)
