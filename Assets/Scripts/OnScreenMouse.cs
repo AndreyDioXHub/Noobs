@@ -79,26 +79,26 @@ public class OnScreenMouse : OnScreenControl
         {
             _positionDrag = Vector2.zero;
             _positionDragPrev = Vector2.zero;
-            Debug.Log($"1) {_delta}");
+            //Debug.Log($"1) {_delta}");
         }
         else
         {
             _positionDrag = Input.mousePosition;
-            Debug.Log($"2) {_delta}");
+            //Debug.Log($"2) {_delta}");
 
             if (_positionDrag == Vector2.zero || _positionDragPrev == Vector2.zero || _positionDrag == _positionDragPrev)
             {
                 _delta = Vector2.zero;
-                Debug.Log($"3) {_delta}");
+                //Debug.Log($"3) {_delta}");
             }
             else
             {
                 _delta = _positionDrag - _positionDragPrev;
-                Debug.Log($"4) {_delta}");
+                //Debug.Log($"4) {_delta}");
             }
         }
 
-        Debug.Log($"5) {_delta}");
+        //Debug.Log($"5) {_delta}");
         SendValueToControl(_delta);
 
     }

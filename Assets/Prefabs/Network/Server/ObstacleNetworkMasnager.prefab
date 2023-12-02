@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 1778411711057350417}
   - component: {fileID: 1778411711057350430}
   - component: {fileID: 1778411711057350431}
-  - component: {fileID: 2798108634391915910}
   m_Layer: 0
   m_Name: ObstacleNetworkMasnager
   m_TagString: Untagged
@@ -119,24 +118,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offsetX: 0
   offsetY: 0
---- !u!114 &2798108634391915910
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1778411711057350418}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 364e2cfb9889bb14fb50c2d7d45dc858, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BeginSearchServers:
-    m_PersistentCalls:
-      m_Calls: []
-  OnSendRequiesToServer:
-    m_PersistentCalls:
-      m_Calls: []
-  DataServers:
-  - https://drive.google.com/uc?export=view&id=1_w2JTv5as2zTAf1Xd2O5a1aoFIYUEm4u
-  GameServers: []

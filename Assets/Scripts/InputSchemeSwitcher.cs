@@ -29,6 +29,13 @@ public class InputSchemeSwitcher : MonoBehaviour
     [SerializeField]
     InputActionReference MobileLook;
 
+    [SerializeField]
+    private MeshRenderer _ocean;
+    [SerializeField]
+    private Material _oceanMTLPC;
+    [SerializeField]
+    private Material _oceanMTLM;
+
     private void Awake()
     {
         Instance = this;
@@ -104,7 +111,28 @@ public class InputSchemeSwitcher : MonoBehaviour
                                     }
                                     else
                                     {
-                                        return true;
+                                        if (_ocean == null)
+                                        {
+                                            return false;
+                                        }
+                                        else
+                                        {
+                                            if (_oceanMTLPC == null)
+                                            {
+                                                return false;
+                                            }
+                                            else
+                                            {
+                                                if (_oceanMTLM == null)
+                                                {
+                                                    return false;
+                                                }
+                                                else
+                                                {
+                                                    return true;
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -136,6 +164,7 @@ public class InputSchemeSwitcher : MonoBehaviour
             TPSInput.XYAxis = MobileLook;
             ChatTexts.Instance.SetMobile();
             //SaveManager.Instance.SwitchAutoSave();
+            _ocean.material = _oceanMTLM;
             return;
         }
 
@@ -149,6 +178,7 @@ public class InputSchemeSwitcher : MonoBehaviour
             FPSInput.XYAxis = PCLook;
             TPSInput.XYAxis = PCLook;
             ChatTexts.Instance.IsMobile = false;
+            _ocean.material = _oceanMTLPC;
             return;
         }
 
@@ -162,6 +192,7 @@ public class InputSchemeSwitcher : MonoBehaviour
             FPSInput.XYAxis = MobileLook;
             TPSInput.XYAxis = MobileLook;
             ChatTexts.Instance.SetMobile();
+            _ocean.material = _oceanMTLM;
             //SaveManager.Instance.SwitchAutoSave();
             return;
         }
@@ -176,6 +207,7 @@ public class InputSchemeSwitcher : MonoBehaviour
             FPSInput.XYAxis = MobileLook;
             TPSInput.XYAxis = MobileLook;
             ChatTexts.Instance.SetMobile();
+            _ocean.material = _oceanMTLM;
             //SaveManager.Instance.SwitchAutoSave();
             return;
         }

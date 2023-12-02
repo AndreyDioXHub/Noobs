@@ -97,6 +97,7 @@ public static class LocalizationStrings
         { "winscore", "Ваш счет:"},
         { "winsbet", "Улучшите свой результат или посмотрите другие наши игры"},
         { "tostart", "В начало"},
+        { "message", "Сообщение"},
     };
 
     public static Dictionary<string, string> StringsRu = new Dictionary<string, string>()
@@ -192,6 +193,7 @@ public static class LocalizationStrings
         { "winscore", "Ваш счет:"},
         { "winsbet", "Улучшите свой результат или посмотрите другие наши игры"},
         { "tostart", "В начало"},
+        { "message", "Сообщение"},
     };
 
     public static Dictionary<string, string> StringsEn = new Dictionary<string, string>()
@@ -287,6 +289,7 @@ public static class LocalizationStrings
         { "winscore", "You score:"},
         { "winsbet", "Improve your score or check out our other games"},
         { "tostart", "To start"},
+        { "message", "Message"},
     };
 
     public static void SetLanguage(string lang)

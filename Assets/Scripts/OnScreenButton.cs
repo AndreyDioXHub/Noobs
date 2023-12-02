@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.Layouts;
 using UnityEngine.InputSystem.OnScreen;
@@ -20,6 +21,9 @@ public class OnScreenButton : OnScreenControl, IPointerDownHandler, IPointerUpHa
     private Vector2 _downPosition;
     [SerializeField]
     private float _minDistance, _breackDistance = 300;
+
+    [SerializeField]
+    private List<Image> _images = new List<Image>();
 
     public void OnPointerUp(PointerEventData data)
     {
@@ -72,6 +76,20 @@ public class OnScreenButton : OnScreenControl, IPointerDownHandler, IPointerUpHa
             }
         }
 
+        if(SettingScreen.IsActive || AdsScreen.IsActive)
+        {
+            foreach(var i in _images)
+            {
+                i.color = new Color(0,0,0,0);
+            }
+        }
+        else
+        {
+            foreach (var i in _images)
+            {
+                i.color = new Color(1, 1, 1, 1);
+            }
+        }
     }
 
     [InputControl(layout = "Button")]

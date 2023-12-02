@@ -31,6 +31,10 @@ public class SettingScreen : MonoBehaviour
     private float _time = 0.5f, _timeCur;
     [SerializeField]
     private bool _isMobile;
+    /*
+    [SerializeField]
+    private GameObject _mobileInputCanvas;*/
+
 
     private void Awake()
     {
@@ -80,7 +84,11 @@ public class SettingScreen : MonoBehaviour
     }
 
     private void OnEnable()
-    {
+    {/*
+        if(_isMobile && _mobileInputCanvas != null)
+        {
+            _mobileInputCanvas.SetActive(false);
+        }*/
     }
 
     private void OnDisable()
@@ -88,5 +96,10 @@ public class SettingScreen : MonoBehaviour
         //PlayerPrefs.Save();
         _escButton.SetActive(false);
         _timeCur = 0;
+        /*
+        if (_isMobile && _mobileInputCanvas != null)
+        {
+            _mobileInputCanvas.SetActive(true);
+        }*/
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using Mirror;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -27,6 +28,8 @@ public class Chat : NetworkBehaviour
 
     #region Unity Callbacks
 
+    [SerializeField]
+    private TMP_InputField _inputField;
 
     // NOTE: Do not put objects in DontDestroyOnLoad (DDOL) in Awake.  You can do that in Start instead.
     void Awake()
@@ -71,9 +74,15 @@ public class Chat : NetworkBehaviour
         OnChatMessage?.Invoke(prettyMessage);
     }
 
-    public void OnEndEdit(string input) {
+    public void OnEndEdit(string input) 
+    {
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetButtonDown("Submit"))
             SendChatMessage(input);
+    }
+
+    public void OnEndEdit() 
+    {
+        SendChatMessage(_inputField.text);
     }
 
     // Called by OnEndEdit above and UI element SendButton.OnClick

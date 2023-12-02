@@ -2,11 +2,13 @@ using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 using UnityEngine.InputSystem.Layouts;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.OnScreen;
 using TMPro;
 using UnityEngine.InputSystem.EnhancedTouch;
 using ETouch = UnityEngine.InputSystem.EnhancedTouch;
+using System.Collections.Generic;
 
 /// <summary>
 /// A stick control displayed on screen and moved around by touch or other pointer
@@ -19,6 +21,9 @@ public class OnScreenStickTouch : OnScreenControl
     private RectTransform _rect;*/
     /*[SerializeField]
     private TextMeshProUGUI _text0;*/
+
+    [SerializeField]
+    private List<Image> _images = new List<Image>();
     [SerializeField]
     private Canvas _canvas;
     [SerializeField]
@@ -89,6 +94,21 @@ public class OnScreenStickTouch : OnScreenControl
     private void Update()
     {
         SendValueToControl(_pos);
+
+        if (SettingScreen.IsActive || AdsScreen.IsActive)
+        {
+            foreach (var i in _images)
+            {
+                i.color = new Color(0, 0, 0, 0);
+            }
+        }
+        else
+        {
+            foreach (var i in _images)
+            {
+                i.color = new Color(1, 1, 1, 1);
+            }
+        }
     }
 
 
