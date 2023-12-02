@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class DieCollider : MonoBehaviour
 {
@@ -16,8 +17,11 @@ public class DieCollider : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        LifeManager.Instance.PlayerDead();
-        other.transform.SetParent(null);
-        //CheckPointManager.Instance.SetNewRecord();
+        if (other.tag.Equals("Player"))
+        {
+            LifeManager.Instance.PlayerDead();
+            other.transform.SetParent(null);
+            other.GetComponent<RobloxController>().OnDie?.Invoke();
+        }
     }
 }
