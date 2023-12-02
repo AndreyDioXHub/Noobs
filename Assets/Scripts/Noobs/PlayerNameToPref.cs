@@ -22,12 +22,17 @@ public class PlayerNameToPref : MonoBehaviour
         LoadSave();
     }
 
-    private void LoadSave() {
+    private void LoadSave() 
+    {
         username = PlayerPrefs.GetString(PlayerPrefsConsts.USER_NAME_KEY, GetDefaultName());
-        if(viewText != null) {
+
+        if(viewText != null) 
+        {
             viewText.text = username;
         }
-        if(inputField != null) {
+
+        if(inputField != null) 
+        {
             inputField.text = username;
         }
     }
@@ -35,21 +40,32 @@ public class PlayerNameToPref : MonoBehaviour
     private string GetDefaultName() {
         //TODO
         string result = _names[UnityEngine.Random.Range(0, _names.Count)];
+
+        PlayerPrefs.SetString(PlayerPrefsConsts.USER_NAME_KEY, result);
+        PlayerPrefs.Save();
+
         return result;// string.Empty;
     }
 
 
-    public void SetNewName(string newName) {
-        if(string.IsNullOrWhiteSpace(newName)) {
+    public void SetNewName(string newName) 
+    {
+        if(string.IsNullOrWhiteSpace(newName)) 
+        {
             inputField.text = username;
             return;
-        } else {
+        } 
+        else 
+        {
             newName = CensoredList.ReplaceText(newName);
             inputField.text = newName;
         }
-        if(viewText != null) {
+
+        if(viewText != null) 
+        {
             viewText.text = newName;
         }
+
         PlayerPrefs.SetString(PlayerPrefsConsts.USER_NAME_KEY, newName);
         PlayerPrefs.Save();
     }
