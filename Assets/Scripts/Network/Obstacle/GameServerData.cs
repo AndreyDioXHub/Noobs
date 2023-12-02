@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 
@@ -13,6 +14,7 @@ namespace cyraxchel.network.server {
         public string Players = string.Empty;
         public string Id = string.Empty;
 
+        [JsonIgnore]
         public string FullAddress { get => $"{Address}:{Port}"; }
         public string GetServerName(string locale) {
             string _name = string.Empty;

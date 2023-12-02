@@ -13,21 +13,22 @@ namespace cyraxchel.network.server {
 
         #region Const
         public static readonly string D_ADDRESS = "Address";
+        public static readonly string D_PORT = "Port";
         public static readonly string D_NAME = "Name";
         public static readonly string D_PLAYERS_COUNT = "Players";
         #endregion
 
         private Lobby serverLobby;
 
-        [SerializeField]
-        private string serverAddress;
 
-        [SerializeField]
-        string servername = "server";
         [SerializeField]
         int maxPlayers = 100;
 
-        public async void StartLobby() {
+        GameServerData serverDataConfig;
+
+        public async void StartLobby(GameServerData gameServerData) {
+            serverDataConfig = gameServerData;
+
             try {
                 await ExecuteServerLobby();
             } catch (Exception e) {
@@ -43,15 +44,15 @@ namespace cyraxchel.network.server {
 
             serverLoggedPlayer.Data.Add("Type", new PlayerDataObject(PlayerDataObject.VisibilityOptions.Private, "server"));
 
-            serverAddress = ObstacleNetworkManager.singleton.networkAddress;
 
             var lobbydata = new Dictionary<string, DataObject>() {
-                [D_NAME] = new DataObject(DataObject.VisibilityOptions.Public, servername, DataObject.IndexOptions.S1),
-                [D_ADDRESS] = new DataObject(DataObject.VisibilityOptions.Public, serverAddress , DataObject.IndexOptions.S2),
+                [D_NAME] = new DataObject(DataObject.VisibilityOptions.Public, serverDataConfig.Name, DataObject.IndexOptions.S1),
+                [D_ADDRESS] = new DataObject(DataObject.VisibilityOptions.Public, serverDataConfig.Address, DataObject.IndexOptions.S2),
+                [D_PORT] = new DataObject(DataObject.VisibilityOptions.Public, serverDataConfig.Port , DataObject.IndexOptions.S2),
                 [D_PLAYERS_COUNT] = new DataObject(DataObject.VisibilityOptions.Public, ObstacleNetworkManager.singleton.CurrentPlayersCount.ToString(), DataObject.IndexOptions.N1)
             };
             serverLobby = await LobbyService.Instance.CreateLobbyAsync(
-                lobbyName: servername,
+                lobbyName: serverDataConfig.Name,
                 maxPlayers: maxPlayers,
                 options: new CreateLobbyOptions() {
                     //TODO
