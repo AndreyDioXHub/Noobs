@@ -48,6 +48,8 @@ public class SkinManager : MonoBehaviour
     private GameObject _femaleActive;
     [SerializeField]
     private GameObject _pomniActive;
+    [SerializeField]
+    private GameObject _buySexButton;
 
     [SerializeField]
     private List<Renderer> _bodysMale = new List<Renderer>();
@@ -106,7 +108,7 @@ public class SkinManager : MonoBehaviour
 
     void Start()
     {
-        string infoJSON = PlayerPrefs.GetString("user_skin", "");
+        string infoJSON = PlayerPrefs.GetString(PlayerPrefsConsts.USER_SKIN_KEY, "");
 
         _playerMTL = new Material(_bodysMale[0].material);
         _playerEditMTL = new Material(_bodysMale[0].material);
@@ -122,9 +124,10 @@ public class SkinManager : MonoBehaviour
                 _info.shoesColors.Add(false);
             }
 
-
+            _info.sexes = new List<bool>() { true, true, false };
             int bodyindex = 0;// Random.Range(0, 12);
             _info.bodyColors[bodyindex] = true;
+
 
             int hairColorsindex = Random.Range(1, 12);
             _info.hairColors[hairColorsindex] = true;
@@ -305,11 +308,74 @@ public class SkinManager : MonoBehaviour
         OnSkinInfoChanged?.Invoke(infoJSON);
     }
 
+    public void CheckAvaleble(int index)
+    {
+        if (_info.sexes[index])
+        {
+            _info.eqyuipedSex = index;
+
+            _buySexButton.SetActive(false);
+
+            foreach (var male in _males)
+            {
+                male.SetActive(index == 0);
+            }
+
+            foreach (var female in _females)
+            {
+                female.SetActive(index == 1);
+            }
+
+            foreach (var pomni in _pomni)
+            {
+                pomni.SetActive(index == 2);
+            }
+
+            _maleActive.SetActive(index == 0);
+            _femaleActive.SetActive(index == 1);
+            _pomniActive.SetActive(index == 2);
+        }
+        else
+        {
+            _buySexButton.SetActive(true);
+
+            foreach (var male in _males)
+            {
+                male.SetActive(index == 0);
+            }
+
+            foreach (var female in _females)
+            {
+                female.SetActive(index == 1);
+            }
+
+            foreach (var pomni in _pomni)
+            {
+                pomni.SetActive(index == 2);
+            }
+
+            _maleActive.SetActive(index == 0);
+            _femaleActive.SetActive(index == 1);
+            _pomniActive.SetActive(index == 2);
+        }
+    }
+
+    public void SetInfo(string json)
+    {
+        _info = JsonConvert.DeserializeObject<SkinsInfo>(json);
+    }
+
+    public void CloseSex()
+    {
+        EquipSex(_info.eqyuipedSex);
+    }
+
     public void EquipSex(int index)
     {
         _info.eqyuipedSex = index;
+        _buySexButton.SetActive(false);
 
-        foreach(var male in _males)
+        foreach (var male in _males)
         {
             male.SetActive(index == 0);
         }
@@ -484,6 +550,7 @@ public class SkinsInfo
     public int eqyuipedShoes = 0;
     public int eqyuipedFace = 0;
 
+    public List<bool> sexes = new List<bool>();
     public List<bool> bodyColors = new List<bool>();
     public List<bool> hairs = new List<bool>();
     public List<bool> hairColors = new List<bool>();
