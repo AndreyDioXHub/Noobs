@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 8144465508669692149}
   - component: {fileID: 8144465508669692151}
   - component: {fileID: 8144465508669692150}
-  - component: {fileID: 4128231739481967028}
   m_Layer: 0
   m_Name: ServerConfiguration
   m_TagString: Untagged
@@ -50,7 +49,14 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   target: {fileID: 0}
-  serverLobby: {fileID: 4128231739481967028}
+  serverLobby: {fileID: 0}
+  configFile: config.cfg
+  toSaveData:
+    Name: 
+    Address: 
+    Port: 
+    Players: 
+    Id: 
 --- !u!114 &8144465508669692150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68,18 +74,3 @@ MonoBehaviour:
   serverOnly: 1
   visible: 0
   hasSpawned: 0
---- !u!114 &4128231739481967028
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8144465508669692148}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3027fe495ef808d4faa0dc0bc8aeda98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  serverAddress: 
-  servername: server
-  maxPlayers: 100

@@ -23,8 +23,8 @@ namespace cyraxchel.network.server {
 
         public override void OnStartServer() {
             base.OnStartServer();
-            GameServerData gameServerData = LoadDefaults();
-            serverLobby.StartLobby(gameServerData);
+            //GameServerData gameServerData = LoadDefaults();
+            //serverLobby.StartLobby(gameServerData);
         }
 
         private GameServerData LoadDefaults() {

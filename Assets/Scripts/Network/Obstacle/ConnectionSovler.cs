@@ -48,7 +48,7 @@ namespace cyraxchel.network.server {
             }
         }
 
-        private bool CheckNotServerPlatform() {
+        public static bool CheckNotServerPlatform() {
             bool isServer = Application.platform == RuntimePlatform.LinuxServer;
             isServer = isServer && Application.platform == RuntimePlatform.WindowsServer;
             return !isServer;
