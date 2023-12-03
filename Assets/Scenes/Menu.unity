@@ -463,8 +463,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1631553077}
         m_TargetAssemblyTypeName: CoinManager, Assembly-CSharp
-        m_MethodName: AddMoney
-        m_Mode: 3
+        m_MethodName: Rewarded
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1225,10 +1225,14 @@ PrefabInstance:
     - target: {fileID: 8401216324461439274, guid: 6d023c8074e9fa146a0e80ee67516e61, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 788353416}
+      objectReference: {fileID: 1631553077}
     - target: {fileID: 8401216324461439274, guid: 6d023c8074e9fa146a0e80ee67516e61, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ShowRewardedAd
+      value: ShowRewardForMoney
+      objectReference: {fileID: 0}
+    - target: {fileID: 8401216324461439274, guid: 6d023c8074e9fa146a0e80ee67516e61, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CoinManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8401216324480383033, guid: 6d023c8074e9fa146a0e80ee67516e61, type: 3}
       propertyPath: m_AnchorMax.x
