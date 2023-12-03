@@ -22,6 +22,8 @@ public class TestButtonSpawner : MonoBehaviour
         NoobsLobby.Instance.OnListLobbiesLoaded.AddListener(RefreshServerList);
         if(NoobsLobby.Instance.HasLobbies) {
             StartCoroutine(RefreshListLater());
+        } else {
+            NoobsLobby.Instance.RefreshLobbyListAsync();
         }
     }
 

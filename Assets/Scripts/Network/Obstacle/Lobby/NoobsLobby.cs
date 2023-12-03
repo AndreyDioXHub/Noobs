@@ -32,13 +32,13 @@ namespace cyraxchel.network {
         }
 
         // Start is called before the first frame update
-        async void Start() {
+        /*async void Start() {
             try {
                 await ExecuteGetLobby();
             } catch(Exception ex) {
                 Debug.LogError(ex.Message);
             }
-        }
+        }/**/
 
         async Task ExecuteGetLobby() {
             await UnityServices.InitializeAsync();

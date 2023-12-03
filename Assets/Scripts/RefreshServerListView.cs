@@ -1,3 +1,4 @@
+using cyraxchel.network;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -74,5 +75,6 @@ public class RefreshServerListView : MonoBehaviour
         _timwCur = 0;
         _isPaused = true;
         OnServersRefreshed?.Invoke();
+        NoobsLobby.Instance.RefreshLobbyListAsync();
     }
 }

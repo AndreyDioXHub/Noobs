@@ -48,7 +48,7 @@ namespace cyraxchel.network.server {
             var lobbydata = new Dictionary<string, DataObject>() {
                 [D_NAME] = new DataObject(DataObject.VisibilityOptions.Public, serverDataConfig.Name, DataObject.IndexOptions.S1),
                 [D_ADDRESS] = new DataObject(DataObject.VisibilityOptions.Public, serverDataConfig.Address, DataObject.IndexOptions.S2),
-                [D_PORT] = new DataObject(DataObject.VisibilityOptions.Public, serverDataConfig.Port , DataObject.IndexOptions.S2),
+                [D_PORT] = new DataObject(DataObject.VisibilityOptions.Public, serverDataConfig.Port , DataObject.IndexOptions.S3),
                 [D_PLAYERS_COUNT] = new DataObject(DataObject.VisibilityOptions.Public, ObstacleNetworkManager.singleton.CurrentPlayersCount.ToString(), DataObject.IndexOptions.N1)
             };
             serverLobby = await LobbyService.Instance.CreateLobbyAsync(
@@ -75,12 +75,14 @@ namespace cyraxchel.network.server {
             }
         }
         private async void OnPlayersCountChanged(int playercount) {
+            Debug.Log($"Try update to new count {playercount}");
             if(serverLobby != null) {
                 await UpdateLobbyData(playercount);
             }
         }
 
         private async Task UpdateLobbyData(int playercount) {
+            serverLobby.Data[D_PLAYERS_COUNT] = new DataObject(DataObject.VisibilityOptions.Public, playercount.ToString(),DataObject.IndexOptions.N1);
             serverLobby = await LobbyService.Instance.UpdateLobbyAsync(
                 lobbyId: serverLobby.Id,
                 options: new UpdateLobbyOptions() {

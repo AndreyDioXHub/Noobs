@@ -137,6 +137,7 @@ public class ObstacleNetworkManager : NetworkManager
     public override void OnServerConnect(NetworkConnectionToClient conn) {
         CurrentPlayersCount++;
         ServerPlayerCountChanged?.Invoke(CurrentPlayersCount);
+        Debug.Log($"[Connect]: New players count = {CurrentPlayersCount}");
     }
 
     /// <summary>
@@ -169,6 +170,8 @@ public class ObstacleNetworkManager : NetworkManager
         base.OnServerDisconnect(conn);
         CurrentPlayersCount = Mathf.Max(0, CurrentPlayersCount-1);
         ServerPlayerCountChanged?.Invoke(CurrentPlayersCount);
+        Debug.Log($"[Disconnect]: New players count = {CurrentPlayersCount}");
+
     }
 
     /// <summary>

@@ -45,7 +45,7 @@ public class PlayerSounds : MonoBehaviour
 
     public void PlayMove(bool isMove)
     {
-        Debug.Log(isMove);
+        //Debug.Log(isMove);
 
         if (isMove)
         {
