@@ -36,11 +36,18 @@ public class SkinManager : MonoBehaviour
     private List<GameObject> _males = new List<GameObject>();
     [SerializeField]
     private List<GameObject> _females = new List<GameObject>();
+    [SerializeField]
+    private List<GameObject> _pomni = new List<GameObject>();
+    [SerializeField]
+    private List<GameObject> _menuComponents = new List<GameObject>();
+
 
     [SerializeField]
     private GameObject _maleActive;
     [SerializeField]
     private GameObject _femaleActive;
+    [SerializeField]
+    private GameObject _pomniActive;
 
     [SerializeField]
     private List<Renderer> _bodysMale = new List<Renderer>();
@@ -312,8 +319,19 @@ public class SkinManager : MonoBehaviour
             female.SetActive(index == 1);
         }
 
+        foreach(var pomni in _pomni)
+        {
+            pomni.SetActive(index == 2);
+        }
+
+        foreach(var menuComponent in _menuComponents)
+        {
+            menuComponent.SetActive(index != 2);
+        }
+
         _maleActive.SetActive(index == 0);
         _femaleActive.SetActive(index == 1);
+        _pomniActive.SetActive(index == 2);
     }
 
     public void BodyColorSelect(int index)

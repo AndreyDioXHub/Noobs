@@ -9,10 +9,13 @@ public class ModelSkiinManager : MonoBehaviour
     [SerializeField]
     private Material _playerMTL;
 
+
     [SerializeField]
     private List<GameObject> _males = new List<GameObject>();
     [SerializeField]
     private List<GameObject> _females = new List<GameObject>();
+    [SerializeField]
+    private List<GameObject> _pomni = new List<GameObject>();
 
     [SerializeField]
     private List<Renderer> _bodysMale = new List<Renderer>();
@@ -57,6 +60,11 @@ public class ModelSkiinManager : MonoBehaviour
         foreach (var famale in _females)
         {
             famale.SetActive(info.eqyuipedSex == 1);
+        }
+
+        foreach (var pomni in _pomni)
+        {
+            pomni.SetActive(info.eqyuipedSex == 2);
         }
 
         _playerMTL.SetColor("_BodyColor", SkinManager.Colors[info.eqyuipedBody]);
