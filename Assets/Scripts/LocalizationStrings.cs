@@ -102,6 +102,8 @@ public static class LocalizationStrings
         { "tostart", "В начало"},
         { "message", "Сообщение"},
         { "server", "Сервер"},
+        { "connectmessage", "Подключение к серверу"},
+        { "errorconnectmessage", "Не удалось подключиться к серверу"},
     };
 
     public static Dictionary<string, string> StringsRu = new Dictionary<string, string>()
@@ -202,6 +204,9 @@ public static class LocalizationStrings
         { "tostart", "В начало"},
         { "message", "Сообщение"},
         { "server", "Сервер"},
+        { "connectmessage", "Подключение к серверу"},
+        { "errorconnectmessage", "Не удалось подключиться к серверу"},
+
     };
 
     public static Dictionary<string, string> StringsEn = new Dictionary<string, string>()
@@ -302,6 +307,8 @@ public static class LocalizationStrings
         { "tostart", "To start"},
         { "message", "Message"},
         { "server", "Server"},
+        { "connectmessage", "Connecting"},
+        { "errorconnectmessage", "Unable connect to server"},
     };
 
     public static void SetLanguage(string lang)

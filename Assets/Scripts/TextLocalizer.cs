@@ -9,6 +9,8 @@ public class TextLocalizer : MonoBehaviour
     [SerializeField]
     private string _key;
 
+    public string Key { get => _key; }
+
     private TextMeshProUGUI _text;
 
     void Start()
