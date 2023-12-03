@@ -7,8 +7,6 @@ using YG;
 public class AuthorizeScreen : MonoBehaviour
 {
     [SerializeField]
-    private GameObject _authorizeScreen;
-    [SerializeField]
     private TextMeshProUGUI _text;
     [SerializeField]
     private float _duration;
@@ -16,14 +14,20 @@ public class AuthorizeScreen : MonoBehaviour
     private GameObject _authorizeScreenReject;
     [SerializeField]
     private GameObject _authorizeButton;
-
     [SerializeField]
     private bool _authorized;
+    [SerializeField]
+    private bool _askReject;
+
+    private void Awake()
+    {
+        _text.CrossFadeAlpha(0, 0, true);
+        _text.gameObject.SetActive(false);
+    }
 
     void Start()
     {
-        _text.CrossFadeAlpha(0, 0, true);
-
+        /*
         if (YandexGame.auth)
         {
             _authorizeScreen.SetActive(false);
@@ -38,12 +42,13 @@ public class AuthorizeScreen : MonoBehaviour
                 _authorizeScreen.SetActive(true);
                 PlayerPrefs.SetInt(PlayerPrefsConsts.askAuthorize, 1);
             }
-        }
+        }*/
 
     }
 
-    public void Authorize() 
+    public void Authorize()
     {
+        _text.CrossFadeAlpha(0, 0, true);
         YandexGame.AuthDialog();
     }
 
@@ -51,30 +56,38 @@ public class AuthorizeScreen : MonoBehaviour
     {
         _text.CrossFadeAlpha(0, 0, true);
         _authorized = PlayerPrefs.GetInt(PlayerPrefsConsts.askAuthorize, 0) == 1;
-        _authorizeScreen.SetActive(false);
-        _authorizeButton.SetActive(false);
-        StartCoroutine(AuthorizeSuxessCoroutine());
+        _authorizeScreenReject.SetActive(false);
+
+        if (_authorized)
+        {
+            _authorizeButton.SetActive(false);
+        }
+        else
+        {
+            PlayerPrefs.SetInt(PlayerPrefsConsts.askAuthorize, 1);
+            _authorizeButton.SetActive(false);
+            StartCoroutine(AuthorizeSuxessCoroutine());
+        }
     }
 
     IEnumerator AuthorizeSuxessCoroutine()
     {
-        if (_authorized)
-        {
-
-        }
-        else
-        {
-            _text.CrossFadeAlpha(1, _duration, true);
-            yield return new WaitForSeconds(_duration);
-            _text.CrossFadeAlpha(0, _duration, true);
-        }
+        _text.CrossFadeAlpha(0, 0, true);
+        yield return new WaitForSeconds(0.02f);
+        _text.gameObject.SetActive(true);
+        _text.CrossFadeAlpha(1, _duration, true);
+        yield return new WaitForSeconds(_duration);
+        _text.CrossFadeAlpha(0, _duration, true);
     }
 
     public void AuthorizeReject()
     {
-        if (_authorized)
+        _askReject = PlayerPrefs.GetInt(PlayerPrefsConsts.askReject, 0) == 1;
+
+        if (!_askReject)
         {
             _authorizeScreenReject.SetActive(true);
+            PlayerPrefs.SetInt(PlayerPrefsConsts.askReject, 1);
         }
     }
 

@@ -8,6 +8,7 @@ public static class PlayerPrefsConsts
     public static string music = "music";
     public static string sex = "sex";
     public static string askAuthorize = "askAuthorize";
+    public static string askReject = "askReject";
     public static string checkpoint = "checkpoint";
     public static string sensitivity = "sensitivity";
     public static string adsTimer = "adsTimer";
