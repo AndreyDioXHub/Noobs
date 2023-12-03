@@ -176,6 +176,7 @@ public class CheckPointManager : MonoBehaviour
     {
         if (_playerTransform != null)
         {
+            _playerTransform.SetParent(null);
             _playerTransform.GetComponent<RobloxController>().ReturnToCheckPoint(_checkPoints[index].transform.position);
             _curvaluePrev = 0;
             AdsManager.Instance.ShowFullscreenButton();

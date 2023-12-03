@@ -165,6 +165,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _jumpHeight: 15
   _animator: {fileID: 1585939128507647329}
+  _jumper: {fileID: 8300000, guid: ba7d7f380f5e9254b8cf68634764d07e, type: 3}
+  _audioSoursePrefab: {fileID: 8638366429183290980, guid: fa3559d182dcfc341b269159ac052a1d, type: 3}
+  _despawnTime: 2
+  _isDespawning: 0
 --- !u!1001 &4397317292568297002
 PrefabInstance:
   m_ObjectHideFlags: 0
