@@ -35,7 +35,6 @@ public class MenuConnectionToServer : MonoBehaviour
         transport.OnClientError += OnClientErrorConnect;
 
         string key = infoText.gameObject.GetComponent<TextLocalizer>().Key;
-        Debug.Log(key);
         LocalizationStrings.Strings.TryGetValue(key, out connmessage);
     }
 
@@ -57,7 +56,7 @@ public class MenuConnectionToServer : MonoBehaviour
     }
 
     public void PlayNetworkGame() {
-        //TODO
+        Log.logger = new SilentLogger();
         infoText.text = connmessage;
         ConnectionPanel.SetActive(true);
         ObstacleNetworkManager.singleton.StartClient();
@@ -72,16 +71,19 @@ public class MenuConnectionToServer : MonoBehaviour
         StopAllCoroutines();
         ConnectionPanel.SetActive(false);
         ObstacleNetworkManager.singleton.StopClient();
+        Log.logger = Debug.unityLogger;
     }
 
     private void OnClientErrorConnect(TransportError error = 0, string arg2 = "") {
         StopAllCoroutines();
         ConnectionPanel.SetActive(false);
         ErrorConnectPanel.SetActive(true);
+        Log.logger = Debug.unityLogger;
     }
 
     private void OnDestroy() {
         if(transport != null) transport.OnClientError -= OnClientErrorConnect;
         StopAllCoroutines();
+        Log.logger = Debug.unityLogger;
     }
 }
