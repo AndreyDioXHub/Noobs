@@ -7328,6 +7328,7 @@ GameObject:
   - component: {fileID: 2986609550088595120}
   - component: {fileID: 4154969176084636545}
   - component: {fileID: 2616644997445357152}
+  - component: {fileID: 6289678237814126042}
   m_Layer: 5
   m_Name: 'LeaveButton '
   m_TagString: Untagged
@@ -7437,7 +7438,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2986609550088595120}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6289678237814126042}
+        m_TargetAssemblyTypeName: LeaveButtonControl, Assembly-CSharp
+        m_MethodName: LeaveStage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2616644997445357152
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7531,6 +7544,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &6289678237814126042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2807263604819992637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e4bea84f8d920a4ab189b4abb562d28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3020852190610293073
 GameObject:
   m_ObjectHideFlags: 0
