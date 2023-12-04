@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,10 +22,18 @@ public class CheckPoint : MonoBehaviour
     [SerializeField]
     private bool _avaleble;
 
+    private void Awake()
+    {
+        gameObject.SetActive(false);
+    }
+
     void Start()
     {
         _box = GetComponent<BoxCollider>();
-        _avaleble = PlayerPrefs.GetInt($"{PlayerPrefsConsts.checkpoint}{_checkPointIndex}", 0) == 1;
+
+        //_avaleble = PlayerPrefs.GetInt($"{PlayerPrefsConsts.checkpoint}{_checkPointIndex}", 0) == 1;
+
+        _avaleble = CheckPointManager.Instance.CheckpointIsAvaleble(_checkPointIndex);
 
         if (_checkPointButton != null)
         {
@@ -70,7 +79,8 @@ public class CheckPoint : MonoBehaviour
                         CheckPointManager.Instance.ShowNewPointMessage();
                     }
 
-                    PlayerPrefs.SetInt($"{PlayerPrefsConsts.checkpoint}{_checkPointIndex}", 1);
+                    //PlayerPrefs.SetInt($"{PlayerPrefsConsts.checkpoint}{_checkPointIndex}", 1);
+                    CheckPointManager.Instance.SetCheckPointAvaleble(_checkPointIndex);
                     _avaleble = true;
                     _checkPointButton.interactable = true;
                     _checkPointAvalable.SetActive(true);

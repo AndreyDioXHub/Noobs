@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -37,6 +38,8 @@ public class CheckPointManager : MonoBehaviour
     [SerializeField]
     private float _duration = 3;
 
+    [SerializeField]
+    private List<bool> _checkpointsAvaleble = new List<bool>();
 
     private void Awake()
     {
@@ -48,9 +51,61 @@ public class CheckPointManager : MonoBehaviour
         _playerTransform = playerTransform;
     }
 
+    public bool CheckpointIsAvaleble(int index)
+    {
+        bool result = false;
+
+        if(_checkpointsAvaleble == null || _checkpointsAvaleble.Count == 0)
+        {
+
+            string json = PlayerPrefs.GetString(PlayerPrefsConsts.checkpoints, "");
+
+            _checkpointsAvaleble = new List<bool>();
+
+            if (string.IsNullOrEmpty(json))
+            {
+                foreach (var cp in _checkPoints)
+                {
+                    _checkpointsAvaleble.Add(false);
+                }
+
+                json = JsonConvert.SerializeObject(_checkpointsAvaleble);
+                PlayerPrefs.SetString(PlayerPrefsConsts.checkpoints, json);
+            }
+            else
+            {
+                _checkpointsAvaleble = JsonConvert.DeserializeObject<List<bool>>(json);
+            }
+        }
+
+        result = _checkpointsAvaleble[index];
+
+        return result;
+    }
+
+    public void SetCheckPointAvaleble(int index)
+    {
+        _checkpointsAvaleble[index] = true;
+
+        string json = JsonConvert.SerializeObject(_checkpointsAvaleble);
+        PlayerPrefs.SetString(PlayerPrefsConsts.checkpoints, json);
+    }
+
+
     void Start()
     {
-        _newcheckpointText.CrossFadeAlpha(0,0,true);
+        _newcheckpointText.CrossFadeAlpha(0, 0, true);
+        StartCoroutine(StartCoroutine());
+    }
+
+    IEnumerator StartCoroutine()
+    {
+        foreach (var cp in _checkPoints)
+        {
+            cp.gameObject.SetActive(true);
+            yield return new WaitForEndOfFrame();
+        }
+
         _distance = _checkPoints[_checkPoints.Count - 1].transform.position.z - _checkPoints[0].transform.position.z;
         //_score = _distance;
         _scoreBonus = _distance;
