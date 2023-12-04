@@ -64,6 +64,10 @@ public class MenuConnectionToServer : MonoBehaviour
         StartCoroutine(CountTimeConnection());
     }
 
+    public void PlayOfflineGame() {
+        //TODO
+    }
+
     private void CancelConnection() {
         StopAllCoroutines();
         ConnectionPanel.SetActive(false);

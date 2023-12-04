@@ -104,6 +104,7 @@ public static class LocalizationStrings
         { "server", "Сервер"},
         { "connectmessage", "Подключение к серверу"},
         { "errorconnectmessage", "Не удалось подключиться к серверу"},
+        { "playoffline", "Играть без сети"},
     };
 
     public static Dictionary<string, string> StringsRu = new Dictionary<string, string>()
@@ -206,7 +207,7 @@ public static class LocalizationStrings
         { "server", "Сервер"},
         { "connectmessage", "Подключение к серверу"},
         { "errorconnectmessage", "Не удалось подключиться к серверу"},
-
+        { "playoffline", "Играть без сети"},
     };
 
     public static Dictionary<string, string> StringsEn = new Dictionary<string, string>()
@@ -309,6 +310,7 @@ public static class LocalizationStrings
         { "server", "Server"},
         { "connectmessage", "Connecting"},
         { "errorconnectmessage", "Unable connect to server"},
+        { "playoffline", "Play offline"},
     };
 
     public static void SetLanguage(string lang)
