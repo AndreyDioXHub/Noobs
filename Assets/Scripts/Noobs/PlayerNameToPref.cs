@@ -24,7 +24,7 @@ public class PlayerNameToPref : MonoBehaviour
 
     private void LoadSave() 
     {
-        username = PlayerPrefs.GetString(PlayerPrefsConsts.USER_NAME_KEY, GetDefaultName());
+        username = PlayerPrefs.GetString(PlayerPrefsConsts.USER_NAME_KEY,"");
 
         if(viewText != null) 
         {
@@ -68,5 +68,11 @@ public class PlayerNameToPref : MonoBehaviour
 
         PlayerPrefs.SetString(PlayerPrefsConsts.USER_NAME_KEY, newName);
         PlayerPrefs.Save();
+    }
+
+    private void OnDestroy() {
+        if (string.IsNullOrWhiteSpace(username)) {
+            GetDefaultName();
+        }
     }
 }
