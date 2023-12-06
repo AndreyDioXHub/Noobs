@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -57,30 +58,20 @@ public class AnimatorController : MonoBehaviour
             //Apply values from network data
             moving = AxisMove.sqrMagnitude > 0;
         }
+
+        var activeAnimator = _animators.First(anim => anim.enabled && anim.gameObject.activeInHierarchy);
+
         if (IsGrounded)
         {
-            foreach (var animator in _animators)
-            {
-                animator.SetBool("Jump", false);
-            }
-
-            foreach (var animator in _animators)
-            {
-                animator.SetBool("Run", moving);
-            }
+            activeAnimator.SetBool("Jump", false);
+            activeAnimator.SetBool("Run", moving);
         }
         else
         {
-            foreach (var animator in _animators)
-            {
-                animator.SetBool("Jump", true);
-            }
+            activeAnimator.SetBool("Jump", true);
         }
 
-        foreach (var animator in _animators)
-        {
-            animator.SetFloat("Blend", _blend);
-        }
+        activeAnimator.SetFloat("Blend", _blend);
 
         if (_blend > 0.05f)
         {
@@ -115,10 +106,8 @@ public class AnimatorController : MonoBehaviour
 
     public void OnJump(bool jump)
     {
-        foreach (var animator in _animators)
-        {
-            animator.SetBool("Jump", jump);
-        }
+        var activeAnimator = _animators.First(anim => anim.enabled && anim.gameObject.activeInHierarchy);
+        activeAnimator.SetBool("Jump", jump);
     }
 
 
