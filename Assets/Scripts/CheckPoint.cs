@@ -41,17 +41,13 @@ public class CheckPoint : MonoBehaviour
 
     private void OnDisable()
     {
-        if(CheckPointManager.Instance == null)
-        {
-            return;
-        }
-
-        CheckPointManager.Instance.OnCheckPointAvaleble.RemoveListener(CheckPointAvaleble);
+        
+        CheckPointManager.Instance?.OnCheckPointAvaleble.RemoveListener(CheckPointAvaleble);
     }
 
     private void OnDestroy()
     {
-        CheckPointManager.Instance.OnCheckPointAvaleble.RemoveListener(CheckPointAvaleble);
+        CheckPointManager.Instance?.OnCheckPointAvaleble.RemoveListener(CheckPointAvaleble);
     }
 
     public void CheckPointAvaleble(int index, bool avaleble)

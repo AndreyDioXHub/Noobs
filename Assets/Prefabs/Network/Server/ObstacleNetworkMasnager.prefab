@@ -92,7 +92,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   port: 7777
-  ClientUseDefaultPort: 1
+  ClientUseDefaultPort: 0
   maxMessageSize: 16384
   handshakeMaxSize: 3000
   noDelay: 1
@@ -102,7 +102,7 @@ MonoBehaviour:
   clientMaxMessagesPerTick: 1000
   batchSend: 1
   waitBeforeSend: 1
-  clientUseWss: 1
+  clientUseWss: 0
   sslEnabled: 0
   sslCertJson: ./cert.json
   sslProtocols: 3072
