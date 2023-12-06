@@ -1,57 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-public class MenuModelRotation : MonoBehaviour
+public class MenuModelRotation : MonoBehaviour, IDragHandler
 {
     [SerializeField]
     List<Transform> bodies;
-
-    bool isDrag = false;
-    Vector2 _axisMove = Vector2.zero;
 
     [SerializeField]
     float mouseSensitivity = 1f;
     [SerializeField]
     float rotY = 180;
 
-    // Start is called before the first frame update
-    void Start()
+    public void OnDrag(PointerEventData eventData)
     {
-        
-    }
+        float mouseX = -Input.GetAxis("Mouse X");
 
-    // Update is called once per frame
-    void Update()
-    {
-        if(isDrag) {
-            float mouseX = -Input.GetAxis("Mouse X");
+        rotY += mouseX * mouseSensitivity * Time.deltaTime;
+        Quaternion localRotation = Quaternion.Euler(0, rotY, 0);
 
-            rotY += mouseX * mouseSensitivity * Time.deltaTime;
-            Quaternion localRotation = Quaternion.Euler(0, rotY, 0);
-            
-            foreach(Transform t in bodies) {
-                t.rotation = localRotation;
-            }
+        foreach (Transform t in bodies)
+        {
+            t.rotation = localRotation;
         }
-    }
 
-
-    private void OnMouseDown() {
-        isDrag = true;
-    }
-
-    private void OnMouseUp() {
-        isDrag = false;
-    }
-
-    private void OnMouseDrag() {
-        
-    }
-    
-
-    public void MouseDelta(InputAction.CallbackContext context) {
-        _axisMove = context.ReadValue<Vector2>();
     }
 }
