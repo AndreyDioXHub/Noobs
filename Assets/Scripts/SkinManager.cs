@@ -124,7 +124,7 @@ public class SkinManager : MonoBehaviour
 
     IEnumerator OnSceeneLoadedCoroutine()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return null;// new WaitForSeconds(0.1f);
 
         if (SceneManager.GetActiveScene().name.Equals("NoobLevelObstacleCourseNetwork"))
         {
@@ -132,12 +132,9 @@ public class SkinManager : MonoBehaviour
             {
                 yield return new WaitForSeconds(0.1f);
             }
-            Load();
         }
-        else
-        {
-            Load();
-        }
+
+        Load();
     }
 
     public void Load()

@@ -196,11 +196,11 @@ public class PlayerNetworkResolver : NetworkBehaviour
     private void GetUserSkin()
     {
         if (YandexGame.SDKEnabled)
-        {
+        {/*
             username = YandexGame.savesData.USER_NAME_KEY;
 
             string infoJSON = YandexGame.savesData.USER_SKIN_KEY;
-            GetUserSkin(infoJSON);
+            GetUserSkin(infoJSON);*/
         }        
     }
 
