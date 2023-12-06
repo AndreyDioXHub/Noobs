@@ -1,3 +1,4 @@
+using Mirror;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -24,6 +25,10 @@ public class AnimatorPlaySync : MonoBehaviour
     }
 
     private void RegisterAnimator() {
+        if(!NetworkClient.active) {
+            this.enabled = false;
+            return; 
+        }
         EtalonAnimationSync.Instance.TimeLoopUpdate += OnAnimTimeUpdated;
         //myAnimator TODO Get Total time of clip
     }
@@ -33,7 +38,9 @@ public class AnimatorPlaySync : MonoBehaviour
     }
 
     private void UnregisterAnimator() {
-        EtalonAnimationSync.Instance.TimeLoopUpdate -= OnAnimTimeUpdated;
+        if(EtalonAnimationSync.Instance != null) {
+            EtalonAnimationSync.Instance.TimeLoopUpdate -= OnAnimTimeUpdated;
+        }
     }
 
 
