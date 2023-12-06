@@ -85,7 +85,7 @@ public class PlayerSave : MonoBehaviour
 
         while (!_dataIsload)
         {
-            Debug.Log($"delegates cooroutine is running");
+            //Debug.Log($"delegates cooroutine is running");
             yield return new WaitForEndOfFrame();
         }
 
