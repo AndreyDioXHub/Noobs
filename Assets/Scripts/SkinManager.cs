@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using Newtonsoft.Json;
 using Random = UnityEngine.Random;
+using YG;
 
 public class SkinManager : MonoBehaviour
 {
@@ -26,6 +27,14 @@ public class SkinManager : MonoBehaviour
         get
         {
             return Instance._faces;
+        }
+    }
+
+    public static SkinsInfo Info
+    {
+        get
+        {
+            return Instance._info;
         }
     }
 
@@ -108,14 +117,26 @@ public class SkinManager : MonoBehaviour
 
     void Start()
     {
-        string infoJSON = PlayerPrefs.GetString(PlayerPrefsConsts.USER_SKIN_KEY, "");
+        Load();
+    }
+
+    public void Load()
+    {
+        PlayerSave.Instance.ExecuteMyDelegateInQueue(GetSkinInfo);
+    }
+
+    public void GetSkinInfo()
+    {
+        Debug.Log("GetSkinInfo");
+
+        string infoJSON = YandexGame.savesData.USER_SKIN_KEY; 
 
         _playerMTL = new Material(_bodysMale[0].material);
         _playerEditMTL = new Material(_bodysMale[0].material);
 
         if (string.IsNullOrEmpty(infoJSON))
         {
-            for(int i=0; i<12; i++)
+            for (int i = 0; i < 12; i++)
             {
                 _info.bodyColors.Add(false);
                 _info.hairColors.Add(false);
@@ -236,8 +257,6 @@ public class SkinManager : MonoBehaviour
         _playerEditMTL.SetColor("_PentsColor", _colors[_info.eqyuipedPants]);
         _playerEditMTL.SetColor("_ShoesColor", _colors[_info.eqyuipedShoes]);
         _playerEditMTL.SetTexture("_FaceMask", _faces[_info.eqyuipedFace]);
-
-
     }
 
     [ContextMenu("ClearPrefs")]
@@ -260,7 +279,8 @@ public class SkinManager : MonoBehaviour
         OnHairChanged?.Invoke(_equipedHairIndex);
         CloseSkinsPanel();
         string infoJSON = JsonConvert.SerializeObject(_info);
-        PlayerPrefs.SetString("user_skin", infoJSON);
+        YandexGame.savesData.USER_SKIN_KEY = infoJSON;
+        PlayerSave.Instance.Save();
 
     }
 
@@ -304,7 +324,9 @@ public class SkinManager : MonoBehaviour
         }
 
         string infoJSON = JsonConvert.SerializeObject(_info);
-        PlayerPrefs.SetString("user_skin", infoJSON);
+
+        YandexGame.savesData.USER_SKIN_KEY = infoJSON;
+        PlayerSave.Instance.Save();
         OnSkinInfoChanged?.Invoke(infoJSON);
     }
 

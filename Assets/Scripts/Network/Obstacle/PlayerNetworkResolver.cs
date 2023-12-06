@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 using Cinemachine;
 using TMPro;
 using Newtonsoft.Json;
+using YG;
 
 /*
 	Documentation: https://mirror-networking.gitbook.io/docs/guides/networkbehaviour
@@ -182,7 +183,7 @@ public class PlayerNetworkResolver : NetworkBehaviour
         _robloxController.OnEscDown.AddListener(SettingScreen.Instance.SwitchScreenState);
         _robloxController.OnEscDown.AddListener(ChatTexts.Instance.CloseChat);
         _robloxController.OnEnterDown.AddListener(ChatTexts.Instance.OpenChat);
-        GetUserSkin();
+        LoadUserData();// GetUserSkin();
         Chat.localPlayerName = username;
         nameField.Init(username, isLocalPlayer, false);
         SkinManager.Instance.OnSkinInfoChanged.AddListener(GetUserSkin);
@@ -192,15 +193,24 @@ public class PlayerNetworkResolver : NetworkBehaviour
     
 
     //[Command]
-    private void GetUserSkin() {
-        username = PlayerPrefs.GetString(PlayerPrefsConsts.USER_NAME_KEY, GetDefaultName());
+    private void GetUserSkin()
+    {
+        if (YandexGame.SDKEnabled)
+        {
+            username = YandexGame.savesData.USER_NAME_KEY;
 
-        string infoJSON = PlayerPrefs.GetString("user_skin", "");
-        GetUserSkin(infoJSON);
-        
+            string infoJSON = YandexGame.savesData.USER_SKIN_KEY;
+            GetUserSkin(infoJSON);
+        }        
     }
 
-    private void GetUserSkin(string skindata) {
+    public void LoadUserData()
+    {
+        PlayerSave.Instance.ExecuteMyDelegateInQueue(GetUserSkin);
+    }
+
+    private void GetUserSkin(string skindata) 
+    {
         skin_data = skindata;
         _info = JsonConvert.DeserializeObject<SkinsInfo>(skindata);
         ApplySkin(_info);

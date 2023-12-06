@@ -310,8 +310,19 @@ namespace YG
             {
                 savesData.idSave++;
 #if !UNITY_EDITOR
+                if (auth)
+                {
+                    SaveCloud();
+                }
+                else
+                {
+                    SaveLocal();
+                }
+
+                /*
                 if (!infoYG.saveCloud || (infoYG.saveCloud && infoYG.localSaveSync))
                 {
+
                     SaveLocal();
                 }
 
@@ -319,7 +330,7 @@ namespace YG
                 {
                     timerSaveCloud = 0;
                     SaveCloud();
-                }
+                }*/
 #else
                 SaveEditor();
 #endif
@@ -331,11 +342,21 @@ namespace YG
         public void _LoadProgress()
         {
 #if !UNITY_EDITOR
+
+            if (auth)
+            {
+                LoadCloud();
+            }
+            else
+            {
+                LoadLocal();
+            }
+/*
             if (!infoYG.saveCloud)
             {
                 LoadLocal();
             }
-            else LoadCloud();
+            else LoadCloud();*/
 #else
             LoadEditor();
 #endif
@@ -408,6 +429,8 @@ namespace YG
         public static void SaveCloud()
         {
             Message("Save Cloud");
+            Message($"Save  coins {savesData.coins}");
+
 #if JSON_NET_ENABLED
             SaveYG(JsonConvert.SerializeObject(savesData), Instance.infoYG.flush);
 #else
@@ -1045,12 +1068,13 @@ namespace YG
             {
                 if (cloudData.idSave >= localData.idSave)
                 {
-                    Message($"Load Cloud Complete! ID Cloud Save: {cloudData.idSave}, ID Local Save: {localData.idSave}");
+                    Message($"Load Cloud Complete! ID Cloud Save: {cloudData.idSave}, {savesData.coins} ID Local Save: {localData.idSave}");
                     savesData = cloudData;
+
                 }
                 else
                 {
-                    Message($"Load Local Complete! ID Cloud Save: {cloudData.idSave}, ID Local Save: {localData.idSave}");
+                    Message($"Load Local Complete! ID Cloud Save: {cloudData.idSave}, {savesData.coins} ID Local Save: {localData.idSave}");
                     savesData = localData;
                 }
                 AfterLoading();

@@ -27,23 +27,6 @@ public class AuthorizeScreen : MonoBehaviour
 
     void Start()
     {
-        /*
-        if (YandexGame.auth)
-        {
-            _authorizeScreen.SetActive(false);
-            _authorizeButton.SetActive(false);
-        }
-        else
-        {
-            _authorized = PlayerPrefs.GetInt(PlayerPrefsConsts.askAuthorize, 0) == 1;
-
-            if (!_authorized)
-            {
-                _authorizeScreen.SetActive(true);
-                PlayerPrefs.SetInt(PlayerPrefsConsts.askAuthorize, 1);
-            }
-        }*/
-
     }
 
     public void Authorize()
@@ -55,18 +38,30 @@ public class AuthorizeScreen : MonoBehaviour
     public void AuthorizeSuxess()
     {
         _text.CrossFadeAlpha(0, 0, true);
-        _authorized = PlayerPrefs.GetInt(PlayerPrefsConsts.askAuthorize, 0) == 1;
-        _authorizeScreenReject.SetActive(false);
 
-        if (_authorized)
+        PlayerSave.Instance.ExecuteMyDelegateInQueue(GetAuthorize);
+    }
+
+    public void GetAuthorize()
+    {
+        if (YandexGame.SDKEnabled)
         {
-            _authorizeButton.SetActive(false);
-        }
-        else
-        {
-            PlayerPrefs.SetInt(PlayerPrefsConsts.askAuthorize, 1);
-            _authorizeButton.SetActive(false);
-            StartCoroutine(AuthorizeSuxessCoroutine());
+            _authorized = YandexGame.savesData.askAuthorize == 1;
+
+            _authorizeScreenReject.SetActive(false);
+
+            if (_authorized)
+            {
+                _authorizeButton.SetActive(false);
+            }
+            else
+            {
+
+                YandexGame.savesData.askAuthorize = 1;
+                PlayerSave.Instance.Save();
+                _authorizeButton.SetActive(false);
+                StartCoroutine(AuthorizeSuxessCoroutine());
+            }
         }
     }
 
@@ -82,12 +77,21 @@ public class AuthorizeScreen : MonoBehaviour
 
     public void AuthorizeReject()
     {
-        _askReject = PlayerPrefs.GetInt(PlayerPrefsConsts.askReject, 0) == 1;
+        PlayerSave.Instance.ExecuteMyDelegateInQueue(GetAuthorizeReject);
+    }
 
-        if (!_askReject)
+    public void GetAuthorizeReject()
+    {
+        if (YandexGame.SDKEnabled)
         {
-            _authorizeScreenReject.SetActive(true);
-            PlayerPrefs.SetInt(PlayerPrefsConsts.askReject, 1);
+            _askReject = YandexGame.savesData.askReject == 1;
+
+            if (!_askReject)
+            {
+                _authorizeScreenReject.SetActive(true);
+                YandexGame.savesData.askReject = 1;
+                PlayerSave.Instance.Save();
+            }
         }
     }
 

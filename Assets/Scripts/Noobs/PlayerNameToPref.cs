@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using YG;
 
 public class PlayerNameToPref : MonoBehaviour
 {
@@ -19,21 +20,29 @@ public class PlayerNameToPref : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        LoadSave();
+        Load();
     }
 
-    private void LoadSave() 
+    public void Load()
     {
-        username = PlayerPrefs.GetString(PlayerPrefsConsts.USER_NAME_KEY,"");
+        PlayerSave.Instance.ExecuteMyDelegateInQueue(LoadSave);
+    }
 
-        if(viewText != null) 
+    private void LoadSave()
+    {
+        if (YandexGame.SDKEnabled)
         {
-            viewText.text = username;
-        }
+            username = YandexGame.savesData.USER_NAME_KEY;
 
-        if(inputField != null) 
-        {
-            inputField.text = username;
+            if (viewText != null)
+            {
+                viewText.text = username;
+            }
+
+            if (inputField != null)
+            {
+                inputField.text = username;
+            }
         }
     }
 
@@ -41,8 +50,11 @@ public class PlayerNameToPref : MonoBehaviour
         //TODO
         string result = _names[UnityEngine.Random.Range(0, _names.Count)];
 
-        PlayerPrefs.SetString(PlayerPrefsConsts.USER_NAME_KEY, result);
-        PlayerPrefs.Save();
+        if (YandexGame.SDKEnabled)
+        {
+            YandexGame.savesData.USER_NAME_KEY = result;
+            PlayerSave.Instance.Save();
+        }
 
         return result;// string.Empty;
     }
@@ -66,8 +78,11 @@ public class PlayerNameToPref : MonoBehaviour
             viewText.text = newName;
         }
 
-        PlayerPrefs.SetString(PlayerPrefsConsts.USER_NAME_KEY, newName);
-        PlayerPrefs.Save();
+        if (YandexGame.SDKEnabled)
+        {
+            YandexGame.savesData.USER_NAME_KEY = newName;
+            PlayerSave.Instance.Save();
+        }
     }
 
     private void OnDestroy() {

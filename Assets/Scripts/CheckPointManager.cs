@@ -3,11 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using YG;
 
 public class CheckPointManager : MonoBehaviour
 {
+    public UnityEvent<int, bool> OnCheckPointAvaleble = new UnityEvent<int, bool>();
+
 
     public static CheckPointManager Instance;
 
@@ -37,6 +40,8 @@ public class CheckPointManager : MonoBehaviour
     private TextMeshProUGUI _newcheckpointText;
     [SerializeField]
     private float _duration = 3;
+    [SerializeField]
+    private float _timeOut = 3;
 
     [SerializeField]
     private List<bool> _checkpointsAvaleble = new List<bool>();
@@ -51,36 +56,42 @@ public class CheckPointManager : MonoBehaviour
         _playerTransform = playerTransform;
     }
 
-    public bool CheckpointIsAvaleble(int index)
+    public void CheckpointIsAvaleble()
     {
-        bool result = false;
 
-        if(_checkpointsAvaleble == null || _checkpointsAvaleble.Count == 0)
+        if (YandexGame.SDKEnabled)
         {
-
-            string json = PlayerPrefs.GetString(PlayerPrefsConsts.checkpoints, "");
-
-            _checkpointsAvaleble = new List<bool>();
-
-            if (string.IsNullOrEmpty(json))
+            if (_checkpointsAvaleble == null || _checkpointsAvaleble.Count == 0)
             {
-                foreach (var cp in _checkPoints)
+
+                string json = YandexGame.savesData.checkpoints;
+
+                _checkpointsAvaleble = new List<bool>();
+
+                if (string.IsNullOrEmpty(json))
                 {
-                    _checkpointsAvaleble.Add(false);
-                }
+                    foreach (var cp in _checkPoints)
+                    {
+                        _checkpointsAvaleble.Add(false);
+                    }
 
-                json = JsonConvert.SerializeObject(_checkpointsAvaleble);
-                PlayerPrefs.SetString(PlayerPrefsConsts.checkpoints, json);
+                    _checkpointsAvaleble[0] = true;
+
+                    json = JsonConvert.SerializeObject(_checkpointsAvaleble);
+                    YandexGame.savesData.checkpoints = json;
+                    PlayerSave.Instance.Save();
+                }
+                else
+                {
+                    _checkpointsAvaleble = JsonConvert.DeserializeObject<List<bool>>(json);
+                }
             }
-            else
+
+            for(int i=0; i< _checkpointsAvaleble.Count; i++)
             {
-                _checkpointsAvaleble = JsonConvert.DeserializeObject<List<bool>>(json);
+                OnCheckPointAvaleble?.Invoke(i, _checkpointsAvaleble[i]);
             }
         }
-
-        result = _checkpointsAvaleble[index];
-
-        return result;
     }
 
     public void SetCheckPointAvaleble(int index)
@@ -88,13 +99,24 @@ public class CheckPointManager : MonoBehaviour
         _checkpointsAvaleble[index] = true;
 
         string json = JsonConvert.SerializeObject(_checkpointsAvaleble);
-        PlayerPrefs.SetString(PlayerPrefsConsts.checkpoints, json);
+        YandexGame.savesData.checkpoints = json;
+        PlayerSave.Instance.Save();
     }
 
 
     void Start()
     {
         _newcheckpointText.CrossFadeAlpha(0, 0, true);
+        Load();
+    }
+
+    public void Load()
+    {
+        PlayerSave.Instance.ExecuteMyDelegateInQueue(InitStart);
+    }
+
+    public void InitStart()
+    {
         StartCoroutine(StartCoroutine());
     }
 
@@ -109,6 +131,8 @@ public class CheckPointManager : MonoBehaviour
         _distance = _checkPoints[_checkPoints.Count - 1].transform.position.z - _checkPoints[0].transform.position.z;
         //_score = _distance;
         _scoreBonus = _distance;
+
+        CheckpointIsAvaleble();
     }
 
     void Update()
@@ -117,6 +141,11 @@ public class CheckPointManager : MonoBehaviour
         {
             _scoreBonus -= 10 * Time.deltaTime;
             _scoreBonus = _scoreBonus < 0 ? 0 : _scoreBonus;
+        }
+
+        if(_checkPoints == null)
+        {
+            return;
         }
 
         _curvalue = _playerTransform.position.z - _checkPoints[0].transform.position.z;

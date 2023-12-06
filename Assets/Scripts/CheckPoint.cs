@@ -32,22 +32,43 @@ public class CheckPoint : MonoBehaviour
         _box = GetComponent<BoxCollider>();
 
         //_avaleble = PlayerPrefs.GetInt($"{PlayerPrefsConsts.checkpoint}{_checkPointIndex}", 0) == 1;
+    }
 
-        _avaleble = CheckPointManager.Instance.CheckpointIsAvaleble(_checkPointIndex);
+    private void OnEnable()
+    {
+        CheckPointManager.Instance.OnCheckPointAvaleble.AddListener(CheckPointAvaleble);
+    }
 
-        if (_checkPointButton != null)
+    private void OnDisable()
+    {
+        CheckPointManager.Instance.OnCheckPointAvaleble.RemoveListener(CheckPointAvaleble);
+    }
+
+    private void OnDestroy()
+    {
+        CheckPointManager.Instance.OnCheckPointAvaleble.RemoveListener(CheckPointAvaleble);
+    }
+
+    public void CheckPointAvaleble(int index, bool avaleble)
+    {
+        if(index == _checkPointIndex)
         {
-            if (_avaleble)
+            _avaleble = avaleble;
+
+            if (_checkPointButton != null)
             {
-                _checkPointButton.interactable = true;
-                _checkPointAvalable.SetActive(true);
-                _checkPointNotAvalable.SetActive(false);
-            }
-            else
-            {
-                _checkPointButton.interactable = false;
-                _checkPointAvalable.SetActive(false);
-                _checkPointNotAvalable.SetActive(true);
+                if (_avaleble)
+                {
+                    _checkPointButton.interactable = true;
+                    _checkPointAvalable.SetActive(true);
+                    _checkPointNotAvalable.SetActive(false);
+                }
+                else
+                {
+                    _checkPointButton.interactable = false;
+                    _checkPointAvalable.SetActive(false);
+                    _checkPointNotAvalable.SetActive(true);
+                }
             }
         }
     }

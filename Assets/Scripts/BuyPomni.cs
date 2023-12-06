@@ -23,6 +23,11 @@ public class BuyPomni : MonoBehaviour
 
     IEnumerator UpdatePurchse()
     {
+        while (!PlayerSave.Instance.DataIsload)
+        {
+            yield return new WaitForSeconds(0.5f);
+        }
+
         yield return new WaitForSeconds(1);
 
         Purchase purchase = YandexGame.PurchaseByID(_pomniID);
@@ -33,11 +38,9 @@ public class BuyPomni : MonoBehaviour
             {
                 _buyButton.SetActive(false);
 
-                string infoJSON = PlayerPrefs.GetString(PlayerPrefsConsts.USER_SKIN_KEY, "");
-
-                SkinsInfo info = JsonConvert.DeserializeObject<SkinsInfo>(infoJSON);
+                SkinsInfo info = SkinManager.Info;
                 info.sexes[2] = true;
-                infoJSON = JsonConvert.SerializeObject(info);
+                string infoJSON = JsonConvert.SerializeObject(info);
                 OnInfoUpdated?.Invoke(infoJSON);
             }
         }
@@ -49,11 +52,9 @@ public class BuyPomni : MonoBehaviour
         {
             _buyButton.SetActive(false);
 
-            string infoJSON = PlayerPrefs.GetString(PlayerPrefsConsts.USER_SKIN_KEY, "");
-
-            SkinsInfo info = JsonConvert.DeserializeObject<SkinsInfo>(infoJSON);
+            SkinsInfo info = SkinManager.Info;
             info.sexes[2] = true;
-            infoJSON = JsonConvert.SerializeObject(info);
+            string infoJSON = JsonConvert.SerializeObject(info);
             OnInfoUpdated?.Invoke(infoJSON);
             SkinManager.Instance.EquipSex(2);
         }
