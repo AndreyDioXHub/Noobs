@@ -1638,6 +1638,7 @@ MonoBehaviour:
     eqyuipedPants: 0
     eqyuipedShoes: 0
     eqyuipedFace: 0
+    sexes: 
     bodyColors: 
     hairs: 
     hairColors: 
@@ -1669,6 +1670,7 @@ MonoBehaviour:
     eqyuipedPants: 0
     eqyuipedShoes: 0
     eqyuipedFace: 0
+    sexes: 
     bodyColors: 
     hairs: 
     hairColors: 
@@ -2389,7 +2391,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4363024322389599674, guid: 3941099785c008d4ba2b8cba05fffb76, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5195902987767928692, guid: 3941099785c008d4ba2b8cba05fffb76, type: 3}
       propertyPath: m_IsActive
@@ -2619,6 +2621,10 @@ PrefabInstance:
     - target: {fileID: 4680298195450981447, guid: 324236f024822674ca8839b72a518ab2, type: 3}
       propertyPath: m_Name
       value: Pomni
+      objectReference: {fileID: 0}
+    - target: {fileID: 4680298195450981447, guid: 324236f024822674ca8839b72a518ab2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5456131589307217661, guid: 324236f024822674ca8839b72a518ab2, type: 3}
       propertyPath: m_RootOrder

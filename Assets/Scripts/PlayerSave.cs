@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using YG;
 
 public class PlayerSave : MonoBehaviour
@@ -17,9 +19,6 @@ public class PlayerSave : MonoBehaviour
     [SerializeField]
     private float _timeOut;
 
-    [SerializeField]
-    private InfoYG _info;
-
     private void OnEnable()
     { 
         YandexGame.GetDataEvent += GetLoad;
@@ -30,20 +29,21 @@ public class PlayerSave : MonoBehaviour
         YandexGame.GetDataEvent -= GetLoad; 
     }
 
+    private void OnDestroy()
+    {
+        YandexGame.GetDataEvent -= GetLoad;
+        StopAllCoroutines();
+    }
+
     private void Awake()
     {
         Instance = this;
     }
 
-    public void SwitchFlush()
-    {
-        _info.flush = !_info.flush;
-
-    }
-
     void Start()
     {
-        //Load();
+        _dataIsload = SceneManager.GetActiveScene().name.Equals("NoobLevelObstacleCourseNetwork");
+        Debug.Log($"YandexGame.SDKEnabled {YandexGame.SDKEnabled}");
     }
 
 
@@ -54,11 +54,12 @@ public class PlayerSave : MonoBehaviour
 
     public void GetLoad()
     {
-        _dataIsload = true;
+        _dataIsload = true;// YandexGame. true;
     }
 
     public void ExecuteMyDelegateInQueue(OkCallbackDelegate mydelegate)
     {
+        Debug.Log($"delegates Added delegate {mydelegate.ToString()}");
         OkCallbacks.Enqueue(mydelegate);
 
         if (_coroutineIsRunning)
@@ -78,15 +79,19 @@ public class PlayerSave : MonoBehaviour
 
     IEnumerator ExecuteMyDelegateInQueueCoroutine()
     {
+
+
         _coroutineIsRunning = true;
 
         while (!_dataIsload)
         {
+            Debug.Log($"delegates cooroutine is running");
             yield return new WaitForEndOfFrame();
         }
 
         while (OkCallbacks.Count > 0)
         {
+            Debug.Log($"delegates count {OkCallbacks.Count}");
             var ok = OkCallbacks.Dequeue();
             ok();
             yield return new WaitForEndOfFrame();
@@ -115,7 +120,9 @@ public class PlayerSave : MonoBehaviour
     }
     IEnumerator LoadCoroutine()
     {
+        Debug.Log($"delegates load start");
         yield return new WaitForSeconds(_timeOut);
+        Debug.Log($"delegates load end");
         YandexGame.LoadProgress();
     }
 

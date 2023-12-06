@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using YG;
 
 public class AuthorizeScreen : MonoBehaviour
@@ -27,6 +28,15 @@ public class AuthorizeScreen : MonoBehaviour
 
     void Start()
     {
+        if (SceneManager.GetActiveScene().name.Equals("NoobLevelObstacleCourseNetwork"))
+        {
+            _authorized = YandexGame.savesData.askAuthorize == 1;
+
+            if (_authorized)
+            {
+                AuthorizeSuxess();
+            }
+        }
     }
 
     public void Authorize()
@@ -37,6 +47,7 @@ public class AuthorizeScreen : MonoBehaviour
 
     public void AuthorizeSuxess()
     {
+        Debug.Log("Authorize Suxess");
         _text.CrossFadeAlpha(0, 0, true);
 
         PlayerSave.Instance.ExecuteMyDelegateInQueue(GetAuthorize);
@@ -77,6 +88,7 @@ public class AuthorizeScreen : MonoBehaviour
 
     public void AuthorizeReject()
     {
+        Debug.Log("Authorize Reject");
         PlayerSave.Instance.ExecuteMyDelegateInQueue(GetAuthorizeReject);
     }
 

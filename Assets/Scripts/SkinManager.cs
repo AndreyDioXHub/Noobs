@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 using Newtonsoft.Json;
 using Random = UnityEngine.Random;
@@ -117,7 +118,26 @@ public class SkinManager : MonoBehaviour
 
     void Start()
     {
-        Load();
+        Debug.Log("delegates GetSkinInfo Start");
+        StartCoroutine(OnSceeneLoadedCoroutine());
+    }
+
+    IEnumerator OnSceeneLoadedCoroutine()
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        if (SceneManager.GetActiveScene().name.Equals("NoobLevelObstacleCourseNetwork"))
+        {
+            while(RobloxController.Instance == null)
+            {
+                yield return new WaitForSeconds(0.1f);
+            }
+            Load();
+        }
+        else
+        {
+            Load();
+        }
     }
 
     public void Load()
@@ -125,9 +145,15 @@ public class SkinManager : MonoBehaviour
         PlayerSave.Instance.ExecuteMyDelegateInQueue(GetSkinInfo);
     }
 
+    private void OnDestroy()
+    {
+        Instance = null;
+        _info = null;
+    }
+
     public void GetSkinInfo()
     {
-        Debug.Log("GetSkinInfo");
+        Debug.Log("delegates GetSkinInfo");
 
         string infoJSON = YandexGame.savesData.USER_SKIN_KEY; 
 
@@ -197,6 +223,7 @@ public class SkinManager : MonoBehaviour
         else
         {
             _info = JsonConvert.DeserializeObject<SkinsInfo>(infoJSON);
+            OnSkinInfoChanged?.Invoke(infoJSON);
         }
 
         foreach (var maleRenderer in _bodysMale)
@@ -257,6 +284,7 @@ public class SkinManager : MonoBehaviour
         _playerEditMTL.SetColor("_PentsColor", _colors[_info.eqyuipedPants]);
         _playerEditMTL.SetColor("_ShoesColor", _colors[_info.eqyuipedShoes]);
         _playerEditMTL.SetTexture("_FaceMask", _faces[_info.eqyuipedFace]);
+
     }
 
     [ContextMenu("ClearPrefs")]
