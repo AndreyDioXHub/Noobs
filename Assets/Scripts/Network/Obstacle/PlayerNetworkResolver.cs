@@ -223,6 +223,7 @@ public class PlayerNetworkResolver : NetworkBehaviour
 
 
     private void OnSkinChanged(string olddata, string newdata) {
+        if (isServerOnly) return;
         if(!olddata.Equals(newdata) && ! isLocalPlayer) {
             //Apply to AVATAR
             //TODO
