@@ -143,7 +143,7 @@ public class CheckPointManager : MonoBehaviour
             _scoreBonus = _scoreBonus < 0 ? 0 : _scoreBonus;
         }
 
-        if(_checkPoints == null)
+        if(_checkPoints == null || _playerTransform == null)
         {
             return;
         }

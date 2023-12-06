@@ -41,6 +41,11 @@ public class CheckPoint : MonoBehaviour
 
     private void OnDisable()
     {
+        if(CheckPointManager.Instance == null)
+        {
+            return;
+        }
+
         CheckPointManager.Instance.OnCheckPointAvaleble.RemoveListener(CheckPointAvaleble);
     }
 

@@ -59,6 +59,11 @@ public class MoneyView : MonoBehaviour
 
     private void OnDisable()
     {
+        if(CoinManager.Instance == null)
+        {
+            return;
+        }
+
         CoinManager.Instance.OnMoneyAdded.RemoveListener(Added);
         CoinManager.Instance.OnMoneyRemoved.RemoveListener(Removed);
         StopAllCoroutines();
