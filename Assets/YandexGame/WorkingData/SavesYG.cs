@@ -20,6 +20,7 @@ namespace YG
         public int coins = 0;
         public int askAuthorize = 0;
         public int askReject = 0;
+        public int freeskin = 0;
         public string checkpoints = "";
         public string USER_SKIN_KEY = "";
         public string USER_NAME_KEY = "";

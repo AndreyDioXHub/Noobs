@@ -52,6 +52,16 @@ public class MoreMoney : MonoBehaviour
         }
     }
 
+    private void OnDisable()
+    {
+        YandexGame.PurchaseSuccessEvent -= OnPurchaseSuccess;
+    }
+
+    private void OnDestroy()
+    {
+        YandexGame.PurchaseSuccessEvent -= OnPurchaseSuccess;
+    }
+
     public void BuySkin(string key)
     {
         YandexGame.BuyPayments(key);

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using YG;
 
 public class FreeSkinPesel : MonoBehaviour
 {
@@ -14,13 +16,40 @@ public class FreeSkinPesel : MonoBehaviour
 
     void Start()
     {
-        _isSetup = _isSetup || PlayerPrefs.GetInt("freeskin", 0) == 1;
+        StartCoroutine(OnSceeneLoadedCoroutine());
+    }
+
+    IEnumerator OnSceeneLoadedCoroutine()
+    {
+        if (SceneManager.GetActiveScene().name.Equals("NoobLevelObstacleCourseNetwork"))
+        {
+            while (RobloxController.Instance == null)
+            {
+                yield return new WaitForSeconds(0.1f);
+            }
+            Load();
+        }
+        else
+        {
+            Load();
+        }
+    }
+
+    public void Load()
+    {
+        PlayerSave.Instance.ExecuteMyDelegateInQueue(GetLoad);
+    }
+
+    public void GetLoad()
+    {
+        _isSetup = _isSetup || YandexGame.savesData.freeskin == 1;
 
         if (_isSetup)
         {
             _activateButton.SetActive(false);
             _screen.SetActive(false);
         }
+
     }
 
     public void HasPesel()
