@@ -54,8 +54,8 @@ MonoBehaviour:
   offlineScene: 
   onlineScene: 
   transport: {fileID: 1778411711057350430}
-  networkAddress: localhost
-  maxConnections: 100
+  networkAddress: lisenok-games.ru
+  maxConnections: 300
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
   authenticator: {fileID: 0}
@@ -76,6 +76,9 @@ MonoBehaviour:
     deliveryTimeEmaDuration: 2
   connectionQualityInterval: 3
   timeInterpolationGui: 0
+  ServerPlayerCountChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1778411711057350430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -88,8 +91,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0110f245bfcfc7d459681f7bd9ebc590, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  port: 7778
-  ClientUseDefaultPort: 0
+  port: 7777
+  ClientUseDefaultPort: 1
   maxMessageSize: 16384
   handshakeMaxSize: 3000
   noDelay: 1
@@ -99,7 +102,7 @@ MonoBehaviour:
   clientMaxMessagesPerTick: 1000
   batchSend: 1
   waitBeforeSend: 1
-  clientUseWss: 0
+  clientUseWss: 1
   sslEnabled: 0
   sslCertJson: ./cert.json
   sslProtocols: 3072
