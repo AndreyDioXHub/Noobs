@@ -217,7 +217,9 @@ public class SkinManager : MonoBehaviour
             _info.eqyuipedHairColor = hairColorsindex;
 
             infoJSON = JsonConvert.SerializeObject(_info);
-            PlayerPrefs.SetString("user_skin", infoJSON);
+
+            YandexGame.savesData.USER_SKIN_KEY = infoJSON;
+            PlayerSave.Instance.Save();
 
         }
         else
