@@ -68,4 +68,9 @@ public class BuyPomni : MonoBehaviour
     {
         
     }
+
+    private void OnDestroy()
+    {
+        YandexGame.PurchaseSuccessEvent -= OnPurchaseSuccess;
+    }
 }
