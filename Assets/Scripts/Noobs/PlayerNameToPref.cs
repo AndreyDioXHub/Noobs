@@ -33,17 +33,19 @@ public class PlayerNameToPref : MonoBehaviour
         if (YandexGame.SDKEnabled)
         {
             username = YandexGame.savesData.USER_NAME_KEY;
-
-            if (viewText != null)
-            {
-                viewText.text = username;
-            }
-
-            if (inputField != null)
-            {
-                inputField.text = username;
-            }
+        } else {
+            //NO SDK, load from player pref :)
+            username = PlayerPrefs.GetString(PlayerPrefsConsts.USER_NAME_KEY);
         }
+
+        if (viewText != null) {
+            viewText.text = username;
+        }
+
+        if (inputField != null) {
+            inputField.text = username;
+        }
+        PlayerNetworkResolver.LocalUserName = username;
     }
 
     private string GetDefaultName() {
@@ -56,10 +58,13 @@ public class PlayerNameToPref : MonoBehaviour
             PlayerSave.Instance.Save();
         }
 
-        return result;// string.Empty;
+        return result;
     }
 
-
+    /// <summary>
+    /// When change in menu
+    /// </summary>
+    /// <param name="newName"></param>
     public void SetNewName(string newName) 
     {
         if(string.IsNullOrWhiteSpace(newName)) 
@@ -78,6 +83,8 @@ public class PlayerNameToPref : MonoBehaviour
             viewText.text = newName;
         }
 
+        PlayerNetworkResolver.LocalUserName = newName;
+
         if (YandexGame.SDKEnabled)
         {
             YandexGame.savesData.USER_NAME_KEY = newName;
@@ -87,7 +94,8 @@ public class PlayerNameToPref : MonoBehaviour
 
     private void OnDestroy() {
         if (string.IsNullOrWhiteSpace(username)) {
-            GetDefaultName();
+            username = GetDefaultName();
+            PlayerNetworkResolver.LocalUserName = username;
         }
     }
 }

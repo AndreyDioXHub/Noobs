@@ -13,8 +13,9 @@ using YG;
 	API Reference: https://mirror-networking.com/docs/api/Mirror.NetworkBehaviour.html
 */
 
-public class PlayerNetworkResolver : NetworkBehaviour
-{
+public class PlayerNetworkResolver : NetworkBehaviour {
+    public static string LocalUserName;
+
     [SerializeField]
     private SkinsInfo _info = new SkinsInfo();
 
@@ -82,19 +83,16 @@ public class PlayerNetworkResolver : NetworkBehaviour
     /// <summary>
     /// Add your validation code here after the base.OnValidate(); call.
     /// </summary>
-    protected override void OnValidate()
-    {
+    protected override void OnValidate() {
         base.OnValidate();
     }
 
     // NOTE: Do not put objects in DontDestroyOnLoad (DDOL) in Awake.  You can do that in Start instead.
-    void Awake()
-    {
+    void Awake() {
         nameField.gameObject.SetActive(false);
     }
 
-    void Start()
-    {
+    void Start() {
         #region Конфигурация под АВАТАРА
         Debug.Log("Конфигурация под АВАТАРА отсюда");
         #endregion
@@ -126,7 +124,7 @@ public class PlayerNetworkResolver : NetworkBehaviour
     /// <para>Objects on the host have this function called, as there is a local client on the host. The values of SyncVars on object are guaranteed to be initialized correctly with the latest state from the server when this function is called on the client.</para>
     /// </summary>
     public override void OnStartClient() {
-        
+
         if (!isLocalPlayer) {
             //Read player name
             //Enable avatar
@@ -147,21 +145,22 @@ public class PlayerNetworkResolver : NetworkBehaviour
     /// Called when the local player object has been set up.
     /// <para>This happens after OnStartClient(), as it is triggered by an ownership message from the server. This is an appropriate place to activate components or functionality that should only be active for the local player, such as cameras and input.</para>
     /// </summary>
-    public override void OnStartLocalPlayer() 
-    {
+    public override void OnStartLocalPlayer() {
         #region Здесь прописываем скрипты, которые относятся к локальному игроку
         Debug.Log("Конфигурация под Локального Игрока отсюда");
 
-        if (PlayerPrefs.HasKey(PlayerPrefsConsts.USER_GUID_KEY)) { 
-            TryGetSave(PlayerPrefs.GetString(PlayerPrefsConsts.USER_GUID_KEY)); 
+        if (PlayerPrefs.HasKey(PlayerPrefsConsts.USER_GUID_KEY)) {
+            TryGetSave(PlayerPrefs.GetString(PlayerPrefsConsts.USER_GUID_KEY));
         }
+
+        username = LocalUserName;
 
         _characterController.enabled = true;
         _robloxController.enabled = true;
         _cameraView.enabled = true;
         _inputs.enabled = true;
         _groundCheck.enabled = true;
-        
+
         _animatorController.IsLocalPlayer = isLocalPlayer;
         _animatorController.MovingStateChange += OnLocalplayerChangeMoveState;
         _animatorController.enabled = true;
@@ -190,41 +189,35 @@ public class PlayerNetworkResolver : NetworkBehaviour
         #endregion
     }
 
-    
+
 
     //[Command]
-    private void GetUserSkin()
-    {
-        if (YandexGame.SDKEnabled)
-        {/*
-            username = YandexGame.savesData.USER_NAME_KEY;
-
+    private void GetUserSkin() {
+        if (YandexGame.SDKEnabled) {
+            /*
             string infoJSON = YandexGame.savesData.USER_SKIN_KEY;
             GetUserSkin(infoJSON);*/
-        }        
+        }
     }
 
-    public void LoadUserData()
-    {
+    public void LoadUserData() {
         PlayerSave.Instance.ExecuteMyDelegateInQueue(GetUserSkin);
     }
 
-    private void GetUserSkin(string skindata) 
-    {
+    private void GetUserSkin(string skindata) {
         skin_data = skindata;
         _info = JsonConvert.DeserializeObject<SkinsInfo>(skindata);
         ApplySkin(_info);
     }
 
-    private void ApplySkin(SkinsInfo info) 
-    {
+    private void ApplySkin(SkinsInfo info) {
         _modelSkinManager.EquipSkin(info);
     }
 
 
     private void OnSkinChanged(string olddata, string newdata) {
         if (isServerOnly) return;
-        if(!olddata.Equals(newdata) && ! isLocalPlayer) {
+        if (!olddata.Equals(newdata) && !isLocalPlayer) {
             //Apply to AVATAR
             //TODO
             _info = JsonConvert.DeserializeObject<SkinsInfo>(newdata);
@@ -243,16 +236,16 @@ public class PlayerNetworkResolver : NetworkBehaviour
         Vector2 val = context.ReadValue<Vector2>();
         AxisMove = new Vector3(val.x, 0, val.y);
     }
-    
+
     private void OnAxisChanged(Vector3 oldval, Vector3 newval) {
-        if(!isLocalPlayer) {
+        if (!isLocalPlayer) {
             _modelDirection.OnAvatarMove(newval);
             _animatorController.AxisMove = newval;
         }
     }
 
     private void OnGroundChanged(bool oldval, bool newval) {
-        if(!isLocalPlayer) _animatorController.IsGrounded = newval;
+        if (!isLocalPlayer) _animatorController.IsGrounded = newval;
     }
 
     private void OnBlendChanged(float oldval, float newval) {
@@ -295,7 +288,7 @@ public class PlayerNetworkResolver : NetworkBehaviour
     [Command]
     private void TryGetSave(string guid) {
         User_GUID = guid;
-        if(PlayerPrefs.HasKey(guid)) {
+        if (PlayerPrefs.HasKey(guid)) {
             //TODO Apply to user
             string data = PlayerPrefs.GetString(guid, "");
             TRPC_ApplySavesFromServer(data);
