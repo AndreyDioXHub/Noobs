@@ -40,21 +40,21 @@ public class AnimatorController : MonoBehaviour
     {
         #region OnlyLocalPlayer
 
-        if (ChatTexts.IsActive)
-        {
-            return;
-        }
-
         bool moving = false;
 
-        if(IsLocalPlayer) {
+        if(IsLocalPlayer) 
+        {
             bool prevstate = IsGrounded;
             IsGrounded = _groundCheck.IsGrounded;
-            if(prevstate != IsGrounded) {
+
+            if(prevstate != IsGrounded) 
+            {
                 MovingStateChange?.Invoke(IsGrounded);
             }
             moving = _axisMove.sqrMagnitude > 0;
-        } else {
+        } 
+        else 
+        {
             //Apply values from network data
             moving = AxisMove.sqrMagnitude > 0;
         }
@@ -89,16 +89,23 @@ public class AnimatorController : MonoBehaviour
 
         Vector3 dir = _direction.position - transform.position;
 
-        if (dir.magnitude > 0.2f)
+        if(ChatTexts.IsActive && IsLocalPlayer)
         {
-            foreach(var model in _models)
-            {
-                model.rotation = Quaternion.LookRotation(dir, Vector3.up);
-            }
+
         }
         else
         {
-            // _model.rotation = transform.rotation;
+            if (dir.magnitude > 0.2f)
+            {
+                foreach (var model in _models)
+                {
+                    model.rotation = Quaternion.LookRotation(dir, Vector3.up);
+                }
+            }
+            else
+            {
+                // _model.rotation = transform.rotation;
+            }
         }
 
         #endregion
@@ -106,6 +113,11 @@ public class AnimatorController : MonoBehaviour
 
     public void OnJump(bool jump)
     {
+        if (ChatTexts.IsActive && IsLocalPlayer)
+        {
+            return;
+        }
+
         var activeAnimator = _animators.First(anim => anim.enabled && anim.gameObject.activeInHierarchy);
         activeAnimator.SetBool("Jump", jump);
     }
@@ -113,12 +125,23 @@ public class AnimatorController : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
+        if (ChatTexts.IsActive && IsLocalPlayer)
+        {
+            _axisMove = Vector2.zero;
+            return;
+        }
 
         _axisMove = context.ReadValue<Vector2>();
     }
 
     public void OnLook(InputAction.CallbackContext context)
     {
+        if (ChatTexts.IsActive && IsLocalPlayer)
+        {
+            _blend = 0;
+            return;
+        }
+
         float blend = context.ReadValue<Vector2>().x;
         //Debug.Log(blend);
 
