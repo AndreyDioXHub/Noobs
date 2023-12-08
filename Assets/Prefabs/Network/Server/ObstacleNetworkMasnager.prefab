@@ -55,7 +55,7 @@ MonoBehaviour:
   offlineScene: 
   onlineScene: 
   transport: {fileID: 1778411711057350430}
-  networkAddress: lisenok-games.ru
+  networkAddress: ob.lisenok-games.ru
   maxConnections: 300
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
