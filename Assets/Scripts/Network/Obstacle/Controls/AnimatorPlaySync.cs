@@ -14,6 +14,7 @@ public class AnimatorPlaySync : MonoBehaviour
 
     // Start is called before the first frame update
     void Start() {
+        //Debug.Log($"<color=cyan>Animator Sync enabled</color>");
         myAnimator = GetComponent<Animator>();
         if(myAnimator == null ) {
             Debug.LogWarning("Animator does not exist on gameObject. Component will be disabled");
@@ -26,20 +27,23 @@ public class AnimatorPlaySync : MonoBehaviour
 
     private void RegisterAnimator() {
         if(!NetworkClient.active) {
+            Debug.LogWarning("Network not active!");
             this.enabled = false;
             return; 
         }
-        EtalonAnimationSync.Instance.TimeLoopUpdate += OnAnimTimeUpdated;
+        //Debug.Log("<color=cyan>Animator Sync subscribe</color>");
+        EtalonAnimationSync.Instance.TimeLoopUpdate.AddListener(OnAnimTimeUpdated);
         //myAnimator TODO Get Total time of clip
     }
 
     private void OnAnimTimeUpdated(float atime) {
-        
+        SyncTime(atime);
     }
 
     private void UnregisterAnimator() {
+        //Debug.Log("<color=cyan>Animator Sync UNSUBSCRIBE</color>");
         if(EtalonAnimationSync.Instance != null) {
-            EtalonAnimationSync.Instance.TimeLoopUpdate -= OnAnimTimeUpdated;
+            EtalonAnimationSync.Instance.TimeLoopUpdate.RemoveListener(OnAnimTimeUpdated);
         }
     }
 
@@ -72,7 +76,7 @@ public class AnimatorPlaySync : MonoBehaviour
                 currAnimName = clip.name.ToString();
             }
         }
-
+        //Debug.Log($"<color=red>[Animation name:]</color> {currAnimName}");
         return currAnimName;
 
     }

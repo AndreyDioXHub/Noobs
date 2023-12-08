@@ -59,6 +59,8 @@ public class PlayerNameToPref : MonoBehaviour
         {
             YandexGame.savesData.USER_NAME_KEY = result;
             PlayerSave.Instance.Save();
+        } else {
+            PlayerPrefs.SetString(PlayerPrefsConsts.USER_NAME_KEY, result);
         }
 
         return result;
@@ -92,13 +94,21 @@ public class PlayerNameToPref : MonoBehaviour
         {
             YandexGame.savesData.USER_NAME_KEY = newName;
             PlayerSave.Instance.Save();
+        } else {
+            PlayerPrefs.SetString(PlayerPrefsConsts.USER_NAME_KEY, newName);
         }
     }
 
     private void OnDestroy() {
+        bool resave = false;
         if (string.IsNullOrWhiteSpace(username)) {
-            //username = GetDefaultName();
-            //??
+            username = GetDefaultName();
+            _chatauth?.SetPlayername(username);
+            resave = true;
+        }
+        if(!YandexGame.SDKEnabled) {
+            if (resave) PlayerPrefs.SetString(PlayerPrefsConsts.USER_NAME_KEY, username);
+            PlayerPrefs.Save();
         }
     }
 }

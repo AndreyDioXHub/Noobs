@@ -20,46 +20,9 @@ public class ObstacleNetworkManager : NetworkManager
     public int CurrentPlayersCount { get; private set; }
 
     public UnityEvent<int> ServerPlayerCountChanged = new UnityEvent<int>();
-    /// <summary>
-    /// Runs on both Server and Client
-    /// Networking is NOT initialized when this fires
-    /// </summary>
-    public override void Awake()
-    {
-        base.Awake();
-    }
-
+    
     #region Unity Callbacks
 
-    public override void OnValidate()
-    {
-        base.OnValidate();
-    }
-
-    /// <summary>
-    /// Runs on both Server and Client
-    /// Networking is NOT initialized when this fires
-    /// </summary>
-    public override void Start()
-    {
-        base.Start();
-    }
-
-    /// <summary>
-    /// Runs on both Server and Client
-    /// </summary>
-    public override void LateUpdate()
-    {
-        base.LateUpdate();
-    }
-
-    /// <summary>
-    /// Runs on both Server and Client
-    /// </summary>
-    public override void OnDestroy()
-    {
-        base.OnDestroy();
-    }
 
     #endregion
 

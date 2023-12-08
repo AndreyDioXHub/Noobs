@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using System;
+using UnityEngine.Events;
 
 /*
 	Documentation: https://mirror-networking.gitbook.io/docs/guides/networkbehaviour
@@ -15,7 +16,7 @@ public class EtalonAnimationSync : NetworkBehaviour
     /// <summary>
     /// Вызов только на клиентах
     /// </summary>
-    public event Action<float> TimeLoopUpdate = delegate { };
+    public UnityEvent<float> TimeLoopUpdate = new UnityEvent<float>();
 
     /// <summary>
     /// Когда последний раз обновлялось время.
