@@ -20,6 +20,12 @@ public class Chat : NetworkBehaviour
     public UnityEvent<string> OnChatMessage;
     public UnityEvent<string, string> OnChatMessageExtend;
     public UnityEvent OnMessageSubmitting;
+    public UnityEvent<int> ChatUsersChanged;
+
+    [SyncVar(hook = nameof(PlayersCounthangedHook))]
+    int playercount = 0;
+
+    public int CurrentPlayers { get => playercount; }
 
     public static Chat Instance { get; private set; }
 
@@ -44,6 +50,12 @@ public class Chat : NetworkBehaviour
 
     }
 
+    private void PlayersCounthangedHook(int old_value, int new_value) {
+        if(isClient) {
+            ChatUsersChanged?.Invoke(new_value);
+        }
+    }
+
     #endregion
 
     #region Start & Stop Callbacks
@@ -55,6 +67,11 @@ public class Chat : NetworkBehaviour
     /// </summary>
     public override void OnStartServer() {
         connNames.Clear();
+        ObstacleNetworkManager.singleton.ServerPlayerCountChanged.AddListener(UpdateUsersCount);
+    }
+
+    private void UpdateUsersCount(int newCount) {
+        playercount = newCount;
     }
 
     [Command(requiresAuthority = false)]
