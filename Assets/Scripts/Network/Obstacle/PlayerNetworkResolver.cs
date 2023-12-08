@@ -232,7 +232,7 @@ public class PlayerNetworkResolver : NetworkBehaviour {
     private void OnPlayerNameChanged(string oldname, string newname) {
         Debug.Log($"Set user name {newname}");
         //TODO Set user name
-        if (!isLocalPlayer) nameField.Init(newname, isLocalPlayer);
+        if (!isLocalPlayer) nameField.Init(newname, isLocalPlayer, false);
         if (isLocalPlayer) Chat.localPlayerName = newname;
     }
 
