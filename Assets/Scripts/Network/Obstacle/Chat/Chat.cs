@@ -15,7 +15,7 @@ using DevionGames.UIWidgets;
 public class Chat : NetworkBehaviour
 {
     // This is only set on client to the name of the local player
-    internal static string localPlayerName { get; set; }
+    public  static string localPlayerName { get; set; }
 
     public UnityEvent<string> OnChatMessage;
     public UnityEvent<string, string> OnChatMessageExtend;
@@ -30,6 +30,8 @@ public class Chat : NetworkBehaviour
 
     [SerializeField]
     private TMP_InputField _inputField;
+
+    public string UserName { get => localPlayerName; }
 
     // NOTE: Do not put objects in DontDestroyOnLoad (DDOL) in Awake.  You can do that in Start instead.
     void Awake()
@@ -64,6 +66,20 @@ public class Chat : NetworkBehaviour
             RpcReceive(connNames[sender], message.Trim());
     }
 
+    [Command(requiresAuthority = false)]
+    public void RegisterConnection(NetworkConnectionToClient sender, string _playerName) {
+        Debug.Log($"Register Connection {_playerName} exist, connection is {sender}");
+        if(sender == null) {
+            Debug.Log("connectionToClient now is null");
+            return;
+        }
+        if (!connNames.ContainsKey(sender)) {
+            connNames.Add(sender, _playerName);
+        } else {
+            Debug.Log($"Connection for player {_playerName} exist");
+        }
+    }
+
 
     [ClientRpc]
     void RpcReceive(string playerName, string message) {
@@ -89,7 +105,7 @@ public class Chat : NetworkBehaviour
     public void SendChatMessage(string message) {
         if (!string.IsNullOrWhiteSpace(message)) {
             message = CensoredList.ReplaceText(message.Trim());
-            CmdSend(message);
+            CmdSend(message, netIdentity.connectionToClient);
             //Clear local input
         }
         OnMessageSubmitting?.Invoke();
@@ -105,7 +121,10 @@ public class Chat : NetworkBehaviour
     /// Called on every NetworkBehaviour when it is activated on a client.
     /// <para>Objects on the host have this function called, as there is a local client on the host. The values of SyncVars on object are guaranteed to be initialized correctly with the latest state from the server when this function is called on the client.</para>
     /// </summary>
-    public override void OnStartClient() { }
+    public override void OnStartClient() {
+        Debug.Log($"[Clinet]:send register connection for {localPlayerName}. Connection is {netIdentity.connectionToClient != null}");
+        RegisterConnection(netIdentity.connectionToClient, localPlayerName);
+    }
 
     /// <summary>
     /// This is invoked on clients when the server has caused this object to be destroyed.
@@ -119,7 +138,6 @@ public class Chat : NetworkBehaviour
     /// </summary>
     public override void OnStartLocalPlayer() {
         //TODO Register action
-
     }
 
     /// <summary>

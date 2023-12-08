@@ -59,7 +59,7 @@ public class PlayerSave : MonoBehaviour
 
     public void ExecuteMyDelegateInQueue(OkCallbackDelegate mydelegate)
     {
-        Debug.Log($"delegates Added delegate {mydelegate.ToString()}");
+        //Debug.Log($"delegates Added delegate {mydelegate.ToString()}");
         OkCallbacks.Enqueue(mydelegate);
 
         if (_coroutineIsRunning)
@@ -91,7 +91,7 @@ public class PlayerSave : MonoBehaviour
 
         while (OkCallbacks.Count > 0)
         {
-            Debug.Log($"delegates count {OkCallbacks.Count}");
+            //Debug.Log($"delegates count {OkCallbacks.Count}");
             var ok = OkCallbacks.Dequeue();
             ok();
             yield return new WaitForEndOfFrame();

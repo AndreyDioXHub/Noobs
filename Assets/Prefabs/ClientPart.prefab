@@ -12257,7 +12257,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "**\u0410\u0432\u0442\u043E\u0440\u0438\u0437\u0430\u0446\u0438\u044F \u043F\u0440\u043E\u0448\u043B\u0430
-    \u0443\u0441\u043F\u0435\u0448\u043D\u0430!**"
+    \u0443\u0441\u043F\u0435\u0448\u043D\u043E!**"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d38640a4113b9284a89b36bb071e6b60, type: 2}
   m_sharedMaterial: {fileID: -3234189187464880192, guid: d38640a4113b9284a89b36bb071e6b60, type: 2}
@@ -43130,7 +43130,6 @@ MonoBehaviour:
   _dataIsload: 0
   _coroutineIsRunning: 0
   _timeOut: 0
-  _info: {fileID: 0}
 --- !u!1 &8401216324105217948
 GameObject:
   m_ObjectHideFlags: 0

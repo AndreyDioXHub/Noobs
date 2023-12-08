@@ -45,7 +45,7 @@ public class PlayerNameToPref : MonoBehaviour
         if (inputField != null) {
             inputField.text = username;
         }
-        PlayerNetworkResolver.LocalUserName = username;
+        Chat.localPlayerName = username;
     }
 
     private string GetDefaultName() {
@@ -83,7 +83,7 @@ public class PlayerNameToPref : MonoBehaviour
             viewText.text = newName;
         }
 
-        PlayerNetworkResolver.LocalUserName = newName;
+        Chat.localPlayerName = newName;
 
         if (YandexGame.SDKEnabled)
         {
@@ -95,7 +95,7 @@ public class PlayerNameToPref : MonoBehaviour
     private void OnDestroy() {
         if (string.IsNullOrWhiteSpace(username)) {
             username = GetDefaultName();
-            PlayerNetworkResolver.LocalUserName = username;
+            Chat.localPlayerName = username;
         }
     }
 }
