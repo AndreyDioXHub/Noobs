@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Mirror;
 using UnityEngine.Events;
+using Mirror.Examples.Chat;
+using cyraxchel.network.chat;
 
 /*
 	Documentation: https://mirror-networking.gitbook.io/docs/components/network-manager
@@ -137,6 +139,7 @@ public class ObstacleNetworkManager : NetworkManager
     public override void OnServerConnect(NetworkConnectionToClient conn) {
         CurrentPlayersCount++;
         ServerPlayerCountChanged?.Invoke(CurrentPlayersCount);
+        
         Debug.Log($"[Connect]: New players count = {CurrentPlayersCount}");
     }
 
@@ -158,6 +161,7 @@ public class ObstacleNetworkManager : NetworkManager
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
         base.OnServerAddPlayer(conn);
+        
     }
 
     /// <summary>
@@ -167,6 +171,13 @@ public class ObstacleNetworkManager : NetworkManager
     /// <param name="conn">Connection from client.</param>
     public override void OnServerDisconnect(NetworkConnectionToClient conn)
     {
+        // remove player name from the HashSet
+        if (conn.authenticationData != null)
+            ChatAuth.playerNames.Remove((string)conn.authenticationData);
+
+        // remove connection from Dictionary of conn > names
+        Chat.connNames.Remove(conn);
+
         base.OnServerDisconnect(conn);
         CurrentPlayersCount = Mathf.Max(0, CurrentPlayersCount-1);
         ServerPlayerCountChanged?.Invoke(CurrentPlayersCount);

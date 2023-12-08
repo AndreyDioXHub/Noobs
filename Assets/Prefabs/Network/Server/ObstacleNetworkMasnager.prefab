@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1778411711057350417}
   - component: {fileID: 1778411711057350430}
   - component: {fileID: 1778411711057350431}
+  - component: {fileID: 6047855057025790355}
   m_Layer: 0
   m_Name: ObstacleNetworkMasnager
   m_TagString: Untagged
@@ -58,7 +59,7 @@ MonoBehaviour:
   maxConnections: 300
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
-  authenticator: {fileID: 0}
+  authenticator: {fileID: 6047855057025790355}
   playerPrefab: {fileID: 7635699013819483998, guid: a04db8eff6be63543aba63ac9ea87995, type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 0
@@ -121,3 +122,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offsetX: 0
   offsetY: 0
+--- !u!114 &6047855057025790355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1778411711057350418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8692b253e264de4409af96e01a87003c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnServerAuthenticated:
+    m_PersistentCalls:
+      m_Calls: []
+  OnClientAuthenticated:
+    m_PersistentCalls:
+      m_Calls: []
+  playerName: 

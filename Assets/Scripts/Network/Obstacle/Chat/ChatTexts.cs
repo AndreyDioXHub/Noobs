@@ -1,6 +1,7 @@
 using DevionGames.UIWidgets;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ChatTexts : MonoBehaviour
@@ -49,6 +50,7 @@ public class ChatTexts : MonoBehaviour
     private GameObject _closeNotificationM;
     [SerializeField]
     private GameObject _inputField;
+    TMP_InputField _input;
 
 
     [SerializeField]
@@ -60,6 +62,7 @@ public class ChatTexts : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        _input = _inputField.GetComponent<TMP_InputField>();
         CloseChat();
     }
 
@@ -110,6 +113,7 @@ public class ChatTexts : MonoBehaviour
             }
 
             _inputField.SetActive(true);
+            _input.ActivateInputField();
         }
 
         //ChatView.SetActive(true);

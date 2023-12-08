@@ -108,7 +108,9 @@ public class PlayerNetworkResolver : NetworkBehaviour {
     /// <para>This could be triggered by NetworkServer.Listen() for objects in the scene, or by NetworkServer.Spawn() for objects that are dynamically created.</para>
     /// <para>This will be called for objects on a "host" as well as for object on a dedicated server.</para>
     /// </summary>
-    public override void OnStartServer() { }
+    public override void OnStartServer() {
+        username = (string)connectionToClient.authenticationData;
+    }
 
     /// <summary>
     /// Invoked on the server when the object is unspawned
@@ -146,6 +148,8 @@ public class PlayerNetworkResolver : NetworkBehaviour {
     /// <para>This happens after OnStartClient(), as it is triggered by an ownership message from the server. This is an appropriate place to activate components or functionality that should only be active for the local player, such as cameras and input.</para>
     /// </summary>
     public override void OnStartLocalPlayer() {
+
+
         #region Здесь прописываем скрипты, которые относятся к локальному игроку
         Debug.Log("Конфигурация под Локального Игрока отсюда");
 
@@ -153,7 +157,7 @@ public class PlayerNetworkResolver : NetworkBehaviour {
             TryGetSave(PlayerPrefs.GetString(PlayerPrefsConsts.USER_GUID_KEY));
         }
 
-        username = LocalUserName;
+        Chat.localPlayerName = username;
 
         _characterController.enabled = true;
         _robloxController.enabled = true;

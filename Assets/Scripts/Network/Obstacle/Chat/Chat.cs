@@ -105,8 +105,7 @@ public class Chat : NetworkBehaviour
     public void SendChatMessage(string message) {
         if (!string.IsNullOrWhiteSpace(message)) {
             message = CensoredList.ReplaceText(message.Trim());
-            CmdSend(message, netIdentity.connectionToClient);
-            //Clear local input
+            CmdSend(message);
         }
         OnMessageSubmitting?.Invoke();
     }
@@ -122,8 +121,7 @@ public class Chat : NetworkBehaviour
     /// <para>Objects on the host have this function called, as there is a local client on the host. The values of SyncVars on object are guaranteed to be initialized correctly with the latest state from the server when this function is called on the client.</para>
     /// </summary>
     public override void OnStartClient() {
-        Debug.Log($"[Clinet]:send register connection for {localPlayerName}. Connection is {netIdentity.connectionToClient != null}");
-        RegisterConnection(netIdentity.connectionToClient, localPlayerName);
+        //TODO May be clear chat list...
     }
 
     /// <summary>

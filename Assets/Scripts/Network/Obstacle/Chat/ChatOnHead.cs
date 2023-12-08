@@ -44,7 +44,8 @@ public class ChatOnHead : MonoBehaviour
     }
 
     public void OnChatMessage(string sendername, string message) {
-        Debug.Log($"{sendername}: {message}, username is<b>{userName}</b>, local player name is {Chat.localPlayerName}");
+        Debug.Log($"<color=red>[ChatOnHead]</color> {sendername}: {message}, username is<b>{userName}</b>, local player name is {Chat.localPlayerName}");
+        return;
         if(userName.Equals(sendername)) {
             Debug.Log($"{sendername}: is Equals");
             StopAllCoroutines();

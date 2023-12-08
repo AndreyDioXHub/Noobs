@@ -1,3 +1,4 @@
+using cyraxchel.network.chat;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,10 +17,12 @@ public class PlayerNameToPref : MonoBehaviour
 
 
     string username = "";
+    ChatAuth _chatauth;
 
     // Start is called before the first frame update
     void Start()
     {
+        _chatauth = (ChatAuth)ObstacleNetworkManager.singleton.authenticator;
         Load();
     }
 
@@ -45,11 +48,11 @@ public class PlayerNameToPref : MonoBehaviour
         if (inputField != null) {
             inputField.text = username;
         }
-        Chat.localPlayerName = username;
+
+        _chatauth?.SetPlayername(username);
     }
 
     private string GetDefaultName() {
-        //TODO
         string result = _names[UnityEngine.Random.Range(0, _names.Count)];
 
         if (YandexGame.SDKEnabled)
@@ -83,7 +86,7 @@ public class PlayerNameToPref : MonoBehaviour
             viewText.text = newName;
         }
 
-        Chat.localPlayerName = newName;
+        _chatauth?.SetPlayername(newName);
 
         if (YandexGame.SDKEnabled)
         {
@@ -94,8 +97,8 @@ public class PlayerNameToPref : MonoBehaviour
 
     private void OnDestroy() {
         if (string.IsNullOrWhiteSpace(username)) {
-            username = GetDefaultName();
-            Chat.localPlayerName = username;
+            //username = GetDefaultName();
+            //??
         }
     }
 }
