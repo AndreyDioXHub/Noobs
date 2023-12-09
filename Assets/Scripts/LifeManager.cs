@@ -70,7 +70,24 @@ public class LifeManager : MonoBehaviour
         //Respawn();
     }
 
+    public void Restart()
+    {
+        _life = 3;
+        _isDead = false;
 
+        for (int i = 0; i < _lifeGOs.Count; i++)
+        {
+            _lifeGOs[i].SetActive(false);
+        }
+
+        for (int i = 0; i < _life; i++)
+        {
+            _lifeGOs[i].SetActive(true);
+        }
+
+        CheckPointManager.Instance.SelectCheckPoint(0);
+
+    }
 
     public void MinusLife()
     {
