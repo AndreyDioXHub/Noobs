@@ -89,7 +89,7 @@ public class AnimatorController : MonoBehaviour
 
         Vector3 dir = _direction.position - transform.position;
 
-        if(ChatTexts.IsActive && IsLocalPlayer)
+        if(IsLocalPlayer)
         {
 
         }
@@ -113,7 +113,7 @@ public class AnimatorController : MonoBehaviour
 
     public void OnJump(bool jump)
     {
-        if (ChatTexts.IsActive && IsLocalPlayer)
+        if (IsLocalPlayer)
         {
             return;
         }
@@ -125,7 +125,7 @@ public class AnimatorController : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        if (ChatTexts.IsActive && IsLocalPlayer)
+        if (IsLocalPlayer)
         {
             _axisMove = Vector2.zero;
             return;
@@ -136,7 +136,7 @@ public class AnimatorController : MonoBehaviour
 
     public void OnLook(InputAction.CallbackContext context)
     {
-        if (ChatTexts.IsActive && IsLocalPlayer)
+        if (IsLocalPlayer)
         {
             _blend = 0;
             return;

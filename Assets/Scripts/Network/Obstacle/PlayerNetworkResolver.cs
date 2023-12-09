@@ -57,7 +57,6 @@ public class PlayerNetworkResolver : NetworkBehaviour {
 
     [SerializeField]
     //TMP_Text nameField;
-    ChatOnHead nameField;
 
     [SyncVar(hook = nameof(OnPlayerNameChanged))]
     string username = string.Empty;
@@ -89,7 +88,6 @@ public class PlayerNetworkResolver : NetworkBehaviour {
 
     // NOTE: Do not put objects in DontDestroyOnLoad (DDOL) in Awake.  You can do that in Start instead.
     void Awake() {
-        nameField.gameObject.SetActive(false);
     }
 
     void Start() {
@@ -133,8 +131,6 @@ public class PlayerNetworkResolver : NetworkBehaviour {
             _animatorController.IsLocalPlayer = isLocalPlayer;
             _animatorController.enabled = true;
         }
-        nameField.gameObject.SetActive(true);
-        nameField.Init(username, isLocalPlayer);
     }
 
     /// <summary>
@@ -156,8 +152,6 @@ public class PlayerNetworkResolver : NetworkBehaviour {
         if (PlayerPrefs.HasKey(PlayerPrefsConsts.USER_GUID_KEY)) {
             TryGetSave(PlayerPrefs.GetString(PlayerPrefsConsts.USER_GUID_KEY));
         }
-
-        Chat.localPlayerName = username;
 
         _characterController.enabled = true;
         _robloxController.enabled = true;
@@ -184,11 +178,7 @@ public class PlayerNetworkResolver : NetworkBehaviour {
         InputSchemeSwitcher.Instance.RequestingEnvironmentData();
         CheckPointManager.Instance.Init(transform);
         _robloxController.OnEscDown.AddListener(SettingScreen.Instance.SwitchScreenState);
-        _robloxController.OnEscDown.AddListener(ChatTexts.Instance.CloseChat);
-        _robloxController.OnEnterDown.AddListener(ChatTexts.Instance.OpenChat);
         LoadUserData();// GetUserSkin();
-        Chat.localPlayerName = username;
-        nameField.Init(username, isLocalPlayer, false);
         SkinManager.Instance.OnSkinInfoChanged.AddListener(GetUserSkin);
         #endregion
     }
@@ -232,8 +222,6 @@ public class PlayerNetworkResolver : NetworkBehaviour {
     private void OnPlayerNameChanged(string oldname, string newname) {
         Debug.Log($"Set user name {newname}");
         //TODO Set user name
-        if (!isLocalPlayer) nameField.Init(newname, isLocalPlayer, false);
-        if (isLocalPlayer) Chat.localPlayerName = newname;
     }
 
     public void OnMove(InputAction.CallbackContext context) {

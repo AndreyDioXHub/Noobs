@@ -162,7 +162,6 @@ public class InputSchemeSwitcher : MonoBehaviour
             //_zoom.InitMobile(true);
             FPSInput.XYAxis = MobileLook;
             TPSInput.XYAxis = MobileLook;
-            ChatTexts.Instance.SetMobile();
             //SaveManager.Instance.SwitchAutoSave();
             _ocean.material = _oceanMTLM;
             return;
@@ -177,7 +176,6 @@ public class InputSchemeSwitcher : MonoBehaviour
             //_zoom.InitMobile(false);
             FPSInput.XYAxis = PCLook;
             TPSInput.XYAxis = PCLook;
-            ChatTexts.Instance.IsMobile = false;
             _ocean.material = _oceanMTLPC;
             return;
         }
@@ -191,7 +189,6 @@ public class InputSchemeSwitcher : MonoBehaviour
             //_zoom.InitMobile(true);
             FPSInput.XYAxis = MobileLook;
             TPSInput.XYAxis = MobileLook;
-            ChatTexts.Instance.SetMobile();
             _ocean.material = _oceanMTLM;
             //SaveManager.Instance.SwitchAutoSave();
             return;
@@ -206,7 +203,6 @@ public class InputSchemeSwitcher : MonoBehaviour
             //_zoom.InitMobile(true);
             FPSInput.XYAxis = MobileLook;
             TPSInput.XYAxis = MobileLook;
-            ChatTexts.Instance.SetMobile();
             _ocean.material = _oceanMTLM;
             //SaveManager.Instance.SwitchAutoSave();
             return;
