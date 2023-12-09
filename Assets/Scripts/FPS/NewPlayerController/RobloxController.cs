@@ -207,6 +207,11 @@ public class RobloxController : MonoBehaviour
     }
     public void OnMenu(InputAction.CallbackContext context)
     {
+        if(AdsManager.AdsPlaying)
+        {
+            return;
+        }
+
         //Read.
         switch (context.phase)
         {

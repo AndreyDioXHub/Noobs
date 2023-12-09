@@ -143,6 +143,11 @@ public class AdsManager : MonoBehaviour
         if(_timeBetweenCheckpointsCur == _timeBetweenCheckpoints)
         {
             _timeBetweenCheckpointsCur = 0;
+            if (_adsScreen != null)
+            {
+                _adsScreen.SetActive(true);
+                _adsPlaying = true;
+            }
             _sdk._FullscreenShow();
         }
     }
