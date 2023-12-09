@@ -75,12 +75,12 @@ public class Chat : NetworkBehaviour
     }
 
     [Command(requiresAuthority = false)]
-    void CmdSend(string message, NetworkConnectionToClient sender = null) {
-        if (!connNames.ContainsKey(sender))
+    void CmdSend(string message/*, NetworkConnectionToClient sender = null*/) {
+        /*if (!connNames.ContainsKey(sender))
             connNames.Add(sender, sender.identity.GetComponent<PlayerNetworkResolver>().UserName);
 
         if (!string.IsNullOrWhiteSpace(message))
-            RpcReceive(connNames[sender], message.Trim());
+            RpcReceive(connNames[sender], message.Trim());*/
     }
 
     [Command(requiresAuthority = false)]
