@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -63,7 +64,6 @@ public class CheckPointManager : MonoBehaviour
         {
             if (_checkpointsAvaleble == null || _checkpointsAvaleble.Count == 0)
             {
-
                 string json = YandexGame.savesData.checkpoints;
 
                 _checkpointsAvaleble = new List<bool>();
@@ -85,6 +85,7 @@ public class CheckPointManager : MonoBehaviour
                 {
                     _checkpointsAvaleble = JsonConvert.DeserializeObject<List<bool>>(json);
                 }
+
             }
 
             for(int i=0; i< _checkpointsAvaleble.Count; i++)
@@ -96,8 +97,12 @@ public class CheckPointManager : MonoBehaviour
 
     public void SetCheckPointAvaleble(int index)
     {
-        _checkpointsAvaleble[index] = true;
+        if (_checkpointsAvaleble == null || _checkpointsAvaleble.Count == 0)
+        {
+            return;
+        }
 
+        _checkpointsAvaleble[index] = true;
         string json = JsonConvert.SerializeObject(_checkpointsAvaleble);
         YandexGame.savesData.checkpoints = json;
         PlayerSave.Instance.Save();
@@ -158,7 +163,7 @@ public class CheckPointManager : MonoBehaviour
 
         if (IsWin)
         {
-            if (SettingScreen.IsActive)
+            if (SettingScreen.IsActive || AdsManager.AdsPlaying)
             {
                 _winScreen.SetActive(false);
             }
@@ -265,7 +270,7 @@ public class CheckPointManager : MonoBehaviour
             _curvaluePrev = 0;
             AdsManager.Instance.ShowFullscreenButton();
 
-            if (SettingScreen.IsActive)
+            if (SettingScreen.IsActive || AdsManager.AdsPlaying)
             {
                 SettingScreen.Instance.SwitchScreenState();
             }

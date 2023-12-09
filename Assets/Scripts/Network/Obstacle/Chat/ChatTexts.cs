@@ -79,7 +79,7 @@ public class ChatTexts : MonoBehaviour
 
     public void OpenChat()
     {
-        if (SettingScreen.IsActive)
+        if (SettingScreen.IsActive || AdsManager.AdsPlaying)
         {
             foreach(var sw in _switchedes)
             {
@@ -121,7 +121,7 @@ public class ChatTexts : MonoBehaviour
 
     public void CloseChat()
     {
-        if (SettingScreen.IsActive)
+        if (SettingScreen.IsActive || AdsManager.AdsPlaying)
         {
             foreach (var sw in _switchedes)
             {

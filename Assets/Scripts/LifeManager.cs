@@ -48,7 +48,7 @@ public class LifeManager : MonoBehaviour
 
         if (_isDead)
         {
-            if (SettingScreen.IsActive)
+            if (SettingScreen.IsActive || AdsManager.AdsPlaying)
             {
                 _dieStreen.SetActive(false);
             }

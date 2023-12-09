@@ -9,6 +9,19 @@ using YG;
 public class AdsManager : MonoBehaviour
 {
     public static AdsManager Instance;
+    public static bool AdsPlaying
+    {
+        get
+        {
+            if (Instance == null)
+            {
+                return false;
+            }
+
+            return Instance._adsPlaying;
+        }
+    }
+
 
     public UnityEvent OnReward;
 
@@ -42,17 +55,27 @@ public class AdsManager : MonoBehaviour
 
     [SerializeField]
     private float _timeRewarded, _timeRewardedCur, _timeBetweenCheckpoints, _timeBetweenCheckpointsCur, _timeFullScreen, _timeFullScreenCur;
+    [SerializeField]
+    private GameObject _adsScreen;
+    [SerializeField]
+    private bool _adsPlaying;
 
-  private void Awake()
+    private void Awake()
     {
+        Instance = this;
+        /*
         if (Instance == null)
         {
-            Instance = this;
         }
         else
         {
             Destroy(this);
-        }
+        }*/
+    }
+
+    private void OnDestroy()
+    {
+        Instance = null;
     }
 
     void Start()
@@ -76,12 +99,24 @@ public class AdsManager : MonoBehaviour
     public void ShowRewardedAd()
     {
         //_sdk._FullscreenShow();
+        if(_adsScreen != null)
+        {
+            _adsScreen.SetActive(true);
+            _adsPlaying = true;
+        }
+
         _sdk._RewardedShow(1);
     }
 
     [ContextMenu("ShowFullscreen")]
     public void ShowFullscreen()
     {
+        if (_adsScreen != null)
+        {
+            _adsScreen.SetActive(true);
+            _adsPlaying = true;
+        }
+
         _sdk._FullscreenShow();
         /*
         if (UnityEngine.Random.Range(0, 2) == 0)
@@ -91,6 +126,16 @@ public class AdsManager : MonoBehaviour
         else
         {
         }*/
+    }
+
+    public void AdsWasShowed()
+    {
+        if (_adsScreen != null)
+        {
+            _adsScreen.SetActive(false);
+            _adsPlaying = false;
+        }
+
     }
 
     public void ShowFullscreenButton()
@@ -129,10 +174,26 @@ public class AdsManager : MonoBehaviour
             if (_timeFullScreenCur > _timeFullScreen)
             {
                 _timeFullScreenCur = 0;
+
                 if (AdsScreen.Instance != null)
                 {
                     AdsScreen.Instance.gameObject.SetActive(true);
                 }
+            }
+        }
+
+        if (SettingScreen.IsActive)
+        {
+            if (_adsScreen != null)
+            {
+                _adsScreen.SetActive(false);
+            }
+        }
+        else
+        {
+            if (_adsScreen != null)
+            {
+                _adsScreen.SetActive(_adsPlaying);
             }
         }
 

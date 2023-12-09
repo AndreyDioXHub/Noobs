@@ -95,7 +95,7 @@ public class OnScreenStickTouch : OnScreenControl
     {
         SendValueToControl(_pos);
 
-        if (SettingScreen.IsActive || AdsScreen.IsActive)
+        if (SettingScreen.IsActive || AdsScreen.IsActive || AdsManager.AdsPlaying)
         {
             foreach (var i in _images)
             {

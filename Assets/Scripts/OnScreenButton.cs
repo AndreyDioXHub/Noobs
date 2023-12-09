@@ -76,7 +76,7 @@ public class OnScreenButton : OnScreenControl, IPointerDownHandler, IPointerUpHa
             }
         }
 
-        if(SettingScreen.IsActive || AdsScreen.IsActive)
+        if(SettingScreen.IsActive || AdsScreen.IsActive || AdsManager.AdsPlaying)
         {
             foreach(var i in _images)
             {
