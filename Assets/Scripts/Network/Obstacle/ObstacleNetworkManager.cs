@@ -139,7 +139,7 @@ public class ObstacleNetworkManager : NetworkManager
         // remove player name from the HashSet
         
         // remove connection from Dictionary of conn > names
-        Chat.connNames.Remove(conn.identity.netId);
+        if(Chat.connNames.ContainsKey(conn.identity.netId)) Chat.connNames.Remove(conn.identity.netId);
 
         base.OnServerDisconnect(conn);
         CurrentPlayersCount = Mathf.Max(0, CurrentPlayersCount-1);

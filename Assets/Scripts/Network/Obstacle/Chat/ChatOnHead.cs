@@ -20,6 +20,7 @@ public class ChatOnHead : MonoBehaviour
     float fadeTime = 1;
 
     string userName;// = string.Empty;
+    uint playerid;
     bool showName = false;
 
     // Start is called before the first frame update
@@ -35,8 +36,9 @@ public class ChatOnHead : MonoBehaviour
         
     }
 
-    public void Init(string playername, bool isLocalPlayer, bool requireRegisterListener = true) {
+    public void Init(string playername,uint _pid, bool isLocalPlayer, bool requireRegisterListener = true) {
         userName = playername;
+        playerid = _pid;
         showName = !isLocalPlayer;
         nameField.text = userName;
         Debug.Log(Chat.Instance);
@@ -46,14 +48,13 @@ public class ChatOnHead : MonoBehaviour
     public void OnChatMessage(string sendername, string message, uint sender) {
         Debug.Log($"<color=red>[ChatOnHead]</color> {sendername}: {message}, username is <b>{userName}</b>, local player name is {Chat.localPlayerName}");
         if (string.IsNullOrEmpty(sendername)) return;   //Dont show if user name null
-        if(sender == Chat.playerNetID) {
+        if(sender ==playerid) {
             Debug.Log($"{sendername}: is Local");
             StopAllCoroutines();
             nameField.CrossFadeAlpha(1, 0, true);
             message = SetFormatting(message);
             StartCoroutine(NewChatMessage(message));
-            //TODO Send to network
-
+            
         }
     }
 

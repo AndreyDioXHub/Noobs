@@ -134,7 +134,7 @@ public class PlayerNetworkResolver : NetworkBehaviour {
             _animatorController.enabled = true;
         }
         nameField.gameObject.SetActive(true);
-        nameField.Init(username, isLocalPlayer);
+        nameField.Init(username, netId, isLocalPlayer);
     }
 
     /// <summary>
@@ -188,7 +188,7 @@ public class PlayerNetworkResolver : NetworkBehaviour {
         _robloxController.OnEscDown.AddListener(ChatTexts.Instance.CloseChat);
         _robloxController.OnEnterDown.AddListener(ChatTexts.Instance.OpenChat);
         LoadUserData();// GetUserSkin();
-        nameField.Init(username, isLocalPlayer, false);
+        nameField.Init(username,netId, isLocalPlayer, false);
         SkinManager.Instance.OnSkinInfoChanged.AddListener(GetUserSkin);
         #endregion
     }
@@ -232,7 +232,7 @@ public class PlayerNetworkResolver : NetworkBehaviour {
     private void OnPlayerNameChanged(string oldname, string newname) {
         Debug.Log($"Set user name {newname}");
         //TODO Set user name
-        if (!isLocalPlayer && !isServer) nameField.Init(newname, isLocalPlayer, false);
+        if (!isLocalPlayer && !isServer) nameField.Init(newname, netId, isLocalPlayer, false);
         if (isLocalPlayer) {
             Chat.localPlayerName = newname;
         }
