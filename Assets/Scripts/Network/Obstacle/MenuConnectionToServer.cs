@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MenuConnectionToServer : MonoBehaviour
@@ -63,7 +64,9 @@ public class MenuConnectionToServer : MonoBehaviour
         StartCoroutine(CountTimeConnection());
     }
 
-    public void PlayOfflineGame() {
+    public void PlayOfflineGame() 
+    {
+        SceneManager.LoadScene(2);
         //TODO
     }
 
