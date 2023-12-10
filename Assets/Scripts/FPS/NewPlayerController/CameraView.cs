@@ -67,8 +67,14 @@ public class CameraView : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
         }
 
-        SetSensitivity(MouseSensitivityManager.Instance.SliderValue);
         CamNode1 = Camera.main.transform.gameObject;
+
+        if(CameraFVP != null && CameraThrdVP != null)
+        {
+            Init(CameraFVP, CameraThrdVP);
+        }
+
+        SetSensitivity(MouseSensitivityManager.Instance.SliderValue);
     }
 
     public void Init(GameObject cameraFVP, GameObject cameraThrdVP)

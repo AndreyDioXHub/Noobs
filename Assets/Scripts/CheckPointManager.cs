@@ -270,7 +270,7 @@ public class CheckPointManager : MonoBehaviour
             _curvaluePrev = 0;
             AdsManager.Instance.ShowFullscreenButton();
 
-            if (SettingScreen.IsActive || AdsManager.AdsPlaying)
+            if (SettingScreen.IsActive && AdsManager.AdsPlaying)
             {
                 SettingScreen.Instance.SwitchScreenState();
             }

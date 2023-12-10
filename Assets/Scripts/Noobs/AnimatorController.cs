@@ -32,7 +32,8 @@ public class AnimatorController : MonoBehaviour
     public Vector3 AxisMove = Vector3.zero;
 
     public event Action<Boolean> MovingStateChange = delegate { };
-    void Start() {
+    void Start() 
+    {
 
     }
 

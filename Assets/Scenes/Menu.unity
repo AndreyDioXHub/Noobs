@@ -541,6 +541,8 @@ MonoBehaviour:
   _timeBetweenCheckpointsCur: 0
   _timeFullScreen: -1
   _timeFullScreenCur: 0
+  _adsScreen: {fileID: 0}
+  _adsPlaying: 0
 --- !u!1 &814181196
 GameObject:
   m_ObjectHideFlags: 0

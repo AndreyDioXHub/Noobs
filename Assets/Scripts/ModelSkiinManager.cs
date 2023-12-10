@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -28,9 +29,21 @@ public class ModelSkiinManager : MonoBehaviour
 
     [SerializeField]
     private SkinsInfo _info;
+    [SerializeField]
+    private bool _equipSelf;
+
 
     void Start()
     {
+        if (_equipSelf)
+        {
+
+        }
+    }
+    public void GetUserSkin(string skindata)
+    {
+        _info = JsonConvert.DeserializeObject<SkinsInfo>(skindata);
+        EquipSkin(_info);
     }
 
     public void EquipSkin(SkinsInfo info)
