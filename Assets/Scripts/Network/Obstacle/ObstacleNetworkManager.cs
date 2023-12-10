@@ -124,7 +124,10 @@ public class ObstacleNetworkManager : NetworkManager
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
         base.OnServerAddPlayer(conn);
-        
+        var player = conn.identity.gameObject.GetComponent<PlayerNetworkResolver>();
+        Debug.Log($"<color=cyan>[Chat]</color> register player {player.UserName}, ID: {conn.identity.netId}");
+
+        Chat.connNames.Add(conn.identity.netId, player.UserName); //TODO
     }
 
     /// <summary>
@@ -139,7 +142,7 @@ public class ObstacleNetworkManager : NetworkManager
             ChatAuth.playerNames.Remove((string)conn.authenticationData);
 
         // remove connection from Dictionary of conn > names
-        Chat.connNames.Remove(conn);
+        Chat.connNames.Remove(conn.identity.netId);
 
         base.OnServerDisconnect(conn);
         CurrentPlayersCount = Mathf.Max(0, CurrentPlayersCount-1);

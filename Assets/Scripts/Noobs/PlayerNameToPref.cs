@@ -17,12 +17,10 @@ public class PlayerNameToPref : MonoBehaviour
 
 
     string username = "";
-    ChatAuth _chatauth;
 
     // Start is called before the first frame update
     void Start()
     {
-        _chatauth = (ChatAuth)ObstacleNetworkManager.singleton.authenticator;
         Load();
     }
 
@@ -49,7 +47,7 @@ public class PlayerNameToPref : MonoBehaviour
             inputField.text = username;
         }
 
-        _chatauth?.SetPlayername(username);
+        PlayerNetworkResolver.LocalUserName = username;
     }
 
     private string GetDefaultName() {
@@ -88,7 +86,7 @@ public class PlayerNameToPref : MonoBehaviour
             viewText.text = newName;
         }
 
-        _chatauth?.SetPlayername(newName);
+        PlayerNetworkResolver.LocalUserName = newName;
 
         if (YandexGame.SDKEnabled)
         {
@@ -103,7 +101,7 @@ public class PlayerNameToPref : MonoBehaviour
         bool resave = false;
         if (string.IsNullOrWhiteSpace(username)) {
             username = GetDefaultName();
-            _chatauth?.SetPlayername(username);
+            PlayerNetworkResolver.LocalUserName = username;
             resave = true;
         }
         if(!YandexGame.SDKEnabled) {

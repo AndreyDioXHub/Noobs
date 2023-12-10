@@ -43,11 +43,11 @@ public class ChatOnHead : MonoBehaviour
         if(requireRegisterListener) Chat.Instance.OnChatMessageExtend.AddListener(OnChatMessage);
     }
 
-    public void OnChatMessage(string sendername, string message) {
-        Debug.Log($"<color=red>[ChatOnHead]</color> {sendername}: {message}, username is<b>{userName}</b>, local player name is {Chat.localPlayerName}");
+    public void OnChatMessage(string sendername, string message, uint sender) {
+        Debug.Log($"<color=red>[ChatOnHead]</color> {sendername}: {message}, username is <b>{userName}</b>, local player name is {Chat.localPlayerName}");
         if (string.IsNullOrEmpty(sendername)) return;   //Dont show if user name null
-        if(userName.Equals(sendername)) {
-            Debug.Log($"{sendername}: is Equals");
+        if(sender == Chat.playerNetID) {
+            Debug.Log($"{sendername}: is Local");
             StopAllCoroutines();
             nameField.CrossFadeAlpha(1, 0, true);
             message = SetFormatting(message);

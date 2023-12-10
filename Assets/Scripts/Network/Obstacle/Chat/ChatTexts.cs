@@ -175,18 +175,18 @@ public class ChatTexts : MonoBehaviour
        // ChatView.SetActive(!ChatView.activeSelf);
     }
 
-    public void ShowChatText(string user, string message) 
+    public void ShowChatText(string user, string message, uint sender) 
     {
         //notificationView.AddItem();
         NotificationOptions opt = new NotificationOptions(defaulOption);
-        opt.text = StylizeText(user, message);
+        opt.text = StylizeText(user, message, sender);
         //opt.title = user;
         notificationView.AddItem(opt);
     }
 
-    private string StylizeText(string username, string message) 
+    private string StylizeText(string username, string message, uint sender) 
     {
-        bool islocal = username == Chat.localPlayerName;
+        bool islocal = sender == Chat.playerNetID;
         string ucolor = ColorUtility.ToHtmlStringRGB(islocal? localUserName : remoteUserName);
         string mcolor = ColorUtility.ToHtmlStringRGB(islocal? localUserText : remoteUserText);
 

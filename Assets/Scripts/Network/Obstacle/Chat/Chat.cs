@@ -16,9 +16,10 @@ public class Chat : NetworkBehaviour
 {
     // This is only set on client to the name of the local player
     public  static string localPlayerName { get; set; }
+    public static uint playerNetID { get; private set; }
 
     public UnityEvent<string> OnChatMessage;
-    public UnityEvent<string, string> OnChatMessageExtend;
+    public UnityEvent<string, string, uint> OnChatMessageExtend;
     public UnityEvent OnMessageSubmitting;
     public UnityEvent<int> ChatUsersChanged;
 
@@ -30,7 +31,7 @@ public class Chat : NetworkBehaviour
     public static Chat Instance { get; private set; }
 
     // Server-only cross-reference of connections to player names
-    internal static readonly Dictionary<NetworkConnectionToClient, string> connNames = new Dictionary<NetworkConnectionToClient, string>();
+    internal static readonly Dictionary<uint, string> connNames = new Dictionary<uint, string>();
 
     #region Unity Callbacks
 
@@ -47,7 +48,12 @@ public class Chat : NetworkBehaviour
 
     void Start()
     {
+        
+    }
 
+    public static void RegisterLocalPlayer(uint _netID, string _name) {
+        playerNetID = _netID;
+        localPlayerName = _name;
     }
 
     private void PlayersCounthangedHook(int old_value, int new_value) {
@@ -75,32 +81,22 @@ public class Chat : NetworkBehaviour
     }
 
     [Command(requiresAuthority = false)]
-    void CmdSend(string message/*, NetworkConnectionToClient sender = null*/) {
-        /*if (!connNames.ContainsKey(sender))
-            connNames.Add(sender, sender.identity.GetComponent<PlayerNetworkResolver>().UserName);
-
-        if (!string.IsNullOrWhiteSpace(message))
-            RpcReceive(connNames[sender], message.Trim());*/
-    }
-
-    [Command(requiresAuthority = false)]
-    public void RegisterConnection(NetworkConnectionToClient sender, string _playerName) {
-        Debug.Log($"Register Connection {_playerName} exist, connection is {sender}");
-        if(sender == null) {
-            Debug.Log("connectionToClient now is null");
+    void CmdSend(string message, uint sender) {
+        if (!connNames.ContainsKey(sender)) { 
+            //Reject
+            Debug.LogWarning($"ID {sender} not registered. Reject user message");
             return;
         }
-        if (!connNames.ContainsKey(sender)) {
-            connNames.Add(sender, _playerName);
-        } else {
-            Debug.Log($"Connection for player {_playerName} exist");
-        }
+        if (!string.IsNullOrWhiteSpace(message))
+            RpcReceive(connNames[sender], message.Trim(), sender);
     }
 
+    
 
     [ClientRpc]
-    void RpcReceive(string playerName, string message) {
-        OnChatMessageExtend?.Invoke(playerName, message);
+    void RpcReceive(string playerName, string message, uint sender) {
+        
+        OnChatMessageExtend?.Invoke(playerName, message, sender);
         string prettyMessage = playerName == localPlayerName ?
             $"<color=red>{playerName}:</color> {message}" :
             $"<color=blue>{playerName}:</color> {message}";
@@ -122,7 +118,7 @@ public class Chat : NetworkBehaviour
     public void SendChatMessage(string message) {
         if (!string.IsNullOrWhiteSpace(message)) {
             message = CensoredList.ReplaceText(message.Trim());
-            CmdSend(message);
+            CmdSend(message, playerNetID);
         }
         OnMessageSubmitting?.Invoke();
     }

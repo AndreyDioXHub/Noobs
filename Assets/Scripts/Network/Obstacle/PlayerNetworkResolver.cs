@@ -109,7 +109,7 @@ public class PlayerNetworkResolver : NetworkBehaviour {
     /// <para>This will be called for objects on a "host" as well as for object on a dedicated server.</para>
     /// </summary>
     public override void OnStartServer() {
-        username = (string)connectionToClient.authenticationData;
+        
     }
 
     /// <summary>
@@ -126,7 +126,7 @@ public class PlayerNetworkResolver : NetworkBehaviour {
     /// <para>Objects on the host have this function called, as there is a local client on the host. The values of SyncVars on object are guaranteed to be initialized correctly with the latest state from the server when this function is called on the client.</para>
     /// </summary>
     public override void OnStartClient() {
-
+        Debug.Log("");
         if (!isLocalPlayer) {
             //Read player name
             //Enable avatar
@@ -149,6 +149,7 @@ public class PlayerNetworkResolver : NetworkBehaviour {
     /// </summary>
     public override void OnStartLocalPlayer() {
 
+        username = LocalUserName;
 
         #region Здесь прописываем скрипты, которые относятся к локальному игроку
         Debug.Log("Конфигурация под Локального Игрока отсюда");
@@ -157,7 +158,7 @@ public class PlayerNetworkResolver : NetworkBehaviour {
             TryGetSave(PlayerPrefs.GetString(PlayerPrefsConsts.USER_GUID_KEY));
         }
 
-        Chat.localPlayerName = username;
+        Chat.RegisterLocalPlayer(netId, username);
 
         _characterController.enabled = true;
         _robloxController.enabled = true;
@@ -187,7 +188,6 @@ public class PlayerNetworkResolver : NetworkBehaviour {
         _robloxController.OnEscDown.AddListener(ChatTexts.Instance.CloseChat);
         _robloxController.OnEnterDown.AddListener(ChatTexts.Instance.OpenChat);
         LoadUserData();// GetUserSkin();
-        Chat.localPlayerName = username;
         nameField.Init(username, isLocalPlayer, false);
         SkinManager.Instance.OnSkinInfoChanged.AddListener(GetUserSkin);
         #endregion
@@ -232,8 +232,13 @@ public class PlayerNetworkResolver : NetworkBehaviour {
     private void OnPlayerNameChanged(string oldname, string newname) {
         Debug.Log($"Set user name {newname}");
         //TODO Set user name
-        if (!isLocalPlayer) nameField.Init(newname, isLocalPlayer, false);
-        if (isLocalPlayer) Chat.localPlayerName = newname;
+        if (!isLocalPlayer && !isServer) nameField.Init(newname, isLocalPlayer, false);
+        if (isLocalPlayer) {
+            Chat.localPlayerName = newname;
+        }
+        if(isServer) {
+            Chat.connNames[netIdentity.netId] = newname;
+        }
     }
 
     public void OnMove(InputAction.CallbackContext context) {
