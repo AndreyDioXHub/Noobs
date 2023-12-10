@@ -69,6 +69,8 @@ public class ChatOnHead : MonoBehaviour
         nameField.text = message;
         LayoutRebuilder.ForceRebuildLayoutImmediate(_messageIMG.rectTransform);
 
+        showTime = (float)(message.Length) * 60/ 800;
+
          yield return new WaitForSeconds(showTime);
         nameField.CrossFadeAlpha(0, fadeTime, true);
         _messageIMG.CrossFadeAlpha(0, fadeTime, true);
