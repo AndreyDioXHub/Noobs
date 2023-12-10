@@ -107,6 +107,9 @@ public static class LocalizationStrings
         { "errorconnectmessage", "Не удалось подключиться к серверу"},
         { "playoffline", "Играть без сети"},
         { "playersonline", "Игроков в сети:"},
+        { "selectmap", "Выберите карту"},
+        { "belowmap", "Нажмите кнопку играть под иконкой карты"},
+        { "comingsoon", "Скоро будет доступно"},
     };
 
     public static Dictionary<string, string> StringsRu = new Dictionary<string, string>()
@@ -212,6 +215,9 @@ public static class LocalizationStrings
         { "errorconnectmessage", "Не удалось подключиться к серверу"},
         { "playoffline", "Играть без сети"},
         { "playersonline", "Игроков в сети:"},
+        { "selectmap", "Выберите карту"},
+        { "belowmap", "Нажмите кнопку играть под иконкой карты"},
+        { "comingsoon", "Скоро будет доступно"},
     };
 
     public static Dictionary<string, string> StringsEn = new Dictionary<string, string>()
@@ -317,6 +323,9 @@ public static class LocalizationStrings
         { "errorconnectmessage", "Unable connect to server"},
         { "playoffline", "Play offline"},
         { "playersonline", "Players online:"},
+        { "selectmap", "Select a map"},
+        { "belowmap", "Click the play button below the map icon"},
+        { "comingsoon", "Coming soon"},
     };
 
     public static void SetLanguage(string lang)
