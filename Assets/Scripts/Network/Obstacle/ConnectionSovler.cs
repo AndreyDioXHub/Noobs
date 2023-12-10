@@ -1,5 +1,12 @@
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+#if UNITY_EDITOR
+using System.IO;
+using UnityEditor;
+#endif
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Networking;
@@ -13,6 +20,8 @@ namespace cyraxchel.network.server {
         public UnityEvent BeginSearchServers;
         public UnityEvent<int> OnSendRequiesToServer;
 
+        public UnityEvent<List<GameServerData>> OnReceiveListFromServer;
+
 
         #endregion
 
@@ -22,12 +31,15 @@ namespace cyraxchel.network.server {
         [SerializeField]
         List<GameServerData> GameServers;
 
+        public static List<GameServerData> SharedGameServers { get; private set; }
+
         const string LAST_SERVER = "cs_last_server";
+        const string NAME_SERVER_NODE = "servers";
 
         string ServerDataPublish = "";  //Where publish server status
         [SerializeField]
         string _netServersList = "";  //Current Address to published servers
-        public string NetServersList { get => _netServersList; 
+        public string NetServersListRaw { get => _netServersList; 
             set {
                 _netServersList = value;
                 PlayerPrefs.SetString(LAST_SERVER, value);
@@ -38,10 +50,10 @@ namespace cyraxchel.network.server {
         // Start is called before the first frame update
         void Start() {
             if (CheckNotServerPlatform()) {
-                string last = PlayerPrefs.GetString(LAST_SERVER, string.Empty);
-                if (!string.IsNullOrEmpty(last)) {
-                    DataServers.Insert(0, last);
-                }
+                //string last = PlayerPrefs.GetString(LAST_SERVER, string.Empty);
+                //if (!string.IsNullOrEmpty(last)) {
+                 //   DataServers.Insert(0, last);        // ѕервым ставлю последний использованный сервер.
+                //}
                 StartCoroutine(GetServers());
             } else {
                 //Require get publish data list
@@ -66,8 +78,9 @@ namespace cyraxchel.network.server {
 
                 if (www.result == UnityWebRequest.Result.Success) {
                     //TODO string serverslist = www.downloadHandler.data;
-                    NetServersList = www.downloadHandler.text;
-                    Debug.Log($"Data success: {NetServersList}");
+                    NetServersListRaw = www.downloadHandler.text;
+                    ParseData(NetServersListRaw);
+                    Debug.Log($"Data success: {NetServersListRaw}");
                     listfounded = true;
                     break;
                 } else {
@@ -78,5 +91,28 @@ namespace cyraxchel.network.server {
             yield return null;
         }
 
+        private void ParseData(string netServersList) {
+            JObject jo = JObject.Parse(netServersList);
+            if(jo.ContainsKey(NAME_SERVER_NODE)) {
+                GameServers = JsonConvert.DeserializeObject<List<GameServerData>>(jo[NAME_SERVER_NODE].ToString());
+                //TODO
+                SharedGameServers = GameServers;
+                OnReceiveListFromServer?.Invoke(GameServers);
+            }
+        }
+
+        [ContextMenu("Export Game list")]
+        private void ExportGameList() {
+#if UNITY_EDITOR
+            if (GameServers != null) {
+                string gs = JsonConvert.SerializeObject(GameServers);
+                var path = EditorUtility.SaveFilePanel("Save Game servers", Application.dataPath, "gameNodes.json", "json");
+                if(!string.IsNullOrEmpty(path)) {
+                    File.WriteAllText(path, gs);
+                    EditorUtility.DisplayDialog("Saved",$"File saved at path: \n{ path}","OK");
+                }
+            }
+#endif
+        }
     }
 }

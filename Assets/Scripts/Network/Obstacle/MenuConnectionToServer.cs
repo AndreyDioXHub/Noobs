@@ -1,3 +1,4 @@
+using cyraxchel.network.server;
 using Mirror;
 using Mirror.SimpleWeb;
 using System;
@@ -28,6 +29,10 @@ public class MenuConnectionToServer : MonoBehaviour
 
     string connmessage;
 
+    Queue<GameServerData> serverData;
+
+    int totalSeconds = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +42,19 @@ public class MenuConnectionToServer : MonoBehaviour
 
         string key = infoText.gameObject.GetComponent<TextLocalizer>().Key;
         LocalizationStrings.Strings.TryGetValue(key, out connmessage);
+        if(ConnectionSovler.SharedGameServers != null && ConnectionSovler.SharedGameServers.Count > 0) {
+            ApplyExternalList(ConnectionSovler.SharedGameServers);
+        } else {
+            var solver = ObstacleNetworkManager.singleton.gameObject.GetComponent<ConnectionSovler>();
+            if (solver != null) {
+                solver.OnReceiveListFromServer.AddListener(ApplyExternalList);
+            }
+        }
+        
+    }
+
+    private void ApplyExternalList(List<GameServerData> newlist) {
+        serverData = new Queue<GameServerData>(newlist);
     }
 
 
@@ -47,21 +65,30 @@ public class MenuConnectionToServer : MonoBehaviour
     }
 
     IEnumerator CountTimeConnection() {
-        int seconds = 0;
         while (NetworkClient.isConnecting) {
             yield return new WaitForSeconds(1);
-            seconds++;
-            infoText.text = $"{connmessage}.. {seconds}";
+            totalSeconds++;
+            infoText.text = $"{connmessage}.. {totalSeconds}";
         }
         OnClientErrorConnect();
     }
 
     public void PlayNetworkGame() {
+        if (NetworkClient.isConnected || NetworkClient.isConnecting) return;
         Log.logger = new SilentLogger();
         infoText.text = connmessage;
         ConnectionPanel.SetActive(true);
+        if(serverData.Count > 0) {
+            var sdata = serverData.Dequeue();
+            ObstacleNetworkManager.singleton.networkAddress = sdata.Address;
+            if(!string.IsNullOrEmpty(sdata.Port)) {
+                transport.Port = sdata.GetPort();
+            }
+        }
         ObstacleNetworkManager.singleton.StartClient();
         StartCoroutine(CountTimeConnection());
+
+
     }
 
     public void PlayOfflineGame() 
@@ -72,6 +99,7 @@ public class MenuConnectionToServer : MonoBehaviour
 
     private void CancelConnection() {
         StopAllCoroutines();
+        totalSeconds = 0;
         ConnectionPanel.SetActive(false);
         ObstacleNetworkManager.singleton.StopClient();
         Log.logger = Debug.unityLogger;
@@ -79,9 +107,20 @@ public class MenuConnectionToServer : MonoBehaviour
 
     private void OnClientErrorConnect(TransportError error = 0, string arg2 = "") {
         StopAllCoroutines();
-        ConnectionPanel.SetActive(false);
-        ErrorConnectPanel.SetActive(true);
-        Log.logger = Debug.unityLogger;
+        if(HasAttempt()) {
+            //Reconect to next
+            PlayNetworkGame();
+        } else {
+            //Show Error panel
+            totalSeconds = 0;
+            ConnectionPanel.SetActive(false);
+            ErrorConnectPanel.SetActive(true);
+            Log.logger = Debug.unityLogger;
+        }
+    }
+
+    private bool HasAttempt() {
+        return serverData.Count>0;
     }
 
     private void OnDestroy() {
