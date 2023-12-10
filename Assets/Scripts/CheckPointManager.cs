@@ -275,6 +275,11 @@ public class CheckPointManager : MonoBehaviour
                 SettingScreen.Instance.SwitchScreenState();
             }
 
+            if (SettingScreen.IsActive)
+            {
+                SettingScreen.Instance.SwitchScreenState();
+            }
+
             if (index == 0)
             {
                 IsWin = false;
