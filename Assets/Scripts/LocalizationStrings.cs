@@ -110,6 +110,9 @@ public static class LocalizationStrings
         { "selectmap", "Выберите карту"},
         { "belowmap", "Нажмите кнопку играть под иконкой карты"},
         { "comingsoon", "Скоро будет доступно"},
+        { "adsdie", "Посмотреть рекламу и воскреснуть"},
+        { "adslife", "Воскреснуть за сердечко"},
+        { "adsretry", "Начать с начала"},
     };
 
     public static Dictionary<string, string> StringsRu = new Dictionary<string, string>()
@@ -218,6 +221,9 @@ public static class LocalizationStrings
         { "selectmap", "Выберите карту"},
         { "belowmap", "Нажмите кнопку играть под иконкой карты"},
         { "comingsoon", "Скоро будет доступно"},
+        { "adsdie", "Посмотреть рекламу и воскреснуть"},
+        { "adslife", "Воскреснуть за сердечко"},
+        { "adsretry", "Начать с начала"},
     };
 
     public static Dictionary<string, string> StringsEn = new Dictionary<string, string>()
@@ -326,6 +332,9 @@ public static class LocalizationStrings
         { "selectmap", "Select a map"},
         { "belowmap", "Click the play button below the map icon"},
         { "comingsoon", "Coming soon"},
+        { "adsdie", "Watch the ad and be resurrected"},
+        { "adslife", "Resurrect for the heart"},
+        { "adsretry", "Start over"},
     };
 
     public static void SetLanguage(string lang)
