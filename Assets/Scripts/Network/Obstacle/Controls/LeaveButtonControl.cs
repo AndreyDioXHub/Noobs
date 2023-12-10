@@ -5,10 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class LeaveButtonControl : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField]
+    private bool _leaveOrLoad;
+
     public void LeaveStage() 
     {
-        if(ObstacleNetworkManager.singleton == null)
+        if(_leaveOrLoad)
         {
             SceneManager.LoadScene(0);
         }

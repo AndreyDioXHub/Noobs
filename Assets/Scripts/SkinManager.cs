@@ -114,11 +114,12 @@ public class SkinManager : MonoBehaviour
     {
         Instance = this; 
         OnHairChanged = new UnityEvent<int>();
+        //Debug.Log($"SkinManager Awake {Instance}");
     }
 
     void Start()
     {
-        Debug.Log("delegates GetSkinInfo Start");
+        //Debug.Log("SkinManager Start");
         StartCoroutine(OnSceeneLoadedCoroutine());
     }
 
@@ -126,10 +127,12 @@ public class SkinManager : MonoBehaviour
     {
         yield return null;// new WaitForSeconds(0.1f);
 
+        //Debug.Log("SkinManager OnSceeneLoadedCoroutine");
         if (SceneManager.GetActiveScene().name.Equals("NoobLevelObstacleCourseNetwork"))
         {
             while(RobloxController.Instance == null)
             {
+                Debug.Log("SkinManager RobloxController.Instance = null");
                 yield return new WaitForSeconds(0.1f);
             }
         }
@@ -139,6 +142,7 @@ public class SkinManager : MonoBehaviour
 
     public void Load()
     {
+        //Debug.Log("SkinManager Load");
         PlayerSave.Instance.ExecuteMyDelegateInQueue(GetSkinInfo);
     }
 
@@ -146,11 +150,12 @@ public class SkinManager : MonoBehaviour
     {
         Instance = null;
         _info = null;
+        //Debug.Log($"SkinManager OnDestroy {Instance}");
     }
 
     public void GetSkinInfo()
     {
-        Debug.Log("delegates GetSkinInfo");
+        //Debug.Log("SkinManager GetSkinInfo");
 
         string infoJSON = YandexGame.savesData.USER_SKIN_KEY; 
 

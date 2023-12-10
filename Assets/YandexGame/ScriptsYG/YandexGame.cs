@@ -60,6 +60,7 @@ namespace YG
 
         static bool _SDKEnabled;
         static bool _startGame;
+        public static bool DataIsLoaded;
         static bool _auth;
         static bool _initializedLB;
         static string _playerName = "unauthorized";
@@ -360,6 +361,7 @@ namespace YG
 #else
             LoadEditor();
 #endif
+            DataIsLoaded = true;
         }
         public static void LoadProgress() => Instance._LoadProgress();
 

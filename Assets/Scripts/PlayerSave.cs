@@ -21,28 +21,28 @@ public class PlayerSave : MonoBehaviour
 
     private void OnEnable()
     { 
-        YandexGame.GetDataEvent += GetLoad;
-    }
-
-    private void OnDisable() 
-    { 
-        YandexGame.GetDataEvent -= GetLoad; 
     }
 
     private void OnDestroy()
     {
         YandexGame.GetDataEvent -= GetLoad;
         StopAllCoroutines();
+        Instance = null;
+        _dataIsload = false;
+        _coroutineIsRunning = false;
+        OkCallbacks.Clear();
+        OkCallbacks = new Queue<OkCallbackDelegate>();
     }
 
     private void Awake()
     {
         Instance = this;
+        YandexGame.GetDataEvent += GetLoad;
     }
 
     void Start()
     {
-        _dataIsload = SceneManager.GetActiveScene().name.Equals("NoobLevelObstacleCourseNetwork");
+        _dataIsload = YandexGame.DataIsLoaded;// SceneManager.GetActiveScene().name.Equals("NoobLevelObstacleCourseNetwork") || SceneManager.GetActiveScene().name.Equals("NoobLevelObstacleCourseOffline");
         Debug.Log($"YandexGame.SDKEnabled {YandexGame.SDKEnabled}");
     }
 
@@ -103,15 +103,8 @@ public class PlayerSave : MonoBehaviour
     [ContextMenu("Test")]
     public void Test()
     {
-
-        OkCallbackDelegate ok = () => Debug.Log("ghjghjghj");
-        ExecuteMyDelegateInQueue(ok);
-        /*
-        OkCallbacks.Enqueue(delegate { });
-        var ok = OkCallbacks.Peek();
-        ok = () => Debug.Log("ghjghjghj");
-        ok();
-        OkCallbacks.Dequeue();*/
+        _coroutineIsRunning = false;
+        Load();
     }
 
     public void Load()
