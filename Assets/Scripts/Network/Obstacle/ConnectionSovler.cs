@@ -97,19 +97,24 @@ namespace cyraxchel.network.server {
         }
 
         private void ParseData(string netServersList) {
-            JObject jo = JObject.Parse(netServersList);
+            GameServers = JsonConvert.DeserializeObject<List<GameServerData>>(netServersList);
+            SharedGameServers = GameServers;
+            OnReceiveListFromServer?.Invoke(GameServers);
+
+            /*JObject jo = JObject.Parse(netServersList);
             if(jo.ContainsKey(NAME_SERVER_NODE)) {
                 GameServers = JsonConvert.DeserializeObject<List<GameServerData>>(jo[NAME_SERVER_NODE].ToString());
                 //TODO
                 SharedGameServers = GameServers;
                 OnReceiveListFromServer?.Invoke(GameServers);
-            }
+            }/**/
         }
 
         [ContextMenu("Export Game list")]
         private void ExportGameList() {
 #if UNITY_EDITOR
             if (GameServers != null) {
+                
                 string gs = JsonConvert.SerializeObject(GameServers);
                 var path = EditorUtility.SaveFilePanel("Save Game servers", Application.dataPath, "gameNodes.json", "json");
                 if(!string.IsNullOrEmpty(path)) {
