@@ -49,6 +49,11 @@ namespace cyraxchel.network.server {
 
         // Start is called before the first frame update
         void Start() {
+            //For IL2CPP optimization. Include this code
+            GameServers = new List<GameServerData>();
+            GameServerData itemåtest = new GameServerData();
+            GameServers.Add(itemåtest);
+
             if (CheckNotServerPlatform()) {
                 //string last = PlayerPrefs.GetString(LAST_SERVER, string.Empty);
                 //if (!string.IsNullOrEmpty(last)) {
