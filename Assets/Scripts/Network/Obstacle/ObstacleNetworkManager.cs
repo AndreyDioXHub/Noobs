@@ -104,6 +104,7 @@ public class ObstacleNetworkManager : NetworkManager
 
     private void LogConnection(string address) {
         //TODO Save in log
+        Debug.Log($"New Connection: {address}");
     }
 
     /// <summary>

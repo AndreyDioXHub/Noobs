@@ -23,11 +23,11 @@ public class TestButtonSpawner : MonoBehaviour
         Debug.Log("on enable called");
         if(ConnectionSovler.SharedGameServers!= null && ConnectionSovler.SharedGameServers.Count > 0) {
             RefreshServerList(ConnectionSovler.SharedGameServers);
-        } else {
-            if(csolver == null)  csolver = ObstacleNetworkManager.singleton.gameObject.GetComponent<ConnectionSovler>();
-            csolver.OnReceiveListFromServer.AddListener(RefreshServerList);
         }
-        
+        if (csolver == null) csolver = ObstacleNetworkManager.singleton.gameObject.GetComponent<ConnectionSovler>();
+        csolver.OnReceiveListFromServer.AddListener(RefreshServerList);
+        Debug.Log("Refresh list subscribed");
+
     }
 
     private IEnumerator RefreshListLater() {
@@ -37,11 +37,14 @@ public class TestButtonSpawner : MonoBehaviour
     }
 
     private void OnDisable() {
-        if (csolver != null) csolver.OnReceiveListFromServer.RemoveListener(RefreshServerList);
+        if (csolver != null) {
+            csolver.OnReceiveListFromServer.RemoveListener(RefreshServerList);
+            Debug.Log("Refresh list UNsubscribed");
+        }
     }
 
     private void RefreshServerList(List<GameServerData> servers) {
-        Debug.Log("RefreshServerList reseive");
+        Debug.Log("RefreshServerList receive");
         if(conten.childCount > 0) {
             while(conten.childCount > 0) {
                 Destroy(conten.GetChild(0));
