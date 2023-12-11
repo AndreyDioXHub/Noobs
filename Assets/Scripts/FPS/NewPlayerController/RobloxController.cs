@@ -161,7 +161,7 @@ public class RobloxController : MonoBehaviour
 
     public void ReturnToCheckPoint(Vector3 position)
     {
-
+        _gravityVector = Vector3.zero;
         _controller.enabled = false;
         transform.position = position;
         _controller.enabled = true;
