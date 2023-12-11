@@ -57,7 +57,7 @@ MonoBehaviour:
   transport: {fileID: 1778411711057350430}
   networkAddress: ob.lisenok-games.ru
   maxConnections: 300
-  disconnectInactiveConnections: 0
+  disconnectInactiveConnections: 1
   disconnectInactiveTimeout: 60
   authenticator: {fileID: 0}
   playerPrefab: {fileID: 7635699013819483998, guid: a04db8eff6be63543aba63ac9ea87995, type: 3}
@@ -138,6 +138,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnSendRequiesToServer:
+    m_PersistentCalls:
+      m_Calls: []
+  OnReceiveListFromServer:
     m_PersistentCalls:
       m_Calls: []
   DataServers:
