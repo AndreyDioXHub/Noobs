@@ -28,6 +28,12 @@ public class PlayerSounds : MonoBehaviour
 
     void Update()
     {
+        if (SettingScreen.IsActive || AdsScreen.IsActive || AdsButtonView.IsActive || CheckPointManager.Instance.IsWin
+            || ChatTexts.IsActive || AdsManager.AdsPlaying)
+        {
+            return;
+        }
+
         _isGround = _groundCheck.IsGrounded;
 
         if(_isGround && !_isGroundPrev)
@@ -45,7 +51,11 @@ public class PlayerSounds : MonoBehaviour
 
     public void PlayMove(bool isMove)
     {
-        //Debug.Log(isMove);
+        if (SettingScreen.IsActive || AdsScreen.IsActive || AdsButtonView.IsActive || CheckPointManager.Instance.IsWin
+            || ChatTexts.IsActive || AdsManager.AdsPlaying)
+        {
+            return;
+        }
 
         if (isMove)
         {
@@ -65,16 +75,31 @@ public class PlayerSounds : MonoBehaviour
 
     public void PlayJump()
     {
+        if (SettingScreen.IsActive || AdsScreen.IsActive || AdsButtonView.IsActive || CheckPointManager.Instance.IsWin
+            || ChatTexts.IsActive || AdsManager.AdsPlaying)
+        {
+            return;
+        }
         _jump.Play();
     }
     public void PlayLand()
     {
+        if (SettingScreen.IsActive || AdsScreen.IsActive || AdsButtonView.IsActive || CheckPointManager.Instance.IsWin
+            || ChatTexts.IsActive || AdsManager.AdsPlaying)
+        {
+            return;
+        }
         _land.Play();
     }
 
     public void PlayDie()
     {
-        foreach(var d in _dies)
+        if (SettingScreen.IsActive || AdsScreen.IsActive || AdsButtonView.IsActive || CheckPointManager.Instance.IsWin
+            || ChatTexts.IsActive || AdsManager.AdsPlaying)
+        {
+            return;
+        }
+        foreach (var d in _dies)
         {
             d.Play();
         }

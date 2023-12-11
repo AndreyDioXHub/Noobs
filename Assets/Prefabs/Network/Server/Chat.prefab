@@ -1793,6 +1793,7 @@ MonoBehaviour:
   _switchedes:
   - {fileID: 7517226134546034140}
   - {fileID: 4551729053863100337}
+  - {fileID: 1417143486867582234}
   notificationView: {fileID: 4116613593081836863}
   localUserName: {r: 1, g: 0.0047169924, b: 0.0047169924, a: 1}
   localUserText: {r: 0.5377358, g: 0.0025364957, b: 0.0025364957, a: 1}

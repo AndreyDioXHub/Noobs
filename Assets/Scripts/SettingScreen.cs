@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SettingScreen : MonoBehaviour
 {
-
+    public UnityEvent OnStateSwitched = new UnityEvent();
 
     public static bool IsActive
     {
@@ -49,7 +50,7 @@ public class SettingScreen : MonoBehaviour
 
     void Update()
     {
-        if (AdsScreen.Instance.gameObject.activeSelf)
+        if (AdsScreen.IsActive)
         {
             gameObject.SetActive(false);
             return;
@@ -81,6 +82,8 @@ public class SettingScreen : MonoBehaviour
         {
             _camera.gameObject.SetActive(gameObject.activeSelf);
         }
+
+        OnStateSwitched?.Invoke();
     }
 
     private void OnEnable()
