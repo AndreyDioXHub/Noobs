@@ -1,4 +1,5 @@
 using cyraxchel.network;
+using cyraxchel.network.server;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -75,6 +76,6 @@ public class RefreshServerListView : MonoBehaviour
         _timwCur = 0;
         _isPaused = true;
         OnServersRefreshed?.Invoke();
-        //NoobsLobby.Instance.RefreshLobbyListAsync();  //TODO
+        ObstacleNetworkManager.singleton.gameObject.GetComponent<ConnectionSovler>()?.RefreshgameServerList();
     }
 }

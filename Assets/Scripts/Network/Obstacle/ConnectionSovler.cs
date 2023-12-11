@@ -114,5 +114,10 @@ namespace cyraxchel.network.server {
             }
 #endif
         }
+
+        public void RefreshgameServerList() {
+            StopAllCoroutines();
+            StartCoroutine(GetServers());
+        }
     }
 }
