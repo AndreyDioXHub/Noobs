@@ -14,6 +14,8 @@ public class LocalizationManager : MonoBehaviour
     [SerializeField]
     private string _local = "ru";
 
+    public string Locale => _local;
+
     [SerializeField]
     private TextLocalizer[] _texts;
 

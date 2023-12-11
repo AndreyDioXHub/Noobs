@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 
 public class ServerConnectButton : MonoBehaviour
 {
@@ -24,7 +25,6 @@ public class ServerConnectButton : MonoBehaviour
 
     private GameServerData _server;
 
-
     void Start()
     {
         RefreshServerListView.Instance.OnServersRefreshed.AddListener(Refreshstate);
@@ -41,21 +41,22 @@ public class ServerConnectButton : MonoBehaviour
         if(!int.TryParse(_server.Players,out _countCur)) {
             _countCur = -1;  //FOR TEST
         }
-        if(!LocalizationStrings.Strings.TryGetValue(_server.Name, out _serverName)) { 
-            _serverName = _server.Name + "_d";  //FOR TEST
+        if(!LocalizationStrings.Strings.TryGetValue(_server.Name, out _serverName)) {
+            string _locale = PlayerPrefs.GetString(PlayerPrefsConsts.local, "ru");
+            _serverName = _server.GetServerName(_locale);
         }
     }
 
     public void Connect()
     {
-        ConnectOrRefresh.Instance.Connect(_countCur == _count);
-        NoobsLobby.Instance.ConnectToServer(_server.Id, _server.Address);
+        ConnectOrRefresh.Instance.Connect(_server);
+        
     }
 
     public void Refreshstate()
     {
         _serverNameText.text = _serverName;
-        _serverFullnessText.text = $"{_countCur}/{_count}";
+        _serverFullnessText.text = _countCur>=0 ? $"{_countCur}/{_count}" : "";
 
     }
 }

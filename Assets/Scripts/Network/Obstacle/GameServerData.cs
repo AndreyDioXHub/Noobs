@@ -23,8 +23,10 @@ namespace cyraxchel.network.server {
         [JsonIgnore]
         public string FullAddress { get => $"{Address}:{Port}"; }
         public string GetServerName(string locale) {
-            string _name = string.Empty;
-            Names.TryGetValue(locale, out _name);
+            string _name;
+            if(Names == null || !Names.TryGetValue(locale, out _name)) {
+                _name = Name;
+            }
             return _name;
         }
 
