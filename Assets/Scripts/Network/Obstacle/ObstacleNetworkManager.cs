@@ -99,10 +99,7 @@ public class ObstacleNetworkManager : NetworkManager
     /// </summary>
     /// <param name="conn">Connection from client.</param>
     public override void OnServerConnect(NetworkConnectionToClient conn) {
-        CurrentPlayersCount++;
-        ServerPlayerCountChanged?.Invoke(CurrentPlayersCount);
         
-        Debug.Log($"[Connect]: New players count = {CurrentPlayersCount}");
     }
 
     /// <summary>
@@ -125,6 +122,11 @@ public class ObstacleNetworkManager : NetworkManager
         base.OnServerAddPlayer(conn);
         var player = conn.identity.gameObject.GetComponent<PlayerNetworkResolver>();
         Debug.Log($"<color=cyan>[Chat]</color> register player {player.UserName}, ID: {conn.identity.netId}");
+
+        CurrentPlayersCount++;
+        ServerPlayerCountChanged?.Invoke(CurrentPlayersCount);
+
+        Debug.Log($"[Connect]: New players count = {CurrentPlayersCount}");
 
         Chat.connNames.Add(conn.identity.netId, player.UserName); //TODO
     }
