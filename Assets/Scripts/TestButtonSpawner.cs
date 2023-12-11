@@ -12,6 +12,8 @@ public class TestButtonSpawner : MonoBehaviour
     [SerializeField]
     private Transform conten;
 
+    ConnectionSovler csolver;
+
     void Start()
     {
         
@@ -19,12 +21,13 @@ public class TestButtonSpawner : MonoBehaviour
 
     private void OnEnable() {
         Debug.Log("on enable called");
-        NoobsLobby.Instance.OnListLobbiesLoaded.AddListener(RefreshServerList);
-        if(NoobsLobby.Instance.HasLobbies) {
-            StartCoroutine(RefreshListLater());
+        if(ConnectionSovler.SharedGameServers!= null && ConnectionSovler.SharedGameServers.Count > 0) {
+            RefreshServerList(ConnectionSovler.SharedGameServers);
         } else {
-            NoobsLobby.Instance.RefreshLobbyListAsync();
+            if(csolver == null)  csolver = ObstacleNetworkManager.singleton.gameObject.GetComponent<ConnectionSovler>();
+            csolver.OnReceiveListFromServer.AddListener(RefreshServerList);
         }
+        
     }
 
     private IEnumerator RefreshListLater() {
@@ -34,7 +37,7 @@ public class TestButtonSpawner : MonoBehaviour
     }
 
     private void OnDisable() {
-        NoobsLobby.Instance.OnListLobbiesLoaded.RemoveListener(RefreshServerList);
+        csolver.OnReceiveListFromServer.RemoveListener(RefreshServerList);
     }
 
     private void RefreshServerList(List<GameServerData> servers) {

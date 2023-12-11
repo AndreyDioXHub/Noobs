@@ -75,6 +75,6 @@ public class RefreshServerListView : MonoBehaviour
         _timwCur = 0;
         _isPaused = true;
         OnServersRefreshed?.Invoke();
-        NoobsLobby.Instance.RefreshLobbyListAsync();
+        //NoobsLobby.Instance.RefreshLobbyListAsync();  //TODO
     }
 }
