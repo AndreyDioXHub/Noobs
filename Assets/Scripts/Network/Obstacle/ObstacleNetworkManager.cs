@@ -99,7 +99,11 @@ public class ObstacleNetworkManager : NetworkManager
     /// </summary>
     /// <param name="conn">Connection from client.</param>
     public override void OnServerConnect(NetworkConnectionToClient conn) {
-        
+        LogConnection(conn.address);
+    }
+
+    private void LogConnection(string address) {
+        //TODO Save in log
     }
 
     /// <summary>

@@ -37,11 +37,11 @@ public class TestButtonSpawner : MonoBehaviour
     }
 
     private void OnDisable() {
-        csolver.OnReceiveListFromServer.RemoveListener(RefreshServerList);
+        if (csolver != null) csolver.OnReceiveListFromServer.RemoveListener(RefreshServerList);
     }
 
     private void RefreshServerList(List<GameServerData> servers) {
-        Debug.Log("RefreshServerList call");
+        Debug.Log("RefreshServerList reseive");
         if(conten.childCount > 0) {
             while(conten.childCount > 0) {
                 Destroy(conten.GetChild(0));
