@@ -76,6 +76,10 @@ namespace cyraxchel.network.server {
             bool listfounded = false;
             int i = 0;
             while(!listfounded) {
+                if(i >= DataServers.Count) { 
+                    //TODO Call error
+                    break; 
+                }
                 string url = DataServers[i];
                 UnityWebRequest www = UnityWebRequest.Get(url);
                 OnSendRequiesToServer?.Invoke(i);
@@ -90,6 +94,7 @@ namespace cyraxchel.network.server {
                     break;
                 } else {
                     i++;
+                    
                 }
 
             }
