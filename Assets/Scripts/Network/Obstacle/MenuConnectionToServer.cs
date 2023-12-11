@@ -33,6 +33,8 @@ public class MenuConnectionToServer : MonoBehaviour
 
     int totalSeconds = 0;
 
+    bool canselectserver = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -74,6 +76,7 @@ public class MenuConnectionToServer : MonoBehaviour
     }
 
     public void PlayNetworkGame() {
+        canselectserver = true;
         if (NetworkClient.isConnected || NetworkClient.isConnecting) return;
         Log.logger = new SilentLogger();
         infoText.text = connmessage;
@@ -89,6 +92,21 @@ public class MenuConnectionToServer : MonoBehaviour
         StartCoroutine(CountTimeConnection());
 
 
+    }
+
+    public void PlayNetworkGame(GameServerData prefferserver) {
+        canselectserver = false;
+        StopAllCoroutines();
+        if (NetworkClient.isConnected || NetworkClient.isConnecting) return;
+        Log.logger = new SilentLogger();
+        infoText.text = connmessage;
+        ConnectionPanel.SetActive(true);
+        ObstacleNetworkManager.singleton.networkAddress = prefferserver.Address;
+        if (!string.IsNullOrEmpty(prefferserver.Port)) {
+            transport.Port = prefferserver.GetPort();
+        }
+        ObstacleNetworkManager.singleton.StartClient();
+        StartCoroutine(CountTimeConnection());
     }
 
     public void PlayOfflineGame() 
@@ -120,7 +138,7 @@ public class MenuConnectionToServer : MonoBehaviour
     }
 
     private bool HasAttempt() {
-        return serverData.Count>0;
+        return serverData.Count>0 && canselectserver;
     }
 
     private void OnDestroy() {

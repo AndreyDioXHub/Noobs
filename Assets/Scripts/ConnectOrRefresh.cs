@@ -1,11 +1,16 @@
+using cyraxchel.network.server;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class ConnectOrRefresh : MonoBehaviour
 {
     public static ConnectOrRefresh Instance;
+
+    public UnityEvent<GameServerData> CallConnectToServer = new UnityEvent<GameServerData>();
 
     [SerializeField]
     private GameObject _refreshButton;
@@ -14,6 +19,8 @@ public class ConnectOrRefresh : MonoBehaviour
     [SerializeField]
     private GameObject _cantConnectButton;
 
+    GameServerData _lastServer;
+
     private void Awake()
     {
         Instance = this;
@@ -21,7 +28,11 @@ public class ConnectOrRefresh : MonoBehaviour
 
     void Start()
     {
-        
+        _connectButton.GetComponent<Button>().onClick.AddListener(TryConnectToServer);
+    }
+
+    private void TryConnectToServer() {
+        CallConnectToServer?.Invoke(_lastServer);
     }
 
     void Update()
@@ -35,11 +46,13 @@ public class ConnectOrRefresh : MonoBehaviour
         _cantConnectButton.SetActive(false);
     }
 
-    public void Connect(bool serverFull)
+    public void Connect(GameServerData _server)
     {
+        _lastServer = _server;
         _refreshButton.SetActive(false);
-        _connectButton.SetActive(!serverFull);
-        _cantConnectButton.SetActive(serverFull);
+        _connectButton.SetActive(true);
+        _cantConnectButton.SetActive(false);
+
     }
 
 

@@ -30,11 +30,6 @@ public class TestButtonSpawner : MonoBehaviour
 
     }
 
-    private IEnumerator RefreshListLater() {
-        yield return new WaitForEndOfFrame();
-
-        RefreshServerList(NoobsLobby.Instance.Lobbies);
-    }
 
     private void OnDisable() {
         if (csolver != null) {
@@ -46,8 +41,8 @@ public class TestButtonSpawner : MonoBehaviour
     private void RefreshServerList(List<GameServerData> servers) {
         Debug.Log("RefreshServerList receive");
         if(conten.childCount > 0) {
-            while(conten.childCount > 0) {
-                Destroy(conten.GetChild(0));
+            for (int i = conten.childCount-1; i >= 0; i--) {
+                Destroy(conten.GetChild(i).gameObject);
             }
         }
         for (int i = 0; i < servers.Count; i++) {
