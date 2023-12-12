@@ -30,6 +30,8 @@ namespace cyraxchel.network.server {
 
         [SerializeField]
         List<GameServerData> GameServers;
+        [SerializeField]
+        GameServerData DefauilConfig;
 
         public static List<GameServerData> SharedGameServers { get; private set; }
 
@@ -73,13 +75,8 @@ namespace cyraxchel.network.server {
 
         private IEnumerator GetServers() {
             BeginSearchServers?.Invoke();
-            bool listfounded = false;
-            int i = 0;
-            while(!listfounded) {
-                if(i >= DataServers.Count) { 
-                    //TODO Call error
-                    break; 
-                }
+            bool configured = false;
+            for (int i = 0; i < DataServers.Count; i++) {
                 string url = DataServers[i];
                 UnityWebRequest www = UnityWebRequest.Get(url);
                 OnSendRequiesToServer?.Invoke(i);
@@ -90,13 +87,15 @@ namespace cyraxchel.network.server {
                     NetServersListRaw = www.downloadHandler.text;
                     ParseData(NetServersListRaw);
                     Debug.Log($"Data success: {NetServersListRaw}");
-                    listfounded = true;
+                    configured = true;
                     break;
-                } else {
-                    i++;
-                    
                 }
-
+            }
+            if(!configured) {
+                GameServers = new List<GameServerData>();
+                GameServers.Add(DefauilConfig);
+                SharedGameServers = GameServers;
+                OnReceiveListFromServer?.Invoke(GameServers);
             }
             yield return null;
         }

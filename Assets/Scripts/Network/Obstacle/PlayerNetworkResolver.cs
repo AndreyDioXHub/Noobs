@@ -14,7 +14,15 @@ using YG;
 */
 
 public class PlayerNetworkResolver : NetworkBehaviour {
-    public static string LocalUserName;
+    static string _uname;
+    public static string LocalUserName { get => _uname; 
+        set { 
+            _uname = value;
+            if(currentLocalPlayer != null) {
+                currentLocalPlayer.username = value;
+            }
+        } }
+    static PlayerNetworkResolver currentLocalPlayer;
 
     [SerializeField]
     private SkinsInfo _info = new SkinsInfo();
@@ -148,7 +156,7 @@ public class PlayerNetworkResolver : NetworkBehaviour {
     /// <para>This happens after OnStartClient(), as it is triggered by an ownership message from the server. This is an appropriate place to activate components or functionality that should only be active for the local player, such as cameras and input.</para>
     /// </summary>
     public override void OnStartLocalPlayer() {
-
+        currentLocalPlayer = this;
         username = LocalUserName;
 
         #region Здесь прописываем скрипты, которые относятся к локальному игроку
@@ -193,6 +201,7 @@ public class PlayerNetworkResolver : NetworkBehaviour {
         SkinManager.Instance.OnSkinInfoChanged.AddListener(GetUserSkin);
         #endregion
     }
+
 
 
 

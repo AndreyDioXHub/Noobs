@@ -145,10 +145,11 @@ MonoBehaviour:
       m_Calls: []
   DataServers:
   - https://lisenok-games.ru/ob/nodes.json
-  GameServers:
-  - Name: ob 1
+  GameServers: []
+  DefauilConfig:
+    Name: Base
     Address: ob.lisenok-games.ru
     Port: 
     Players: 
-    Id: 1
+    Id: 12
   _netServersList: 
