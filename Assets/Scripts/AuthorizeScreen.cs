@@ -28,7 +28,7 @@ public class AuthorizeScreen : MonoBehaviour
 
     void Start()
     {
-        if (SceneManager.GetActiveScene().name.Equals("NoobLevelObstacleCourseNetwork"))
+        if (YandexGame.DataIsLoaded)
         {
             _authorized = YandexGame.savesData.askAuthorize == 1;
 

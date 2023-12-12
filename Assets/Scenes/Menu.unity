@@ -971,6 +971,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 263421035139279842, guid: 6d023c8074e9fa146a0e80ee67516e61, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1049596229274996556, guid: 6d023c8074e9fa146a0e80ee67516e61, type: 3}
       propertyPath: _info
       value: 
@@ -1291,6 +1295,18 @@ PrefabInstance:
       propertyPath: _sdk
       value: 
       objectReference: {fileID: 491048875}
+    - target: {fileID: 8401216324103574846, guid: 6d023c8074e9fa146a0e80ee67516e61, type: 3}
+      propertyPath: OnRequestingEnvironmentData.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 788353416}
+    - target: {fileID: 8401216324103574846, guid: 6d023c8074e9fa146a0e80ee67516e61, type: 3}
+      propertyPath: OnRequestingEnvironmentData.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ShowFullscreen
+      objectReference: {fileID: 0}
+    - target: {fileID: 8401216324103574846, guid: 6d023c8074e9fa146a0e80ee67516e61, type: 3}
+      propertyPath: OnRequestingEnvironmentData.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: AdsManager, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 8401216324185416011, guid: 6d023c8074e9fa146a0e80ee67516e61, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
