@@ -554,6 +554,7 @@ GameObject:
   - component: {fileID: 814181198}
   - component: {fileID: 814181197}
   - component: {fileID: 814181199}
+  - component: {fileID: 814181200}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -658,6 +659,18 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
+--- !u!114 &814181200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 814181196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09e6d1cb9f87c3348a28984198db7163, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1144624059
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -716,6 +729,10 @@ PrefabInstance:
     - target: {fileID: 1778411711057350417, guid: 607cd7924281da94fa8ca9fdea412eb0, type: 3}
       propertyPath: offlineScene
       value: Assets/Scenes/Menu.unity
+      objectReference: {fileID: 0}
+    - target: {fileID: 1778411711057350417, guid: 607cd7924281da94fa8ca9fdea412eb0, type: 3}
+      propertyPath: runInBackground
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1778411711057350418, guid: 607cd7924281da94fa8ca9fdea412eb0, type: 3}
       propertyPath: m_Name
