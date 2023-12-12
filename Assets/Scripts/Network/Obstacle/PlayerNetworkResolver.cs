@@ -195,6 +195,7 @@ public class PlayerNetworkResolver : NetworkBehaviour {
         _robloxController.OnEscDown.AddListener(SettingScreen.Instance.SwitchScreenState);
         _robloxController.OnEscDown.AddListener(ChatTexts.Instance.CloseChat);
         SettingScreen.Instance.OnStateSwitched.AddListener(ChatTexts.Instance.CloseChat);
+        AdsManager.Instance.OnAdsSwitched.AddListener(ChatTexts.Instance.CloseChat);
         _robloxController.OnEnterDown.AddListener(ChatTexts.Instance.OpenChat);
         LoadUserData();// GetUserSkin();
         nameField.Init(username,netId, isLocalPlayer, false);

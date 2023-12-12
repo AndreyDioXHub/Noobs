@@ -119,8 +119,10 @@ public class ChatTexts : MonoBehaviour
         //ChatView.SetActive(true);
     }
 
-    public void CloseChat()
+    IEnumerator CloseChatCoroutine()
     {
+        yield return new WaitForEndOfFrame();
+
         if (SettingScreen.IsActive || AdsManager.AdsPlaying)
         {
             foreach (var sw in _switchedes)
@@ -157,6 +159,11 @@ public class ChatTexts : MonoBehaviour
             _inputField.SetActive(false);
         }
         //ChatView.SetActive(false);
+    }
+
+    public void CloseChat()
+    {
+        StartCoroutine(CloseChatCoroutine());
     }
 
     public void ToggleChat() 

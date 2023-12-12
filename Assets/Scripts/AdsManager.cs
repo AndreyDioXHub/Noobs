@@ -24,6 +24,7 @@ public class AdsManager : MonoBehaviour
 
 
     public UnityEvent OnReward;
+    public UnityEvent OnAdsSwitched;
 
     [SerializeField]
     private InfoYG _infoYG;
@@ -132,6 +133,7 @@ public class AdsManager : MonoBehaviour
     {
         if (_adsScreen != null)
         {
+            OnAdsSwitched?.Invoke();
             _adsScreen.SetActive(false);
             _adsPlaying = false;
         }
@@ -145,6 +147,7 @@ public class AdsManager : MonoBehaviour
             _timeBetweenCheckpointsCur = 0;
             if (_adsScreen != null)
             {
+                OnAdsSwitched?.Invoke();
                 _adsScreen.SetActive(true);
                 _adsPlaying = true;
             }

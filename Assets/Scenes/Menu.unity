@@ -533,6 +533,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  OnAdsSwitched:
+    m_PersistentCalls:
+      m_Calls: []
   _infoYG: {fileID: 11400000, guid: 162644796a8b0d044bce3d6fda0641e3, type: 2}
   _sdk: {fileID: 491048875}
   _timeRewarded: 60
