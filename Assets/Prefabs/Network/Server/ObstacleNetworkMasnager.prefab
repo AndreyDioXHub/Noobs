@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1778411711057350416}
   - component: {fileID: 1778411711057350417}
+  - component: {fileID: 2894006923562941466}
   - component: {fileID: 1778411711057350430}
   - component: {fileID: 2273756397249338035}
   m_Layer: 0
@@ -48,7 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dontDestroyOnLoad: 1
   runInBackground: 0
-  autoStartServerBuild: 1
+  autoStartServerBuild: 0
   autoConnectClientBuild: 0
   sendRate: 60
   offlineScene: 
@@ -79,6 +80,25 @@ MonoBehaviour:
   ServerPlayerCountChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2894006923562941466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1778411711057350418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad7cde6f111b6f74ea9526be8b672527, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  configfile: server.cfg
+  serverConfigItem:
+    ServerName: Server 1
+    Port: 7777
+    MaxPlayers: 299
+    UseDefaultPort: 0
+    UseWss: 0
 --- !u!114 &1778411711057350430
 MonoBehaviour:
   m_ObjectHideFlags: 0
