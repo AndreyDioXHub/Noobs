@@ -99,6 +99,8 @@ MonoBehaviour:
     MaxPlayers: 299
     UseDefaultPort: 0
     UseWss: 0
+    RestApiLink: 
+  ApiLink: 
 --- !u!114 &1778411711057350430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,6 +152,7 @@ MonoBehaviour:
       m_Calls: []
   DataServers:
   - https://lisenok-games.ru/ob/nodes.json
+  - https://lisenok-games.ru/ob/nodes.php
   GameServers: []
   DefauilConfig:
     Name: Base
