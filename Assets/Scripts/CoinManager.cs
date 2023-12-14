@@ -62,7 +62,7 @@ public class CoinManager : MonoBehaviour
     {
         if (_isMyReward)
         {
-            AddMoney(20);
+            AddMoney(50);
         }
     }
 

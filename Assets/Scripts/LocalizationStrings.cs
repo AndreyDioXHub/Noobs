@@ -93,7 +93,7 @@ public static class LocalizationStrings
         { "checkpointselect", "Выбор чекпоинта"},
         { "checkpointselectavaleble", "Перейдите к доступному чекпоинту"},
         { "authorization", "Авторизация"},
-        { "authorizationmessage", "Авторизация позволит вам не потерять прогресс и сохранять ваши достижения в облаке."},
+        { "authorizationmessage", "Авторизуйтесь, чтобы иметь возможность продолжить игру на другом устройстве."},
         { "authorizationreject", "Авторизация не удалась. Попробуйте позже."},
         { "authorizationsuxess", "**Авторизация прошла успешно!**"},
         { "newcheckpoint", "**Доступен новый чекпоинт**"},
@@ -113,6 +113,7 @@ public static class LocalizationStrings
         { "adsdie", "Посмотреть рекламу и воскреснуть"},
         { "adslife", "Воскреснуть за сердечко"},
         { "adsretry", "Начать с начала"},
+        { "your50", "Выполучите 50 монет после просмотра рекламы"},
     };
 
     public static Dictionary<string, string> StringsRu = new Dictionary<string, string>()
@@ -204,7 +205,7 @@ public static class LocalizationStrings
         { "checkpointselect", "Выбор чекпоинта"},
         { "checkpointselectavaleble", "Перейдите к доступному чекпоинту"},
         { "authorization", "Авторизация"},
-        { "authorizationmessage", "Авторизация позволит вам не потерять прогресс и сохранять ваши достижения в облаке."},
+        { "authorizationmessage", "Авторизуйтесь, чтобы иметь возможность продолжить игру на другом устройстве."},
         { "authorizationreject", "Авторизация не удалась. Попробуйте позже."},
         { "authorizationsuxess", "**Авторизация прошла успешно!**"},
         { "newcheckpoint", "**Доступен новый чекпоинт**"},
@@ -224,6 +225,7 @@ public static class LocalizationStrings
         { "adsdie", "Посмотреть рекламу и воскреснуть"},
         { "adslife", "Воскреснуть за сердечко"},
         { "adsretry", "Начать с начала"},
+        { "your50", "Выполучите 50 монет после просмотра рекламы"},
     };
 
     public static Dictionary<string, string> StringsEn = new Dictionary<string, string>()
@@ -315,7 +317,7 @@ public static class LocalizationStrings
         { "checkpointselect", "Select checkpoint"},
         { "checkpointselectavaleble", "Go to an available checkpoint"},
         { "authorization", "Authorization"},
-        { "authorizationmessage", "Authorization will allow you not to lose progress and save your achievements in the cloud."},
+        { "authorizationmessage", "Log in to be able to continue playing on another device."},
         { "authorizationreject", "Authorization failed. Try later."},
         { "authorizationsuxess", "**Authorization was successful!**"},
         { "newcheckpoint", "**New checkpoint available**"},
@@ -335,6 +337,7 @@ public static class LocalizationStrings
         { "adsdie", "Watch the ad and be resurrected"},
         { "adslife", "Resurrect for the heart"},
         { "adsretry", "Start over"},
+        { "your50", "Get 50 coins after watching ads"},
     };
 
     public static void SetLanguage(string lang)
