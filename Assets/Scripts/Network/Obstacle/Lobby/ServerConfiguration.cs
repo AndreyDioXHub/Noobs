@@ -9,6 +9,7 @@ using System.IO;
 using UnityEditor;
 #endif
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace cyraxchel.network.server {
 
@@ -21,6 +22,11 @@ namespace cyraxchel.network.server {
 
         [SerializeField]
         ServerConfigItem serverConfigItem;
+
+        [SerializeField]
+        string ApiLink;
+
+        const string userTemplate = "[users]";
 
         // Start is called before the first frame update
         void Start() {
@@ -45,6 +51,7 @@ namespace cyraxchel.network.server {
                 if (serverConfigItem.Port > 0) transport.port = serverConfigItem.Port;
                 transport.ClientUseDefaultPort = serverConfigItem.UseDefaultPort;
                 transport.clientUseWss = serverConfigItem.UseWss;
+                ApiLink = serverConfigItem.RestApiLink;
             } else {
             Debug.Log("Server config not founded");
                 RunServer();
@@ -55,7 +62,20 @@ namespace cyraxchel.network.server {
         }
 
         private void SendPlayerCountChanged(int playercount) {
-            //TODO Send to rest api
+            //Send to rest api
+            if(!string.IsNullOrEmpty(ApiLink)) {
+                StopAllCoroutines();
+                string rest = ApiLink.Replace(userTemplate, playercount.ToString());
+                StartCoroutine(SendApiRequest(rest));
+            }
+        }
+
+        private IEnumerator SendApiRequest(string rest) {
+            UnityWebRequest request = UnityWebRequest.Get(rest);
+            yield return request.SendWebRequest();
+            if(request.result != UnityWebRequest.Result.Success) {
+                Debug.LogWarning($"Error on send rest api request to {rest} with status {request.error}");
+            }
         }
 
         void RunServer() {
@@ -86,5 +106,7 @@ namespace cyraxchel.network.server {
         public bool UseDefaultPort = false;
         [JsonProperty("usewss"), SerializeField]
         public bool UseWss = false;
+        [JsonProperty("api"), SerializeField]
+        public string RestApiLink;
     }
 }
