@@ -314,6 +314,7 @@ public class PlayerNetworkResolver : NetworkBehaviour {
     private void OnLocalplayerChangeMoveState(bool state) 
     {
         n_IsGrounded = state;
+        _playerSounds.PlayJumpLand(n_IsGrounded);
     }
 
 
