@@ -247,7 +247,8 @@ public class PlayerNetworkResolver : NetworkBehaviour {
         }
     }
 
-    private void OnPlayerNameChanged(string oldname, string newname) {
+    private void OnPlayerNameChanged(string oldname, string newname) 
+    {
         Debug.Log($"Set user name {newname}");
         //TODO Set user name
         if (!isLocalPlayer && !isServer) nameField.Init(newname, netId, isLocalPlayer, false);
@@ -259,12 +260,14 @@ public class PlayerNetworkResolver : NetworkBehaviour {
         }
     }
 
-    public void OnMove(InputAction.CallbackContext context) {
+    public void OnMove(InputAction.CallbackContext context) 
+    {
         Vector2 val = context.ReadValue<Vector2>();
         AxisMove = new Vector3(val.x, 0, val.y);
     }
 
-    private void OnAxisChanged(Vector3 oldval, Vector3 newval) {
+    private void OnAxisChanged(Vector3 oldval, Vector3 newval) 
+    {
         if (!isLocalPlayer) {
             _modelDirection.OnAvatarMove(newval);
             _animatorController.AxisMove = newval;
@@ -274,6 +277,7 @@ public class PlayerNetworkResolver : NetworkBehaviour {
     public void OnDied(bool newval)
     {
         IsDied = newval;
+
         if (IsDied)
         {
             _playerSounds.PlayDie();
@@ -301,8 +305,10 @@ public class PlayerNetworkResolver : NetworkBehaviour {
         if (!isLocalPlayer) _animatorController.Blend = newval;
     }
 
-    private void OnLocalplayerChangeMoveState(bool state) {
+    private void OnLocalplayerChangeMoveState(bool state) 
+    {
         n_IsGrounded = state;
+        _playerSounds.PlayJumpLand(n_IsGrounded);
     }
 
 

@@ -19,51 +19,25 @@ public class PlayerSounds : MonoBehaviour
 
     void Start()
     {
-        _controller.MovingStateChange += MovingStateChange;
-    }
 
-    private void MovingStateChange(bool isjump)
-    {
-        if (isjump)
-        {
-            if (_jump.isPlaying)
-            {
-                _jump.Stop();
-            }
-
-            if (!_land.isPlaying)
-            {
-                _land.Play();
-            }
-        }
-        else
-        {
-            if (!_jump.isPlaying)
-            {
-                _jump.Play();
-            }
-
-            if (_land.isPlaying)
-            {
-                _land.Stop();
-            }
-        }
-        //PlayLand();
     }
 
     void Update()
     {
         if (_controller.IsLocalPlayer)
         {
-            if (SettingScreen.IsActive || AdsScreen.IsActive || AdsButtonView.IsActive || CheckPointManager.Instance.IsWin
-                || ChatTexts.IsActive || AdsManager.AdsPlaying)
+            if (ChatTexts.IsActive)
             {
                 return;
             }
         }
         else
         {
-
+            if (SettingScreen.IsActive || AdsScreen.IsActive || AdsButtonView.IsActive || CheckPointManager.Instance.IsWin 
+                || AdsManager.AdsPlaying)
+            {
+                return;
+            }
         }
 
         if (_controller.AxisMove.magnitude > 0 && _controller.IsGrounded)
@@ -95,5 +69,49 @@ public class PlayerSounds : MonoBehaviour
         }
     }
 
+    public void PlayJumpLand(bool isGrounded)
+    {
+        if (_controller.IsLocalPlayer)
+        {
+            if (ChatTexts.IsActive)
+            {
+                return;
+            }
+        }
+        else
+        {
+            if (SettingScreen.IsActive || AdsScreen.IsActive || AdsButtonView.IsActive || CheckPointManager.Instance.IsWin
+                || AdsManager.AdsPlaying)
+            {
+                return;
+            }
+        }
+
+
+        if (isGrounded == false)
+        {
+            if (!_jump.isPlaying)
+            {
+                _jump.Play();
+            }
+        }
+        else
+        {
+            if (!_land.isPlaying)
+            {
+                _land.Play();
+            }
+        }
+    }
+
+    public void PlayLand()
+    {
+        if (SettingScreen.IsActive || AdsScreen.IsActive || AdsButtonView.IsActive || CheckPointManager.Instance.IsWin
+            || ChatTexts.IsActive || AdsManager.AdsPlaying)
+        {
+            return;
+        }
+
+    }
 
 }
