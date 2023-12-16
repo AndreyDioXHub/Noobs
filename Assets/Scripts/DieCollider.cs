@@ -21,7 +21,7 @@ public class DieCollider : MonoBehaviour
         {
             LifeManager.Instance.PlayerDead();
             other.transform.SetParent(null);
-            other.GetComponent<RobloxController>().OnDie?.Invoke();
+            other.GetComponent<RobloxController>().OnDie?.Invoke(true);
         }
     }
 }

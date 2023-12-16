@@ -62,6 +62,8 @@ public class PlayerNetworkResolver : NetworkBehaviour {
 
     [SerializeField]
     ModelDirection _modelDirection;
+    [SerializeField]
+    PlayerSounds _playerSounds;
 
     [SerializeField]
     //TMP_Text nameField;
@@ -74,6 +76,9 @@ public class PlayerNetworkResolver : NetworkBehaviour {
 
     [SyncVar(hook = nameof(OnAxisChanged))]
     Vector3 AxisMove;
+
+    [SyncVar(hook = nameof(OnDiedChanged))]
+    bool IsDied;
 
     [SyncVar(hook = nameof(OnGroundChanged))]
     bool n_IsGrounded = true;
@@ -155,7 +160,8 @@ public class PlayerNetworkResolver : NetworkBehaviour {
     /// Called when the local player object has been set up.
     /// <para>This happens after OnStartClient(), as it is triggered by an ownership message from the server. This is an appropriate place to activate components or functionality that should only be active for the local player, such as cameras and input.</para>
     /// </summary>
-    public override void OnStartLocalPlayer() {
+    public override void OnStartLocalPlayer() 
+    {
         currentLocalPlayer = this;
         username = LocalUserName;
 
@@ -200,6 +206,7 @@ public class PlayerNetworkResolver : NetworkBehaviour {
         LoadUserData();// GetUserSkin();
         nameField.Init(username,netId, isLocalPlayer, false);
         SkinManager.Instance.OnSkinInfoChanged.AddListener(GetUserSkin);
+        //LifeManager.Instance.On
         #endregion
     }
 
@@ -261,6 +268,28 @@ public class PlayerNetworkResolver : NetworkBehaviour {
         if (!isLocalPlayer) {
             _modelDirection.OnAvatarMove(newval);
             _animatorController.AxisMove = newval;
+        }
+    }
+
+    public void OnDied(bool newval)
+    {
+        IsDied = newval;
+        if (IsDied)
+        {
+            _playerSounds.PlayDie();
+        }
+    }
+
+    private void OnDiedChanged(bool oldval, bool newval)
+    {
+        if (!isLocalPlayer)
+        {
+            IsDied = newval;
+
+            if (IsDied)
+            {
+                _playerSounds.PlayDie();
+            }
         }
     }
 

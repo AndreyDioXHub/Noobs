@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerSounds : MonoBehaviour
 {
+
+    [SerializeField]
+    private AnimatorController _controller;
     [SerializeField]
     private AudioSource _walk;
     [SerializeField]
@@ -12,52 +15,58 @@ public class PlayerSounds : MonoBehaviour
     private AudioSource _land;
     [SerializeField]
     private List<AudioSource> _dies = new List<AudioSource>();
-    [SerializeField]
-    private GroundCheck _groundCheck;
-
-    [SerializeField]
-    private bool _isGround;
-    [SerializeField]
-    private bool _isGroundPrev;
 
 
     void Start()
     {
-        
+        _controller.MovingStateChange += MovingStateChange;
+    }
+
+    private void MovingStateChange(bool isjump)
+    {
+        if (isjump)
+        {
+            if (_jump.isPlaying)
+            {
+                _jump.Stop();
+            }
+
+            if (!_land.isPlaying)
+            {
+                _land.Play();
+            }
+        }
+        else
+        {
+            if (!_jump.isPlaying)
+            {
+                _jump.Play();
+            }
+
+            if (_land.isPlaying)
+            {
+                _land.Stop();
+            }
+        }
+        //PlayLand();
     }
 
     void Update()
     {
-        if (SettingScreen.IsActive || AdsScreen.IsActive || AdsButtonView.IsActive || CheckPointManager.Instance.IsWin
-            || ChatTexts.IsActive || AdsManager.AdsPlaying)
+        if (_controller.IsLocalPlayer)
         {
-            return;
+            if (SettingScreen.IsActive || AdsScreen.IsActive || AdsButtonView.IsActive || CheckPointManager.Instance.IsWin
+                || ChatTexts.IsActive || AdsManager.AdsPlaying)
+            {
+                return;
+            }
+        }
+        else
+        {
+
         }
 
-        _isGround = _groundCheck.IsGrounded;
-
-        if(_isGround && !_isGroundPrev)
-        {
-            PlayLand();
-        }
-    }
-
-    private void LateUpdate()
-    {
-        _isGroundPrev = _isGround;
-    }
-
-
-
-    public void PlayMove(bool isMove)
-    {
-        if (SettingScreen.IsActive || AdsScreen.IsActive || AdsButtonView.IsActive || CheckPointManager.Instance.IsWin
-            || ChatTexts.IsActive || AdsManager.AdsPlaying)
-        {
-            return;
-        }
-
-        if (isMove)
+        if (_controller.AxisMove.magnitude > 0 && _controller.IsGrounded)
         {
             if (!_walk.isPlaying)
             {
@@ -71,25 +80,6 @@ public class PlayerSounds : MonoBehaviour
                 _walk.Stop();
             }
         }
-    }
-
-    public void PlayJump()
-    {
-        if (SettingScreen.IsActive || AdsScreen.IsActive || AdsButtonView.IsActive || CheckPointManager.Instance.IsWin
-            || ChatTexts.IsActive || AdsManager.AdsPlaying)
-        {
-            return;
-        }
-        _jump.Play();
-    }
-    public void PlayLand()
-    {
-        if (SettingScreen.IsActive || AdsScreen.IsActive || AdsButtonView.IsActive || CheckPointManager.Instance.IsWin
-            || ChatTexts.IsActive || AdsManager.AdsPlaying)
-        {
-            return;
-        }
-        _land.Play();
     }
 
     public void PlayDie()

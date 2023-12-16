@@ -9,7 +9,7 @@ public class RobloxController : MonoBehaviour
     public UnityEvent OnEscDown = new UnityEvent();
     public UnityEvent OnEnterDown = new UnityEvent();
     public UnityEvent OnJumpPressed = new UnityEvent();
-    public UnityEvent OnDie = new UnityEvent();
+    public UnityEvent<bool> OnDie = new UnityEvent<bool>();
     
 
     public static RobloxController Instance;
@@ -45,8 +45,6 @@ public class RobloxController : MonoBehaviour
     private Vector2 _axisMove;
     [SerializeField]
     private Vector3 _gravityVector;
-    [SerializeField]
-    private PlayerSounds _sounds;
 
 
     private float _inAirTime = 0.1f;
@@ -72,15 +70,6 @@ public class RobloxController : MonoBehaviour
         if (transform.position.y < 0)
         {
             return;
-        }
-
-        if (_isGrounded)
-        {
-            _sounds.PlayMove(_axisMove.magnitude > 0);
-        }
-        else
-        {
-            _sounds.PlayMove(false);
         }
 
         //Debug.Log($"{ SettingScreen.IsActive} {AdsScreen.IsActive} {AdsButtonView.IsActive} {CheckPointManager.Instance.IsWin} {ChatTexts.IsActive}");
@@ -161,6 +150,7 @@ public class RobloxController : MonoBehaviour
 
     public void ReturnToCheckPoint(Vector3 position)
     {
+        OnDie?.Invoke(false);
         _gravityVector = Vector3.zero;
         _controller.enabled = false;
         transform.position = position;

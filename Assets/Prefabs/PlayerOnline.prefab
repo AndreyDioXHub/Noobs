@@ -668,7 +668,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 287.26, y: 0}
   m_SizeDelta: {x: 0, y: 100.55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8861306812403429585
@@ -1455,9 +1455,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7635699013819483987}
   - component: {fileID: 7635699013819483984}
+  - component: {fileID: 619010311784695260}
   - component: {fileID: 9210390730223059894}
   - component: {fileID: 1169048150951630371}
-  - component: {fileID: 619010311784695260}
   - component: {fileID: 5424824734585482624}
   - component: {fileID: 7635699013819483978}
   - component: {fileID: 7635699013819484017}
@@ -1518,6 +1518,56 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &619010311784695260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7635699013819483998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97e7f2de215dd5846b3680e5fe55b430, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 1
+  syncMode: 0
+  syncInterval: 0
+  _info:
+    eqyuipedSex: 0
+    eqyuipedBody: 0
+    eqyuipedHair: 0
+    eqyuipedHairColor: 0
+    eqyuipedTshirt: 0
+    eqyuipedPants: 0
+    eqyuipedShoes: 0
+    eqyuipedFace: 0
+    sexes: 
+    bodyColors: 
+    hairs: 
+    hairColors: 
+    tshirtColors: 
+    pantsColors: 
+    shoesColors: 
+    faces: 
+  _modelSkinManager: {fileID: 1169048150951630371}
+  _characterController: {fileID: 7635699013819483984}
+  _robloxController: {fileID: 5424824734585482624}
+  _groundCheck: {fileID: 5424824734585482630}
+  _animatorController: {fileID: 7635699013819484017}
+  TPSPrefab: {fileID: 2885129400535646555, guid: f60c418b8cc86bc43b9b1bd4b662dbbe, type: 3}
+  FPSPrefab: {fileID: 7223226431559430325, guid: 3e7aa68daf36c5d4a971cde6d8bf7350, type: 3}
+  _cameraCenterTPS: {fileID: 7635699013819483987}
+  _cameraCenterFPS: {fileID: 5644810386350745240}
+  TPS: {fileID: 0}
+  FPS: {fileID: 0}
+  _cameraView: {fileID: 7635699013819483978}
+  _inputs: {fileID: 5424824734585482625}
+  PCLook: {fileID: -7815973271342003743, guid: 2a36b58d3c96e764ea4ed8ebbd03b7ba, type: 3}
+  MobileLook: {fileID: 3135859278886229363, guid: 2a36b58d3c96e764ea4ed8ebbd03b7ba, type: 3}
+  _modelDirection: {fileID: 5644810387811423766}
+  _playerSounds: {fileID: 9210390730223059894}
+  nameField: {fileID: 2429902065597327693}
 --- !u!114 &9210390730223059894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1530,15 +1580,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9ade5bb3b904a041ba20f49f46ce0d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _controller: {fileID: 7635699013819484017}
   _walk: {fileID: 2008767706394207960}
   _jump: {fileID: 5365338290741416983}
   _land: {fileID: 8530408716380611367}
   _dies:
   - {fileID: 3023559508554113359}
   - {fileID: 4781092248887102424}
-  _groundCheck: {fileID: 5424824734585482630}
-  _isGround: 0
-  _isGroundPrev: 0
 --- !u!114 &1169048150951630371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1647,55 +1695,6 @@ MonoBehaviour:
     shoesColors: 
     faces: 
   _equipSelf: 0
---- !u!114 &619010311784695260
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7635699013819483998}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97e7f2de215dd5846b3680e5fe55b430, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 1
-  syncMode: 0
-  syncInterval: 0
-  _info:
-    eqyuipedSex: 0
-    eqyuipedBody: 0
-    eqyuipedHair: 0
-    eqyuipedHairColor: 0
-    eqyuipedTshirt: 0
-    eqyuipedPants: 0
-    eqyuipedShoes: 0
-    eqyuipedFace: 0
-    sexes: 
-    bodyColors: 
-    hairs: 
-    hairColors: 
-    tshirtColors: 
-    pantsColors: 
-    shoesColors: 
-    faces: 
-  _modelSkinManager: {fileID: 1169048150951630371}
-  _characterController: {fileID: 7635699013819483984}
-  _robloxController: {fileID: 5424824734585482624}
-  _groundCheck: {fileID: 5424824734585482630}
-  _animatorController: {fileID: 7635699013819484017}
-  TPSPrefab: {fileID: 2885129400535646555, guid: f60c418b8cc86bc43b9b1bd4b662dbbe, type: 3}
-  FPSPrefab: {fileID: 7223226431559430325, guid: 3e7aa68daf36c5d4a971cde6d8bf7350, type: 3}
-  _cameraCenterTPS: {fileID: 7635699013819483987}
-  _cameraCenterFPS: {fileID: 5644810386350745240}
-  TPS: {fileID: 0}
-  FPS: {fileID: 0}
-  _cameraView: {fileID: 7635699013819483978}
-  _inputs: {fileID: 5424824734585482625}
-  PCLook: {fileID: -7815973271342003743, guid: 2a36b58d3c96e764ea4ed8ebbd03b7ba, type: 3}
-  MobileLook: {fileID: 3135859278886229363, guid: 2a36b58d3c96e764ea4ed8ebbd03b7ba, type: 3}
-  _modelDirection: {fileID: 5644810387811423766}
-  nameField: {fileID: 2429902065597327693}
 --- !u!114 &5424824734585482624
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1716,26 +1715,14 @@ MonoBehaviour:
       m_Calls: []
   OnJumpPressed:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 9210390730223059894}
-        m_TargetAssemblyTypeName: PlayerSounds, Assembly-CSharp
-        m_MethodName: PlayJump
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   OnDie:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 9210390730223059894}
-        m_TargetAssemblyTypeName: PlayerSounds, Assembly-CSharp
-        m_MethodName: PlayDie
-        m_Mode: 1
+      - m_Target: {fileID: 619010311784695260}
+        m_TargetAssemblyTypeName: PlayerNetworkResolver, Assembly-CSharp
+        m_MethodName: OnDied
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1759,7 +1746,6 @@ MonoBehaviour:
   _turnSmoothVelocity: 0
   _axisMove: {x: 0, y: 0}
   _gravityVector: {x: 0, y: 0, z: 0}
-  _sounds: {fileID: 9210390730223059894}
 --- !u!114 &7635699013819483978
 MonoBehaviour:
   m_ObjectHideFlags: 0

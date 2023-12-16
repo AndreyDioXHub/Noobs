@@ -53,6 +53,7 @@ public class AnimatorController : MonoBehaviour
                 MovingStateChange?.Invoke(IsGrounded);
             }
             moving = _axisMove.sqrMagnitude > 0;
+            AxisMove = _axisMove;
         } 
         else 
         {
