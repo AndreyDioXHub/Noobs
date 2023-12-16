@@ -297,8 +297,14 @@ public class PlayerNetworkResolver : NetworkBehaviour {
         }
     }
 
-    private void OnGroundChanged(bool oldval, bool newval) {
-        if (!isLocalPlayer) _animatorController.IsGrounded = newval;
+    private void OnGroundChanged(bool oldval, bool newval) 
+    {
+        if (!isLocalPlayer)
+        {
+            _animatorController.IsGrounded = newval;
+        }
+
+        _playerSounds.PlayJumpLand(newval);
     }
 
     private void OnBlendChanged(float oldval, float newval) {
@@ -308,7 +314,6 @@ public class PlayerNetworkResolver : NetworkBehaviour {
     private void OnLocalplayerChangeMoveState(bool state) 
     {
         n_IsGrounded = state;
-        _playerSounds.PlayJumpLand(n_IsGrounded);
     }
 
 
