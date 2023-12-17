@@ -1,4 +1,5 @@
 using Mycom.Target.Unity.Ads;
+using Mycom.Target.Unity.Common;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,24 +9,18 @@ public class MyTargetBanner : MonoBehaviour
 {
     private readonly System.Object _syncRoot = new System.Object();
     private MyTargetView _myTargetView;
+    [SerializeField]
+    private UInt32 _slotId = 1474896;
     private void Awake()
     {
-        UInt32 slotId = 0;
-#if UNITY_ANDROID
-        slotId = 1474896;
-#elif UNITY_IOS
-        slotId = 1474896;
-#endif
-
         // Включение режима отладки
-        // MyTargetView.IsDebugMode = true;
-
+        MyTargetManager.DebugMode = true;
 
         // Создаем экземпляр MyTargetView, формат 320x50
 
         // Создаем экземпляр MyTargetView, формат 300х250
         // _myTargetView = new MyTargetView(slotId, AdSize.Size300x250);// Создаем экземпляр MyTargetView
-        _myTargetView = new MyTargetView(slotId);
+        _myTargetView = new MyTargetView(_slotId, MyTargetView.AdSize.Size728x90);
 
         // Устанавливаем обработчики событий
         _myTargetView.AdClicked += OnAdClicked;

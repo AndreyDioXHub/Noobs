@@ -151,20 +151,6 @@ public class InputSchemeSwitcher : MonoBehaviour
             return;
         }
 
-        _inputs.SwitchCurrentActionMap("Player");
-        _cameraView.SetViewParam(true, 300);
-        _mobileInputCanvas.SetActive(false);
-        _setting.SetIsMobile(false);
-        //_zoom.InitMobile(false);
-        FPSInput.XYAxis = PCLook;
-        TPSInput.XYAxis = PCLook;
-        if (ChatTexts.Instance != null)
-        {
-            ChatTexts.Instance.IsMobile = false;
-        }
-        _ocean.material = _oceanMTLPC;
-        return;
-
         //string device = YandexGame.EnvironmentData.;
 
         if (_isMobileDebug)
