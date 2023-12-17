@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.AudioSettings;
 
 public class InputSchemeSwitcher : MonoBehaviour
 {
@@ -185,8 +186,7 @@ public class InputSchemeSwitcher : MonoBehaviour
             _ocean.material = _oceanMTLM;
             return;
         }
-        /*
-        if (YandexGame.EnvironmentData.isDesktop)
+        if (PlayerSave.Instance.progress.platform.Equals("isDesktop"))
         {
             _inputs.SwitchCurrentActionMap("Player");
             _cameraView.SetViewParam(true, 300);
@@ -203,7 +203,7 @@ public class InputSchemeSwitcher : MonoBehaviour
             return;
         }
 
-        if (YandexGame.EnvironmentData.isMobile)
+        if (PlayerSave.Instance.progress.platform.Equals("isMobile") )
         {
             _inputs.SwitchCurrentActionMap("PlayerMobile");
             _cameraView.SetViewParam(false, 150);
@@ -221,7 +221,7 @@ public class InputSchemeSwitcher : MonoBehaviour
             return;
         }
 
-        if (YandexGame.EnvironmentData.isTablet)
+        if (PlayerSave.Instance.progress.platform.Equals("isTablet"))
         {
             _inputs.SwitchCurrentActionMap("PlayerMobile");
             _cameraView.SetViewParam(false, 150);
@@ -237,7 +237,7 @@ public class InputSchemeSwitcher : MonoBehaviour
             _ocean.material = _oceanMTLM;
             //SaveManager.Instance.SwitchAutoSave();
             return;
-        }*/
+        }
 
     }
 }

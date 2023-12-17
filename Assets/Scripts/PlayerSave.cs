@@ -44,8 +44,9 @@ public class PlayerSave : MonoBehaviour
     void Start()
     {
         string json = PlayerPrefs.GetString(PlayerPrefsConsts.save, "");
+        progress = new PlayerProgress();
         progress = JsonConvert.DeserializeObject<PlayerProgress>(json);
-
+        progress.platform = "isMobile";
         _dataIsload = true;// YandexGame.DataIsLoaded;// SceneManager.GetActiveScene().name.Equals("NoobLevelObstacleCourseNetwork") || SceneManager.GetActiveScene().name.Equals("NoobLevelObstacleCourseOffline");
         //Debug.Log($"YandexGame.SDKEnabled {YandexGame.SDKEnabled}");
     }
@@ -136,12 +137,13 @@ public class PlayerSave : MonoBehaviour
 [Serializable]
 public class PlayerProgress
 {
-    public int askAuthorize;
-    public int askReject;
-    public string checkpoints;
-    public int coins;
-    public int freeskin;
+    public int askAuthorize = 0;
+    public int askReject = 0;
+    public string checkpoints = "";
+    public int coins = 0;
+    public int freeskin = 0;
     public string language = "ru";
-    public string USER_NAME_KEY;
-    public string USER_SKIN_KEY;
+    public string USER_NAME_KEY = "";
+    public string USER_SKIN_KEY = "";
+    public string platform = "";
 }
