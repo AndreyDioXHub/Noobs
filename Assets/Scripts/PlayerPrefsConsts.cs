@@ -1,6 +1,7 @@
 
 public static class PlayerPrefsConsts
 {
+    public static string save = "save";
     public static string livetime = "livetime";
     public static string coins = "coins";
     public static string local = "local";

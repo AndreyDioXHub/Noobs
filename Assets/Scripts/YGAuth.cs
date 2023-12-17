@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using YG;
 
 public class YGAuth : MonoBehaviour
 {
+    /*
     [SerializeField]
     private YandexGame _sdk;
 
@@ -19,5 +19,5 @@ public class YGAuth : MonoBehaviour
     {
         
     }
-
+    */
 }

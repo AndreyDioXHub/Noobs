@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using YG;
 
 public class MoreMoney : MonoBehaviour
 {
-
+    /*
     void Start()
     {
         //StartCoroutine(UpdatePurchse());
@@ -35,7 +34,7 @@ public class MoreMoney : MonoBehaviour
             }
         }
     }*/
-
+    /*
     public void OnPurchaseSuccess(string key)
     {
         switch (key)
@@ -70,5 +69,5 @@ public class MoreMoney : MonoBehaviour
     void Update()
     {
         
-    }
+    }*/
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using YG;
 
 public class AuthorizeScreen : MonoBehaviour
 {
@@ -30,7 +29,7 @@ public class AuthorizeScreen : MonoBehaviour
 
     void Start()
     {
-        if (YandexGame.DataIsLoaded)
+        /*if (YandexGame.DataIsLoaded)
         {
             _authorized = YandexGame.savesData.askAuthorize == 1;
 
@@ -38,14 +37,14 @@ public class AuthorizeScreen : MonoBehaviour
             {
                 AuthorizeSuxess();
             }
-        }
+        }*/
     }
 
     public void Authorize()
     {
         _text.CrossFadeAlpha(0, 0, true);
         _askAuthorization = true;
-        YandexGame.AuthDialog();
+        //YandexGame.AuthDialog();
     }
 
     public void AuthorizeSuxess()
@@ -58,31 +57,28 @@ public class AuthorizeScreen : MonoBehaviour
         if (_askAuthorization)
         {
             _askAuthorization = false;
-            YandexGame.LoadProgress();
+            //YandexGame.LoadProgress();
             SceneManager.LoadScene(0);
         }
     }
 
     public void GetAuthorize()
     {
-        if (YandexGame.SDKEnabled)
+        _authorized = PlayerSave.Instance.progress.askAuthorize == 1;
+
+        _authorizeScreenReject.SetActive(false);
+
+        if (_authorized)
         {
-            _authorized = YandexGame.savesData.askAuthorize == 1;
+            _authorizeButton.SetActive(false);
+        }
+        else
+        {
 
-            _authorizeScreenReject.SetActive(false);
-
-            if (_authorized)
-            {
-                _authorizeButton.SetActive(false);
-            }
-            else
-            {
-
-                YandexGame.savesData.askAuthorize = 1;
-                PlayerSave.Instance.Save();
-                _authorizeButton.SetActive(false);
-                StartCoroutine(AuthorizeSuxessCoroutine());
-            }
+            PlayerSave.Instance.progress.askAuthorize = 1;
+            PlayerSave.Instance.Save();
+            _authorizeButton.SetActive(false);
+            StartCoroutine(AuthorizeSuxessCoroutine());
         }
     }
 
@@ -105,16 +101,13 @@ public class AuthorizeScreen : MonoBehaviour
 
     public void GetAuthorizeReject()
     {
-        if (YandexGame.SDKEnabled)
-        {
-            _askReject = YandexGame.savesData.askReject == 1;
+        _askReject = PlayerSave.Instance.progress.askReject == 1;
 
-            if (!_askReject)
-            {
-                //_authorizeScreenReject.SetActive(true);
-                YandexGame.savesData.askReject = 1;
-                PlayerSave.Instance.Save();
-            }
+        if (!_askReject)
+        {
+            //_authorizeScreenReject.SetActive(true);
+            PlayerSave.Instance.progress.askReject = 1;
+            PlayerSave.Instance.Save();
         }
     }
 

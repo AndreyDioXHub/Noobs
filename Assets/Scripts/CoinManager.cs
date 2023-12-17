@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
-using YG;
 
 public class CoinManager : MonoBehaviour
 {
@@ -41,10 +40,8 @@ public class CoinManager : MonoBehaviour
 
     public void GetCoinsCount()
     {
-        if (YandexGame.SDKEnabled)
-        {
-            _coins = YandexGame.savesData.coins;
-        }
+
+        _coins = PlayerSave.Instance.progress.coins;
     }
 
     void Update()
@@ -98,11 +95,8 @@ public class CoinManager : MonoBehaviour
                 OnMoneyRemoved?.Invoke(cost);
             }
 
-            if (YandexGame.SDKEnabled)
-            {
-                YandexGame.savesData.coins = _coins;
-                PlayerSave.Instance.Save();
-            }
+            PlayerSave.Instance.progress.coins = _coins;
+            PlayerSave.Instance.Save();
             //PlayerPrefs.SetInt("coins", _coins);
         }
 
@@ -113,11 +107,9 @@ public class CoinManager : MonoBehaviour
     {
         _coins += count;
 
-        if (YandexGame.SDKEnabled)
-        {
-            YandexGame.savesData.coins = _coins;
-            PlayerSave.Instance.Save();
-        }
+
+        PlayerSave.Instance.progress.coins = _coins;
+        PlayerSave.Instance.Save();
 
         /*
         PlayerPrefs.SetInt("coins", _coins);*/

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
-using YG;
 
 public class AdsManager : MonoBehaviour
 {
@@ -25,12 +24,12 @@ public class AdsManager : MonoBehaviour
 
     public UnityEvent OnReward;
     public UnityEvent OnAdsSwitched;
-
+    /*
     [SerializeField]
     private InfoYG _infoYG;
 
     [SerializeField]
-    private YandexGame _sdk;
+    private YandexGame _sdk;*/
 
     public bool IsPaused { get; private set; }
     public string TimeString { get
@@ -106,7 +105,7 @@ public class AdsManager : MonoBehaviour
             _adsPlaying = true;
         }
 
-        _sdk._RewardedShow(1);
+        //_sdk._RewardedShow(1);
     }
 
     [ContextMenu("ShowFullscreen")]
@@ -118,7 +117,7 @@ public class AdsManager : MonoBehaviour
             _adsPlaying = true;
         }
 
-        _sdk._FullscreenShow();
+        //_sdk._FullscreenShow();
         /*
         if (UnityEngine.Random.Range(0, 2) == 0)
         {
@@ -151,7 +150,7 @@ public class AdsManager : MonoBehaviour
                 _adsScreen.SetActive(true);
                 _adsPlaying = true;
             }
-            _sdk._FullscreenShow();
+            //_sdk._FullscreenShow();
         }
     }
 

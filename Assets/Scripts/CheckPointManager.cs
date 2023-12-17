@@ -6,8 +6,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-using YG;
-
 public class CheckPointManager : MonoBehaviour
 {
     public UnityEvent<int, bool> OnCheckPointAvaleble = new UnityEvent<int, bool>();
@@ -59,39 +57,35 @@ public class CheckPointManager : MonoBehaviour
 
     public void CheckpointIsAvaleble()
     {
-
-        if (YandexGame.SDKEnabled)
+        if (_checkpointsAvaleble == null || _checkpointsAvaleble.Count == 0)
         {
-            if (_checkpointsAvaleble == null || _checkpointsAvaleble.Count == 0)
+            string json = PlayerSave.Instance.progress.checkpoints;
+
+            _checkpointsAvaleble = new List<bool>();
+
+            if (string.IsNullOrEmpty(json))
             {
-                string json = YandexGame.savesData.checkpoints;
-
-                _checkpointsAvaleble = new List<bool>();
-
-                if (string.IsNullOrEmpty(json))
+                foreach (var cp in _checkPoints)
                 {
-                    foreach (var cp in _checkPoints)
-                    {
-                        _checkpointsAvaleble.Add(false);
-                    }
-
-                    _checkpointsAvaleble[0] = true;
-
-                    json = JsonConvert.SerializeObject(_checkpointsAvaleble);
-                    YandexGame.savesData.checkpoints = json;
-                    PlayerSave.Instance.Save();
-                }
-                else
-                {
-                    _checkpointsAvaleble = JsonConvert.DeserializeObject<List<bool>>(json);
+                    _checkpointsAvaleble.Add(false);
                 }
 
+                _checkpointsAvaleble[0] = true;
+
+                json = JsonConvert.SerializeObject(_checkpointsAvaleble);
+                PlayerSave.Instance.progress.checkpoints = json;
+                PlayerSave.Instance.Save();
+            }
+            else
+            {
+                _checkpointsAvaleble = JsonConvert.DeserializeObject<List<bool>>(json);
             }
 
-            for(int i=0; i< _checkpointsAvaleble.Count; i++)
-            {
-                OnCheckPointAvaleble?.Invoke(i, _checkpointsAvaleble[i]);
-            }
+        }
+
+        for (int i = 0; i < _checkpointsAvaleble.Count; i++)
+        {
+            OnCheckPointAvaleble?.Invoke(i, _checkpointsAvaleble[i]);
         }
     }
 
@@ -104,7 +98,7 @@ public class CheckPointManager : MonoBehaviour
 
         _checkpointsAvaleble[index] = true;
         string json = JsonConvert.SerializeObject(_checkpointsAvaleble);
-        YandexGame.savesData.checkpoints = json;
+        PlayerSave.Instance.progress.checkpoints = json;
         PlayerSave.Instance.Save();
     }
 

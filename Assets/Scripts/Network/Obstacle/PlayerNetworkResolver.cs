@@ -6,7 +6,6 @@ using UnityEngine.InputSystem;
 using Cinemachine;
 using TMPro;
 using Newtonsoft.Json;
-using YG;
 
 /*
 	Documentation: https://mirror-networking.gitbook.io/docs/guides/networkbehaviour
@@ -214,12 +213,15 @@ public class PlayerNetworkResolver : NetworkBehaviour {
 
 
     //[Command]
-    private void GetUserSkin() {
-        if (YandexGame.SDKEnabled) {
+    private void GetUserSkin() 
+    {
+        /*
+        if (YandexGame.SDKEnabled) 
+        {
             /*
             string infoJSON = YandexGame.savesData.USER_SKIN_KEY;
-            GetUserSkin(infoJSON);*/
-        }
+            GetUserSkin(infoJSON);
+        }*/
     }
 
     public void LoadUserData() {

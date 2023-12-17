@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using YG;
 
 public class FreeSkinPesel : MonoBehaviour
 {
@@ -42,7 +41,7 @@ public class FreeSkinPesel : MonoBehaviour
 
     public void GetLoad()
     {
-        _isSetup = _isSetup || YandexGame.savesData.freeskin == 1;
+        _isSetup = _isSetup || PlayerSave.Instance.progress.freeskin == 1;
 
         if (_isSetup)
         {

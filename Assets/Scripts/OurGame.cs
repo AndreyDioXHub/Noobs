@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using YG;
 
 public class OurGame : MonoBehaviour
 {
@@ -20,7 +19,7 @@ public class OurGame : MonoBehaviour
 
     public void OpenOurGames()
     {
-        string domain = YandexGame.EnvironmentData.domain;
+        string domain = "ru";// YandexGame.EnvironmentData.domain;
         _url = $"https://yandex.{domain}/games/developer?name=Lisenok%20Neposlushniy";
 
         Application.OpenURL(_url);

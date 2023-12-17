@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 using Newtonsoft.Json;
 using Random = UnityEngine.Random;
-using YG;
 
 public class SkinManager : MonoBehaviour
 {
@@ -157,7 +156,7 @@ public class SkinManager : MonoBehaviour
     {
         //Debug.Log("SkinManager GetSkinInfo");
 
-        string infoJSON = YandexGame.savesData.USER_SKIN_KEY; 
+        string infoJSON = PlayerSave.Instance.progress.USER_SKIN_KEY; 
 
         _playerMTL = new Material(_bodysMale[0].material);
         _playerEditMTL = new Material(_bodysMale[0].material);
@@ -220,7 +219,7 @@ public class SkinManager : MonoBehaviour
 
             infoJSON = JsonConvert.SerializeObject(_info);
 
-            YandexGame.savesData.USER_SKIN_KEY = infoJSON;
+            PlayerSave.Instance.progress.USER_SKIN_KEY = infoJSON;
             PlayerSave.Instance.Save();
 
         }
@@ -311,7 +310,7 @@ public class SkinManager : MonoBehaviour
         OnHairChanged?.Invoke(_equipedHairIndex);
         CloseSkinsPanel();
         string infoJSON = JsonConvert.SerializeObject(_info);
-        YandexGame.savesData.USER_SKIN_KEY = infoJSON;
+        PlayerSave.Instance.progress.USER_SKIN_KEY = infoJSON;
         PlayerSave.Instance.Save();
 
     }
@@ -357,7 +356,7 @@ public class SkinManager : MonoBehaviour
 
         string infoJSON = JsonConvert.SerializeObject(_info);
 
-        YandexGame.savesData.USER_SKIN_KEY = infoJSON;
+        PlayerSave.Instance.progress.USER_SKIN_KEY = infoJSON;
         PlayerSave.Instance.Save();
         OnSkinInfoChanged?.Invoke(infoJSON);
     }

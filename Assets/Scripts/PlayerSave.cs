@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using YG;
+using Newtonsoft.Json;
+using UnityEditor;
 
 public class PlayerSave : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class PlayerSave : MonoBehaviour
     public delegate void OkCallbackDelegate();
     public Queue<OkCallbackDelegate> OkCallbacks = new Queue<OkCallbackDelegate>();
     public bool DataIsload => _dataIsload;
+    public PlayerProgress progress;
     [SerializeField]
     private bool _dataIsload;
     [SerializeField]
@@ -19,13 +21,13 @@ public class PlayerSave : MonoBehaviour
     [SerializeField]
     private float _timeOut;
 
+
     private void OnEnable()
     { 
     }
 
     private void OnDestroy()
     {
-        YandexGame.GetDataEvent -= GetLoad;
         StopAllCoroutines();
         Instance = null;
         _dataIsload = false;
@@ -37,13 +39,15 @@ public class PlayerSave : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        YandexGame.GetDataEvent += GetLoad;
     }
 
     void Start()
     {
-        _dataIsload = YandexGame.DataIsLoaded;// SceneManager.GetActiveScene().name.Equals("NoobLevelObstacleCourseNetwork") || SceneManager.GetActiveScene().name.Equals("NoobLevelObstacleCourseOffline");
-        Debug.Log($"YandexGame.SDKEnabled {YandexGame.SDKEnabled}");
+        string json = PlayerPrefs.GetString(PlayerPrefsConsts.save, "");
+        progress = JsonConvert.DeserializeObject<PlayerProgress>(json);
+
+        _dataIsload = true;// YandexGame.DataIsLoaded;// SceneManager.GetActiveScene().name.Equals("NoobLevelObstacleCourseNetwork") || SceneManager.GetActiveScene().name.Equals("NoobLevelObstacleCourseOffline");
+        //Debug.Log($"YandexGame.SDKEnabled {YandexGame.SDKEnabled}");
     }
 
 
@@ -116,11 +120,28 @@ public class PlayerSave : MonoBehaviour
         Debug.Log($"delegates load start");
         yield return new WaitForSeconds(_timeOut);
         Debug.Log($"delegates load end");
-        YandexGame.LoadProgress();
+        //YandexGame.LoadProgress();
     }
 
     public void Save()
     {
-        YandexGame.SaveProgress();
+        string json = JsonConvert.SerializeObject(progress);
+
+        PlayerPrefs.SetString(PlayerPrefsConsts.save, json);
+        PlayerPrefs.Save();
+        //YandexGame.SaveProgress();
     }
+}
+
+[Serializable]
+public class PlayerProgress
+{
+    public int askAuthorize;
+    public int askReject;
+    public string checkpoints;
+    public int coins;
+    public int freeskin;
+    public string language = "ru";
+    public string USER_NAME_KEY;
+    public string USER_SKIN_KEY;
 }

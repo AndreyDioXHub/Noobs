@@ -4,10 +4,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using YG;
 
 public class BuyPomni : MonoBehaviour
-{
+{/*
     public UnityEvent<string> OnInfoUpdated = new UnityEvent<string>();
 
     [SerializeField]
@@ -72,5 +71,5 @@ public class BuyPomni : MonoBehaviour
     private void OnDestroy()
     {
         YandexGame.PurchaseSuccessEvent -= OnPurchaseSuccess;
-    }
+    }*/
 }

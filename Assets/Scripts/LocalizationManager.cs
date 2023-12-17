@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
-using YG;
 
 public class LocalizationManager : MonoBehaviour
 {
     public UnityEvent OnRequestingEnvironmentData = new UnityEvent();
-
+    /*
     [SerializeField]
-    private YandexGame _sdk;
+    private YandexGame _sdk;*/
     [SerializeField]
     private string _local = "ru";
 
@@ -22,7 +21,7 @@ public class LocalizationManager : MonoBehaviour
     void Start()
     {
         _texts = Resources.FindObjectsOfTypeAll<TextLocalizer>();
-        _sdk._RequestingEnvironmentData();
+        //_sdk._RequestingEnvironmentData();
 
         if (LocalizationStrings.first_start)
         {
@@ -42,7 +41,7 @@ public class LocalizationManager : MonoBehaviour
 
     public void InitLanguage()
     {
-        string lang = YandexGame.EnvironmentData.language;
+        string lang = PlayerSave.Instance.progress.language;
 
         if (lang.Equals("ru") || lang.Equals("be") || lang.Equals("kk") || lang.Equals("uk") || lang.Equals("uz"))
         {

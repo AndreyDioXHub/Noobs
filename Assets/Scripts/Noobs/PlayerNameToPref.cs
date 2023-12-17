@@ -4,7 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using YG;
 
 public class PlayerNameToPref : MonoBehaviour
 {
@@ -31,13 +30,17 @@ public class PlayerNameToPref : MonoBehaviour
 
     private void LoadSave()
     {
+        username = PlayerSave.Instance.progress.USER_NAME_KEY;
+        /*
         if (YandexGame.SDKEnabled)
         {
             username = YandexGame.savesData.USER_NAME_KEY;
-        } else {
+        } 
+        else 
+        {
             //NO SDK, load from player pref :)
             username = PlayerPrefs.GetString(PlayerPrefsConsts.USER_NAME_KEY);
-        }
+        }*/
 
         if (viewText != null) {
             viewText.text = username;
@@ -53,13 +56,14 @@ public class PlayerNameToPref : MonoBehaviour
     private string GetDefaultName() {
         string result = _names[UnityEngine.Random.Range(0, _names.Count)];
 
+        PlayerSave.Instance.progress.USER_NAME_KEY = result;
+        PlayerSave.Instance.Save();
+        /*
         if (YandexGame.SDKEnabled)
         {
-            YandexGame.savesData.USER_NAME_KEY = result;
-            PlayerSave.Instance.Save();
         } else {
             PlayerPrefs.SetString(PlayerPrefsConsts.USER_NAME_KEY, result);
-        }
+        }*/
 
         return result;
     }
@@ -88,25 +92,42 @@ public class PlayerNameToPref : MonoBehaviour
 
         PlayerNetworkResolver.LocalUserName = newName;
 
+        PlayerSave.Instance.progress.USER_NAME_KEY = newName;
+        PlayerSave.Instance.Save();
+        /*
         if (YandexGame.SDKEnabled)
         {
-            YandexGame.savesData.USER_NAME_KEY = newName;
-            PlayerSave.Instance.Save();
         } else {
             PlayerPrefs.SetString(PlayerPrefsConsts.USER_NAME_KEY, newName);
-        }
+        }*/
     }
 
-    private void OnDestroy() {
+    private void OnDestroy() 
+    {
         bool resave = false;
-        if (string.IsNullOrWhiteSpace(username)) {
+
+        if (string.IsNullOrWhiteSpace(username)) 
+        {
             username = GetDefaultName();
             PlayerNetworkResolver.LocalUserName = username;
             resave = true;
         }
-        if(!YandexGame.SDKEnabled) {
-            if (resave) PlayerPrefs.SetString(PlayerPrefsConsts.USER_NAME_KEY, username);
-            PlayerPrefs.Save();
+
+        if (resave)
+        {
+            PlayerSave.Instance.progress.USER_NAME_KEY = username;
+            PlayerSave.Instance.Save();
+            /*
+            PlayerPrefs.SetString(PlayerPrefsConsts.USER_NAME_KEY, username);
+            PlayerPrefs.Save();*/
         }
+
+        /*
+        if(!YandexGame.SDKEnabled) 
+        {
+            if (resave) 
+                PlayerPrefs.SetString(PlayerPrefsConsts.USER_NAME_KEY, username);
+            PlayerPrefs.Save();
+        }*/
     }
 }
