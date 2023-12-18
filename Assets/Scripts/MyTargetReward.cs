@@ -1,87 +1,151 @@
+using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Mycom.Target.Unity.Ads;
 using Mycom.Target.Unity.Common;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
 
 public class MyTargetReward : MonoBehaviour
 {
     [SerializeField]
-    private UInt32 _slotId = 1474902;
+    private UInt32 _slotId = 38837;//1474902;
 
     [SerializeField]
     private TMP_Text _viewText;
+    [SerializeField]
+    private TMP_InputField _inputField;
+
 
     private InterstitialAd _interstitialAd;
 
-    private InterstitialAd CreateInterstitialAd()
-    {
-        // Включение режима отладки
-        MyTargetManager.DebugMode = true;
+    private readonly System.Object _syncRoot = new System.Object();
+    private volatile RewardedAd _rewardedAd;
 
-        // Создаем экземпляр InterstitialAd
-        return new InterstitialAd(_slotId);
+    private void Awake()
+    {
+        MyTargetManager.DebugMode = true;
+        MyTargetManager.Config = new MyTargetConfig.Builder().WithTestDevices("TEST_DEVICE_ID").Build();
     }
 
-
-    private void InitAd()
+    public void UpdateValue(string value)
     {
-        _viewText.text = "InitAd";
-        // Создаем экземпляр InterstitialAd
-        _interstitialAd = CreateInterstitialAd();
-        // Устанавливаем обработчики событий
-        _interstitialAd.AdLoadCompleted += OnLoadCompleted;
-        _interstitialAd.AdDisplayed += OnAdDisplayed;
-        _interstitialAd.AdDismissed += OnAdDismissed;
-        _interstitialAd.AdVideoCompleted += OnAdVideoCompleted;
-        _interstitialAd.AdClicked += OnAdClicked;
-        _interstitialAd.AdLoadFailed += OnAdLoadFailed;
+        UInt32.TryParse(value, out _slotId);
+    }
 
-        _viewText.text = "Load";
-        // Запускаем загрузку данных
-        _interstitialAd.Load();
+    private void OnDestroy()
+    {
+        if (_rewardedAd == null)
+        {
+            return;
+        }
+
+        lock (_syncRoot)
+        {
+            _rewardedAd?.Dispose();
+            _rewardedAd = null;
+        }
+    }
+
+    public void Show()
+    {
+        Show(_slotId);
+    }
+    private void Show(UInt32 slotId)
+    {
+        if (_rewardedAd != null)
+        {
+            return;
+        }
+
+        lock (_syncRoot)
+        {
+            if (_rewardedAd != null)
+            {
+                return;
+            }
+
+            _rewardedAd = new RewardedAd(slotId)
+            {
+                CustomParams =
+                                      {
+                                          Age = 23,
+                                          Gender = GenderEnum.Male,
+                                          Lang = "ru-RU"
+                                      }
+            };
+
+            _rewardedAd.AdClicked += OnAdClicked;
+            _rewardedAd.AdDismissed += OnAdDismissed; 
+            _rewardedAd.AdDisplayed += OnAdDisplayed;
+            _rewardedAd.AdLoadFailed += OnAdLoadFailed;
+            _rewardedAd.AdRewarded += OnReward;
+            _rewardedAd.AdLoadCompleted += OnLoadCompleted;
+
+            _rewardedAd.Load();
+        }
+    }
+
+    private void OnReward(System.Object sender, EventArgs e)
+    {
+
+        _viewText.text += "\nOnReward";
     }
 
     private void OnLoadCompleted(System.Object sender, EventArgs e)
     {
-        _viewText.text = "OnLoadCompleted";
-        _interstitialAd.Show();
+        /*var isAutoClose = FindObjectsOfType<Toggle>().Where(toggle => toggle.name == "Autoclose")
+                                                     .Select(toggle => toggle.isOn)
+                                                     .FirstOrDefault();
+        */
+        ThreadPool.QueueUserWorkItem(async state =>
+        {
+            _rewardedAd?.Show();
+            /*
+            if (!isAutoClose)
+            {
+                return;
+            }*/
+
+            await Task.Delay(120000);
+
+            _rewardedAd?.Dismiss();
+        });
     }
     private void OnAdDisplayed(System.Object sender, EventArgs e)
     {
-
-        _viewText.text = "OnAdDisplayed";
+        _viewText.text += "\nOnAdDisplayed";
     }
 
     private void OnAdDismissed(System.Object sender, EventArgs e)
     {
-        _viewText.text = "OnAdDismissed";
-
+        _viewText.text += "\nOnAdDismissed";
+        OnDestroy();
     }
 
     private void OnAdVideoCompleted(System.Object sender, EventArgs e)
     {
 
-        _viewText.text = "OnAdVideoCompleted";
+        _viewText.text += "\nOnAdVideoCompleted";
     }
 
     private void OnAdClicked(System.Object sender, EventArgs e)
     {
-
-        _viewText.text = "OnAdClicked";
+        _viewText.text += "\nOnAdClicked";
     }
 
     private void OnAdLoadFailed(System.Object sender, ErrorEventArgs e)
     {
-        _viewText.text = "OnAdLoadFailed: " + e.Message;
+        _viewText.text += "\nOnAdLoadFailed: " + e.Message;
         Debug.Log("OnAdLoadFailed: " + e.Message);
+        OnDestroy();
     }
 
     void Start()
     {
-        InitAd();
     }
 
     // Update is called once per frame
