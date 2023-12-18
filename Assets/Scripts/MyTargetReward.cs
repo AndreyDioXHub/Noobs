@@ -20,6 +20,7 @@ public class MyTargetReward : MonoBehaviour
     {
         // Включение режима отладки
         MyTargetManager.DebugMode = true;
+
         // Создаем экземпляр InterstitialAd
         return new InterstitialAd(_slotId);
     }
@@ -30,7 +31,6 @@ public class MyTargetReward : MonoBehaviour
         _viewText.text = "InitAd";
         // Создаем экземпляр InterstitialAd
         _interstitialAd = CreateInterstitialAd();
-
         // Устанавливаем обработчики событий
         _interstitialAd.AdLoadCompleted += OnLoadCompleted;
         _interstitialAd.AdDisplayed += OnAdDisplayed;

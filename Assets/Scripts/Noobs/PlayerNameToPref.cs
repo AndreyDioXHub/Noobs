@@ -30,30 +30,33 @@ public class PlayerNameToPref : MonoBehaviour
 
     private void LoadSave()
     {
-        username = PlayerSave.Instance.progress.USER_NAME_KEY;
-        /*
-        if (YandexGame.SDKEnabled)
-        {
-            username = YandexGame.savesData.USER_NAME_KEY;
-        } 
-        else 
-        {
-            //NO SDK, load from player pref :)
-            username = PlayerPrefs.GetString(PlayerPrefsConsts.USER_NAME_KEY);
-        }*/
+        StartCoroutine(LoadSaveCoroutine());
+    }
 
-        if (viewText != null) {
+    IEnumerator LoadSaveCoroutine()
+    {
+        while(PlayerSave.Instance.progress == null)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+
+        username = PlayerSave.Instance.progress.USER_NAME_KEY;
+
+        if (viewText != null)
+        {
             viewText.text = username;
         }
 
-        if (inputField != null) {
+        if (inputField != null)
+        {
             inputField.text = username;
         }
 
         PlayerNetworkResolver.LocalUserName = username;
     }
 
-    private string GetDefaultName() {
+    private string GetDefaultName() 
+    {
         string result = _names[UnityEngine.Random.Range(0, _names.Count)];
 
         PlayerSave.Instance.progress.USER_NAME_KEY = result;

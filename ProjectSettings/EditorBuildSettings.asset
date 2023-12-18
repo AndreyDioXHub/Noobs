@@ -5,11 +5,20 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Menu.unity
     guid: dbade28ec5a06bd4c8c8893b425f613e
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/NoobLevelObstacleCourseNetwork.unity
     guid: 9bcc128a9a3c9e14ea122616034e7414
+  - enabled: 1
+    path: Assets/Mycom.Target.Unity/Samples/RewardedAdSample.unity
+    guid: 0fbdbc41e9bb24001940dede8efdaf79
+  - enabled: 1
+    path: Assets/Mycom.Target.Unity/Samples/InterstitialAdSample.unity
+    guid: ed8ba961db119bb4fafe7ced3bdb051f
+  - enabled: 1
+    path: Assets/Mycom.Target.Unity/Samples/StandardAdSample.unity
+    guid: b98aeb3e325adcc47be1f74dc068be7a
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: a50c29e4dea00b64191dbf0361e78f69, type: 2}

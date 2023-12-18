@@ -44,11 +44,34 @@ public class PlayerSave : MonoBehaviour
     void Start()
     {
         string json = PlayerPrefs.GetString(PlayerPrefsConsts.save, "");
-        progress = new PlayerProgress();
-        progress = JsonConvert.DeserializeObject<PlayerProgress>(json);
-        progress.platform = "isMobile";
+
+        if (string.IsNullOrEmpty(json))
+        {
+            progress = new PlayerProgress();
+#if UNITY_ANDROID
+            progress.platform = "isMobile";
+#endif
+#if UNITY_EDITOR
+            progress.platform = "isDesktop";
+#endif
+#if UNITY_STANDALONE_WIN
+            progress.platform = "isDesktop";
+#endif
+            Save();
+        }
+        else
+        {
+            progress = JsonConvert.DeserializeObject<PlayerProgress>(json);
+        }
+
         _dataIsload = true;// YandexGame.DataIsLoaded;// SceneManager.GetActiveScene().name.Equals("NoobLevelObstacleCourseNetwork") || SceneManager.GetActiveScene().name.Equals("NoobLevelObstacleCourseOffline");
         //Debug.Log($"YandexGame.SDKEnabled {YandexGame.SDKEnabled}");
+    }
+
+    [ContextMenu("ClearPrefs")]
+    public void ClearPrefs()
+    {
+        PlayerPrefs.DeleteAll();
     }
 
 
@@ -56,11 +79,11 @@ public class PlayerSave : MonoBehaviour
     {
 
     }
-
+    /*
     public void GetLoad()
     {
         _dataIsload = true;// YandexGame. true;
-    }
+    }*/
 
     public void ExecuteMyDelegateInQueue(OkCallbackDelegate mydelegate)
     {
@@ -124,6 +147,7 @@ public class PlayerSave : MonoBehaviour
         //YandexGame.LoadProgress();
     }
 
+    [ContextMenu("Save")]
     public void Save()
     {
         string json = JsonConvert.SerializeObject(progress);
