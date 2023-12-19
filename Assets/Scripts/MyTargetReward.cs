@@ -18,6 +18,10 @@ public class MyTargetReward : MonoBehaviour
     private TMP_Text _viewText;
     [SerializeField]
     private TMP_InputField _inputField;
+    [SerializeField]
+    private TMP_InputField _inputField2;
+    [SerializeField]
+    private string _testDevice = "ac84c9a0-519c-4bb5-aafb-fb0eb330594f";
 
 
     private InterstitialAd _interstitialAd;
@@ -28,8 +32,10 @@ public class MyTargetReward : MonoBehaviour
     private void Awake()
     {
         MyTargetManager.DebugMode = true;
-        MyTargetManager.Config = new MyTargetConfig.Builder().WithTestDevices("TEST_DEVICE_ID").Build();
+        //MyTargetManager.Config = new MyTargetConfig.Builder().WithTestDevices("TEST_DEVICE_ID").Build();
+        MyTargetManager.Config = new MyTargetConfig.Builder().WithTestDevices(_testDevice, "TEST_DEVICE_ID", "", _inputField2.text).Build();
     }
+
 
     public void UpdateValue(string value)
     {
@@ -77,6 +83,7 @@ public class MyTargetReward : MonoBehaviour
                                           Lang = "ru-RU"
                                       }
             };
+
 
             _rewardedAd.AdClicked += OnAdClicked;
             _rewardedAd.AdDismissed += OnAdDismissed; 

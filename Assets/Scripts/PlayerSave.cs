@@ -48,15 +48,7 @@ public class PlayerSave : MonoBehaviour
         if (string.IsNullOrEmpty(json))
         {
             progress = new PlayerProgress();
-#if UNITY_ANDROID
-            progress.platform = "isMobile";
-#endif
-#if UNITY_EDITOR
-            progress.platform = "isDesktop";
-#endif
-#if UNITY_STANDALONE_WIN
-            progress.platform = "isDesktop";
-#endif
+
             Save();
         }
         else
@@ -65,7 +57,15 @@ public class PlayerSave : MonoBehaviour
         }
 
         _dataIsload = true;// YandexGame.DataIsLoaded;// SceneManager.GetActiveScene().name.Equals("NoobLevelObstacleCourseNetwork") || SceneManager.GetActiveScene().name.Equals("NoobLevelObstacleCourseOffline");
-        //Debug.Log($"YandexGame.SDKEnabled {YandexGame.SDKEnabled}");
+                           //Debug.Log($"YandexGame.SDKEnabled {YandexGame.SDKEnabled}");
+        progress.platform = "isMobile";
+
+#if UNITY_EDITOR
+        progress.platform = "isDesktop";
+#endif
+#if UNITY_STANDALONE_WIN
+            progress.platform = "isDesktop";
+#endif
     }
 
     [ContextMenu("ClearPrefs")]

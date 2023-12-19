@@ -29,6 +29,7 @@ public class AuthorizeScreen : MonoBehaviour
 
     void Start()
     {
+        _authorizeButton.SetActive(false);
         /*if (YandexGame.DataIsLoaded)
         {
             _authorized = YandexGame.savesData.askAuthorize == 1;
