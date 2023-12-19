@@ -58,6 +58,7 @@ public class MyTargetReward : MonoBehaviour
 
     public void Show()
     {
+        MyTargetManager.Config = new MyTargetConfig.Builder().WithTestDevices(_testDevice, "TEST_DEVICE_ID", "", _inputField2.text).Build();
         Show(_slotId);
     }
     private void Show(UInt32 slotId)
