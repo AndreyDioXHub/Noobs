@@ -138,7 +138,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &89585272
 RectTransform:
   m_ObjectHideFlags: 0
@@ -834,8 +834,6 @@ GameObject:
   m_Component:
   - component: {fileID: 788353417}
   - component: {fileID: 788353416}
-  - component: {fileID: 788353418}
-  - component: {fileID: 788353419}
   m_Layer: 0
   m_Name: YandexGame
   m_TagString: Untagged
@@ -908,36 +906,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &788353418
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 788353415}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 638e8996142a59749aba8d7630a371c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _slotId: 1474896
---- !u!114 &788353419
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 788353415}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63c8078fc2ad0164bb5f3f0ad20aab87, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _slotId: 1474902
-  _viewText: {fileID: 622270123}
-  _inputField: {fileID: 1892208159}
-  _inputField2: {fileID: 907748032}
-  _testDevice: ac84c9a0-519c-4bb5-aafb-fb0eb330594f
 --- !u!1 &814181196
 GameObject:
   m_ObjectHideFlags: 0
@@ -1168,7 +1136,7 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 788353419}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MyTargetReward, Assembly-CSharp
         m_MethodName: UpdateValue
         m_Mode: 0
@@ -1910,7 +1878,7 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 788353419}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MyTargetReward, Assembly-CSharp
         m_MethodName: UpdateValue
         m_Mode: 0
@@ -2080,7 +2048,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 788353419}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MyTargetReward, Assembly-CSharp
         m_MethodName: Show
         m_Mode: 1
@@ -2254,6 +2222,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 832233892, guid: 6d023c8074e9fa146a0e80ee67516e61, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3145a8754d603a8468075a105766548e, type: 2}
     - target: {fileID: 1057986835, guid: 6d023c8074e9fa146a0e80ee67516e61, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2668,6 +2640,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8401216324090817535, guid: 6d023c8074e9fa146a0e80ee67516e61, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8401216324103574844, guid: 6d023c8074e9fa146a0e80ee67516e61, type: 3}
+      propertyPath: _bool
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8401216324103574846, guid: 6d023c8074e9fa146a0e80ee67516e61, type: 3}

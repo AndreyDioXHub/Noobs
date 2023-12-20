@@ -21,13 +21,13 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: OceanWater
-  m_Shader: {fileID: -6465566751694194690, guid: 70a6f2082410bb344b8b6faaa35acd0e, type: 3}
+  m_Shader: {fileID: 10755, guid: 0000000000000000f000000000000000, type: 0}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
+  m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
@@ -257,7 +257,7 @@ Material:
     - _BaseColor: {r: 0, g: 0.54509807, b: 0.99607843, a: 1}
     - _CausticScale: {r: 41.03, g: 80, b: 0, a: 0}
     - _CausticScaleDeep: {r: 30, g: 70, b: 0, a: 0}
-    - _Color: {r: 0, g: 0.545098, b: 0.99607843, a: 1}
+    - _Color: {r: 0.16078432, g: 0.54901963, b: 0.8666667, a: 1}
     - _ColorCaustic: {r: 0.7254902, g: 0.86666673, b: 0.9803922, a: 1}
     - _ColorCausticDeep: {r: 1, g: 1, b: 1, a: 1}
     - _ColorCausticFoam: {r: 0.83637416, g: 0.92177266, b: 0.990566, a: 1}
