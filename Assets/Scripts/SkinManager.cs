@@ -468,9 +468,18 @@ public class SkinManager : MonoBehaviour
         _info.eqyuipedBody = index;
     }
 
+    public void SaveInfo()
+    {
+        string infoJSON = JsonConvert.SerializeObject(_info);
+
+        YandexGame.savesData.USER_SKIN_KEY = infoJSON;
+        PlayerSave.Instance.Save();
+    }
+
     public void BodyColorBuy(int index)
     {
         _info.bodyColors[index] = true;
+        SaveInfo();
     }
 
     public void HairColorSelect(int index)
@@ -493,6 +502,7 @@ public class SkinManager : MonoBehaviour
     public void HairColorBuy(int index)
     {
         _info.hairColors[index] = true;
+        SaveInfo();
     }
 
     public void HairSelect(int index)
@@ -510,6 +520,7 @@ public class SkinManager : MonoBehaviour
         {
             OnHasPesel?.Invoke();
         }
+        SaveInfo();
     }
 
     public void HairEquip(int index)
@@ -532,6 +543,7 @@ public class SkinManager : MonoBehaviour
     public void FaceBuy(int index)
     {
         _info.faces[index] = true;
+        SaveInfo();
     }
 
 
@@ -552,6 +564,7 @@ public class SkinManager : MonoBehaviour
     public void TShirtColorBuy(int index)
     {
         _info.hairColors[index] = true;
+        SaveInfo();
     }
 
     public void PantsColorSelect(int index)
@@ -570,6 +583,7 @@ public class SkinManager : MonoBehaviour
     public void PantColorBuy(int index)
     {
         _info.pantsColors[index] = true;
+        SaveInfo();
     }
 
     public void ShoesColorSelect(int index)
@@ -587,6 +601,7 @@ public class SkinManager : MonoBehaviour
     public void ShoesColorBuy(int index)
     {
         _info.shoesColors[index] = true;
+        SaveInfo();
     }
 
 }
