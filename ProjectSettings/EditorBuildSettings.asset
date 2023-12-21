@@ -11,17 +11,5 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/NoobLevelObstacleCourseNetwork.unity
     guid: 9bcc128a9a3c9e14ea122616034e7414
-  - enabled: 1
-    path: Assets/Scenes/NoobLevelObstacleCourseOffline.unity
-    guid: af946348784e89c4c92704babdd95504
-  - enabled: 0
-    path: Assets/Mycom.Target.Unity/Samples/RewardedAdSample.unity
-    guid: 0fbdbc41e9bb24001940dede8efdaf79
-  - enabled: 0
-    path: Assets/Mycom.Target.Unity/Samples/InterstitialAdSample.unity
-    guid: ed8ba961db119bb4fafe7ced3bdb051f
-  - enabled: 0
-    path: Assets/Mycom.Target.Unity/Samples/StandardAdSample.unity
-    guid: b98aeb3e325adcc47be1f74dc068be7a
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: a50c29e4dea00b64191dbf0361e78f69, type: 2}

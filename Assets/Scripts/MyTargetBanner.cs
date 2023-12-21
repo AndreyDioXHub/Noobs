@@ -1,14 +1,16 @@
+/*
 using Mycom.Target.Unity.Ads;
 using Mycom.Target.Unity.Common;
+*/
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MyTargetBanner : MonoBehaviour
-{
+{/*
     private readonly System.Object _syncRoot = new System.Object();
-    private MyTargetView _myTargetView;
+    /private MyTargetView _myTargetView;
     [SerializeField]
     private UInt32 _slotId = 1474896;
     private void Awake()
@@ -73,5 +75,5 @@ public class MyTargetBanner : MonoBehaviour
     void Update()
     {
         
-    }
+    }*/
 }

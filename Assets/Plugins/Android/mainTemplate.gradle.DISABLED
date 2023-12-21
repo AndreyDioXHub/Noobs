@@ -5,6 +5,9 @@
         maven {
             url "https://maven.google.com"
         }
+        maven {
+            url "https://maven.google.com/" // Assets/YandexMobileAds/Editor/YandexMobileadsDependencies.xml:15, Assets/YandexMobileAds/Editor/YandexMobileadsDependencies.xml:20
+        }
         mavenLocal()
         mavenCentral()
     }
@@ -17,7 +20,8 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.google.android.gms:play-services-location:21.0.1'
 // Android Resolver Dependencies Start
-    implementation 'com.my.target:mytarget-sdk:5.15.3' // Assets/Mycom.Target.Unity/Editor/MyTargetDependencies.xml:3
+    implementation 'androidx.lifecycle:lifecycle-process:2.4.1' // Assets/YandexMobileAds/Editor/YandexMobileadsDependencies.xml:20
+    implementation 'com.yandex.android:mobileads:6.1.0' // Assets/YandexMobileAds/Editor/YandexMobileadsDependencies.xml:15
 // Android Resolver Dependencies End
 **DEPS**}
 

@@ -2,8 +2,10 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+/*
 using Mycom.Target.Unity.Ads;
 using Mycom.Target.Unity.Common;
+*/
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -11,6 +13,7 @@ using TMPro;
 
 public class MyTargetReward : MonoBehaviour
 {
+    /*
     [SerializeField]
     private UInt32 _slotId = 38837;//1474902;
 
@@ -123,21 +126,12 @@ public class MyTargetReward : MonoBehaviour
 
     private void OnLoadCompleted(System.Object sender, EventArgs e)
     {
-        /*var isAutoClose = FindObjectsOfType<Toggle>().Where(toggle => toggle.name == "Autoclose")
-                                                     .Select(toggle => toggle.isOn)
-                                                     .FirstOrDefault();
-        */
         _viewText.text += $"\nShow {_slotId}";
 
         ThreadPool.QueueUserWorkItem(async state =>
         {
 
             _rewardedAd?.Show();
-            /*
-            if (!isAutoClose)
-            {
-                return;
-            }*/
 
             await Task.Delay(120000);
 
@@ -181,5 +175,5 @@ public class MyTargetReward : MonoBehaviour
     void Update()
     {
         
-    }
+    }*/
 }
