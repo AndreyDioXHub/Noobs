@@ -54157,9 +54157,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3100214081288735503}
-        m_TargetAssemblyTypeName: YandexAdsRewardedAd, Assembly-CSharp
-        m_MethodName: RequestRewardedAd
+      - m_Target: {fileID: 5396996819980899613}
+        m_TargetAssemblyTypeName: AdsManager, Assembly-CSharp
+        m_MethodName: ShowRewardedAd
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

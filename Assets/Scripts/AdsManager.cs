@@ -25,6 +25,7 @@ public class AdsManager : MonoBehaviour
     //public UnityEvent OnReward;
     public UnityEvent OnAdsSwitched;
 
+    public UnityEvent OnLoadStarted = new UnityEvent();
     public UnityEvent OnFailedToLoad = new UnityEvent();
     public UnityEvent OnLoadComplete = new UnityEvent();
     public UnityEvent OnImpression = new UnityEvent();

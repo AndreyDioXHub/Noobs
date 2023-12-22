@@ -74,6 +74,7 @@ public class YandexAdsInterstitial : MonoBehaviour
 
         this.interstitialAdLoader.LoadAd(this.CreateAdRequest(adUnitId));
         this.DisplayMessage("Interstitial is requested");
+        AdsManager.Instance.OnFailedToLoad?.Invoke();
     }
 
     private void ShowInterstitial()

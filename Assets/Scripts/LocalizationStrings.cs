@@ -114,6 +114,7 @@ public static class LocalizationStrings
         { "adslife", "Воскреснуть за сердечко"},
         { "adsretry", "Начать с начала"},
         { "your50", "Выполучите 50 монет после просмотра рекламы"},
+        { "adsloading", "Идет загрузка рекламы..."},
     };
 
     public static Dictionary<string, string> StringsRu = new Dictionary<string, string>()
@@ -226,6 +227,7 @@ public static class LocalizationStrings
         { "adslife", "Воскреснуть за сердечко"},
         { "adsretry", "Начать с начала"},
         { "your50", "Выполучите 50 монет после просмотра рекламы"},
+        { "adsloading", "Идет загрузка рекламы..."},
     };
 
     public static Dictionary<string, string> StringsEn = new Dictionary<string, string>()
@@ -338,6 +340,7 @@ public static class LocalizationStrings
         { "adslife", "Resurrect for the heart"},
         { "adsretry", "Start over"},
         { "your50", "Get 50 coins after watching ads"},
+        { "adsloading", "Advertisement loading..."},
     };
 
     public static void SetLanguage(string lang)

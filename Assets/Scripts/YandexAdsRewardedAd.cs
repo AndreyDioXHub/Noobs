@@ -102,6 +102,7 @@ public class YandexAdsRewardedAd : MonoBehaviour
         string adUnitId = _adUnitIds[key];
         this.rewardedAdLoader.LoadAd(this.CreateAdRequest(adUnitId));
         this.DisplayMessage("Rewarded Ad is requested");
+        AdsManager.Instance.OnFailedToLoad?.Invoke();
     }
 
 
