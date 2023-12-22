@@ -9,41 +9,61 @@ using YandexMobileAds.Base;
 public class YandexBanner : MonoBehaviour
 {
     [SerializeField]
-    private TMP_Text _viewText;
-    [SerializeField]
-    private TMP_InputField _inputField;
+    private string _adUnitId = "R-M-4609579-2";
+
+    private String message = "";
+
     private Banner banner;
 
-    void Start()
+    private void Start()
     {
-        
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
-
+        if(this.banner == null)
+        {
+            RequestBanner();
+        }
+        else
+        {
+            this.banner.Show();
+        }
     }
-    public void RequestBanner()
+
+    private void OnDisable()
     {
-        string adUnitId = _inputField.text;
+        this.banner?.Hide();
+    }
 
-        // Set flexible banner maximum width and height
-        BannerAdSize bannerMaxSize = BannerAdSize.InlineSize(GetScreenWidthDp(), 100);
-        // Or set sticky banner maximum width
-        //AdSize bannerMaxSize = AdSize.StickySize(GetScreenWidthDp());
+    private void RequestBanner()
+    {
 
-        banner = new Banner(adUnitId, bannerMaxSize, AdPosition.BottomCenter);
-        AdRequest request = new AdRequest.Builder().Build();
+        //Sets COPPA restriction for user age under 13
+        MobileAds.SetAgeRestrictedUser(true);
 
-        banner.LoadAd(request);
+        // Replace demo Unit ID 'demo-banner-yandex' with actual Ad Unit ID
+        string adUnitId = _adUnitId;// "demo-banner-yandex";
 
-        banner.OnAdLoaded += HandleAdLoaded;
-        banner.OnAdFailedToLoad += HandleAdFailedToLoad;
-        banner.OnReturnedToApplication += HandleReturnedToApplication;
-        banner.OnLeftApplication += HandleLeftApplication;
-        banner.OnAdClicked += HandleAdClicked;
-        banner.OnImpression += HandleImpression;
+        if (this.banner != null)
+        {
+            this.banner.Destroy();
+        }
+        // Set sticky banner width
+        BannerAdSize bannerSize = BannerAdSize.StickySize(GetScreenWidthDp());
+        // Or set inline banner maximum width and height
+        // BannerAdSize bannerSize = BannerAdSize.InlineSize(GetScreenWidthDp(), 300);
+        this.banner = new Banner(adUnitId, bannerSize, AdPosition.BottomCenter);
+
+        this.banner.OnAdLoaded += this.HandleAdLoaded;
+        this.banner.OnAdFailedToLoad += this.HandleAdFailedToLoad;
+        this.banner.OnReturnedToApplication += this.HandleReturnedToApplication;
+        this.banner.OnLeftApplication += this.HandleLeftApplication;
+        this.banner.OnAdClicked += this.HandleAdClicked;
+        this.banner.OnImpression += this.HandleImpression;
+
+        this.banner.LoadAd(this.CreateAdRequest());
+        this.DisplayMessage("Banner is requested");
     }
 
     private int GetScreenWidthDp()
@@ -52,52 +72,53 @@ public class YandexBanner : MonoBehaviour
         return ScreenUtils.ConvertPixelsToDp(screenWidth);
     }
 
+    private AdRequest CreateAdRequest()
+    {
+        return new AdRequest.Builder().Build();
+    }
+
+    private void DisplayMessage(String message)
+    {
+        Debug.Log($"YandexMobileAds: {message}");
+        /*
+        this.message = message + (this.message.Length == 0 ? "" : "\n--------\n" + this.message);
+        MonoBehaviour.print(message);*/
+    }
+
     public void HandleAdLoaded(object sender, EventArgs args)
     {
-        MonoBehaviour.print("HandleAdLoaded event received");
-        _viewText.text +="\nHandleAdLoaded event received";
-        banner.Show();
+        this.DisplayMessage("HandleAdLoaded event received");
+        this.banner.Show();
     }
 
     public void HandleAdFailedToLoad(object sender, AdFailureEventArgs args)
     {
-        _viewText.text += "\nHandleAdFailedToLoad event received with message: " + args.Message;
-        MonoBehaviour.print("HandleAdFailedToLoad event received with message: " + args.Message);
+        this.DisplayMessage("HandleAdFailedToLoad event received with message: " + args.Message);
     }
 
     public void HandleLeftApplication(object sender, EventArgs args)
     {
-        _viewText.text += "\nHandleLeftApplication event received";
-        MonoBehaviour.print("HandleLeftApplication event received");
+        this.DisplayMessage("HandleLeftApplication event received");
     }
 
     public void HandleReturnedToApplication(object sender, EventArgs args)
     {
-        _viewText.text += "\nHandleReturnedToApplication event received";
-        MonoBehaviour.print("HandleReturnedToApplication event received");
+        this.DisplayMessage("HandleReturnedToApplication event received");
     }
 
     public void HandleAdLeftApplication(object sender, EventArgs args)
     {
-        _viewText.text += "\nHandleAdLeftApplication event received";
-        MonoBehaviour.print("HandleAdLeftApplication event received");
+        this.DisplayMessage("HandleAdLeftApplication event received");
     }
 
     public void HandleAdClicked(object sender, EventArgs args)
     {
-        _viewText.text += "\nHandleAdClicked event received";
-        MonoBehaviour.print("HandleAdClicked event received");
+        this.DisplayMessage("HandleAdClicked event received");
     }
 
     public void HandleImpression(object sender, ImpressionData impressionData)
     {
         var data = impressionData == null ? "null" : impressionData.rawData;
-        MonoBehaviour.print("HandleImpression event received with data: " + data);
-        _viewText.text += "\nHandleImpression event received with data: " + data;
-    }
-
-    public void DestroyBaner()
-    {
-        banner.Destroy();
+        this.DisplayMessage("HandleImpression event received with data: " + data);
     }
 }

@@ -33,6 +33,11 @@ public class CoinManager : MonoBehaviour
         //_coins = PlayerPrefs.GetInt("coins", 0);
     }
 
+    private void OnDestroy()
+    {
+        
+    }
+
     public void LoadCoins()
     {
         PlayerSave.Instance.ExecuteMyDelegateInQueue(GetCoinsCount);
@@ -52,12 +57,13 @@ public class CoinManager : MonoBehaviour
     public void ShowRewardForMoney()
     {
         _isMyReward = true;
-        AdsManager.Instance.ShowRewardedAd();
+        //AdsManager.Instance.ShowRewardedAd();
+        AdsManager.Instance.ShowRewardedAd("coins");
     }
 
-    public void Rewarded()
+    public void Rewarded(int count, string key)
     {
-        if (_isMyReward)
+        if (key.Equals("Reward"))
         {
             AddMoney(50);
         }
