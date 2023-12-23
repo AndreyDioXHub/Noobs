@@ -119,7 +119,7 @@ MonoBehaviour:
   handshakeMaxSize: 3000
   noDelay: 1
   sendTimeout: 5000
-  receiveTimeout: 20000
+  receiveTimeout: 45000
   serverMaxMessagesPerTick: 10000
   clientMaxMessagesPerTick: 1000
   batchSend: 1
