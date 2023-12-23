@@ -40,6 +40,8 @@ public class OnScreenStickTouch : OnScreenControl
 
     [SerializeField]
     private int _corner; //0-left, 1-right
+    [SerializeField]
+    private float d; //0-left, 1-right
 
     [SerializeField]
     private Vector2 _downPosition;
@@ -147,54 +149,56 @@ public class OnScreenStickTouch : OnScreenControl
                 _dot = -Vector2.Angle(Vector2.up, anchoredPosition);
             }
 
+            d = delta.magnitude / MovementRange;
+
             if (_dot > 0 && _dot < 22.5f)
             {
-                _pos = new Vector2(0, 1);
+                _pos = new Vector2(0, 1) * d;
             }
 
             if (_dot > 22.5f && _dot < 67.5f)
             {
-                _pos = new Vector2(1, 1);
+                _pos = new Vector2(1, 1) * d;
             }
 
             if (_dot > 67.5f && _dot < 112.5f)
             {
-                _pos = new Vector2(1, 0);
+                _pos = new Vector2(1, 0) * d;
             }
 
             if (_dot > 112.5f && _dot < 157.5f)
             {
-                _pos = new Vector2(1, -1);
+                _pos = new Vector2(1, -1) * d;
             }
 
             if (_dot > 157.5f && _dot < 180f)
             {
-                _pos = new Vector2(0, -1);
+                _pos = new Vector2(0, -1) * d;
             }
 
             if (_dot > -180 && _dot < -157.5f)
             {
-                _pos = new Vector2(0, -1);
+                _pos = new Vector2(0, -1) * d;
             }
 
             if (_dot > -157.5f && _dot < -112.5f)
             {
-                _pos = new Vector2(-1, -1);
+                _pos = new Vector2(-1, -1) * d;
             }
 
             if (_dot > -112.5f && _dot < -67.5f)
             {
-                _pos = new Vector2(-1, 0);
+                _pos = new Vector2(-1, 0) * d;
             }
 
             if (_dot > -67.5f && _dot < -22.5f)
             {
-                _pos = new Vector2(-1, 1);
+                _pos = new Vector2(-1, 1) * d;
             }
 
             if (_dot > -22.5f && _dot <= 0)
             {
-                _pos = new Vector2(0, 1);
+                _pos = new Vector2(0, 1) * d;
             }
         }
     }

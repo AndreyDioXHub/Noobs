@@ -2,8 +2,10 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+/*
 using Mycom.Target.Unity.Ads;
 using Mycom.Target.Unity.Common;
+*/
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -11,6 +13,7 @@ using TMPro;
 
 public class MyTargetReward : MonoBehaviour
 {
+    /*
     [SerializeField]
     private UInt32 _slotId = 38837;//1474902;
 
@@ -31,9 +34,9 @@ public class MyTargetReward : MonoBehaviour
 
     private void Awake()
     {
-        MyTargetManager.DebugMode = true;
+        //MyTargetManager.DebugMode = true;
         //MyTargetManager.Config = new MyTargetConfig.Builder().WithTestDevices("TEST_DEVICE_ID").Build();
-        MyTargetManager.Config = new MyTargetConfig.Builder().WithTestDevices(_testDevice, "TEST_DEVICE_ID", "", _inputField2.text).Build();
+        //MyTargetManager.Config = new MyTargetConfig.Builder().WithTestDevices(_testDevice, "TEST_DEVICE_ID", "", _inputField2.text).Build();
     }
 
 
@@ -58,13 +61,15 @@ public class MyTargetReward : MonoBehaviour
 
     public void Show()
     {
-        MyTargetManager.Config = new MyTargetConfig.Builder().WithTestDevices(_testDevice, "TEST_DEVICE_ID", "", _inputField2.text).Build();
+        //MyTargetManager.Config = new MyTargetConfig.Builder().WithTestDevices(_testDevice, "TEST_DEVICE_ID", "", _inputField2.text).Build();
+        _viewText.text += "\nStart Show";
         Show(_slotId);
     }
     private void Show(UInt32 slotId)
     {
         if (_rewardedAd != null)
         {
+            _viewText.text += "\nreturn";
             return;
         }
 
@@ -72,6 +77,7 @@ public class MyTargetReward : MonoBehaviour
         {
             if (_rewardedAd != null)
             {
+                _viewText.text += "\nreturn lock";
                 return;
             }
 
@@ -97,6 +103,21 @@ public class MyTargetReward : MonoBehaviour
         }
     }
 
+    public void Dismiss()
+    {
+        _viewText.text += "\nDismiss";
+        if (_rewardedAd == null)
+        {
+            return;
+        }
+
+        lock (_syncRoot)
+        {
+            _rewardedAd?.Dispose();
+            _rewardedAd = null;
+        }
+    }
+
     private void OnReward(System.Object sender, EventArgs e)
     {
 
@@ -105,18 +126,12 @@ public class MyTargetReward : MonoBehaviour
 
     private void OnLoadCompleted(System.Object sender, EventArgs e)
     {
-        /*var isAutoClose = FindObjectsOfType<Toggle>().Where(toggle => toggle.name == "Autoclose")
-                                                     .Select(toggle => toggle.isOn)
-                                                     .FirstOrDefault();
-        */
+        _viewText.text += $"\nShow {_slotId}";
+
         ThreadPool.QueueUserWorkItem(async state =>
         {
+
             _rewardedAd?.Show();
-            /*
-            if (!isAutoClose)
-            {
-                return;
-            }*/
 
             await Task.Delay(120000);
 
@@ -160,5 +175,5 @@ public class MyTargetReward : MonoBehaviour
     void Update()
     {
         
-    }
+    }*/
 }

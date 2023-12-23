@@ -5266,7 +5266,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5208995831700083854
 RectTransform:
   m_ObjectHideFlags: 0
@@ -44798,6 +44798,10 @@ GameObject:
   - component: {fileID: 1966298174831653229}
   - component: {fileID: 7369704972430024219}
   - component: {fileID: 1049596229274996556}
+  - component: {fileID: 5396996819980899613}
+  - component: {fileID: 1952314719682208859}
+  - component: {fileID: 4959202499372914308}
+  - component: {fileID: 3100214081288735503}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -45060,7 +45064,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  _sdk: {fileID: 0}
   _local: ru
   _texts: []
 --- !u!114 &8401216324103574847
@@ -45103,23 +45106,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff3e28ce9cd6369428f70284eccaaefe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnInfoUpdated:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8401216324103574837}
-        m_TargetAssemblyTypeName: SkinManager, Assembly-CSharp
-        m_MethodName: SetInfo
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _pomniID: Pomni
-  _buyButton: {fileID: 2692171908683000425}
 --- !u!114 &1966298174831653229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45150,6 +45136,7 @@ MonoBehaviour:
   _authorizeButton: {fileID: 263421035139279842}
   _authorized: 0
   _askReject: 0
+  _askAuthorization: 0
 --- !u!114 &1049596229274996556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45162,9 +45149,157 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 609cc09528e657b4696f29451609bc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  progress:
+    askAuthorize: 0
+    askReject: 0
+    checkpoints: 
+    coins: 0
+    freeskin: 0
+    language: ru
+    USER_NAME_KEY: 
+    USER_SKIN_KEY: 
+    platform: 
   _dataIsload: 0
   _coroutineIsRunning: 0
   _timeOut: 0
+--- !u!114 &5396996819980899613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8401216324103574836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 720d68de03fcdf34aac5f44f21361fd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnAdsSwitched:
+    m_PersistentCalls:
+      m_Calls: []
+  OnFailedToLoad:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5396996819980899613}
+        m_TargetAssemblyTypeName: AdsManager, Assembly-CSharp
+        m_MethodName: GetReward
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnLoadComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  OnImpression:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDismissed:
+    m_PersistentCalls:
+      m_Calls: []
+  OnShow:
+    m_PersistentCalls:
+      m_Calls: []
+  OnFailedToShow:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5396996819980899613}
+        m_TargetAssemblyTypeName: AdsManager, Assembly-CSharp
+        m_MethodName: GetReward
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnClicked:
+    m_PersistentCalls:
+      m_Calls: []
+  OnReward:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8401216324103574835}
+        m_TargetAssemblyTypeName: CoinManager, Assembly-CSharp
+        m_MethodName: Rewarded
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5396996819980899613}
+        m_TargetAssemblyTypeName: AdsManager, Assembly-CSharp
+        m_MethodName: GetReward
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _timeRewarded: 60
+  _timeRewardedCur: 0
+  _timeBetweenCheckpoints: 60
+  _timeBetweenCheckpointsCur: 0
+  _timeFullScreen: -1
+  _timeFullScreenCur: 0
+  _adsScreen: {fileID: 0}
+  _adsPlaying: 0
+  _isReward: 0
+--- !u!114 &1952314719682208859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8401216324103574836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff890fbdf4be25c4eb15f926839ffa17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnFailedToLoad:
+    m_PersistentCalls:
+      m_Calls: []
+  _adUnitId: R-M-4609579-4
+--- !u!114 &4959202499372914308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8401216324103574836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a827fbeac1f34e7488ba75a7a91e105a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _adUnitId: R-M-4609579-3
+--- !u!114 &3100214081288735503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8401216324103574836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 513b9086e3975c2499c196f768cb365b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _adUnitId: R-M-4609579-1
 --- !u!1 &8401216324105217948
 GameObject:
   m_ObjectHideFlags: 0
@@ -54022,16 +54157,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 5396996819980899613}
         m_TargetAssemblyTypeName: AdsManager, Assembly-CSharp
         m_MethodName: ShowRewardedAd
-        m_Mode: 1
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: coins
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &8304255082736177403
@@ -73120,6 +73255,7 @@ GameObject:
   - component: {fileID: 8401216325108045882}
   - component: {fileID: 8401216325108045885}
   - component: {fileID: 8401216325108045884}
+  - component: {fileID: 163459065820295979}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -73238,6 +73374,19 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &163459065820295979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8401216325108045887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9889f234880fb0749b901b4f11c11b8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _adUnitId: R-M-4609579-2
 --- !u!1 &8401216325108386330
 GameObject:
   m_ObjectHideFlags: 0

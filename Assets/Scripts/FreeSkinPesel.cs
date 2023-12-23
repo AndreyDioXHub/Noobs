@@ -12,10 +12,17 @@ public class FreeSkinPesel : MonoBehaviour
     private GameObject _activateButton;
     [SerializeField]
     private GameObject _screen;
+    private bool _bool = true;
 
     void Start()
     {
+        if (_bool)
+        {
+            _activateButton.SetActive(false);
+        }
+
         StartCoroutine(OnSceeneLoadedCoroutine());
+
     }
 
     IEnumerator OnSceeneLoadedCoroutine()
@@ -49,6 +56,12 @@ public class FreeSkinPesel : MonoBehaviour
             _screen.SetActive(false);
         }
 
+        if (_bool)
+        {
+            _activateButton.SetActive(false);
+        }
+
+
     }
 
     public void HasPesel()
@@ -61,6 +74,11 @@ public class FreeSkinPesel : MonoBehaviour
             _screen.SetActive(false);
             PlayerPrefs.SetInt("freeskin", 1);
         }
+        if (_bool)
+        {
+            _activateButton.SetActive(false);
+        }
+
     }
 
     void Update()

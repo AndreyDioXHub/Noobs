@@ -22,8 +22,19 @@ public class AdsManager : MonoBehaviour
     }
 
 
-    public UnityEvent OnReward;
+    //public UnityEvent OnReward;
     public UnityEvent OnAdsSwitched;
+
+    public UnityEvent OnLoadStarted = new UnityEvent();
+    public UnityEvent OnFailedToLoad = new UnityEvent();
+    public UnityEvent OnLoadComplete = new UnityEvent();
+    public UnityEvent OnImpression = new UnityEvent();
+    public UnityEvent OnDismissed = new UnityEvent();
+    public UnityEvent<bool> OnShow = new UnityEvent<bool>();
+    public UnityEvent OnFailedToShow = new UnityEvent();
+    public UnityEvent OnClicked = new UnityEvent();
+    public UnityEvent<int, string> OnReward = new UnityEvent<int, string>();
+
     /*
     [SerializeField]
     private InfoYG _infoYG;
@@ -59,6 +70,8 @@ public class AdsManager : MonoBehaviour
     private GameObject _adsScreen;
     [SerializeField]
     private bool _adsPlaying;
+    [SerializeField]
+    private bool _isReward;
 
     private void Awake()
     {
@@ -108,6 +121,23 @@ public class AdsManager : MonoBehaviour
         //_sdk._RewardedShow(1);
     }
 
+    public void ShowRewardedAd(string key)
+    {
+        //_sdk._FullscreenShow();
+
+        _isReward = true;
+
+        if (_adsScreen != null)
+        {
+            _adsScreen.SetActive(true);
+            _adsPlaying = true;
+        }
+        YandexAdsRewardedAd.Instance.RequestRewardedAd(key);
+        //_sdk._RewardedShow(1);
+    }
+
+
+
     [ContextMenu("ShowFullscreen")]
     public void ShowFullscreen()
     {
@@ -156,9 +186,15 @@ public class AdsManager : MonoBehaviour
 
     public void GetReward()
     {
-        OnReward?.Invoke();
+        //OnReward?.Invoke();
         //BlockCountManager.Instance.ResetBlockCount();
-        IsPaused = true;
+        Debug.Log($"YandexMobileAds: {_isReward}");
+        if (_isReward)
+        {
+            IsPaused = true;
+            _isReward = false;
+        }
+        Debug.Log($"YandexMobileAds: {_isReward} {IsPaused}");
     }
 
     void Update()
