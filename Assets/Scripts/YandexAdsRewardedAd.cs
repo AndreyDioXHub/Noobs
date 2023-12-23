@@ -16,7 +16,9 @@ public class YandexAdsRewardedAd : MonoBehaviour
     [SerializeField]
     private Dictionary<string, string> _adUnitIds = new Dictionary<string, string>() 
     {
-        {"coins" , "R-M-4609579-1"}
+        {"coins" , "R-M-4609579-5"},
+        {"pesel" , "R-M-4609579-6"},
+        {"life" , "R-M-4609579-7"}
     };//"R-M-4609579-1";
 
     private String message = "";

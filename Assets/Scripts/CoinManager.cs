@@ -63,7 +63,7 @@ public class CoinManager : MonoBehaviour
 
     public void Rewarded(int count, string key)
     {
-        if (key.Equals("Reward"))
+        if (key.Equals("Coin"))
         {
             AddMoney(50);
         }
