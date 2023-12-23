@@ -121,6 +121,7 @@ public class PlayerSave : MonoBehaviour
 
     public void Save()
     {
+        Debug.Log("Save");
         YandexGame.SaveProgress();
     }
 }

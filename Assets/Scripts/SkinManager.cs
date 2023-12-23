@@ -468,10 +468,10 @@ public class SkinManager : MonoBehaviour
         _info.eqyuipedBody = index;
     }
 
-    public void SaveInfo()
+    public void SaveInfo(string message)
     {
         string infoJSON = JsonConvert.SerializeObject(_info);
-
+        Debug.Log($"Save: {message}");
         YandexGame.savesData.USER_SKIN_KEY = infoJSON;
         PlayerSave.Instance.Save();
     }
@@ -479,7 +479,7 @@ public class SkinManager : MonoBehaviour
     public void BodyColorBuy(int index)
     {
         _info.bodyColors[index] = true;
-        SaveInfo();
+        SaveInfo($"_info.bodyColors[{index}] = true");
     }
 
     public void HairColorSelect(int index)
@@ -502,7 +502,7 @@ public class SkinManager : MonoBehaviour
     public void HairColorBuy(int index)
     {
         _info.hairColors[index] = true;
-        SaveInfo();
+        SaveInfo($"_info.hairColors[{index}] = true");
     }
 
     public void HairSelect(int index)
@@ -520,7 +520,7 @@ public class SkinManager : MonoBehaviour
         {
             OnHasPesel?.Invoke();
         }
-        SaveInfo();
+        SaveInfo($"_info.hairs[{index}] = true");
     }
 
     public void HairEquip(int index)
@@ -543,7 +543,7 @@ public class SkinManager : MonoBehaviour
     public void FaceBuy(int index)
     {
         _info.faces[index] = true;
-        SaveInfo();
+        SaveInfo($"_info.faces[{index}] = true");
     }
 
 
@@ -563,8 +563,8 @@ public class SkinManager : MonoBehaviour
     }
     public void TShirtColorBuy(int index)
     {
-        _info.hairColors[index] = true;
-        SaveInfo();
+        _info.tshirtColors[index] = true;
+        SaveInfo($"_info.tshirtColors[{index}] = true");
     }
 
     public void PantsColorSelect(int index)
@@ -583,7 +583,7 @@ public class SkinManager : MonoBehaviour
     public void PantColorBuy(int index)
     {
         _info.pantsColors[index] = true;
-        SaveInfo();
+        SaveInfo($"_info.pantsColors[{index}] = true");
     }
 
     public void ShoesColorSelect(int index)
@@ -601,7 +601,7 @@ public class SkinManager : MonoBehaviour
     public void ShoesColorBuy(int index)
     {
         _info.shoesColors[index] = true;
-        SaveInfo();
+        SaveInfo($"_info.shoesColors[{index}] = true");
     }
 
 }

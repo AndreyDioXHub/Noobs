@@ -101,7 +101,7 @@ public class CoinManager : MonoBehaviour
             if (YandexGame.SDKEnabled)
             {
                 YandexGame.savesData.coins = _coins;
-                PlayerSave.Instance.Save();
+                //PlayerSave.Instance.Save();
             }
             //PlayerPrefs.SetInt("coins", _coins);
         }
