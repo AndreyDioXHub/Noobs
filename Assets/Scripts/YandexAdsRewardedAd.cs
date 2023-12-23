@@ -40,12 +40,19 @@ public class YandexAdsRewardedAd : MonoBehaviour
         this.rewardedAdLoader.OnAdLoaded -= this.HandleAdLoaded;
         this.rewardedAdLoader.OnAdFailedToLoad -= this.HandleAdFailedToLoad;
 
-        this.rewardedAd.OnAdClicked -= this.HandleAdClicked;
-        this.rewardedAd.OnAdShown -= this.HandleAdShown;
-        this.rewardedAd.OnAdFailedToShow -= this.HandleAdFailedToShow;
-        this.rewardedAd.OnAdImpression -= this.HandleImpression;
-        this.rewardedAd.OnAdDismissed -= this.HandleAdDismissed;
-        this.rewardedAd.OnRewarded -= this.HandleRewarded;
+        try
+        {
+            this.rewardedAd.OnAdClicked -= this.HandleAdClicked;
+            this.rewardedAd.OnAdShown -= this.HandleAdShown;
+            this.rewardedAd.OnAdFailedToShow -= this.HandleAdFailedToShow;
+            this.rewardedAd.OnAdImpression -= this.HandleImpression;
+            this.rewardedAd.OnAdDismissed -= this.HandleAdDismissed;
+            this.rewardedAd.OnRewarded -= this.HandleRewarded;
+        }
+        catch(Exception e)
+        {
+
+        }
     }
     /*
         public void OnGUI()

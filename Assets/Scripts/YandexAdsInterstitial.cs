@@ -30,11 +30,18 @@ public class YandexAdsInterstitial : MonoBehaviour
         this.interstitialAdLoader.OnAdLoaded -= this.HandleAdLoaded;
         this.interstitialAdLoader.OnAdFailedToLoad -= this.HandleAdFailedToLoad;
 
-        this.interstitial.OnAdClicked -= this.HandleAdClicked;
-        this.interstitial.OnAdShown -= this.HandleAdShown;
-        this.interstitial.OnAdFailedToShow -= this.HandleAdFailedToShow;
-        this.interstitial.OnAdImpression -= this.HandleImpression;
-        this.interstitial.OnAdDismissed -= this.HandleAdDismissed;
+        try
+        {
+            this.interstitial.OnAdClicked -= this.HandleAdClicked;
+            this.interstitial.OnAdShown -= this.HandleAdShown;
+            this.interstitial.OnAdFailedToShow -= this.HandleAdFailedToShow;
+            this.interstitial.OnAdImpression -= this.HandleImpression;
+            this.interstitial.OnAdDismissed -= this.HandleAdDismissed;
+        }
+        catch (Exception e)
+        {
+
+        }
     }
     /*
         public void OnGUI()

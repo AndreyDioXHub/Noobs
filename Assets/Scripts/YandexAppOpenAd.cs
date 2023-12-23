@@ -83,7 +83,15 @@ public class YandexAppOpenAd : MonoBehaviour
 
         this.appOpenAdLoader.LoadAd(this.CreateAdRequestConfiguration(adUnitId));
         this.DisplayMessage("AppOpenAd is requested");
-        AdsManager.Instance.OnFailedToLoad?.Invoke();
+
+        try
+        {
+            AdsManager.Instance.OnFailedToLoad?.Invoke();
+        }
+        catch (Exception e)
+        {
+
+        }
     }
 
     private void ShowAppOpenAd()
