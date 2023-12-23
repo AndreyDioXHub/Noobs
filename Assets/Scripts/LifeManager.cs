@@ -119,9 +119,9 @@ public class LifeManager : MonoBehaviour
         AdsManager.Instance.ShowRewardedAd();
     }
 
-    public void Rewarded()
+    public void OnRewarded(int count, string key)
     {
-        if (_isMyReward)
+        if (key.Equals("Life"))
         {
             Respawn();
         }

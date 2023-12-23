@@ -180,6 +180,7 @@ public class AdsManager : MonoBehaviour
                 _adsScreen.SetActive(true);
                 _adsPlaying = true;
             }
+            YandexAdsInterstitial.Instance.RequestInterstitial();
             //_sdk._FullscreenShow();
         }
     }

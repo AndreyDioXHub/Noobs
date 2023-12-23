@@ -12,7 +12,7 @@ public class FreeSkinPesel : MonoBehaviour
     private GameObject _activateButton;
     [SerializeField]
     private GameObject _screen;
-    private bool _bool = true;
+    private bool _bool = false;
 
     void Start()
     {
@@ -93,14 +93,18 @@ public class FreeSkinPesel : MonoBehaviour
     }
 
 
-    public void OnReward()
+    public void OnReward(int count, string key)
     {
-        if (_isSetup)
+        if (key.Equals("Pesel"))
         {
             _activateButton.SetActive(false);
             _screen.SetActive(false);
             SkinManager.Instance.EquipPesel();
             PlayerPrefs.SetInt("freeskin", 1);
         }
+        /*
+        if (_isSetup)
+        {
+        }*/
     }
 }

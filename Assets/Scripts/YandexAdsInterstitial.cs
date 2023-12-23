@@ -7,6 +7,8 @@ using YandexMobileAds.Base;
 
 public class YandexAdsInterstitial : MonoBehaviour
 {
+    public static YandexAdsInterstitial Instance;
+
     [SerializeField]
     private string _adUnitId = "R-M-4609579-3";
 
@@ -17,48 +19,61 @@ public class YandexAdsInterstitial : MonoBehaviour
 
     public void Awake()
     {
+        Instance = this;
         this.interstitialAdLoader = new InterstitialAdLoader();
         this.interstitialAdLoader.OnAdLoaded += this.HandleAdLoaded;
         this.interstitialAdLoader.OnAdFailedToLoad += this.HandleAdFailedToLoad;
     }
-/*
-    public void OnGUI()
+
+    private void OnDestroy()
     {
-        var fontSize = (int)(0.05f * Math.Min(Screen.width, Screen.height));
+        this.interstitialAdLoader.OnAdLoaded -= this.HandleAdLoaded;
+        this.interstitialAdLoader.OnAdFailedToLoad -= this.HandleAdFailedToLoad;
 
-        var labelStyle = GUI.skin.GetStyle("label");
-        labelStyle.fontSize = fontSize;
-
-        var buttonStyle = GUI.skin.GetStyle("button");
-        buttonStyle.fontSize = fontSize;
-
-#if UNITY_EDITOR
-        this.message = "Mobile ads SDK is not available in editor. Only Android and iOS environments are supported";
-#else
-            if (GUILayout.Button("Request Interstitial", buttonStyle, GUILayout.Width(Screen.width), GUILayout.Height(Screen.height / 8)))
-            {
-                this.RequestInterstitial();
-            }
-
-            if (this.interstitial != null)
-            {
-                if (GUILayout.Button("Show Interstitial", buttonStyle, GUILayout.Width(Screen.width), GUILayout.Height(Screen.height / 8)))
-                {
-                    this.ShowInterstitial();
-                }
-            }
-            if(this.interstitial != null)
-            {
-                if (GUILayout.Button("Destroy Interstitial", buttonStyle, GUILayout.Width(Screen.width), GUILayout.Height(Screen.height / 8)))
-                {
-                    this.interstitial.Destroy();
-                }
-            }
-#endif
-
-        GUILayout.Label(this.message, labelStyle);
+        this.interstitial.OnAdClicked -= this.HandleAdClicked;
+        this.interstitial.OnAdShown -= this.HandleAdShown;
+        this.interstitial.OnAdFailedToShow -= this.HandleAdFailedToShow;
+        this.interstitial.OnAdImpression -= this.HandleImpression;
+        this.interstitial.OnAdDismissed -= this.HandleAdDismissed;
     }
-*/
+    /*
+        public void OnGUI()
+        {
+            var fontSize = (int)(0.05f * Math.Min(Screen.width, Screen.height));
+
+            var labelStyle = GUI.skin.GetStyle("label");
+            labelStyle.fontSize = fontSize;
+
+            var buttonStyle = GUI.skin.GetStyle("button");
+            buttonStyle.fontSize = fontSize;
+
+    #if UNITY_EDITOR
+            this.message = "Mobile ads SDK is not available in editor. Only Android and iOS environments are supported";
+    #else
+                if (GUILayout.Button("Request Interstitial", buttonStyle, GUILayout.Width(Screen.width), GUILayout.Height(Screen.height / 8)))
+                {
+                    this.RequestInterstitial();
+                }
+
+                if (this.interstitial != null)
+                {
+                    if (GUILayout.Button("Show Interstitial", buttonStyle, GUILayout.Width(Screen.width), GUILayout.Height(Screen.height / 8)))
+                    {
+                        this.ShowInterstitial();
+                    }
+                }
+                if(this.interstitial != null)
+                {
+                    if (GUILayout.Button("Destroy Interstitial", buttonStyle, GUILayout.Width(Screen.width), GUILayout.Height(Screen.height / 8)))
+                    {
+                        this.interstitial.Destroy();
+                    }
+                }
+    #endif
+
+            GUILayout.Label(this.message, labelStyle);
+        }
+    */
     public void RequestInterstitial()
     {
         //Sets COPPA restriction for user age under 13

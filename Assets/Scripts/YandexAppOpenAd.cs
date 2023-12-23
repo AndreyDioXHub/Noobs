@@ -33,8 +33,16 @@ public class YandexAppOpenAd : MonoBehaviour
 
     public void OnDestroy()
     {
+        this.appOpenAdLoader.OnAdLoaded -= this.HandleAdLoaded;
+        this.appOpenAdLoader.OnAdFailedToLoad -= this.HandleAdFailedToLoad;
         // Unsubscribe from the event to avoid memory leaks.
         AppStateObserver.OnAppStateChanged -= HandleAppStateChanged;
+
+        this.appOpenAd.OnAdClicked -= this.HandleAdClicked;
+        this.appOpenAd.OnAdShown -= this.HandleAdShown;
+        this.appOpenAd.OnAdFailedToShow -= this.HandleAdFailedToShow;
+        this.appOpenAd.OnAdImpression -= this.HandleImpression;
+        this.appOpenAd.OnAdDismissed -= this.HandleAdDismissed;
     }
 
     /*

@@ -34,43 +34,56 @@ public class YandexAdsRewardedAd : MonoBehaviour
         this.rewardedAdLoader.OnAdLoaded += this.HandleAdLoaded;
         this.rewardedAdLoader.OnAdFailedToLoad += this.HandleAdFailedToLoad;
     }
-/*
-    public void OnGUI()
+
+    private void OnDestroy()
     {
-        var fontSize = (int)(0.05f * Math.Min(Screen.width, Screen.height));
+        this.rewardedAdLoader.OnAdLoaded -= this.HandleAdLoaded;
+        this.rewardedAdLoader.OnAdFailedToLoad -= this.HandleAdFailedToLoad;
 
-        var labelStyle = GUI.skin.GetStyle("label");
-        labelStyle.fontSize = fontSize;
-
-        var buttonStyle = GUI.skin.GetStyle("button");
-        buttonStyle.fontSize = fontSize;
-
-#if UNITY_EDITOR
-        this.message = "Mobile ads SDK is not available in editor. Only Android and iOS environments are supported";
-#else
-            if (GUILayout.Button("Request Rewarded Ad", buttonStyle, GUILayout.Width(Screen.width), GUILayout.Height(Screen.height / 8)))
-            {
-                this.RequestRewardedAd();
-            }
-
-            if (this.rewardedAd != null) {
-                if (GUILayout.Button("Show Rewarded Ad", buttonStyle, GUILayout.Width(Screen.width), GUILayout.Height(Screen.height / 8)))
-                {
-                    this.ShowRewardedAd();
-                }
-            }
-            if (this.rewardedAd != null)
-            {
-                if (GUILayout.Button("Destroy Rewarded Ad", buttonStyle, GUILayout.Width(Screen.width), GUILayout.Height(Screen.height / 8)))
-                {
-                    this.rewardedAd.Destroy();
-                }
-            }
-#endif
-
-        GUILayout.Label(this.message, labelStyle);
+        this.rewardedAd.OnAdClicked -= this.HandleAdClicked;
+        this.rewardedAd.OnAdShown -= this.HandleAdShown;
+        this.rewardedAd.OnAdFailedToShow -= this.HandleAdFailedToShow;
+        this.rewardedAd.OnAdImpression -= this.HandleImpression;
+        this.rewardedAd.OnAdDismissed -= this.HandleAdDismissed;
+        this.rewardedAd.OnRewarded -= this.HandleRewarded;
     }
-*/
+    /*
+        public void OnGUI()
+        {
+            var fontSize = (int)(0.05f * Math.Min(Screen.width, Screen.height));
+
+            var labelStyle = GUI.skin.GetStyle("label");
+            labelStyle.fontSize = fontSize;
+
+            var buttonStyle = GUI.skin.GetStyle("button");
+            buttonStyle.fontSize = fontSize;
+
+    #if UNITY_EDITOR
+            this.message = "Mobile ads SDK is not available in editor. Only Android and iOS environments are supported";
+    #else
+                if (GUILayout.Button("Request Rewarded Ad", buttonStyle, GUILayout.Width(Screen.width), GUILayout.Height(Screen.height / 8)))
+                {
+                    this.RequestRewardedAd();
+                }
+
+                if (this.rewardedAd != null) {
+                    if (GUILayout.Button("Show Rewarded Ad", buttonStyle, GUILayout.Width(Screen.width), GUILayout.Height(Screen.height / 8)))
+                    {
+                        this.ShowRewardedAd();
+                    }
+                }
+                if (this.rewardedAd != null)
+                {
+                    if (GUILayout.Button("Destroy Rewarded Ad", buttonStyle, GUILayout.Width(Screen.width), GUILayout.Height(Screen.height / 8)))
+                    {
+                        this.rewardedAd.Destroy();
+                    }
+                }
+    #endif
+
+            GUILayout.Label(this.message, labelStyle);
+        }
+    */
     public void RequestRewardedAd()
     {
         this.DisplayMessage("RewardedAd is not ready yet");
