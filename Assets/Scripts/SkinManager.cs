@@ -559,7 +559,7 @@ public class SkinManager : MonoBehaviour
     }
     public void TShirtColorBuy(int index)
     {
-        _info.hairColors[index] = true;
+        _info.tshirtColors[index] = true;
         SaveInfo();
     }
 
