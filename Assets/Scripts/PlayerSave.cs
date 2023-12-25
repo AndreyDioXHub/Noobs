@@ -61,7 +61,7 @@ public class PlayerSave : MonoBehaviour
         progress.platform = "isMobile";
 
 #if UNITY_EDITOR
-        progress.platform = "isDesktop";
+        //progress.platform = "isDesktop";
 #endif
 #if UNITY_STANDALONE_WIN
             progress.platform = "isDesktop";

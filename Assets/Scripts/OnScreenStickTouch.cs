@@ -24,16 +24,21 @@ public class OnScreenStickTouch : OnScreenControl
 
     [SerializeField]
     private List<Image> _images = new List<Image>();
+
+    [SerializeField]
+    private Image _bg;
+    [SerializeField]
+    private Image _joydtick;
+
     [SerializeField]
     private Canvas _canvas;
     [SerializeField]
     private Vector2 _anchoredPosition;
     [SerializeField]
-    private Vector2 _interactDistance;/*
+    private Vector2 _touchPosition;
+
     [SerializeField]
-    private Vector2 _delta;*/
-    [SerializeField]
-    private float _dot;
+    private Vector2 _interactDistance;
     [SerializeField]
     private Vector2 _pos;
 
@@ -62,8 +67,10 @@ public class OnScreenStickTouch : OnScreenControl
     [SerializeField]
     private string _controlPath;
 
+    [SerializeField]
     private Vector2 _startPos;
-    private Vector2 _pointerDownPos;
+    [SerializeField]
+    private Vector2 _screenPosition;
 
     protected override string controlPathInternal
     {
@@ -127,79 +134,24 @@ public class OnScreenStickTouch : OnScreenControl
     {
         if (movedFinger == _movementFinger)
         {
-            Vector2 screenPosition = (movedFinger.screenPosition / _canvas.scaleFactor) - ((RectTransform)transform).sizeDelta / 2;
+            _screenPosition = (movedFinger.screenPosition / _canvas.scaleFactor);// - ((RectTransform)transform).sizeDelta / 2;
             //((RectTransform)transform).anchoredPosition = screenPosition ;
 
-            var delta = screenPosition - _startPos;
+            var delta = _screenPosition - _startPos;// - _joydtick.rectTransform.sizeDelta/2;
 
-            delta = Vector2.ClampMagnitude(delta, MovementRange);
+            //delta = Vector2.ClampMagnitude(delta, MovementRange);
+            delta.x = delta.x > MovementRange ? MovementRange : delta.x;
+            delta.x = delta.x < -MovementRange ? -MovementRange : delta.x;
+            delta.y = delta.y > MovementRange ? MovementRange : delta.y;
+            delta.y = delta.y < -MovementRange ? -MovementRange : delta.y;
 
-            ((RectTransform)transform).anchoredPosition = _startPos + delta;
+            ((RectTransform)transform).anchoredPosition = _screenPosition - ((RectTransform)transform).sizeDelta / 2; // _startPos + delta;
+            _pos = delta/ MovementRange;
 
-            //_delta = new Vector2(delta.x / MovementRange, delta.y / MovementRange);
+            //_pos = new Vector2(delta.x / MovementRange, delta.y / MovementRange);
 
             Vector2 anchoredPosition = ((RectTransform)transform).anchoredPosition - _anchoredPosition;
 
-            if (anchoredPosition.x > 0)
-            {
-                _dot = Vector2.Angle(Vector2.up, anchoredPosition);
-            }
-            else
-            {
-                _dot = -Vector2.Angle(Vector2.up, anchoredPosition);
-            }
-
-            d = delta.magnitude / MovementRange;
-
-            if (_dot > 0 && _dot < 22.5f)
-            {
-                _pos = new Vector2(0, 1) * d;
-            }
-
-            if (_dot > 22.5f && _dot < 67.5f)
-            {
-                _pos = new Vector2(1, 1) * d;
-            }
-
-            if (_dot > 67.5f && _dot < 112.5f)
-            {
-                _pos = new Vector2(1, 0) * d;
-            }
-
-            if (_dot > 112.5f && _dot < 157.5f)
-            {
-                _pos = new Vector2(1, -1) * d;
-            }
-
-            if (_dot > 157.5f && _dot < 180f)
-            {
-                _pos = new Vector2(0, -1) * d;
-            }
-
-            if (_dot > -180 && _dot < -157.5f)
-            {
-                _pos = new Vector2(0, -1) * d;
-            }
-
-            if (_dot > -157.5f && _dot < -112.5f)
-            {
-                _pos = new Vector2(-1, -1) * d;
-            }
-
-            if (_dot > -112.5f && _dot < -67.5f)
-            {
-                _pos = new Vector2(-1, 0) * d;
-            }
-
-            if (_dot > -67.5f && _dot < -22.5f)
-            {
-                _pos = new Vector2(-1, 1) * d;
-            }
-
-            if (_dot > -22.5f && _dot <= 0)
-            {
-                _pos = new Vector2(0, 1) * d;
-            }
         }
     }
 
@@ -208,10 +160,13 @@ public class OnScreenStickTouch : OnScreenControl
         if (lostFinger == _movementFinger)
         {
             _movementFinger = null;
-            ((RectTransform)transform).anchoredPosition = _startPos;
+            ((RectTransform)transform).anchoredPosition = _startPos - _joydtick.rectTransform.sizeDelta / 2;
 
             _pos = Vector2.zero;
             _downPosition = Vector2.zero;
+
+            _bg.enabled = false;
+            _joydtick.enabled = false;
         }
     }
 
@@ -226,7 +181,14 @@ public class OnScreenStickTouch : OnScreenControl
                 if (_movementFinger == null)
                 {
                     _movementFinger = touchedFinger;
-                    _pointerDownPos = screenPosition;
+                    _startPos = screenPosition;
+
+                    _bg.enabled = true;
+                    _joydtick.enabled = true;
+
+                    _bg.rectTransform.anchoredPosition = _startPos - _bg.rectTransform.sizeDelta/2;
+                    _joydtick.rectTransform.anchoredPosition = _startPos - _joydtick.rectTransform.sizeDelta/2;
+
                 }
             }
         }
