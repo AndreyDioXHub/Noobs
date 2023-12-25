@@ -28,8 +28,6 @@ public class RobloxController : MonoBehaviour
     [SerializeField]
     private float _jumpspeed = 5;
     [SerializeField]
-    private Vector3 _velocity;
-    [SerializeField]
     private float _turnSmoothTime = 0.1f;
     [SerializeField]
     private bool _isGrounded;
@@ -83,7 +81,7 @@ public class RobloxController : MonoBehaviour
         {
 
             _isGrounded = _groundCheck.IsGrounded;
-            Vector3 direction = new Vector3(_axisMove.x, 0f, _axisMove.y).normalized;
+            Vector3 direction = new Vector3(_axisMove.x, 0f, _axisMove.y);//.normalized;
 
             if (direction.magnitude >= 0.1f)
             {
@@ -92,7 +90,7 @@ public class RobloxController : MonoBehaviour
                 transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
                 Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-                _controller.Move(moveDir.normalized * _speed * Time.fixedDeltaTime);
+                _controller.Move(moveDir * direction.magnitude * _speed * Time.fixedDeltaTime);
                 _isMoving = true;
             }
 
@@ -110,7 +108,7 @@ public class RobloxController : MonoBehaviour
 
             _velocity.y += _gravity * Time.deltaTime;*/
 
-            _controller.Move(_velocity * Time.fixedDeltaTime);
+            //_controller.Move(_velocity * Time.fixedDeltaTime);
 
         }
 
