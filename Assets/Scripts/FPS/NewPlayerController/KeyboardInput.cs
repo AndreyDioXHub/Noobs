@@ -101,7 +101,7 @@ public class KeyboardInput : MonoBehaviour
 
     public virtual void FixedUpdate()
     {
-        if (SettingScreen.IsActive || AdsScreen.IsActive || AdsButtonView.IsActive || CheckPointManager.Instance.IsWin || AdsManager.AdsPlaying)// || BlockCountManager.Instance.BlocksCount == 0)
+        if (SettingScreen.IsActive || AdsScreen.IsActive || AdsButtonView.IsActive || CheckPointManager.IsWIN || AdsManager.AdsPlaying)// || BlockCountManager.Instance.BlocksCount == 0)
         {
             return;
         }

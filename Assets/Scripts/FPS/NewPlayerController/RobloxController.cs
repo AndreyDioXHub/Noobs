@@ -74,7 +74,7 @@ public class RobloxController : MonoBehaviour
 
         //Debug.Log($"{ SettingScreen.IsActive} {AdsScreen.IsActive} {AdsButtonView.IsActive} {CheckPointManager.Instance.IsWin} {ChatTexts.IsActive}");
 
-        if (SettingScreen.IsActive || AdsScreen.IsActive || AdsButtonView.IsActive || CheckPointManager.Instance.IsWin 
+        if (SettingScreen.IsActive || AdsScreen.IsActive || AdsButtonView.IsActive || CheckPointManager.IsWIN 
             || ChatTexts.IsActive || AdsManager.AdsPlaying)// || BlockCountManager.Instance.BlocksCount == 0)
         {
 
@@ -165,7 +165,7 @@ public class RobloxController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (SettingScreen.IsActive || AdsScreen.IsActive || AdsButtonView.IsActive || CheckPointManager.Instance.IsWin 
+        if (SettingScreen.IsActive || AdsScreen.IsActive || AdsButtonView.IsActive || CheckPointManager.IsWIN 
             || ChatTexts.IsActive || AdsManager.AdsPlaying)// || BlockCountManager.Instance.BlocksCount == 0)
         {
             return;

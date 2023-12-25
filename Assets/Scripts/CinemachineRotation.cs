@@ -37,7 +37,7 @@ public class CinemachineRotation : MonoBehaviour
             adsView = AdsButtonView.Instance.Parent.activeSelf;
         }
 
-        if (AdsScreen.IsActive || AdsButtonView.IsActive || CheckPointManager.Instance.IsWin || SettingScreen.IsActive || ChatTexts.IsActive || AdsManager.AdsPlaying)// || TutorialCanvas.Instance.gameObject.activeSelf)// || BlockCountManager.Instance.BlocksCount == 0)
+        if (AdsScreen.IsActive || AdsButtonView.IsActive || CheckPointManager.IsWIN || SettingScreen.IsActive || ChatTexts.IsActive || AdsManager.AdsPlaying)// || TutorialCanvas.Instance.gameObject.activeSelf)// || BlockCountManager.Instance.BlocksCount == 0)
         {
             if (lookBase != null)
             {

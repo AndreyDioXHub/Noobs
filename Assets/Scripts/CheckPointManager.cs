@@ -12,7 +12,15 @@ public class CheckPointManager : MonoBehaviour
 
 
     public static CheckPointManager Instance;
-
+    public static bool IsWIN {
+        get {
+            bool r = false;
+            if(Instance != null) {
+                r = Instance.IsWin;
+            }
+            return r;
+        }
+    }
     public bool IsWin;
     /*
     [SerializeField]
