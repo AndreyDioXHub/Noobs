@@ -846,7 +846,7 @@ GameObject:
   m_Layer: 0
   m_Name: LookDirection
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -877,6 +877,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49f2d09028121434fb4c946d2661d025, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _worldPos: {fileID: 7635699013819483987}
+  m: {x: 0, y: 0, z: 0}
 --- !u!1 &6394152333841367573
 GameObject:
   m_ObjectHideFlags: 0
@@ -1736,16 +1738,11 @@ MonoBehaviour:
   _groundCheck: {fileID: 5424824734585482630}
   _gravity: -9.81
   _speed: 6
-  _jumpspeed: 5
-  _velocity: {x: 0, y: 0, z: 0}
-  _turnSmoothTime: 0.1
+  _jumpHeight: 1
+  _airStrafe: 0.3
   _isGrounded: 0
   _isMoving: 0
   _isJump: 0
-  _jumpHeight: 1
-  _turnSmoothVelocity: 0
-  _axisMove: {x: 0, y: 0}
-  _gravityVector: {x: 0, y: 0, z: 0}
 --- !u!114 &7635699013819483978
 MonoBehaviour:
   m_ObjectHideFlags: 0

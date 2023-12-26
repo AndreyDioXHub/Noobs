@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.XR;
 
 public class RobloxController : MonoBehaviour
 {
@@ -26,25 +27,27 @@ public class RobloxController : MonoBehaviour
     [SerializeField]
     private float _speed = 6f;
     [SerializeField]
-    private float _jumpspeed = 5;
+    private float _jumpHeight = 3f;
     [SerializeField]
-    private float _turnSmoothTime = 0.1f;
+    private float _airStrafe = 0.3f;
+
     [SerializeField]
     private bool _isGrounded;
     [SerializeField]
     private bool _isMoving;
     [SerializeField]
     private bool _isJump;
-    [SerializeField]
-    private float _jumpHeight = 3f;
-    [SerializeField]
+
+    private float _turnSmoothTime = 0.1f;
     private float _turnSmoothVelocity;
-    [SerializeField]
+
+    private Vector3 _gravityVector = new Vector3(0, -1f, 0);
+    private Vector3 _gravityVectorCur = new Vector3(0, -1f, 0);
+    private Vector3 _moveVector;
+    private Vector3 _moveVectorCur;
+    private Vector3 _direction;
+
     private Vector2 _axisMove;
-    [SerializeField]
-    private Vector3 _gravityVector;
-
-
     private float _inAirTime = 0.1f;
     private float _inAirTimeCur;
 
@@ -55,11 +58,19 @@ public class RobloxController : MonoBehaviour
 
     void Start()
     {
-        _cam = Camera.main.transform;
-    }
+        _cam = Camera.main.transform; 
+
+        _gravityVector = new Vector3(0, -1f, 0);
+        _gravityVectorCur = new Vector3(0, -1f, 0);
+}
 
     void Update()
     {
+        _controller.Move(_moveVectorCur);
+        _controller.Move(_gravityVectorCur);
+
+        _moveVectorCur = Vector3.zero;
+        _gravityVectorCur = Vector3.zero;
     }
 
     public virtual void FixedUpdate()
@@ -69,9 +80,7 @@ public class RobloxController : MonoBehaviour
         {
             return;
         }
-
-        //Debug.Log($"{ SettingScreen.IsActive} {AdsScreen.IsActive} {AdsButtonView.IsActive} {CheckPointManager.Instance.IsWin} {ChatTexts.IsActive}");
-
+        
         if (SettingScreen.IsActive || AdsScreen.IsActive || AdsButtonView.IsActive || CheckPointManager.Instance.IsWin 
             || ChatTexts.IsActive || AdsManager.AdsPlaying)// || BlockCountManager.Instance.BlocksCount == 0)
         {
@@ -89,8 +98,14 @@ public class RobloxController : MonoBehaviour
                 float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref _turnSmoothVelocity, _turnSmoothTime);
                 transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
-                Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-                _controller.Move(moveDir * direction.magnitude * _speed * Time.fixedDeltaTime);
+                Vector3 moveDir = Vector3.zero;
+
+                _direction = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+
+                _moveVector = _direction * direction.magnitude * _speed * Time.fixedDeltaTime;
+
+                _moveVectorCur += _moveVector;
+
                 _isMoving = true;
             }
 
@@ -98,17 +113,6 @@ public class RobloxController : MonoBehaviour
             {
                 _isMoving = false;
             }
-            /*
-            if (_isJump && _isGrounded)
-            {
-                _isJump = false;
-
-                _velocity.y = Mathf.Sqrt(_jumpHeight * -2f * _gravity);
-            }
-
-            _velocity.y += _gravity * Time.deltaTime;*/
-
-            //_controller.Move(_velocity * Time.fixedDeltaTime);
 
         }
 
@@ -122,22 +126,15 @@ public class RobloxController : MonoBehaviour
             {
                 _isJump = false;
                 _inAirTimeCur = 0;
+                _gravityVector = Vector3.zero;
             }
         }
         else
         {
-            _gravityVector = Vector3.zero;
             _gravityVector.y = _gravity * Time.fixedDeltaTime;
         }
-        if (_groundCheck.IsGrounded)
-        {
-        }
-        else
-        {
-            //_blender.AddOffcet(_offcetMove);
-        }
 
-        _controller.Move(_gravityVector);
+        _gravityVectorCur += _gravityVector;
     }
 
     public virtual void Push(Vector3 direction, float height)
