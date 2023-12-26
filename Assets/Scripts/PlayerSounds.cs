@@ -33,7 +33,7 @@ public class PlayerSounds : MonoBehaviour
         }
         else
         {
-            if (SettingScreen.IsActive || AdsScreen.IsActive || AdsButtonView.IsActive || CheckPointManager.Instance.IsWin 
+            if (SettingScreen.IsActive || AdsScreen.IsActive || AdsButtonView.IsActive || CheckPointManager.IsWIN 
                 || AdsManager.AdsPlaying)
             {
                 return;
@@ -58,7 +58,7 @@ public class PlayerSounds : MonoBehaviour
 
     public void PlayDie()
     {
-        if (SettingScreen.IsActive || AdsScreen.IsActive || AdsButtonView.IsActive || CheckPointManager.Instance.IsWin
+        if (SettingScreen.IsActive || AdsScreen.IsActive || AdsButtonView.IsActive || CheckPointManager.IsWIN
             || ChatTexts.IsActive || AdsManager.AdsPlaying)
         {
             return;
@@ -80,7 +80,7 @@ public class PlayerSounds : MonoBehaviour
         }
         else
         {
-            if (SettingScreen.IsActive || AdsScreen.IsActive || AdsButtonView.IsActive || CheckPointManager.Instance.IsWin
+            if (SettingScreen.IsActive || AdsScreen.IsActive || AdsButtonView.IsActive || CheckPointManager.IsWIN
                 || AdsManager.AdsPlaying)
             {
                 return;
@@ -106,7 +106,7 @@ public class PlayerSounds : MonoBehaviour
 
     public void PlayLand()
     {
-        if (SettingScreen.IsActive || AdsScreen.IsActive || AdsButtonView.IsActive || CheckPointManager.Instance.IsWin
+        if (SettingScreen.IsActive || AdsScreen.IsActive || AdsButtonView.IsActive || CheckPointManager.IsWIN
             || ChatTexts.IsActive || AdsManager.AdsPlaying)
         {
             return;
