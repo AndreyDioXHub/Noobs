@@ -5,14 +5,14 @@ using UnityEngine.InputSystem;
 
 public class GroundCheck : MonoBehaviour
 {
-    public bool IsGrounded { get 
+    public bool IsGrounded{ get 
         {
             if (_pause)
             {
                 return false;
             }
 
-            return _controller.isGrounded;
+            return _isGrounded;// _controller.isGrounded;
         }
     }
 
@@ -39,7 +39,20 @@ public class GroundCheck : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         _pause = false;
     }
+    void FixedUpdate()
+    {
 
+        RaycastHit hit;
+        // Does the ray intersect any objects excluding the player layer
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, 1))
+        {
+            _isGrounded = true;
+        }
+        else
+        {
+            _isGrounded = false;
+        }
+    }
 
     /*
     [SerializeField]
