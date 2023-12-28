@@ -44,7 +44,7 @@ public class GroundCheck : MonoBehaviour
 
         RaycastHit hit;
         // Does the ray intersect any objects excluding the player layer
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, 0.91f))
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, 0.92f))
         {
             _isGrounded = true;
         }
