@@ -7,15 +7,22 @@ public class ClientConfiguration : NetworkBehaviour
 {
     [SerializeField] GameObject clientTarget;
 
-    public override void OnStartClient() {
+    public override void OnStartClient() 
+    {
         base.OnStartClient();
-        clientTarget.SetActive(true);
+        clientTarget?.SetActive(true);
     }
 
-    public override void OnStartServer() {
+    public override void OnStartServer() 
+    {
         base.OnStartServer();
-        if(isServerOnly) {
-            Destroy(clientTarget);
+
+        if(isServerOnly)
+        {
+            if(clientTarget != null)
+            {
+                Destroy(clientTarget);
+            }
         }
     }
 

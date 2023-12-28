@@ -766,6 +766,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ObstacleNetworkMasnager
       objectReference: {fileID: 0}
+    - target: {fileID: 2273756397249338035, guid: 607cd7924281da94fa8ca9fdea412eb0, type: 3}
+      propertyPath: DataServers.Array.data[0]
+      value: https://lisenok-games.ru/ob/mobile.json
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 607cd7924281da94fa8ca9fdea412eb0, type: 3}
 --- !u!1 &1336073356 stripped
