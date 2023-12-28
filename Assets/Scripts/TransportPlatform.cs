@@ -2,9 +2,10 @@ using cyraxchel.network;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 [RequireComponent(typeof(NetworkTransformReliableFixed))]
-public class TransportPlatform : MonoBehaviour
+public class TransportPlatform : NetworkBehaviour
 {
     [SerializeField]
     private Transform _p0;
@@ -18,6 +19,7 @@ public class TransportPlatform : MonoBehaviour
     private bool _isPause;
     [SerializeField]
     private bool _isForward;
+
 
     void Start()
     {
@@ -40,6 +42,7 @@ public class TransportPlatform : MonoBehaviour
 
     void FixedUpdate()
     {
+        
         if (_isPause)
         {
             _timePauseCur += Time.fixedDeltaTime;
@@ -77,6 +80,13 @@ public class TransportPlatform : MonoBehaviour
                 _isForward = true;
                 _isPause = true;
             }
+        }
+    }
+
+    public override void OnStartClient() {
+        base.OnStartClient();
+        if(isClientOnly) {
+            this.enabled = false;
         }
     }
 }
