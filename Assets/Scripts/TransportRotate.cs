@@ -27,46 +27,71 @@ public class TransportRotate : NetworkBehaviour
 
     void FixedUpdate()
     {
-        if (_isPause)
+        if (_needReturn)
         {
-            _timePauseCur += Time.fixedDeltaTime;
-
-            if(_timePauseCur > _timePause)
+            if (_isPause)
             {
-                _timePauseCur = 0;
-                _isPause = false;
+                _timePauseCur += Time.fixedDeltaTime;
+
+                if (_timePauseCur > _timePause)
+                {
+                    _timePauseCur = 0;
+                    _isPause = false;
+                }
+            }
+            else
+            {
+                if (_isForward)
+                {
+                    _timeCur += Time.fixedDeltaTime;
+                }
+                else
+                {
+                    _timeCur -= Time.fixedDeltaTime;
+                }
+
+                _timeCur = _timeCur > _time ? _time : _timeCur;
+                _timeCur = _timeCur < 0 ? 0 : _timeCur;
+
+                transform.eulerAngles = Vector3.Lerp(_angle0, _angle1, _timeCur / _time);
+
+                if (_timeCur == _time)
+                {
+                    _isForward = false;
+                    _isPause = true;
+                }
+
+                if (_timeCur == 0)
+                {
+                    _isForward = true;
+                    _isPause = true;
+                }
             }
         }
         else
         {
-            if (_isForward)
+            if (_isPause)
             {
-                _timeCur += Time.fixedDeltaTime;
+                _timePauseCur += Time.fixedDeltaTime;
+
+                if (_timePauseCur > _timePause)
+                {
+                    _timePauseCur = 0;
+                    _isPause = false;
+                }
             }
             else
             {
-                _timeCur -= Time.fixedDeltaTime;
-            }
 
-            _timeCur = _timeCur > _time ? _time : _timeCur;
-            _timeCur = _timeCur < 0 ? 0 : _timeCur;
+                _timeCur += Time.fixedDeltaTime;
 
-            transform.eulerAngles = Vector3.Lerp(_angle0, _angle1, _timeCur / _time);
+                _timeCur = _timeCur > _time ? _time : _timeCur;
 
-            if (_timeCur == _time)
-            {
-                _isForward = false;
-                _isPause = true;
-            }
+                transform.eulerAngles = Vector3.Lerp(_angle0, _angle1, _timeCur / _time);
 
-            if (_timeCur == 0)
-            {
-                _isForward = true;
-                _isPause = true;
-
-                if (!_needReturn)
+                if (_timeCur == _time)
                 {
-                    _isForward = true;
+                    _isPause = true;
                     _timeCur = 0;
                 }
             }
