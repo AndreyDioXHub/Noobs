@@ -2,9 +2,10 @@ using cyraxchel.network;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 [RequireComponent(typeof(NetworkTransformReliableFixed))]
-public class TransportRotate : MonoBehaviour
+public class TransportRotate : NetworkBehaviour
 {
     [SerializeField]
     private Vector3 _angle0, _angle1; 
@@ -63,5 +64,12 @@ public class TransportRotate : MonoBehaviour
             }
         }
 
+    }
+
+    public override void OnStartClient() {
+        base.OnStartClient();
+        if(isClientOnly) {
+            this.enabled = false;
+        }
     }
 }
