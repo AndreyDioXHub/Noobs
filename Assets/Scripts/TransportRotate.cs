@@ -17,6 +17,8 @@ public class TransportRotate : NetworkBehaviour
     private bool _isPause;
     [SerializeField]
     private bool _isForward;
+    [SerializeField]
+    private bool _needReturn = true;
 
     void Start()
     {
@@ -61,7 +63,14 @@ public class TransportRotate : NetworkBehaviour
             {
                 _isForward = true;
                 _isPause = true;
+
+                if (!_needReturn)
+                {
+                    _isForward = true;
+                    _timeCur = 0;
+                }
             }
+
         }
 
     }
