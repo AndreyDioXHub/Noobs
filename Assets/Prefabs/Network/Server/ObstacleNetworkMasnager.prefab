@@ -151,7 +151,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   DataServers:
-  - https://lisenok-games.ru/ob/nodes.json
+  - https://lisenok-games.ru/ob/mobile.json
   - https://lisenok-games.ru/ob/nodes.php
   GameServers: []
   DefauilConfig:
