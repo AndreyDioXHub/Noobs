@@ -140,7 +140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &13979094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1735,6 +1735,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2885129400322291958, guid: f60c418b8cc86bc43b9b1bd4b662dbbe, type: 3}
+      propertyPath: m_VerticalAxis.m_MaxSpeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2885129400322291958, guid: f60c418b8cc86bc43b9b1bd4b662dbbe, type: 3}
+      propertyPath: m_HorizontalAxis.m_MaxSpeed
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2885129400535646552, guid: f60c418b8cc86bc43b9b1bd4b662dbbe, type: 3}
       propertyPath: m_Follow
       value: 
@@ -3108,6 +3116,52 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 391581593720788926, guid: c2db52fcf8b0b914b9ed45b6a75647c1, type: 3}
   m_PrefabInstance: {fileID: 444771515}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &445104705
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 445104707}
+  - component: {fileID: 445104706}
+  m_Layer: 0
+  m_Name: BotModel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &445104706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 445104705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd9075fc19c1af64d9df580705dc48c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playes:
+  - {fileID: 598290296}
+--- !u!4 &445104707
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 445104705}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.519402, y: -5.7680073, z: 19.98706}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &463409135
 GameObject:
   m_ObjectHideFlags: 0
@@ -4893,6 +4947,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5644810386350745240, guid: a04db8eff6be63543aba63ac9ea87995, type: 3}
   m_PrefabInstance: {fileID: 598290293}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &598290296 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7635699013819483998, guid: a04db8eff6be63543aba63ac9ea87995, type: 3}
+  m_PrefabInstance: {fileID: 598290293}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &628326345 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8669181582627747250, guid: 40cab3526a55cf8498cfa799d84824c5, type: 3}
@@ -6641,6 +6700,7 @@ GameObject:
   - component: {fileID: 933854167}
   - component: {fileID: 933854166}
   - component: {fileID: 933854168}
+  - component: {fileID: 933854169}
   m_Layer: 0
   m_Name: Bot
   m_TagString: Untagged
@@ -6658,8 +6718,8 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 7
-  m_Acceleration: 7
+  m_Speed: 2
+  m_Acceleration: 2
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0
@@ -6716,6 +6776,24 @@ MonoBehaviour:
   attackRange: 9
   playerInSightRange: 0
   playerInAttackRange: 0
+--- !u!114 &933854169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 933854165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eab98f7e04c301c42bb7d6ea601eb3da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AngleView: 120
+  attackRange: 10
+  sightRange: 20
+  head: {fileID: 1196790846}
+  d_AngleViewCalc: 0
+  d_PlayerSighted: 0
 --- !u!1 &961389025
 GameObject:
   m_ObjectHideFlags: 0
@@ -7794,7 +7872,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1011767155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8280,6 +8358,14 @@ PrefabInstance:
       propertyPath: m_Follow
       value: 
       objectReference: {fileID: 598290295}
+    - target: {fileID: 1810894903350883620, guid: 3e7aa68daf36c5d4a971cde6d8bf7350, type: 3}
+      propertyPath: m_VerticalAxis.m_MaxSpeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1810894903350883620, guid: 3e7aa68daf36c5d4a971cde6d8bf7350, type: 3}
+      propertyPath: m_HorizontalAxis.m_MaxSpeed
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7223226431559430325, guid: 3e7aa68daf36c5d4a971cde6d8bf7350, type: 3}
       propertyPath: m_Name
       value: CM FPV
@@ -8335,7 +8421,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5424824734585482625, guid: a04db8eff6be63543aba63ac9ea87995, type: 3}
   m_PrefabInstance: {fileID: 598290293}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 598290296}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
@@ -8346,7 +8432,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7635699013819483978, guid: a04db8eff6be63543aba63ac9ea87995, type: 3}
   m_PrefabInstance: {fileID: 598290293}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 598290296}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eb8386f9b832cda4aae4d25fab54877f, type: 3}
@@ -12522,7 +12608,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1169048150951630371, guid: a04db8eff6be63543aba63ac9ea87995, type: 3}
   m_PrefabInstance: {fileID: 598290293}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 598290296}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8781a1e6d4554cd4ab143df43a511c56, type: 3}

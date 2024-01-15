@@ -1,9 +1,16 @@
 ﻿
+using cyraxchel.ai.bots;
 using UnityEngine;
 using UnityEngine.AI;
 
+
 public class EnemyAiTutorial : MonoBehaviour
 {
+
+    #region Configuration
+    IBotView botView;
+    #endregion
+
     public NavMeshAgent agent;
 
     public Transform player;
@@ -28,6 +35,10 @@ public class EnemyAiTutorial : MonoBehaviour
 
     private void Awake()
     {
+        botView = GetComponent<IBotView>();
+        if(botView == null ) {
+            Debug.LogError("Require IBotView component");
+        }
         //player = GameObject.Find("PlayerObj").transform;
         agent = GetComponent<NavMeshAgent>();
     }
@@ -35,8 +46,10 @@ public class EnemyAiTutorial : MonoBehaviour
     private void Update()
     {
         //Check for sight and attack range
-        playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
-        playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
+        //playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
+        playerInSightRange = botView.PlayerInSightView();
+        //playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
+        playerInAttackRange = botView.CanAttackPlayer(transform.position, attackRange, whatIsPlayer);
         bool canView = CheckObstacles();
         if ((!playerInSightRange && !playerInAttackRange) || !canView) Patroling();
         if((playerInSightRange || playerInAttackRange) && canView) {
