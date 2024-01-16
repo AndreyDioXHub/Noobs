@@ -4598,7 +4598,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5954334493118974023, guid: a04db8eff6be63543aba63ac9ea87995, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 287.26
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5954334493118974023, guid: a04db8eff6be63543aba63ac9ea87995, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -6791,6 +6791,7 @@ MonoBehaviour:
   AngleView: 120
   attackRange: 10
   sightRange: 20
+  forgetTime: 3
   head: {fileID: 1196790846}
   d_AngleViewCalc: 0
   d_PlayerSighted: 0

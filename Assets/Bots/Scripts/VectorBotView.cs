@@ -14,10 +14,16 @@ namespace cyraxchel.ai.bots {
 
         [SerializeField]
         float sightRange = 50;
+
+        [SerializeField, Tooltip("Время, чтобы забыть преследование, если игрок выпал из обзора")]
+        float forgetTime = 3;
+        float curentTime = 0;
+
         float _sightdistp2;
 
         [SerializeField]
         Transform head;
+
 
         #region Debug
         [SerializeField]
@@ -49,7 +55,15 @@ namespace cyraxchel.ai.bots {
                 float _angle = Mathf.Acos(dotv) * Mathf.Rad2Deg;
                 d_AngleViewCalc = _angle;
                 d_PlayerSighted = _angle <= AngleView;
-                return _angle <= AngleView;
+                bool insight = _angle <= AngleView;
+                if(insight) {
+                    curentTime = forgetTime;
+                } else {
+                    if(curentTime > 0) {
+                        insight = true;
+                    }
+                }
+                return insight;
             }
 
             return false;
@@ -63,7 +77,9 @@ namespace cyraxchel.ai.bots {
 
         // Update is called once per frame
         void Update() {
-
+            if (curentTime > 0) {
+                curentTime -= Time.deltaTime;
+            }
         }
 
         private void OnDrawGizmos() {
